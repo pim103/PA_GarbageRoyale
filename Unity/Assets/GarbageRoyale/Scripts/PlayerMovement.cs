@@ -65,8 +65,6 @@ namespace GarbageRoyale.Scripts
                 }
                 movement.y += gravity;
 
-                Debug.Log(movement);
-
 				movement *= Time.deltaTime;		//Ensures the speed the player moves does not change based on frame rate
 				movement = transform.TransformDirection(movement);
 				_charCont.Move (movement);

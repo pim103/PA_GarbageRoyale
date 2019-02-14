@@ -62,7 +62,7 @@ namespace GarbageRoyale.Scripts
                 {
                     wantToGoUp = true;
                 }
-                else if (Input.GetKeyDown(KeyCode.Space))
+                else if (Input.GetKeyUp(KeyCode.Space))
                 {
                     wantToGoUp = false;
                 }
@@ -96,12 +96,9 @@ namespace GarbageRoyale.Scripts
         {
             PlayerMovement target;
             if(!PhotonNetwork.IsMasterClient) return;
-            if (axeX != 0 || axeZ != 0)
-            {
-                Debug.Log("Player "+ info.Sender.ActorNumber+" asked to move! X: " + axeX + " Z : " + axeZ);
-                target = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();
-                target.Movement(axeX, axeZ, wantToGoUp);
-            }
+
+            target = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();
+            target.Movement(axeX, axeZ, wantToGoUp);
         }
         
         [PunRPC]
