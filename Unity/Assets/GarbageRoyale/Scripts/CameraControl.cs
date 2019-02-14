@@ -1,0 +1,80 @@
+﻿using Photon.Pun;
+using UnityEngine;
+
+namespace GarbageRoyale.Scripts
+{
+	public class CameraControl : MonoBehaviour {
+		
+		private Camera playerCam;
+		public enum RotationAxis{
+			MouseX = 1,
+			MouseY = 2
+		}
+
+		public RotationAxis axes = RotationAxis.MouseX;
+
+		public float minimumVert = -45.0f;
+		public float maximumVert = 45.0f;
+
+		public float sensHorizontal = 10.0f;
+		public float sensVertical = 10.0f;
+
+		public float _rotationX = 0;
+		
+		private GameController gameControl;
+		private bool mine;
+
+		private void Start()
+		{
+			gameControl = GameObject.Find("Controller").GetComponent<GameController>();
+			if (axes == RotationAxis.MouseY)
+			{
+				playerCam = GetComponent<Camera> ();
+
+				Cursor.lockState = CursorLockMode.Locked;
+				Cursor.visible = false;
+			}
+		}
+
+		// Update is called once per frame
+		void Update () {
+			/*mine = false;
+			foreach (var pair in gameControl.characterList)
+			{
+				if ((pair.Value.transform == this.transform || pair.Value.transform == this.transform.parent.transform) && pair.Key == PhotonNetwork.LocalPlayer.ActorNumber)
+				{
+					mine = true;
+				}
+			}
+
+			if (mine)
+			{*/
+				if (axes == RotationAxis.MouseX)
+				{
+					transform.Rotate(0, Input.GetAxis("Mouse X") * sensHorizontal, 0);
+				}
+				else if (axes == RotationAxis.MouseY)
+				{
+					_rotationX -= Input.GetAxis("Mouse Y") * sensVertical;
+					_rotationX =
+						Mathf.Clamp(_rotationX, minimumVert,
+							maximumVert); //Clamps the vertical angle within the min and max limits (45 degrees)
+
+					float rotationY = transform.localEulerAngles.y;
+
+					transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
+				}
+			//}
+		}
+		
+		void OnGUI() {
+			if (axes == RotationAxis.MouseY)
+			{
+				int size = 20;
+				float posX = playerCam.pixelWidth / 2 - size / 4;
+				float posY = playerCam.pixelHeight / 2 - size / 2;
+				GUI.Label(new Rect(posX, posY, size, size), "+");
+			}
+		}
+	}
+}

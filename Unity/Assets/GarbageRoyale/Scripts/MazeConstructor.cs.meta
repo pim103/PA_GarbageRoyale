@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dc4520c0db3ee0f42bb172c96ce6caed
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - mazeMat1: {fileID: 2100000, guid: 2019d743bc0984ba1b81150901d44455, type: 2}
+  - mazeMat2: {fileID: 2100000, guid: a36a45d20a42a4a0695e782d8b69409e, type: 2}
+  - startMat: {fileID: 2100000, guid: c8296ee06001c4d39b0f615626264b85, type: 2}
+  - treasureMat: {fileID: 2100000, guid: c5b8154923bae4fedbbb1f1aca66fd98, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
