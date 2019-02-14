@@ -34,6 +34,8 @@ namespace GarbageRoyale.Scripts
         private float currentPosX;
         private float currentPosY;
         private float currentPosZ;
+        private bool wantToGoUp;
+
         void Start()
         {
             mapTexture = MakeTex(4, 4, new Color(0f, 0f, 0f, 0.5f));
@@ -46,6 +48,8 @@ namespace GarbageRoyale.Scripts
                 characterList.Add(PhotonNetwork.LocalPlayer.ActorNumber,PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
                 playerCamera.transform.SetParent(characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform);
             }
+
+            wantToGoUp = false;
             //characterList.Add(player);
             //OnlinePlayerManager.RefreshInstance(ref LocalPlayer, PlayerPrefab);
         }
@@ -54,7 +58,16 @@ namespace GarbageRoyale.Scripts
         {
             if (!PhotonNetwork.IsMasterClient)
             {
-                photonView.RPC("MovePlayer", RpcTarget.MasterClient,Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+                if(Input.GetKeyDown(KeyCode.Space))
+                {
+                    wantToGoUp = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    wantToGoUp = false;
+                }
+
+                photonView.RPC("MovePlayer", RpcTarget.MasterClient,Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), wantToGoUp);
                 photonView.RPC("SendCameraPosition", RpcTarget.MasterClient,Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             }
             else
@@ -79,7 +92,7 @@ namespace GarbageRoyale.Scripts
         }
 
         [PunRPC]
-        private void MovePlayer(float axeX, float axeZ,PhotonMessageInfo info)
+        private void MovePlayer(float axeX, float axeZ, bool wantToGoUp,PhotonMessageInfo info)
         {
             PlayerMovement target;
             if(!PhotonNetwork.IsMasterClient) return;
@@ -87,7 +100,7 @@ namespace GarbageRoyale.Scripts
             {
                 Debug.Log("Player "+ info.Sender.ActorNumber+" asked to move! X: " + axeX + " Z : " + axeZ);
                 target = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();
-                target.Movement(axeX, axeZ);
+                target.Movement(axeX, axeZ, wantToGoUp);
             }
         }
         

@@ -20,7 +20,7 @@ public class Water : MonoBehaviour
 
     void Update()
     {
-        if(waterObject.transform.position.y < 2)
+        if(waterObject.transform.position.y < 15)
         {
             waterObject.transform.position += Vector3.up * speedWaterUp;
         }

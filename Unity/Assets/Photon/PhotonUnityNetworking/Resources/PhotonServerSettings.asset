@@ -40,4 +40,7 @@ MonoBehaviour:
   - SendData
   - SendPlayers
   - InitPlayers
+  - MovePlayer
+  - RotatePlayerCamera
+  - SendCameraPosition
   DisableAutoOpenWizard: 1
