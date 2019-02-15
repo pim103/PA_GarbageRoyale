@@ -36,6 +36,8 @@ namespace GarbageRoyale.Scripts
         private float currentPosZ;
         private bool wantToGoUp;
 
+        private bool isGameStart;
+
         void Start()
         {
             mapTexture = MakeTex(4, 4, new Color(0f, 0f, 0f, 0.5f));
@@ -43,12 +45,14 @@ namespace GarbageRoyale.Scripts
             generator = GetComponent<MazeConstructor>();      // 2
             generator.GenerateNewMaze(81, 81);
             playerCamera = Instantiate(cameraPrefab, new Vector3(150, 0.9f, 150), Quaternion.identity);
+
             if (PhotonNetwork.IsMasterClient)
             {
                 characterList.Add(PhotonNetwork.LocalPlayer.ActorNumber,PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
                 playerCamera.transform.SetParent(characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform);
             }
 
+            isGameStart = false;
             wantToGoUp = false;
             //characterList.Add(player);
             //OnlinePlayerManager.RefreshInstance(ref LocalPlayer, PlayerPrefab);
@@ -56,6 +60,8 @@ namespace GarbageRoyale.Scripts
 
         private void FixedUpdate()
         {
+            Water water;
+
             if (!PhotonNetwork.IsMasterClient)
             {
                 if(Input.GetKeyDown(KeyCode.Space))
@@ -69,10 +75,14 @@ namespace GarbageRoyale.Scripts
 
                 photonView.RPC("MovePlayer", RpcTarget.MasterClient,Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), wantToGoUp);
                 photonView.RPC("SendCameraPosition", RpcTarget.MasterClient,Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-            }
-            else
+            } else
             {
-                
+                if (Input.GetKeyDown(KeyCode.G) && !isGameStart)
+                {
+                    water = GetComponent<Water>();
+                    isGameStart = true;
+                    water.setStartWater(isGameStart);
+                }
             }
         }
 
@@ -95,10 +105,15 @@ namespace GarbageRoyale.Scripts
         private void MovePlayer(float axeX, float axeZ, bool wantToGoUp,PhotonMessageInfo info)
         {
             PlayerMovement target;
+            PlayerStats targetStats;
             if(!PhotonNetwork.IsMasterClient) return;
 
             target = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();
-            target.Movement(axeX, axeZ, wantToGoUp);
+            targetStats = characterList[info.Sender.ActorNumber].GetComponent<PlayerStats>();
+            if(!targetStats.getIsDead())
+            {
+                target.Movement(axeX, axeZ, wantToGoUp);
+            }
         }
         
         [PunRPC]
@@ -109,7 +124,6 @@ namespace GarbageRoyale.Scripts
             //Debug.Log("Player "+ info.Sender.ActorNumber+" asked to move the camera! X: " + axeX + " Z : " + axeY);
             characterList[info.Sender.ActorNumber].transform.Rotate(0, axeX * 10.0f, 0);
             photonView.RPC("RotatePlayerCamera", info.Sender, characterList[info.Sender.ActorNumber].transform.position.x, characterList[info.Sender.ActorNumber].transform.position.y, characterList[info.Sender.ActorNumber].transform.position.z, axeX, axeY);
-
         }
 
         [PunRPC]
@@ -153,9 +167,6 @@ namespace GarbageRoyale.Scripts
                     {
                         if (generator.floors[0][j, i] == 0)
                         {
-                            //Debug.Log("yo");
-                            /*GUI.backgroundColor = Color.red;
-                            GUI.Box(new Rect(i*10,j*10,20,20),"");*/
                             if(i != (int)((currentPosX+1)/4) || j != (int)((currentPosZ+0.5)/4)) GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), mapTexture);
                             else GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), playerTexture);
                         }
@@ -166,7 +177,7 @@ namespace GarbageRoyale.Scripts
             }
         }
         
-        private Texture2D MakeTex( int width, int height, Color col )
+        public Texture2D MakeTex( int width, int height, Color col )
         {
             Color[] pix = new Color[width * height];
             for( int i = 0; i < pix.Length; ++i )

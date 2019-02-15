@@ -43,4 +43,6 @@ MonoBehaviour:
   - MovePlayer
   - RotatePlayerCamera
   - SendCameraPosition
+  - initPlayerStats
+  - getPlayerStats
   DisableAutoOpenWizard: 1

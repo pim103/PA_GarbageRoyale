@@ -14,7 +14,6 @@ namespace GarbageRoyale.Scripts
     public class MazeConstructor : MonoBehaviourPunCallbacks
 
     {
-        
         //1
         public bool showDebug;
         [SerializeField] private GameObject [] Prefabs;
@@ -74,14 +73,9 @@ namespace GarbageRoyale.Scripts
         public override void OnJoinedRoom()
         {
                 
-            Debug.Log("hey");
             if (photonView != null)
             {
                 photonView.RPC("SendData", RpcTarget.MasterClient);
-            }
-            else
-            {
-                Debug.Log("ohno");
             }
             
         }
@@ -132,7 +126,6 @@ namespace GarbageRoyale.Scripts
             GameObject go = new GameObject();
             go.transform.position = Vector3.zero;
             go.name = "Procedural Maze";
-            go.tag = "Generated";
 
             MeshFilter mf = go.AddComponent<MeshFilter>();
             mf.mesh = meshGenerator.FromData(maze,ypos,Prefabs, rooms, floorTransition);
@@ -163,7 +156,6 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         public void SendData(PhotonMessageInfo info)
         {
-            Debug.Log("PlayerEntered");
             if (!PhotonNetwork.IsMasterClient) return;
             
             var strFloors = "";
@@ -211,9 +203,6 @@ namespace GarbageRoyale.Scripts
             Byte[] by2 = Convert.FromBase64String(strRooms);
             MemoryStream sr2 = new MemoryStream(by2);
             rooms = (int[][,])bf2.Deserialize(sr2);
-            
-            Debug.Log(strFloors);
-            Debug.Log(strRooms);
             
             /*BinaryFormatter bf = new BinaryFormatter();
             Byte[] by = Convert.FromBase64String(str);

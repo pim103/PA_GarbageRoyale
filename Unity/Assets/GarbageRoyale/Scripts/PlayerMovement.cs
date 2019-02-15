@@ -5,11 +5,12 @@ namespace GarbageRoyale.Scripts
 {
 	public class PlayerMovement : MonoBehaviour {
 
-		public float speed = 4.0f;
+		public float speed = 6.0f;
 		public float gravity = -9.8f;
 
 		private CharacterController _charCont;
 		private MazeConstructor gen;
+        private PlayerStats playerStats;
 		
 		private GameController gameControl;
 		
@@ -17,14 +18,17 @@ namespace GarbageRoyale.Scripts
 
         private bool isOnWater;
         private bool mineWantToGoUp;
+        private bool headIsOnWater;
 
 		// Use this for initialization
 		void Start () {
 			_charCont = GetComponent<CharacterController> ();
+            playerStats = GetComponent<PlayerStats>();
 			gen = GameObject.Find("Controller").GetComponent<MazeConstructor>();
 			gameControl = GameObject.Find("Controller").GetComponent<GameController>();
 
             isOnWater = false;
+            headIsOnWater = false;
             mineWantToGoUp = false;
         }
 	
@@ -42,39 +46,34 @@ namespace GarbageRoyale.Scripts
 
 			if (mine)
 			{
-				float deltaX = Input.GetAxis ("Horizontal") * speed;
-				float deltaZ = Input.GetAxis ("Vertical") * speed;
-                float deltaY = 0.0f;
-                
-                if(Input.GetKeyDown(KeyCode.Space)) {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
                     mineWantToGoUp = true;
-                } else if (Input.GetKeyUp(KeyCode.Space))
+                }
+                else if (Input.GetKeyUp(KeyCode.Space))
                 {
                     mineWantToGoUp = false;
                 }
-                
-				Vector3 movement = new Vector3 (deltaX, deltaY, deltaZ);
-				movement = Vector3.ClampMagnitude (movement, speed); //Limits the max speed of the player
 
-                if (isOnWater && mineWantToGoUp)
+                if(!playerStats.getIsDead())
                 {
-                    movement.y += 10.3f;
-                } else if (isOnWater)
-                {
-                    movement.y += 9.3f;
+                    Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), mineWantToGoUp);
                 }
-                movement.y += gravity;
-
-				movement *= Time.deltaTime;		//Ensures the speed the player moves does not change based on frame rate
-				movement = transform.TransformDirection(movement);
-				_charCont.Move (movement);
 			}
 		}
 		
 		public void Movement(float axeX, float axeZ, bool wantToGoUp)
 		{
-			float deltaX = axeX;
-			float deltaZ = axeZ;
+            if(isOnWater)
+            {
+                speed = 4.0f;
+            } else
+            {
+                speed = 6.0f;
+            }
+
+			float deltaX = axeX * speed;
+			float deltaZ = axeZ * speed;
             float deltaY = 0.0f;
 
 			Vector3 movement = new Vector3 (deltaX, deltaY, deltaZ);
@@ -82,10 +81,10 @@ namespace GarbageRoyale.Scripts
 
             if (isOnWater && wantToGoUp)
             {
-                movement.y += 10.3f;
+                movement.y += 10.8f;
             } else if (isOnWater)
             {
-                movement.y += 9.3f;
+                movement.y += 8.8f;
             }
             movement.y += gravity;
 
@@ -99,12 +98,34 @@ namespace GarbageRoyale.Scripts
             isOnWater = true;
         }
 
+        public void OnTriggerStay(Collider other)
+        {
+            if(_charCont.transform.position.y + 0.01f > other.transform.position.y)
+            {
+                headIsOnWater = false;
+            } else
+            {
+                headIsOnWater = true;
+            }
+        }
+
         public void OnTriggerExit(Collider other)
         {
             if (other.gameObject.transform.position.y < _charCont.transform.position.y)
             {
                 isOnWater = false;
+                headIsOnWater = false;
             }
         }
-	}
+
+        public bool PlayerisOnWater()
+        {
+            return isOnWater;
+        }
+
+        public bool getHeadIsOnWater()
+        {
+            return headIsOnWater;
+        }
+    }
 }

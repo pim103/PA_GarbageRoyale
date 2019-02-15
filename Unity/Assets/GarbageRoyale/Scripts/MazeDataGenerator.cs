@@ -78,7 +78,6 @@ namespace GarbageRoyale.Scripts
             
             for (int k = 0; k < 8; k++)
             {
-                Debug.Log("hoi");
                 sizeCols = 8 * (10 - k) + 1;
                 sizeRows = 8 * (10 - k) + 1;   
                 rooms = new int[sizeRows, sizeCols];
@@ -149,7 +148,6 @@ namespace GarbageRoyale.Scripts
                                 {
                                     rooms[i, j] = 0;
                                     trapDoorCount++;
-                                    Debug.Log(trapDoorCount);
 
                                 }
                                 else rooms[i, j] = Random.Range(2, 6);

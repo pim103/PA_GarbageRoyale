@@ -11,8 +11,12 @@ public class Water : MonoBehaviour
     private int cooldownWaterUp;
     private float speedWaterUp;
 
+    private bool startWater;
+
     void Start()
     {
+        startWater = false;
+
         timerWaterUp = 0;
         speedWaterUp = 0.05f;
         cooldownWaterUp = 0;
@@ -20,9 +24,22 @@ public class Water : MonoBehaviour
 
     void Update()
     {
-        if(waterObject.transform.position.y < 15)
+        if(startWater)
         {
-            waterObject.transform.position += Vector3.up * speedWaterUp;
+            if(waterObject.transform.position.y < (8 + 4)*8)
+            {
+                waterObject.transform.position += Vector3.up * speedWaterUp;
+            }
         }
+    }
+
+    public void setStartWater(bool isStarting)
+    {
+        startWater = isStarting;
+    }
+
+    public bool getStartWater()
+    {
+        return startWater;
     }
 }
