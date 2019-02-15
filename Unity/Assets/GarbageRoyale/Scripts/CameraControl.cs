@@ -13,8 +13,8 @@ namespace GarbageRoyale.Scripts
 
 		public RotationAxis axes = RotationAxis.MouseX;
 
-		public float minimumVert = -45.0f;
-		public float maximumVert = 45.0f;
+		public float minimumVert = -90.0f;
+		public float maximumVert = 90.0f;
 
 		public float sensHorizontal = 10.0f;
 		public float sensVertical = 10.0f;
@@ -38,32 +38,67 @@ namespace GarbageRoyale.Scripts
 
 		// Update is called once per frame
 		void Update () {
-			/*mine = false;
-			foreach (var pair in gameControl.characterList)
-			{
-				if ((pair.Value.transform == this.transform || pair.Value.transform == this.transform.parent.transform) && pair.Key == PhotonNetwork.LocalPlayer.ActorNumber)
-				{
-					mine = true;
-				}
-			}
-
-			if (mine)
-			{*/
+			
+				//if (!PhotonNetwork.IsMasterClient) return;
+				float rotationY;
 				if (axes == RotationAxis.MouseX)
 				{
-					transform.Rotate(0, Input.GetAxis("Mouse X") * sensHorizontal, 0);
+					mine = false;
+					foreach (var pair in gameControl.characterList)
+					{
+						if ((pair.Value.transform == this.transform) && pair.Key == PhotonNetwork.LocalPlayer.ActorNumber)
+						{
+							mine = true;
+						}
+					}
+
+					if (mine || !PhotonNetwork.IsMasterClient)
+					{
+						transform.Rotate(0, Input.GetAxis("Mouse X") * sensHorizontal, 0);
+
+						/* -= Input.GetAxis("Mouse Y") * sensVertical;
+						_rotationX =
+							Mathf.Clamp(_rotationX, minimumVert,
+								maximumVert); //Clamps the vertical angle within the min and max limits (45 degrees)
+
+						rotationY = transform.localEulerAngles.y;
+						transform.GetChild(1).localEulerAngles = new Vector3(_rotationX, 0, 0);
+						Debug.Log(transform.GetChild(1));*/
+					}
 				}
 				else if (axes == RotationAxis.MouseY)
 				{
-					_rotationX -= Input.GetAxis("Mouse Y") * sensVertical;
-					_rotationX =
-						Mathf.Clamp(_rotationX, minimumVert,
-							maximumVert); //Clamps the vertical angle within the min and max limits (45 degrees)
+					
+						_rotationX -= Input.GetAxis("Mouse Y") * sensVertical;
+						_rotationX =
+							Mathf.Clamp(_rotationX, minimumVert,
+								maximumVert); //Clamps the vertical angle within the min and max limits (45 degrees)
 
-					float rotationY = transform.localEulerAngles.y;
+						rotationY = transform.localEulerAngles.y;
 
-					transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
+						transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
+						//
+						//transform.GetChild(1).Rotate(0, _rotationX,0);
+						//transform.GetChild(1).localEulerAngles = new Vector3(transform.GetChild(1).localEulerAngles.x, 
+						//transform.GetChild(1).localEulerAngles.y + 1.0f, transform.GetChild(1).localEulerAngles.z);
+					
 				}
+			
+			/*if (axes == RotationAxis.MouseX)
+			{
+				transform.Rotate(0, Input.GetAxis("Mouse X") * sensHorizontal, 0);
+			}
+			else if (axes == RotationAxis.MouseY)
+			{
+				_rotationX -= Input.GetAxis("Mouse Y") * sensVertical;
+				_rotationX =
+					Mathf.Clamp(_rotationX, minimumVert,
+						maximumVert); //Clamps the vertical angle within the min and max limits (45 degrees)
+
+				float rotationY = transform.localEulerAngles.y;
+
+				transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
+			}*/
 			//}
 		}
 		

@@ -24,9 +24,11 @@ namespace GarbageRoyale.Scripts
         private GameObject characterObject;
 
         private GameObject playerCamera;
-
+        
+        private bool canMove = false;
         //List<GameObject> characterList = new List<GameObject>();
         public Dictionary <int, GameObject> characterList = new Dictionary<int, GameObject>();
+        public Dictionary <int, GameObject> lampList = new Dictionary<int, GameObject>();
  
         private GUIStyle currentStyle = null;
         private Texture2D mapTexture;
@@ -53,6 +55,7 @@ namespace GarbageRoyale.Scripts
             }
 
             isGameStart = false;
+            canMove = true;
             wantToGoUp = false;
             //characterList.Add(player);
             //OnlinePlayerManager.RefreshInstance(ref LocalPlayer, PlayerPrefab);
@@ -62,7 +65,7 @@ namespace GarbageRoyale.Scripts
         {
             Water water;
 
-            if (!PhotonNetwork.IsMasterClient)
+            if (!PhotonNetwork.IsMasterClient && canMove)
             {
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
@@ -84,6 +87,10 @@ namespace GarbageRoyale.Scripts
                     water.setStartWater(isGameStart);
                 }
             }
+            if (Input.GetKeyUp(KeyCode.L))
+            {
+                photonView.RPC("TurnLightOff", RpcTarget.MasterClient);
+            }
         }
 
         public override void OnJoinedRoom()
@@ -95,11 +102,9 @@ namespace GarbageRoyale.Scripts
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
             characterList.Add(newPlayer.ActorNumber,PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
-            //if(PhotonNetwork.IsMasterClient) PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity);
-            //PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity);
-            //Instantiate(characterObject, new Vector3(150, 0.7f, 150), Quaternion.identity);
-            //OnlinePlayerManager.RefreshInstance(ref LocalPlayer, PlayerPrefab);
+            
         }
+        
 
         [PunRPC]
         private void MovePlayer(float axeX, float axeZ, bool wantToGoUp,PhotonMessageInfo info)
@@ -110,8 +115,10 @@ namespace GarbageRoyale.Scripts
 
             target = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();
             targetStats = characterList[info.Sender.ActorNumber].GetComponent<PlayerStats>();
-            if(!targetStats.getIsDead())
+            if (!targetStats.getIsDead())
             {
+                //Debug.Log("Player "+ info.Sender.ActorNumber+" asked to move! X: " + axeX + " Z : " + axeZ);
+                target = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();
                 target.Movement(axeX, axeZ, wantToGoUp);
             }
         }
@@ -121,9 +128,32 @@ namespace GarbageRoyale.Scripts
         {
             PlayerMovement target;
             if(!PhotonNetwork.IsMasterClient) return;
+            
+            
             //Debug.Log("Player "+ info.Sender.ActorNumber+" asked to move the camera! X: " + axeX + " Z : " + axeY);
             characterList[info.Sender.ActorNumber].transform.Rotate(0, axeX * 10.0f, 0);
             photonView.RPC("RotatePlayerCamera", info.Sender, characterList[info.Sender.ActorNumber].transform.position.x, characterList[info.Sender.ActorNumber].transform.position.y, characterList[info.Sender.ActorNumber].transform.position.z, axeX, axeY);
+
+            //playerCamera.transform.Rotate(0, axeX * 10.0f, 0);
+            
+            /*float rotationX = 0;
+            rotationX -= axeY * 10.0f;
+            rotationX =
+                Mathf.Clamp(rotationX, -90.0f,
+                    90.0f);
+
+            /characterList[info.Sender.ActorNumber].transform.GetChild(1).localEulerAngles = new Vector3(rotationX, 0, 0);*/
+            
+        }
+        
+        [PunRPC]
+        private void TurnLightOff(PhotonMessageInfo info)
+        {
+            Debug.Log("ui");
+            Light playerLight = characterList[info.Sender.ActorNumber].transform.GetChild(1).GetComponent<Light>();
+            if (playerLight.enabled) playerLight.enabled = false;
+            else playerLight.enabled = true;
+
         }
 
         [PunRPC]

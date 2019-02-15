@@ -18,7 +18,9 @@
             <e p="MinimapDrawer.cs" t="Include" />
             <e p="OnlinePlayerManager.cs" t="Include" />
             <e p="PhotonHelloWorldScripts.cs" t="Include" />
+            <e p="PlayerDisplay.cs" t="Include" />
             <e p="PlayerMovement.cs" t="Include" />
+            <e p="PlayerStats.cs" t="Include" />
             <e p="Water.cs" t="Include" />
           </e>
         </e>

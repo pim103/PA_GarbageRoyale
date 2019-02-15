@@ -46,19 +46,19 @@ namespace GarbageRoyale.Scripts
 
 			if (mine)
 			{
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    mineWantToGoUp = true;
-                }
-                else if (Input.GetKeyUp(KeyCode.Space))
-                {
-                    mineWantToGoUp = false;
-                }
+				if (Input.GetKeyDown(KeyCode.Space))
+				{
+					mineWantToGoUp = true;
+				}
+				else if (Input.GetKeyUp(KeyCode.Space))
+				{
+					mineWantToGoUp = false;
+				}
 
-                if(!playerStats.getIsDead())
-                {
-                    Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), mineWantToGoUp);
-                }
+				if(!playerStats.getIsDead())
+				{
+					Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), mineWantToGoUp);
+				}
 			}
 		}
 		
@@ -85,9 +85,17 @@ namespace GarbageRoyale.Scripts
             } else if (isOnWater)
             {
                 movement.y += 8.8f;
+            } else if (wantToGoUp)
+            {
+	            //movement.y += 18.3f;
+	            
+	            if (Physics.Raycast(transform.GetChild(0).transform.position, Vector3.down, 0.2f))
+	            {
+		            //this.GetComponent<Rigidbody>().velocity = Vector3.up * 10.0f;
+		            movement.y += 80.3f;
+	            }
             }
             movement.y += gravity;
-
 			movement *= Time.deltaTime;		//Ensures the speed the player moves does not change based on frame rate
 			movement = transform.TransformDirection(movement);
 			_charCont.Move (movement);
