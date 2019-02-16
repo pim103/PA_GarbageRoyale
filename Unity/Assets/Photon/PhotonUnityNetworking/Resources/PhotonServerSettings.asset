@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: 
+    AppIdRealtime: 05bc07b4-6e63-453f-8d6f-03be7911a9d3
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 
@@ -28,5 +28,18 @@ MonoBehaviour:
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
-  RpcList: []
-  DisableAutoOpenWizard: 0
+  RpcList:
+  - DestroySpaceship
+  - Fire
+  - GenerateClientMaze
+  - getPlayerStats
+  - initPlayerStats
+  - MovePlayer
+  - OnPlayerEnteredRoom
+  - RespawnSpaceship
+  - RotatePlayerCamera
+  - SayHello
+  - SendCameraPosition
+  - SendData
+  - TurnLightOff
+  DisableAutoOpenWizard: 1

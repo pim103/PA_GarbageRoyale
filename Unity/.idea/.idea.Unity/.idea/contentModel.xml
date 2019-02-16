@@ -10,6 +10,8 @@
         <e p="GarbageRoyale" t="Include">
           <e p="Scripts" t="Include">
             <e p="CameraControl.cs" t="Include" />
+            <e p="CameraRaycast.cs" t="Include" />
+            <e p="CameraRaycastHitActions.cs" t="Include" />
             <e p="DesactivateCameraControl.cs" t="Include" />
             <e p="GameController.cs" t="Include" />
             <e p="MazeConstructor.cs" t="Include" />

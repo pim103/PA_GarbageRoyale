@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
+  m_AmbientSkyColor: {r: 0.030392157, g: 0.028431373, b: 0.028431373, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 1103656773}
   - component: {fileID: 1103656775}
   - component: {fileID: 1103656774}
+  - component: {fileID: 1103656776}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -216,11 +217,12 @@ MonoBehaviour:
   Prefabs:
   - {fileID: 4449432576064577553, guid: 336bdde01458cd546a953197de281111, type: 3}
   - {fileID: 4449432576064577553, guid: 83d60b5460dc9bb45b29ed5038b78c9c, type: 3}
+  - {fileID: 4449432576064577553, guid: b12fa1f0f1ca78f469292e6777348080, type: 3}
   - {fileID: 4449432576064577553, guid: a1fd8cbca2f1b784ca383feb0daf6291, type: 3}
-  - {fileID: 2008090796647901747, guid: 443d6fae659f6d44baaa09efd4c1a828, type: 3}
   - {fileID: 765828400005556183, guid: 1ccd3b25d3e123d4fa9353bdd8a0b37b, type: 3}
   - {fileID: 2511107686252528056, guid: 35714039c3f7a2a49a68b096ccd0e00b, type: 3}
   - {fileID: 4449432576064577553, guid: 0689db0e62733f34381d05548c4f71cd, type: 3}
+  - {fileID: 2008090796647901747, guid: 443d6fae659f6d44baaa09efd4c1a828, type: 3}
   floorTransition: {fileID: 4449432576064577553, guid: 503958394bf416442aa3518a8fdcdf19,
     type: 3}
   mazeMat1: {fileID: 2100000, guid: 2019d743bc0984ba1b81150901d44455, type: 2}
@@ -318,6 +320,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5af0fdbeec77a4d9f1c7aaf0e1e6b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1103656776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103656768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c60875369112a24ab85e9691852215e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Send: 0
 --- !u!1 &1147012261 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8878313210229368649, guid: 3691311aefd7c874a9b2b885d075c7d5,

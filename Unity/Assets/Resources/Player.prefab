@@ -11,15 +11,15 @@ GameObject:
   - component: {fileID: 242}
   - component: {fileID: 438}
   - component: {fileID: 382}
-  - component: {fileID: 505}
-  - component: {fileID: 510}
-  - component: {fileID: 528}
-  - component: {fileID: 557}
+  - component: {fileID: 506}
+  - component: {fileID: 511}
   - component: {fileID: 529}
+  - component: {fileID: 534}
   - component: {fileID: 530}
-  - component: {fileID: 532}
   - component: {fileID: 531}
-  - component: {fileID: 3375035211949681250}
+  - component: {fileID: 533}
+  - component: {fileID: 532}
+  - component: {fileID: 494}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -88,7 +88,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &505
+--- !u!136 &506
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,7 +102,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!143 &510
+--- !u!143 &511
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,7 +120,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &528
+--- !u!114 &529
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,7 +138,7 @@ MonoBehaviour:
   sensHorizontal: 10
   sensVertical: 10
   _rotationX: 0
---- !u!114 &557
+--- !u!114 &534
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abd2e6ac95a6b394ba7da157498d3096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &529
+--- !u!114 &530
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   gravity: -9.8
---- !u!114 &530
+--- !u!114 &531
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5af0fdbeec77a4d9f1c7aaf0e1e6b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &532
+--- !u!114 &533
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,11 +194,11 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 531}
-  viewIdField: 0
+  - {fileID: 532}
+  viewIdField: 2
   InstantiationId: 2
   isRuntimeInstantiated: 0
---- !u!114 &531
+--- !u!114 &532
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
---- !u!54 &3375035211949681250
+--- !u!54 &494
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -269,8 +269,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 244}
-  - component: {fileID: 503}
-  - component: {fileID: 3407524697898246905}
+  - component: {fileID: 504}
+  - component: {fileID: 535}
   m_Layer: 0
   m_Name: PlayerSpotLight
   m_TagString: Untagged
@@ -293,7 +293,7 @@ Transform:
   m_Father: {fileID: 242}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &503
+--- !u!108 &504
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 473273531604100864, guid: 4935dc64073e160458ad73b5afa36c34,
@@ -332,7 +332,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &3407524697898246905
+--- !u!114 &535
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -350,8 +350,8 @@ MonoBehaviour:
   Synchronization: 0
   OwnershipTransfer: 0
   ObservedComponents: []
-  viewIdField: 0
-  InstantiationId: 0
+  viewIdField: 5
+  InstantiationId: 5
   isRuntimeInstantiated: 0
 --- !u!1001 &2357804633712275286
 PrefabInstance:
@@ -360,11 +360,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 242}
     m_Modifications:
-    - target: {fileID: 7239401515535177374, guid: 4935dc64073e160458ad73b5afa36c34,
-        type: 3}
-      propertyPath: m_Name
-      value: PlayerSpotLight
-      objectReference: {fileID: 0}
     - target: {fileID: 8271404210305470472, guid: 4935dc64073e160458ad73b5afa36c34,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -419,6 +414,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239401515535177374, guid: 4935dc64073e160458ad73b5afa36c34,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerSpotLight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4935dc64073e160458ad73b5afa36c34, type: 3}

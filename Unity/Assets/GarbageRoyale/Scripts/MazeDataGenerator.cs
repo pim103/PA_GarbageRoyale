@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace GarbageRoyale.Scripts
 {
     public class MazeDataGenerator
     {
         public float placementThreshold;    // chance of empty space
+        
+        public Dictionary<string,string>[] roomLinksList = new Dictionary<string, string>[8];
 
         public MazeDataGenerator()
         {
@@ -19,6 +22,7 @@ namespace GarbageRoyale.Scripts
             int cMax;
             for (int k = 0; k < 8; k++)
             {
+                roomLinksList[k] = new Dictionary<string, string>();
                 sizeCols = 8 * (10 - k) + 1;
                 sizeRows = 8 * (10 - k) + 1;
                 maze = new int[sizeRows, sizeCols];
@@ -99,16 +103,16 @@ namespace GarbageRoyale.Scripts
                         if (i > (rMax / 2 - 5) && i < (rMax / 2 + 5) && j > cMax / 2 - 5 && j < cMax / 2 + 5 &&
                             k == 0)
                         {
-                            rooms[i, j] = 2;
+                            rooms[i, j] = 3;
                         }
                         else if (k>0 && floorRooms[k-1][i+4, j+4] == 0 && maze[k-1][i+4, j+4] == 0)
                         {
                             rooms[i, j] = 1;
                             
-                        } else if (maze[k][i, j] == 0)
+                        } else if (maze[k][i, j] == 0 && rooms[i,j] != 3)
                         {
-                            //rooms[i, j] = Random.Range(2, 6);
-                            rooms[i, j] = 2;
+                            rooms[i, j] = Random.Range(3, 8);
+                            //rooms[i, j] = 3;
                         }
                     }
                 }
@@ -148,9 +152,47 @@ namespace GarbageRoyale.Scripts
                                 {
                                     rooms[i, j] = 0;
                                     trapDoorCount++;
-
+                                    bool breaker = false;
+                                    int nmin, nmax, pmin, pmax;
+                                    int rangeCap;
+                                    if (k < 7)
+                                    {
+                                        nmin = i - 5;
+                                        nmax = i + 5;
+                                        pmin = j - 5;
+                                        pmax = j + 5;
+                                        rangeCap = 100;
+                                    }
+                                    else
+                                    {
+                                        nmin = 0;
+                                        nmax = cMax;
+                                        pmin = 0;
+                                        pmax = rMax;
+                                        rangeCap = 5;
+                                    }
+                                    
+                                    for (int n = nmin; n <= nmax; n++)
+                                    {
+                                        for (int p = pmin; p <= pmax; p++)
+                                        {
+                                            if (n>0 && p>0 && maze[k][n, p] == 0 && rooms[n, p] > 2)
+                                            {
+                                                if (Random.Range(0, 1000) < rangeCap)
+                                                {
+                                                    Debug.Log("étage : " + k +" trappe : " + i*4 + " " + j*4 + " bouton : " + n*4 + " "+ p*4);
+                                                    roomLinksList[k].Add(i+";"+j,n+";"+p);
+                                                    rooms[n, p] = 2;
+                                                    breaker = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (breaker) break;
+                                        if (n == i + 5) n = i - 5;
+                                    }
                                 }
-                                else rooms[i, j] = Random.Range(2, 6);
+                                else rooms[i, j] = Random.Range(3, 8);
                             }
                         }
                     }

@@ -40,10 +40,12 @@ namespace GarbageRoyale.Scripts
 
         private bool isGameStart;
 
+        public Dictionary<string, string>[] roomLinksList;
+
         void Start()
         {
-            mapTexture = MakeTex(4, 4, new Color(0f, 0f, 0f, 0.5f));
-            playerTexture = MakeTex(4, 4, new Color(1f, 1f, 1f, 0.5f));
+            mapTexture = MakeTex(4, 4, new Color(1f, 1f, 1f, 0.5f));
+            playerTexture = MakeTex(4, 4, new Color(0.5f, 0.5f, 0.5f, 0.5f));
             generator = GetComponent<MazeConstructor>();      // 2
             generator.GenerateNewMaze(81, 81);
             playerCamera = Instantiate(cameraPrefab, new Vector3(150, 0.9f, 150), Quaternion.identity);
@@ -53,7 +55,10 @@ namespace GarbageRoyale.Scripts
                 characterList.Add(PhotonNetwork.LocalPlayer.ActorNumber,PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
                 playerCamera.transform.SetParent(characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform);
             }
+            
+            Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber);
 
+            roomLinksList = generator.dataGenerator.roomLinksList;
             isGameStart = false;
             canMove = true;
             wantToGoUp = false;
@@ -101,6 +106,7 @@ namespace GarbageRoyale.Scripts
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
+            if(!PhotonNetwork.IsMasterClient) return;
             characterList.Add(newPlayer.ActorNumber,PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
             
         }
@@ -195,7 +201,7 @@ namespace GarbageRoyale.Scripts
                 {
                     if (i > 0 && j > 0)
                     {
-                        if (generator.floors[0][j, i] == 0)
+                        if (generator.floors[0][j, i] != 1)
                         {
                             if(i != (int)((currentPosX+1)/4) || j != (int)((currentPosZ+0.5)/4)) GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), mapTexture);
                             else GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), playerTexture);
