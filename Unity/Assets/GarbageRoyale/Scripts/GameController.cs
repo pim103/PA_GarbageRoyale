@@ -52,7 +52,7 @@ namespace GarbageRoyale.Scripts
             if (PhotonNetwork.IsMasterClient)
             {
                 characterList.Add(PhotonNetwork.LocalPlayer.ActorNumber, PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
-                characterSound.Add(PhotonNetwork.LocalPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 2.5f, 150), Quaternion.identity));
+                characterSound.Add(PhotonNetwork.LocalPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.7f, 150), Quaternion.identity));
                 playerCamera.transform.SetParent(characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform);
             }
 
@@ -103,7 +103,7 @@ namespace GarbageRoyale.Scripts
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
-            characterSound.Add(newPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 2.5f, 150), Quaternion.identity));
+            characterSound.Add(newPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.7f, 150), Quaternion.identity));
 
             if (!PhotonNetwork.IsMasterClient) return;
 
