@@ -55,4 +55,5 @@ MonoBehaviour:
   - getLastId
   - initOwnSound
   - TurnLightOff
+  - playAmbientSound
   DisableAutoOpenWizard: 1

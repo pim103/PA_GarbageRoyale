@@ -26,7 +26,7 @@ public class Water : MonoBehaviour
     {
         if(startWater)
         {
-            if(waterObject.transform.position.y < (8 + 4)*8)
+            if(waterObject.transform.position.y < 2)
             {
                 waterObject.transform.position += Vector3.up * speedWaterUp;
             }

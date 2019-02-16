@@ -16,12 +16,23 @@ namespace GarbageRoyale.Scripts
         [SerializeField]
         private AudioClip swimmingSound;
 
+        [SerializeField]
+        private AudioClip caveAmbientSound;
+        [SerializeField]
+        private AudioClip underwaterAmbientSound;
+        [SerializeField]
+        private GameObject ambiant;
+
         private GameController gc;
         private Dictionary<int, GameObject> characterList = new Dictionary<int, GameObject>();
         private Dictionary<int, GameObject> characterSound = new Dictionary<int, GameObject>();
 
         private GameObject cloneSource;
         private AudioSource sourceOrigin;
+        private string lastSoundPlayed;
+
+        private GameObject ambiantSource;
+        private string lastAmbientSoundPlayed;
 
         // Start is called before the first frame update
         void Start()
@@ -29,6 +40,9 @@ namespace GarbageRoyale.Scripts
             gc = GetComponent<GameController>();
             characterList = gc.characterList;
             characterSound = gc.characterSound;
+
+            ambiantSource = Instantiate(ambiant, new Vector3(162f, 50f, 162f), Quaternion.identity);
+            lastAmbientSoundPlayed = "cave";
         }
 
         // Update is called once per frame
@@ -43,6 +57,7 @@ namespace GarbageRoyale.Scripts
             PlayerMovement playerMov;
             playerMov = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();
             photonView.RPC("playWalkSound", RpcTarget.AllBuffered, playerMov.needToPlaySong, info.Sender.ActorNumber, playerMov.soundNeeded);
+            photonView.RPC("playAmbientSound", info.Sender, playerMov.getHeadIsOnWater());
         }
 
         [PunRPC]
@@ -68,6 +83,30 @@ namespace GarbageRoyale.Scripts
             else if (!playSong)
             {
                 audio.Stop();
+            }
+        }
+
+        [PunRPC]
+        private void playAmbientSound(bool isHeadInWater)
+        {
+            AudioSource ambiant = ambiantSource.GetComponent<AudioSource>();
+
+            if(isHeadInWater && lastAmbientSoundPlayed == "cave")
+            {
+                ambiant.Stop();
+            } else if(!isHeadInWater && lastAmbientSoundPlayed == "water")
+            {
+                ambiant.Stop();
+            }
+
+            if (isHeadInWater && !ambiant.isPlaying)
+            {
+                ambiant.PlayOneShot(underwaterAmbientSound);
+                lastAmbientSoundPlayed = "water";
+            }
+            else if(!ambiant.isPlaying){
+                ambiant.PlayOneShot(caveAmbientSound);
+                lastAmbientSoundPlayed = "cave";
             }
         }
     }

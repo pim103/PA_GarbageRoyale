@@ -93,7 +93,7 @@ namespace GarbageRoyale.Scripts
 			movement = Vector3.ClampMagnitude (movement, speed); //Limits the max speed of the player
 
             needToPlaySong = (axeX != 0 || axeZ != 0);
-            setSong();
+            setSong(wantToGoUp);
 
             if (isOnWater && wantToGoUp)
             {
@@ -117,14 +117,15 @@ namespace GarbageRoyale.Scripts
 			_charCont.Move (movement);
 		}
 
-        private void setSong()
+        private void setSong(bool wantToGoUp)
         {
             if (feetIsInWater)
             {
                 soundNeeded = "walkInWater";
             }
-            else if (isOnWater)
+            else if ((isOnWater && needToPlaySong) || (isOnWater && wantToGoUp))
             {
+                needToPlaySong = true;
                 soundNeeded = "swimming";
             }
             else
