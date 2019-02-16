@@ -3,14 +3,18 @@ using UnityEngine;
 
 namespace GarbageRoyale.Scripts
 {
-	public class PlayerMovement : MonoBehaviour {
+	public class PlayerMovement : MonoBehaviour
+    {
 
 		public float speed = 6.0f;
 		public float gravity = -9.8f;
 
-		private CharacterController _charCont;
+        public AudioClip walkSound;
+
+        private CharacterController _charCont;
 		private MazeConstructor gen;
         private PlayerStats playerStats;
+        private SoundManager soundM;
 		
 		private GameController gameControl;
 		
@@ -19,19 +23,28 @@ namespace GarbageRoyale.Scripts
         private bool isOnWater;
         private bool mineWantToGoUp;
         private bool headIsOnWater;
+        private bool feetIsInWater;
 
-		// Use this for initialization
-		void Start () {
+        private AudioSource audioWalk;
+        public bool needToPlaySong;
+        public string soundNeeded;
+
+        // Use this for initialization
+        void Start () {
 			_charCont = GetComponent<CharacterController> ();
             playerStats = GetComponent<PlayerStats>();
 			gen = GameObject.Find("Controller").GetComponent<MazeConstructor>();
 			gameControl = GameObject.Find("Controller").GetComponent<GameController>();
+            soundM = GameObject.Find("Controller").GetComponent<SoundManager>();
+
+            audioWalk = GetComponent<AudioSource>();
 
             isOnWater = false;
             headIsOnWater = false;
             mineWantToGoUp = false;
+            feetIsInWater = false;
         }
-	
+
 		// Update is called once per frame
 		void Update ()
 		{
@@ -79,6 +92,9 @@ namespace GarbageRoyale.Scripts
 			Vector3 movement = new Vector3 (deltaX, deltaY, deltaZ);
 			movement = Vector3.ClampMagnitude (movement, speed); //Limits the max speed of the player
 
+            needToPlaySong = (axeX != 0 || axeZ != 0);
+            setSong();
+
             if (isOnWater && wantToGoUp)
             {
                 movement.y += 10.8f;
@@ -101,6 +117,22 @@ namespace GarbageRoyale.Scripts
 			_charCont.Move (movement);
 		}
 
+        private void setSong()
+        {
+            if (feetIsInWater)
+            {
+                soundNeeded = "walkInWater";
+            }
+            else if (isOnWater)
+            {
+                soundNeeded = "swimming";
+            }
+            else
+            {
+                soundNeeded = "walk";
+            }
+        }
+
         public void OnTriggerEnter(Collider other)
         {
             isOnWater = true;
@@ -108,7 +140,18 @@ namespace GarbageRoyale.Scripts
 
         public void OnTriggerStay(Collider other)
         {
-            if(_charCont.transform.position.y + 0.01f > other.transform.position.y)
+            float posY = _charCont.transform.position.y;
+            float waterPosY = other.transform.position.y;
+            
+            if (posY - 0.25 > waterPosY)
+            {
+                feetIsInWater = true;
+            } else
+            {
+                feetIsInWater = false;
+            }
+
+            if(posY + 0.01f > waterPosY)
             {
                 headIsOnWater = false;
             } else

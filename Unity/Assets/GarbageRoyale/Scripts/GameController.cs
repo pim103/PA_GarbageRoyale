@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -22,6 +18,8 @@ namespace GarbageRoyale.Scripts
         private GameObject cameraPrefab;
         [SerializeField]
         private GameObject characterObject;
+        [SerializeField]
+        private GameObject soundObject;
 
         private GameObject playerCamera;
         
@@ -29,7 +27,8 @@ namespace GarbageRoyale.Scripts
         //List<GameObject> characterList = new List<GameObject>();
         public Dictionary <int, GameObject> characterList = new Dictionary<int, GameObject>();
         public Dictionary <int, GameObject> lampList = new Dictionary<int, GameObject>();
- 
+        public Dictionary<int, GameObject> characterSound = new Dictionary<int, GameObject>();
+
         private GUIStyle currentStyle = null;
         private Texture2D mapTexture;
         private Texture2D playerTexture;
@@ -52,23 +51,22 @@ namespace GarbageRoyale.Scripts
 
             if (PhotonNetwork.IsMasterClient)
             {
-                characterList.Add(PhotonNetwork.LocalPlayer.ActorNumber,PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
+                characterList.Add(PhotonNetwork.LocalPlayer.ActorNumber, PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
+                characterSound.Add(PhotonNetwork.LocalPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 2.5f, 150), Quaternion.identity));
                 playerCamera.transform.SetParent(characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform);
             }
-            
-            Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber);
 
             roomLinksList = generator.dataGenerator.roomLinksList;
             isGameStart = false;
             canMove = true;
             wantToGoUp = false;
-            //characterList.Add(player);
-            //OnlinePlayerManager.RefreshInstance(ref LocalPlayer, PlayerPrefab);
         }
 
         private void FixedUpdate()
         {
             Water water;
+
+            photonView.RPC("SendSoundPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
             if (!PhotonNetwork.IsMasterClient && canMove)
             {
@@ -100,24 +98,48 @@ namespace GarbageRoyale.Scripts
 
         public override void OnJoinedRoom()
         {
-            
-        }
 
+        }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
-            if(!PhotonNetwork.IsMasterClient) return;
+            characterSound.Add(newPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 2.5f, 150), Quaternion.identity));
+
+            if (!PhotonNetwork.IsMasterClient) return;
+
             characterList.Add(newPlayer.ActorNumber,PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
-            
+            photonView.RPC("initOwnSound", newPlayer, newPlayer.ActorNumber);
+
+            //Instancie Chaque objet son
+            foreach (KeyValuePair<int, GameObject> eachPlayer in characterSound)
+            {
+                if(eachPlayer.Key != newPlayer.ActorNumber)
+                {
+                    photonView.RPC("InstantiateOtherSound", newPlayer, eachPlayer.Key, eachPlayer.Value.transform.position.x, eachPlayer.Value.transform.position.y, eachPlayer.Value.transform.position.z);
+                }
+            }
         }
-        
 
         [PunRPC]
-        private void MovePlayer(float axeX, float axeZ, bool wantToGoUp,PhotonMessageInfo info)
+        private void initOwnSound(int idPlayer)
+        {
+            characterSound.Add(idPlayer, Instantiate(soundObject, new Vector3(150, 2.5f, 150), Quaternion.identity));
+        }
+
+        [PunRPC]
+        private void InstantiateOtherSound(int idPlayer, float x, float y, float z)
+        {
+            Debug.Log("Other id" + idPlayer);
+            characterSound.Add(idPlayer, Instantiate(soundObject, new Vector3(x, y, z), Quaternion.identity));
+        }
+
+        [PunRPC]
+        private void MovePlayer(float axeX, float axeZ, bool wantToGoUp, PhotonMessageInfo info)
         {
             PlayerMovement target;
             PlayerStats targetStats;
-            if(!PhotonNetwork.IsMasterClient) return;
+            
+            if (!PhotonNetwork.IsMasterClient) return;
 
             target = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();
             targetStats = characterList[info.Sender.ActorNumber].GetComponent<PlayerStats>();
@@ -128,15 +150,18 @@ namespace GarbageRoyale.Scripts
                 target.Movement(axeX, axeZ, wantToGoUp);
             }
         }
-        
+
+        [PunRPC]
+        private void SendSoundPosition(float axeX, float axeY, PhotonMessageInfo info)
+        {
+            if (!PhotonNetwork.IsMasterClient) return;
+            photonView.RPC("MovePlayerSound", RpcTarget.AllBuffered, info.Sender.ActorNumber, characterList[info.Sender.ActorNumber].transform.position.x, characterList[info.Sender.ActorNumber].transform.position.y, characterList[info.Sender.ActorNumber].transform.position.z);
+        }
+
         [PunRPC]
         private void SendCameraPosition(float axeX, float axeY,PhotonMessageInfo info)
         {
-            PlayerMovement target;
-            if(!PhotonNetwork.IsMasterClient) return;
-            
-            
-            //Debug.Log("Player "+ info.Sender.ActorNumber+" asked to move the camera! X: " + axeX + " Z : " + axeY);
+            if (!PhotonNetwork.IsMasterClient) return;
             characterList[info.Sender.ActorNumber].transform.Rotate(0, axeX * 10.0f, 0);
             photonView.RPC("RotatePlayerCamera", info.Sender, characterList[info.Sender.ActorNumber].transform.position.x, characterList[info.Sender.ActorNumber].transform.position.y, characterList[info.Sender.ActorNumber].transform.position.z, axeX, axeY);
 
@@ -182,7 +207,17 @@ namespace GarbageRoyale.Scripts
             
             playerCamera.transform.position = new Vector3(posX,posY+0.2f,posZ);
         }
-        
+
+        [PunRPC]
+        private void MovePlayerSound(int id, float posX, float posY, float posZ)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                Debug.Log("Bouge le son pour : " + id);
+            }
+            characterSound[id].transform.position = new Vector3(posX, 2.5f, posZ);
+        }
+
         private void OnGUI()
         {
             if (PhotonNetwork.IsMasterClient)
@@ -191,6 +226,7 @@ namespace GarbageRoyale.Scripts
                 currentPosY = characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform.position.y;
                 currentPosZ = characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform.position.z;
             }
+
             int k = 0;
             int l = 0;
             
