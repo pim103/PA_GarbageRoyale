@@ -138,6 +138,9 @@ MonoBehaviour:
     type: 3}
   itemMaterial: {fileID: 2100000, guid: ca313eee97ec25144bef182572923931, type: 2}
   _spawnerItems: {fileID: 2186616375220900141}
+  itemType: 1
+  itemGob: {fileID: 0}
+  itemSelf: {fileID: 0}
 --- !u!1 &4449432576064577553
 GameObject:
   m_ObjectHideFlags: 0

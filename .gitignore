@@ -53,3 +53,5 @@ crashlytics-build.properties
 *.meta
 Unity/.idea/.idea.Unity/.idea/misc.xml
 Unity/.idea/.idea.Unity/.idea/encodings.xml
+*.xml
+
