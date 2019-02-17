@@ -7,29 +7,35 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace GarbageRoyale.Scripts
 {
     public class ItemSpawner : MonoBehaviour
     {
+        private GameObject itemGob;
+        private Item itemSelf;
+        
         [SerializeField] 
         private GameObject itemPrefab;
-        
         [SerializeField]
         private Material itemMaterial;
         [SerializeField] 
         private GameObject _spawnerItems;
+        [SerializeField] 
+        private int itemType;
         
-        private GameObject itemGob;
-        private Item itemSelf;
+        
            
         
         // Start is called before the first frame update
         void Start()
         {
+            itemType = Random.Range(1, 4);
             itemGob = Instantiate(itemPrefab, new Vector3(_spawnerItems.transform.position.x, _spawnerItems.transform.position.y + 0.7f, _spawnerItems.transform.position.z), Quaternion.identity);
-            
-            itemSelf = itemGob.GetComponent<Item>().initItem(itemGob.GetComponent<Item>().getType());
+            itemGob.AddComponent<Item>();
+            itemSelf = itemGob.GetComponent<Item>();
+            itemSelf.initItem(itemType);
             switch (itemSelf.getType())
             {
                 case 1:                    
@@ -46,7 +52,7 @@ namespace GarbageRoyale.Scripts
                     break; 
             }
 
-            Debug.Log(itemSelf.getName());
+            //Debug.Log(string.Format("Test : {0} {1} {2} {3}", itemSelf.getName(), itemSelf.getDamage(), itemSelf.getType(), itemGob.name));
             /*itemSelf = itemSelf.initItem(itemPrefab.GetComponent<Item>().getType());
             Debug.Log(itemSelf.getName());*/
         }

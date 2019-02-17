@@ -4,41 +4,63 @@ namespace GarbageRoyale.Scripts
 {
     public class Item : MonoBehaviour
     {
+        private int id;
         private string name;
         private float damage;
-        [SerializeField] 
-        private int type; // Weapon, Utils, Trap
+        public int type; // Weapon, Utils, Trap
         
-        void Start()
+        public Item()
         {
-            initItem(type);
+            id = -1;
+            name = "Null";
+            damage = 0f;
+            type = 0;
         }
 
-        public Item(string name, float damage, int type)
+        public void initItem(int type)
         {
-            this.name = name;
-            this.damage = damage;
-            this.type = type;
-        }
-
-        public Item initItem(int type)
-        {
+            setType(type);
             switch (type)
             {
                 case 1:
                     //Debug.Log("Init Wooden Staff");
-                    return new Item("Wooden Staff", 15f, type);
+                    setId(1);
+                    setName("Wooden Staff");
+                    setDamage(15f);
+                    break;
                 case 2:
                     //Debug.Log("Init Steel Staff");
-                    return new Item("Steel Staff", 20f, type);
+                    setId(2);
+                    setName("Steel Staff");
+                    setDamage(20f);
+                    break;
                 case 3:
                     //Debug.Log("Init Steel Staff");
-                    return new Item("Extinct Torch", 7f, type);
+                    setId(3);
+                    setName("Extinct Torch");
+                    setDamage(7f);
+                    break;
                 case 4:
                     //Debug.Log("Init Steel Staff");
-                    return new Item("Lit Torch", 7f, type);
+                    setId(4);
+                    setName("Lit Torch");
+                    setDamage(7f);
+                    break;
+                default:
+                    setId(0);
+                    setName("Void");
+                    setDamage(0f);
+                    break;
             }
-            return new Item("Void", 0f, type);
+        }
+        
+        public int getId()
+        {
+            return this.id;
+        }
+        public void setId(int id)
+        {
+            this.id = id;
         }
         
         public string getName()
