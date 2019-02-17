@@ -20,14 +20,6 @@ GameObject:
   - component: {fileID: 542}
   - component: {fileID: 541}
   - component: {fileID: 501}
-  - component: {fileID: 534}
-  - component: {fileID: 535}
-  - component: {fileID: 537}
-  - component: {fileID: 536}
-  - component: {fileID: 497}
-  - component: {fileID: 532}
-  - component: {fileID: 8085905207758480052}
-  - component: {fileID: 494}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -206,19 +198,9 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-<<<<<<< HEAD
   - {fileID: 541}
-=======
-<<<<<<< HEAD
-  - {fileID: 536}
->>>>>>> dev_local
   viewIdField: 5
   InstantiationId: 5
-=======
-  - {fileID: 532}
-  viewIdField: 2
-  InstantiationId: 2
->>>>>>> [+] Item & Inventory Classes
   isRuntimeInstantiated: 0
 --- !u!114 &541
 MonoBehaviour:
@@ -235,28 +217,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-<<<<<<< HEAD
 --- !u!54 &501
-=======
-<<<<<<< HEAD
---- !u!54 &497
-=======
---- !u!114 &8085905207758480052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 96}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78c49d2a1d085b74ab196d2c77ff90b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 96}
---- !u!54 &494
->>>>>>> [+] Item & Inventory Classes
->>>>>>> dev_local
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -363,13 +324,8 @@ MonoBehaviour:
   Synchronization: 0
   OwnershipTransfer: 0
   ObservedComponents: []
-<<<<<<< HEAD
   viewIdField: 4
   InstantiationId: 4
-=======
-  viewIdField: 3
-  InstantiationId: 3
->>>>>>> [+] Item & Inventory Classes
   isRuntimeInstantiated: 0
 --- !u!1 &100
 GameObject:

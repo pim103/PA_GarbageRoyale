@@ -104,10 +104,6 @@ namespace GarbageRoyale.Scripts
                             k == 0)
                         {
                             rooms[i, j] = 3;
-                            if (i == (rMax / 2) && j == cMax / 2)
-                            {
-                                rooms[i, j] = 8;
-                            }
                         }
                         else if (k>0 && floorRooms[k-1][i+4, j+4] == 0 && maze[k-1][i+4, j+4] == 0)
                         {
@@ -115,8 +111,8 @@ namespace GarbageRoyale.Scripts
                             
                         } else if (maze[k][i, j] == 0 && rooms[i,j] != 3)
                         {
-                            //rooms[i, j] = Random.Range(3, 8);
-                            rooms[i, j] = 3;
+                            rooms[i, j] = Random.Range(3, 8);
+                            //rooms[i, j] = 3;
                         }
                     }
                 }
