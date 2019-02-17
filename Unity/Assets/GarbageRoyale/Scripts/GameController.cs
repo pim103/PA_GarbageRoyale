@@ -48,17 +48,19 @@ namespace GarbageRoyale.Scripts
             generator = GetComponent<MazeConstructor>();      // 2
             generator.GenerateNewMaze(81, 81);
             playerCamera = Instantiate(cameraPrefab, new Vector3(150, 0.9f, 150), Quaternion.identity);
+            canMove = false;
 
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient)   
             {
                 characterList.Add(PhotonNetwork.LocalPlayer.ActorNumber, PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
+                characterList[PhotonNetwork.LocalPlayer.ActorNumber].GetComponent<PlayerStats>().setId(PhotonNetwork.LocalPlayer.ActorNumber);
                 characterSound.Add(PhotonNetwork.LocalPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.7f, 150), Quaternion.identity));
                 playerCamera.transform.SetParent(characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform);
+                canMove = true;
             }
 
             roomLinksList = generator.dataGenerator.roomLinksList;
             isGameStart = false;
-            canMove = true;
             wantToGoUp = false;
         }
 
@@ -66,7 +68,10 @@ namespace GarbageRoyale.Scripts
         {
             Water water;
 
-            photonView.RPC("SendSoundPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+            if(canMove)
+            {
+                photonView.RPC("SendSoundPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+            }
 
             if (!PhotonNetwork.IsMasterClient && canMove)
             {
@@ -108,6 +113,7 @@ namespace GarbageRoyale.Scripts
             if (!PhotonNetwork.IsMasterClient) return;
 
             characterList.Add(newPlayer.ActorNumber,PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
+            characterList[newPlayer.ActorNumber].GetComponent<PlayerStats>().setId(newPlayer.ActorNumber);
             photonView.RPC("initOwnSound", newPlayer, newPlayer.ActorNumber);
 
             //Instancie Chaque objet son
@@ -118,6 +124,14 @@ namespace GarbageRoyale.Scripts
                     photonView.RPC("InstantiateOtherSound", newPlayer, eachPlayer.Key, eachPlayer.Value.transform.position.x, eachPlayer.Value.transform.position.y, eachPlayer.Value.transform.position.z);
                 }
             }
+
+            photonView.RPC("setCanMove", newPlayer, null);
+        }
+
+        [PunRPC]
+        public void setCanMove()
+        {
+            canMove = true;
         }
 
         [PunRPC]
@@ -129,7 +143,6 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         private void InstantiateOtherSound(int idPlayer, float x, float y, float z)
         {
-            Debug.Log("Other id" + idPlayer);
             characterSound.Add(idPlayer, Instantiate(soundObject, new Vector3(x, y, z), Quaternion.identity));
         }
 
@@ -145,7 +158,6 @@ namespace GarbageRoyale.Scripts
             targetStats = characterList[info.Sender.ActorNumber].GetComponent<PlayerStats>();
             if (!targetStats.getIsDead())
             {
-                //Debug.Log("Player "+ info.Sender.ActorNumber+" asked to move! X: " + axeX + " Z : " + axeZ);
                 target = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();
                 target.Movement(axeX, axeZ, wantToGoUp);
             }
@@ -164,23 +176,11 @@ namespace GarbageRoyale.Scripts
             if (!PhotonNetwork.IsMasterClient) return;
             characterList[info.Sender.ActorNumber].transform.Rotate(0, axeX * 10.0f, 0);
             photonView.RPC("RotatePlayerCamera", info.Sender, characterList[info.Sender.ActorNumber].transform.position.x, characterList[info.Sender.ActorNumber].transform.position.y, characterList[info.Sender.ActorNumber].transform.position.z, axeX, axeY);
-
-            //playerCamera.transform.Rotate(0, axeX * 10.0f, 0);
-            
-            /*float rotationX = 0;
-            rotationX -= axeY * 10.0f;
-            rotationX =
-                Mathf.Clamp(rotationX, -90.0f,
-                    90.0f);
-
-            /characterList[info.Sender.ActorNumber].transform.GetChild(1).localEulerAngles = new Vector3(rotationX, 0, 0);*/
-            
         }
         
         [PunRPC]
         private void TurnLightOff(PhotonMessageInfo info)
         {
-            Debug.Log("ui");
             Light playerLight = characterList[info.Sender.ActorNumber].transform.GetChild(1).GetComponent<Light>();
             if (playerLight.enabled) playerLight.enabled = false;
             else playerLight.enabled = true;
@@ -211,10 +211,6 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         private void MovePlayerSound(int id, float posX, float posY, float posZ)
         {
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                Debug.Log("Bouge le son pour : " + id);
-            }
             characterSound[id].transform.position = new Vector3(posX, 2.5f, posZ);
         }
 

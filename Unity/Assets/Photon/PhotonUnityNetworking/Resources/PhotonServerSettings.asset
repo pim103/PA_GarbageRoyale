@@ -56,4 +56,6 @@ MonoBehaviour:
   - initOwnSound
   - TurnLightOff
   - playAmbientSound
+  - setCanMove
+  - findPlayer
   DisableAutoOpenWizard: 1
