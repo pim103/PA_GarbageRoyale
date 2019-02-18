@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 6119040042743385765}
   - component: {fileID: 6119040042743385766}
   - component: {fileID: 6119040042743385767}
-  - component: {fileID: 3457627046513328787}
+  - component: {fileID: 8974829604808220625}
   m_Layer: 5
   m_Name: CanvasSubMenu
   m_TagString: Untagged
@@ -574,7 +574,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3457627046513328787
+--- !u!114 &8974829604808220625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -583,7 +583,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6119040042743385768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86ef3c6f06c51cf4abc6dcb4c4089903, type: 3}
+  m_Script: {fileID: 11500000, guid: b6576052a946b4a4a961630a67e7ae4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   choosePlayers: {fileID: 6119040042716788133}
@@ -1041,7 +1041,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: fe9bfccfb8667c74797220c354a9fef6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 75c7daef67833a6408589da8f00c3219, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

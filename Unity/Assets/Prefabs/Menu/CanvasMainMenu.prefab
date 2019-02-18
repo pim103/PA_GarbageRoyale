@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 1705103857351129191}
   - component: {fileID: 1705103857351129190}
   - component: {fileID: 1705103857351129189}
-  - component: {fileID: 2407423992016628869}
+  - component: {fileID: 1767946147255497675}
   m_Layer: 5
   m_Name: CanvasMainMenu
   m_TagString: Untagged
@@ -418,7 +418,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2407423992016628869
+--- !u!114 &1767946147255497675
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -427,13 +427,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1705103857351129188}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2adc47d681a7134292c02bc83cd3b87, type: 3}
+  m_Script: {fileID: 11500000, guid: 65b72867c9c4e6b47bf0a405ad60f486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   createRoomButton: {fileID: 1705103857047736212}
   joinRoomButton: {fileID: 1705103858221176816}
   exitRoomButton: {fileID: 1705103857277370934}
-  welcomeMessageText: {fileID: 0}
 --- !u!1 &1705103857971481865
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,7 +776,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: fe9bfccfb8667c74797220c354a9fef6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 75c7daef67833a6408589da8f00c3219, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
