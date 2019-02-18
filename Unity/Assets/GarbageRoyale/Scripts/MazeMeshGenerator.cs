@@ -50,7 +50,7 @@ namespace GarbageRoyale.Scripts
                         } 
 
                         // ceiling
-                        if (rooms[i, j] != 0)
+                        if (rooms[i, j] != 0 && rooms[i, j] != 3)
                         {
                             AddQuad(Matrix4x4.TRS(
                                 new Vector3(j * width + ypos , height + ypos, i * width + ypos ),

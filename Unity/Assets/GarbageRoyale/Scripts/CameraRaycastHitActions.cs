@@ -9,6 +9,8 @@ namespace GarbageRoyale.Scripts
     {
         public RaycastHit hitInfo;
         public bool Send = false;
+        public string trapDoorToOpen = "999;999";
+        public int TrapFloor = 0;
         private Dictionary<string, string>[] roomLinksList;
         
         // Start is called before the first frame update
@@ -19,29 +21,60 @@ namespace GarbageRoyale.Scripts
         }
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
             if (Send)
             {
-                roomLinksList = GameObject.Find("Controller").GetComponent<GameController>().roomLinksList;
-                Debug.Log(hitInfo.transform.name + " ");
-                if (hitInfo.transform.GetComponent<Item>())
+                if (PhotonNetwork.IsMasterClient)
                 {
-                    GameObject script = hitInfo.transform.gameObject;
-                    Item itemData = script.GetComponent<Item>();
-                    Inventory inventoryData = script.GetComponent<Inventory>();
-                    
-                    Debug.Log(string.Format("Item : \n ID : {0} - Name: {1} - Damage : {2} - Type : {3}", itemData.getId(), itemData.getName(), itemData.getDamage(), itemData.getType()));
-                    inventoryData.setItemInventory(itemData.getId());
-                    Debug.Log(string.Format("Inventory : \n ID : {0} {1} {2} {3} {4} ", inventoryData.getItemInventory()[0], inventoryData.getItemInventory()[1], inventoryData.getItemInventory()[2], inventoryData.getItemInventory()[3], inventoryData.getItemInventory()[4]));
+                    CheckTrapButton((int)hitInfo.transform.position.x,(int)hitInfo.transform.position.z, (int)hitInfo.transform.position.y);
                 }
-                foreach (var link in roomLinksList[0])
+                else
                 {
-                    //Debug.Log(link.Key+ " " + link.Value);
-                    
+                    photonView.RPC("AskTrapDoorOpening", RpcTarget.MasterClient, (int)hitInfo.transform.position.x,(int)hitInfo.transform.position.z, (int)hitInfo.transform.position.y);
                 }
-                Send = !Send;
+                
             }
+        }
+
+        private bool CheckTrapButton(int hitPosX, int hitPosZ, int hitPosY)
+        {
+            roomLinksList = GameObject.Find("Controller").GetComponent<GameController>().roomLinksList;
+            //Debug.Log(hitPosX+((hitPosY/18)*16));
+            foreach (var link in roomLinksList[hitPosY/18])
+            {
+                
+                //Debug.Log(link.Key+ " " + link.Value);
+                string[] buttonpos = link.Value.Split(';');
+                int buttonZ = System.Convert.ToInt32(buttonpos[0]);
+                int buttonX = System.Convert.ToInt32(buttonpos[1]);
+                //Debug.Log((int)hitInfo.transform.position.x+ " " +buttonX*4);
+                //Debug.Log(buttonX*4 + "=" + (hitPosX+((hitPosY/18)*16)));
+                if(hitPosX == buttonX*4+((hitPosY/18)*16) && hitPosZ == buttonZ*4+((hitPosY/18)*16))
+                {
+                    
+                    //Debug.Log("yay" + link.Key);
+                    trapDoorToOpen = link.Key;
+                    TrapFloor = hitPosY/18;
+                    photonView.RPC("OpenTrapDoors", RpcTarget.Others, trapDoorToOpen);
+                    return true;
+                }
+
+            }
+            return false;
+            
+        }
+
+        [PunRPC]
+        public void AskTrapDoorOpening(int hitPosX, int hitPosZ, int hitPosY)
+        {
+            CheckTrapButton(hitPosX, hitPosZ, hitPosY);
+        }
+
+        [PunRPC]
+        public void OpenTrapDoors(string toOpen)
+        {
+            trapDoorToOpen = toOpen;
         }
     }
 }
