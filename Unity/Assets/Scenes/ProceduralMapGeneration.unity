@@ -250,6 +250,8 @@ MonoBehaviour:
   characterObject: {fileID: 3846190481519509443, guid: 6bfa6ebee8251ca47a8a37ef8586c70e,
     type: 3}
   soundObject: {fileID: 98, guid: 7f38b25077dc64241933283385be2ae5, type: 3}
+  startDoorPrefab: {fileID: 7011827542237336709, guid: 4e2099a8e7960a54592398c1df2e18ea,
+    type: 3}
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0

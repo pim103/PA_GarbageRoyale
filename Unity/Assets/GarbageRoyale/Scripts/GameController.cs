@@ -2,6 +2,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using System.Collections;
 
 namespace GarbageRoyale.Scripts
 {
@@ -20,8 +21,12 @@ namespace GarbageRoyale.Scripts
         private GameObject characterObject;
         [SerializeField]
         private GameObject soundObject;
+        [SerializeField]
+        private GameObject startDoorPrefab;
 
         private GameObject playerCamera;
+
+        private GameObject startDoor;
         
         private bool canMove = false;
         //List<GameObject> characterList = new List<GameObject>();
@@ -38,8 +43,12 @@ namespace GarbageRoyale.Scripts
         private bool wantToGoUp;
 
         private bool isGameStart;
+        private float timeLeft = 120;
+        private float waterStartTimeLeft = 300;
 
         public Dictionary<string, string>[] roomLinksList;
+
+        private int playerConnected;
 
         void Start()
         {
@@ -49,9 +58,10 @@ namespace GarbageRoyale.Scripts
             generator.GenerateNewMaze(81, 81);
             playerCamera = Instantiate(cameraPrefab, new Vector3(150, 0.9f, 150), Quaternion.identity);
             canMove = false;
-
+            
             if (PhotonNetwork.IsMasterClient)   
             {
+                startDoor = PhotonNetwork.Instantiate(startDoorPrefab.name, new Vector3(142, 0.7f, 160), Quaternion.identity);
                 characterList.Add(PhotonNetwork.LocalPlayer.ActorNumber, PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
                 characterList[PhotonNetwork.LocalPlayer.ActorNumber].GetComponent<PlayerStats>().setId(PhotonNetwork.LocalPlayer.ActorNumber);
                 characterSound.Add(PhotonNetwork.LocalPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.7f, 150), Quaternion.identity));
@@ -59,6 +69,7 @@ namespace GarbageRoyale.Scripts
                 canMove = true;
             }
 
+            playerConnected = 1;
             roomLinksList = generator.dataGenerator.roomLinksList;
             isGameStart = false;
             wantToGoUp = false;
@@ -88,13 +99,19 @@ namespace GarbageRoyale.Scripts
                 photonView.RPC("SendCameraPosition", RpcTarget.MasterClient,Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             } else
             {
-                if (Input.GetKeyDown(KeyCode.G) && !isGameStart)
+                if(playerConnected == StaticSwitchScene.gameSceneNbPlayers && timeLeft > 0)
                 {
-                    water = GetComponent<Water>();
+                    timeLeft -= Time.deltaTime;
+                } else if(timeLeft <= 0)
+                {
+                    Destroy(startDoor);
                     isGameStart = true;
-                    water.setStartWater(isGameStart);
+                } else if(isGameStart && waterStartTimeLeft > 0)
+                {
+                    waterStartTimeLeft -= Time.deltaTime;
                 }
             }
+
             if (Input.GetKeyUp(KeyCode.L))
             {
                 photonView.RPC("TurnLightOff", RpcTarget.MasterClient);
@@ -111,6 +128,8 @@ namespace GarbageRoyale.Scripts
             characterSound.Add(newPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.7f, 150), Quaternion.identity));
 
             if (!PhotonNetwork.IsMasterClient) return;
+
+            playerConnected += 1;
 
             characterList.Add(newPlayer.ActorNumber,PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
             characterList[newPlayer.ActorNumber].GetComponent<PlayerStats>().setId(newPlayer.ActorNumber);
