@@ -58,7 +58,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            Debug.Log("No place find");
+            Debug.Log("No place found");
         }
     }
     public int getLastCounterItem()
