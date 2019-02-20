@@ -14,15 +14,26 @@
             <e p="CameraRaycastHitActions.cs" t="Include" />
             <e p="DesactivateCameraControl.cs" t="Include" />
             <e p="GameController.cs" t="Include" />
+            <e p="Inventory.cs" t="Include" />
+            <e p="InventoryController.cs" t="Include" />
+            <e p="Item.cs" t="Include" />
+            <e p="ItemSpawner.cs" t="Include" />
             <e p="MazeConstructor.cs" t="Include" />
             <e p="MazeDataGenerator.cs" t="Include" />
             <e p="MazeMeshGenerator.cs" t="Include" />
+            <e p="Menu" t="Include">
+              <e p="MainMenu.cs" t="Include" />
+              <e p="StartGame.cs" t="Include" />
+              <e p="SubMenu.cs" t="Include" />
+            </e>
             <e p="MinimapDrawer.cs" t="Include" />
             <e p="OnlinePlayerManager.cs" t="Include" />
-            <e p="PhotonHelloWorldScripts.cs" t="Include" />
+            <e p="PlayerAttack.cs" t="Include" />
             <e p="PlayerDisplay.cs" t="Include" />
             <e p="PlayerMovement.cs" t="Include" />
             <e p="PlayerStats.cs" t="Include" />
+            <e p="SoundManager.cs" t="Include" />
+            <e p="StaticSwitchScene.cs" t="Include" />
             <e p="TrapDoorCheckButton.cs" t="Include" />
             <e p="Water.cs" t="Include" />
           </e>
