@@ -80,12 +80,12 @@ namespace GarbageRoyale.Scripts
 
 				if(!playerStats.getIsDead())
 				{
-					Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), mineWantToGoUp, mineWantToGoDown);
+					Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), mineWantToGoUp, mineWantToGoDown, true);
 				}
 			}
 		}
 		
-		public void Movement(float axeX, float axeZ, bool wantToGoUp, bool wantToGoDown)
+		public void Movement(float axeX, float axeZ, bool wantToGoUp, bool wantToGoDown, bool serverCall)
 		{
             if(isOnWater)
             {
@@ -127,7 +127,8 @@ namespace GarbageRoyale.Scripts
 	            if (Physics.Raycast(transform.GetChild(0).transform.position, Vector3.down, 0.2f))
 	            {
 		            //this.GetComponent<Rigidbody>().velocity = Vector3.up * 10.0f;
-		            movement.y += 25.3f;
+		            if (serverCall) movement.y += 20.3f;
+		            else movement.y += 40f;
 	            }
             }
 			movement.y += gravity;
