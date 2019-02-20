@@ -65,7 +65,6 @@ namespace GarbageRoyale.Scripts
             else
             {
                 PhotonNetwork.JoinRandomRoom();
-                
             }
             
         }

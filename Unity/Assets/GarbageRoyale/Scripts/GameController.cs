@@ -44,8 +44,9 @@ namespace GarbageRoyale.Scripts
         private bool wantToGoUp;
 
         private bool isGameStart;
-        private float timeLeft = 120;
-        private float waterStartTimeLeft = 300;
+        private float timeLeft = 20;
+        private float waterStartTimeLeft = 60;
+        private bool waterStart;
 
         public Dictionary<string, string>[] roomLinksList;
 
@@ -70,7 +71,10 @@ namespace GarbageRoyale.Scripts
             
             if (PhotonNetwork.IsMasterClient)   
             {
-                startDoor = PhotonNetwork.Instantiate(startDoorPrefab.name, new Vector3(142, 0.7f, 160), Quaternion.identity);
+                if (!PhotonNetwork.OfflineMode)
+                {
+                    startDoor = PhotonNetwork.Instantiate(startDoorPrefab.name, new Vector3(142, 0.7f, 160), Quaternion.identity);
+                }
                 characterList.Add(PhotonNetwork.LocalPlayer.ActorNumber, PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
                 characterList[PhotonNetwork.LocalPlayer.ActorNumber].GetComponent<PlayerStats>().setId(PhotonNetwork.LocalPlayer.ActorNumber);
                 characterSound.Add(PhotonNetwork.LocalPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.7f, 150), Quaternion.identity));
@@ -82,13 +86,12 @@ namespace GarbageRoyale.Scripts
             roomLinksList = generator.dataGenerator.roomLinksList;
             isGameStart = false;
             wantToGoUp = false;
+            waterStart = false;
         }
 
         private void FixedUpdate()
         {
-            Water water;
-
-            if(canMove)
+            if (canMove)
             {
                 photonView.RPC("SendSoundPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             }
@@ -103,7 +106,7 @@ namespace GarbageRoyale.Scripts
                 {
                     wantToGoUp = false;
                 }
-
+                
                 photonView.RPC("MovePlayer", RpcTarget.MasterClient,Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), wantToGoUp);
                 photonView.RPC("SendCameraPosition", RpcTarget.MasterClient,Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             } else
@@ -111,13 +114,26 @@ namespace GarbageRoyale.Scripts
                 if(playerConnected == StaticSwitchScene.gameSceneNbPlayers && timeLeft > 0)
                 {
                     timeLeft -= Time.deltaTime;
-                } else if(timeLeft <= 0)
+                } else if(timeLeft <= 0 && !isGameStart)
                 {
-                    Destroy(startDoor);
+                    PhotonNetwork.Destroy(startDoor);
                     isGameStart = true;
                 } else if(isGameStart && waterStartTimeLeft > 0)
                 {
                     waterStartTimeLeft -= Time.deltaTime;
+                    
+                } else if(waterStartTimeLeft <= 0 && !waterStart)
+                {
+                    Water water = GetComponent<Water>();
+                    waterStart = true;
+                    water.setStartWater(true);
+                }
+
+                if(Input.GetKeyDown(KeyCode.U))
+                {
+                    Water water = GetComponent<Water>();
+                    waterStart = true;
+                    water.setStartWater(true);
                 }
             }
 
@@ -139,7 +155,7 @@ namespace GarbageRoyale.Scripts
             if (!PhotonNetwork.IsMasterClient) return;
 
             playerConnected += 1;
-
+            
             characterList.Add(newPlayer.ActorNumber,PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
             characterList[newPlayer.ActorNumber].GetComponent<PlayerStats>().setId(newPlayer.ActorNumber);
             photonView.RPC("initOwnSound", newPlayer, newPlayer.ActorNumber);
@@ -152,7 +168,7 @@ namespace GarbageRoyale.Scripts
                     photonView.RPC("InstantiateOtherSound", newPlayer, eachPlayer.Key, eachPlayer.Value.transform.position.x, eachPlayer.Value.transform.position.y, eachPlayer.Value.transform.position.z);
                 }
             }
-
+            
             photonView.RPC("setCanMove", newPlayer, null);
         }
 
@@ -160,6 +176,11 @@ namespace GarbageRoyale.Scripts
         public void setCanMove()
         {
             canMove = true;
+        }
+
+        public bool getCanMove()
+        {
+            return canMove;
         }
 
         [PunRPC]
@@ -239,7 +260,10 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         private void MovePlayerSound(int id, float posX, float posY, float posZ)
         {
-            characterSound[id].transform.position = new Vector3(posX, 2.5f, posZ);
+            if(canMove)
+            {
+                characterSound[id].transform.position = new Vector3(posX, 2.5f, posZ);
+            }
         }
 
         private void OnGUI()
@@ -274,7 +298,6 @@ namespace GarbageRoyale.Scripts
                 {
                     if (i > 0 && j > 0  && i < 81 - 8 * currentFloor && j < 81 - 8 * currentFloor)
                     {
-                        
                         if (generator.floors[currentFloor][j, i] != 1)
                         {
                             if ((i != (int) ((currentPosX + 1) / 4) - 4 * currentFloor ||
@@ -289,13 +312,12 @@ namespace GarbageRoyale.Scripts
                             {
                                 exploredRooms[currentFloor][j, i] = 1;
                                 GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), playerTexture);
+
                             }
                         }
                     }
-
                     l++;
                 }
-
                 k++;
             }
         }

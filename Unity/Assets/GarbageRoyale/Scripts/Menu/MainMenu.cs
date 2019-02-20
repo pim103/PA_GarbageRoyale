@@ -8,6 +8,8 @@ namespace GarbageRoyale.Scripts.Menu
 {
     public class MainMenu : MonoBehaviourPunCallbacks
     {
+        [SerializeField]
+        private Button offlineRoomButton;
         [SerializeField] 
         private Button createRoomButton;
         [SerializeField] 
@@ -24,9 +26,10 @@ namespace GarbageRoyale.Scripts.Menu
 
             createRoomButton.interactable = false;
             joinRoomButton.interactable = false;
-            exitRoomButton.interactable = false;
             PhotonNetwork.ConnectUsingSettings();
-            PhotonNetwork.UseAlternativeUdpPorts = true;
+
+            offlineRoomButton.onClick.AddListener(AskForOffline);
+            exitRoomButton.onClick.AddListener(AskForExit);
         }
 
         private void Update()
@@ -36,13 +39,14 @@ namespace GarbageRoyale.Scripts.Menu
 
         public override void OnConnectedToMaster()
         {
-            createRoomButton.interactable = true;
-            joinRoomButton.interactable = true;
-            exitRoomButton.interactable = true;
+            if(!PhotonNetwork.OfflineMode)
+            {
+                createRoomButton.interactable = true;
+                joinRoomButton.interactable = true;
 
-            createRoomButton.onClick.AddListener(AskForRoomCreation);
-            joinRoomButton.onClick.AddListener(AskForRoomJoin);
-            exitRoomButton.onClick.AddListener(AskForExit);
+                createRoomButton.onClick.AddListener(AskForRoomCreation);
+                joinRoomButton.onClick.AddListener(AskForRoomJoin);
+            }
         }
 
         public void AskForRoomCreation()
@@ -55,11 +59,19 @@ namespace GarbageRoyale.Scripts.Menu
             PhotonNetwork.LoadLevel("ProceduralMapGeneration");
         }
 
+        public void AskForOffline()
+        {
+            if(PhotonNetwork.IsConnected)
+            {
+                PhotonNetwork.Disconnect();
+            }
+            PhotonNetwork.OfflineMode = true;
+            PhotonNetwork.CreateRoom("offlineRoom");
+        }
+
         public void AskForExit()
         {
             Application.Quit();
         }
     }
 }
-
-

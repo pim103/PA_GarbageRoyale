@@ -8,6 +8,8 @@ namespace GarbageRoyale.Scripts
     public class CameraRaycast : MonoBehaviour
     {
         private CameraRaycastHitActions actionScript;
+        private PlayerAttack attackScript;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -21,12 +23,20 @@ namespace GarbageRoyale.Scripts
             {
                 var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
                 RaycastHit hitInfo;
-
-                if (Physics.Raycast(ray, out hitInfo, 2f))
+                bool touch = Physics.Raycast(ray, out hitInfo, 2f);
+                
+                if (touch)
                 {
-                    actionScript = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
-                    actionScript.hitInfo = hitInfo;
-                    actionScript.Send = true;
+                    if (hitInfo.transform.name == "Player(Clone)")
+                    {
+                        attackScript = GameObject.Find("Controller").GetComponent<PlayerAttack>();
+                        attackScript.hitPlayer(hitInfo);
+                    } else
+                    {
+                        actionScript = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
+                        actionScript.hitInfo = hitInfo;
+                        actionScript.Send = true;
+                    }
                 }
             }
         }

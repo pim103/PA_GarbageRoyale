@@ -48,7 +48,10 @@ namespace GarbageRoyale.Scripts
         // Update is called once per frame
         void FixedUpdate()
         {
-            photonView.RPC("getNeededSong", RpcTarget.MasterClient, null);
+            if (gc.getCanMove())
+            {
+                photonView.RPC("getNeededSong", RpcTarget.MasterClient, null);
+            }
         }
 
         [PunRPC]
@@ -63,26 +66,29 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         private void playWalkSound(bool playSong, int idPlayer, string soundPlayed)
         {
-            AudioSource audio = characterSound[idPlayer].GetComponent<AudioSource>();
+            if(gc.getCanMove())
+            {
+                AudioSource audio = characterSound[idPlayer].GetComponent<AudioSource>();
 
-            if (playSong && !audio.isPlaying)
-            {
-                switch (soundPlayed)
+                if (playSong && !audio.isPlaying)
                 {
-                    case "walk":
-                        audio.PlayOneShot(walkSound);
-                        break;
-                    case "walkInWater":
-                        audio.PlayOneShot(walkWaterSound);
-                        break;
-                    case "swimming":
-                        audio.PlayOneShot(swimmingSound);
-                        break;
+                    switch (soundPlayed)
+                    {
+                        case "walk":
+                            audio.PlayOneShot(walkSound);
+                            break;
+                        case "walkInWater":
+                            audio.PlayOneShot(walkWaterSound);
+                            break;
+                        case "swimming":
+                            audio.PlayOneShot(swimmingSound);
+                            break;
+                    }
                 }
-            }
-            else if (!playSong)
-            {
-                audio.Stop();
+                else if (!playSong)
+                {
+                    audio.Stop();
+                }
             }
         }
 
