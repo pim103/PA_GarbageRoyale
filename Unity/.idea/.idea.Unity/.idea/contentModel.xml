@@ -16,6 +16,7 @@
             <e p="GameController.cs" t="Include" />
             <e p="Inventory.cs" t="Include" />
             <e p="InventoryController.cs" t="Include" />
+            <e p="InventoryRaycastHitActions.cs" t="Include" />
             <e p="Item.cs" t="Include" />
             <e p="ItemSpawner.cs" t="Include" />
             <e p="MazeConstructor.cs" t="Include" />
