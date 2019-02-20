@@ -23,6 +23,9 @@ namespace GarbageRoyale.Scripts.Menu
             sub.enabled = false;
 
             launchMainMenu();
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         // Update is called once per frame

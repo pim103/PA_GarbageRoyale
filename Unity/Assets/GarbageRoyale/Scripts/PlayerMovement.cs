@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GarbageRoyale.Scripts
 {
-	public class PlayerMovement : MonoBehaviour
+	public class PlayerMovement : MonoBehaviourPunCallbacks
     {
 
 		public float speed = 6.0f;
@@ -130,11 +130,22 @@ namespace GarbageRoyale.Scripts
 		            movement.y += 20.3f;
 	            }
             }
-			movement.y += gravity;
+			//movement.y += gravity;
 			movement *= Time.deltaTime;		//Ensures the speed the player moves does not change based on frame rate
 			movement = transform.TransformDirection(movement);
 			_charCont.Move (movement);
-		}
+
+            if(_charCont.transform.position.y > (8+4) * 8 + 11)
+            {
+                photonView.RPC("returnToMenu", RpcTarget.All, null);
+            }
+        }
+
+        [PunRPC]
+        private void returnToMenu()
+        {
+            PhotonNetwork.LoadLevel("SampleScene");
+        }
 
         private void setSong(bool wantToGoUp)
         {
