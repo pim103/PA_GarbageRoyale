@@ -104,10 +104,6 @@ namespace GarbageRoyale.Scripts
                             k == 0)
                         {
                             rooms[i, j] = 8;
-                            if (i > rMax / 2 && j < cMax / 2)
-                            {
-                                rooms[i, j] = 9;
-                            }
                         }
                         else if (k>0 && (floorRooms[k-1][i+4, j+4] == 0 || floorRooms[k-1][i+4, j+4] == 3))
                         {

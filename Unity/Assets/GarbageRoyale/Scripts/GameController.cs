@@ -42,6 +42,7 @@ namespace GarbageRoyale.Scripts
         private float currentPosY;
         private float currentPosZ;
         private bool wantToGoUp;
+        private bool wantToGoDown;
 
         private bool isGameStart;
         private float timeLeft = 20;
@@ -87,6 +88,7 @@ namespace GarbageRoyale.Scripts
             isGameStart = false;
             wantToGoUp = false;
             waterStart = false;
+            wantToGoDown = false;
         }
 
         private void FixedUpdate()
@@ -106,8 +108,16 @@ namespace GarbageRoyale.Scripts
                 {
                     wantToGoUp = false;
                 }
-                
-                photonView.RPC("MovePlayer", RpcTarget.MasterClient,Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), wantToGoUp);
+                if(Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    wantToGoDown = true;
+                }
+                else if (Input.GetKeyUp(KeyCode.LeftShift))
+                {
+                    wantToGoDown = false;
+                }
+
+                photonView.RPC("MovePlayer", RpcTarget.MasterClient,Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), wantToGoUp, wantToGoDown);
                 photonView.RPC("SendCameraPosition", RpcTarget.MasterClient,Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             } else
             {
@@ -196,7 +206,7 @@ namespace GarbageRoyale.Scripts
         }
 
         [PunRPC]
-        private void MovePlayer(float axeX, float axeZ, bool wantToGoUp, PhotonMessageInfo info)
+        private void MovePlayer(float axeX, float axeZ, bool wantToGoUp, bool wantToGoDown, PhotonMessageInfo info)
         {
             PlayerMovement target;
             PlayerStats targetStats;
@@ -208,7 +218,7 @@ namespace GarbageRoyale.Scripts
             if (!targetStats.getIsDead())
             {
                 target = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();
-                target.Movement(axeX, axeZ, wantToGoUp);
+                target.Movement(axeX, axeZ, wantToGoUp, wantToGoDown);
             }
         }
 

@@ -21,7 +21,9 @@ namespace GarbageRoyale.Scripts
 		private bool mine;
 
         private bool isOnWater;
+	    private bool isInTransition;
         private bool mineWantToGoUp;
+	    private bool mineWantToGoDown;
         private bool headIsOnWater;
         private bool feetIsInWater;
 
@@ -67,15 +69,23 @@ namespace GarbageRoyale.Scripts
 				{
 					mineWantToGoUp = false;
 				}
+				else if (Input.GetKeyDown(KeyCode.LeftShift))
+				{
+					mineWantToGoDown = true;
+				}
+				else if (Input.GetKeyUp(KeyCode.LeftShift))
+				{
+					mineWantToGoDown = false;
+				}
 
 				if(!playerStats.getIsDead())
 				{
-					Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), mineWantToGoUp);
+					Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), mineWantToGoUp, mineWantToGoDown);
 				}
 			}
 		}
 		
-		public void Movement(float axeX, float axeZ, bool wantToGoUp)
+		public void Movement(float axeX, float axeZ, bool wantToGoUp, bool wantToGoDown)
 		{
             if(isOnWater)
             {
@@ -94,8 +104,17 @@ namespace GarbageRoyale.Scripts
 
             needToPlaySong = (axeX != 0 || axeZ != 0);
             setSong(wantToGoUp);
-
-            if (isOnWater && wantToGoUp)
+			if (isInTransition && wantToGoUp)
+			{
+				movement.y += 15.8f;
+			} if (isInTransition && wantToGoDown)
+			{
+				movement.y += 5f;
+			} else if (isInTransition)
+			{
+				movement.y += 9.8f;
+			}
+            else if (isOnWater && wantToGoUp)
             {
                 movement.y += 10.8f;
             } else if (isOnWater)
@@ -108,7 +127,7 @@ namespace GarbageRoyale.Scripts
 	            if (Physics.Raycast(transform.GetChild(0).transform.position, Vector3.down, 0.2f))
 	            {
 		            //this.GetComponent<Rigidbody>().velocity = Vector3.up * 10.0f;
-		            movement.y += 80.3f;
+		            movement.y += 20.3f;
 	            }
             }
 			movement.y += gravity;
@@ -136,38 +155,52 @@ namespace GarbageRoyale.Scripts
 
         public void OnTriggerEnter(Collider other)
         {
-            isOnWater = true;
+	        if(other.name == "Water") isOnWater = true;
+	        if (other.name == "Transition") isInTransition = true;
         }
 
         public void OnTriggerStay(Collider other)
         {
-            float posY = _charCont.transform.position.y;
-            float waterPosY = other.transform.position.y;
-            
-            if (posY - 0.25 > waterPosY)
-            {
-                feetIsInWater = true;
-            } else
-            {
-                feetIsInWater = false;
-            }
+	        if (other.name == "Water")
+	        {
+		        float posY = _charCont.transform.position.y;
+		        float waterPosY = other.transform.position.y;
 
-            if(posY + 0.01f > waterPosY)
-            {
-                headIsOnWater = false;
-            } else
-            {
-                headIsOnWater = true;
-            }
+		        if (posY - 0.25 > waterPosY)
+		        {
+			        feetIsInWater = true;
+		        }
+		        else
+		        {
+			        feetIsInWater = false;
+		        }
+
+		        if (posY + 0.01f > waterPosY)
+		        {
+			        headIsOnWater = false;
+		        }
+		        else
+		        {
+			        headIsOnWater = true;
+		        }
+	        }
         }
 
         public void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.transform.position.y < _charCont.transform.position.y)
-            {
-                isOnWater = false;
-                headIsOnWater = false;
-            }
+	        if (other.name == "Water")
+	        {
+		        if (other.gameObject.transform.position.y < _charCont.transform.position.y)
+		        {
+			        isOnWater = false;
+			        headIsOnWater = false;
+		        }
+	        }
+
+	        if (other.name == "Transition")
+	        {
+		        isInTransition = false;
+	        }
         }
 
         public bool PlayerisOnWater()

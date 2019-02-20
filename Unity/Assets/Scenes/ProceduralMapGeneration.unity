@@ -246,14 +246,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 1103656769}
-  player: {fileID: 97, guid: 2bae40cb09deb5a40b31102ff792a12a, type: 3}
+  player: {fileID: 93, guid: 2bae40cb09deb5a40b31102ff792a12a, type: 3}
   cameraPrefab: {fileID: 6662625427913190848, guid: d246acae78f293140bc3c7927c3b2269,
     type: 3}
   characterObject: {fileID: 3846190481519509443, guid: 6bfa6ebee8251ca47a8a37ef8586c70e,
     type: 3}
   soundObject: {fileID: 98, guid: 7f38b25077dc64241933283385be2ae5, type: 3}
-  startDoorPrefab: {fileID: 7011827542237336709, guid: f761492eda4454a43bdbd6b44f5a64bc,
-    type: 3}
+  startDoorPrefab: {fileID: 241, guid: f761492eda4454a43bdbd6b44f5a64bc, type: 3}
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0
@@ -389,7 +388,7 @@ PrefabInstance:
     - target: {fileID: 8878313210229368649, guid: 3691311aefd7c874a9b2b885d075c7d5,
         type: 3}
       propertyPath: m_Name
-      value: Cube
+      value: Water
       objectReference: {fileID: 0}
     - target: {fileID: 8949559102902261448, guid: 3691311aefd7c874a9b2b885d075c7d5,
         type: 3}
