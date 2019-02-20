@@ -127,10 +127,10 @@ namespace GarbageRoyale.Scripts
 	            if (Physics.Raycast(transform.GetChild(0).transform.position, Vector3.down, 0.2f))
 	            {
 		            //this.GetComponent<Rigidbody>().velocity = Vector3.up * 10.0f;
-		            movement.y += 20.3f;
+		            movement.y += 25.3f;
 	            }
             }
-			//movement.y += gravity;
+			movement.y += gravity;
 			movement *= Time.deltaTime;		//Ensures the speed the player moves does not change based on frame rate
 			movement = transform.TransformDirection(movement);
 			_charCont.Move (movement);
