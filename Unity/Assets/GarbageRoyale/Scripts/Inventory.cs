@@ -49,16 +49,18 @@ public class Inventory : MonoBehaviour
         return this.itemInventory;
     }
     
-    public void setItemInventory(int itemId)
+    public bool setItemInventory(int itemId)
     {
         int voidIndex = findPlaceInventory();
         if (voidIndex != -1)
         {
             this.itemInventory[voidIndex] = itemId;
+            return true;
         }
         else
         {
             Debug.Log("No place found");
+            return false;
         }
     }
     public int getLastCounterItem()

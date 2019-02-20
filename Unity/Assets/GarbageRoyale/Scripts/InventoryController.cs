@@ -13,7 +13,7 @@ public class InventoryController : MonoBehaviour
     {
         playerInventory = playerPrefab.AddComponent<Inventory>();
         playerInventory.initInventory();
-        Debug.Log(string.Format("Inventory : {0}", playerInventory.getItemInventory()[0]));
+        //Debug.Log(string.Format("Inventory : {0}", playerInventory.getItemInventory()[0]));
     }
 
     // Update is called once per frame

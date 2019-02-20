@@ -225,6 +225,7 @@ MonoBehaviour:
   - {fileID: 4449432576064577553, guid: 0689db0e62733f34381d05548c4f71cd, type: 3}
   - {fileID: 2008090796647901747, guid: 443d6fae659f6d44baaa09efd4c1a828, type: 3}
   - {fileID: 4449432576064577553, guid: a1fd8cbca2f1b784ca383feb0daf6291, type: 3}
+  - {fileID: 4449432576064577553, guid: a4ecdf22c5717d7429e4a9f29d31c4cf, type: 3}
   floorTransition: {fileID: 4449432576064577553, guid: 503958394bf416442aa3518a8fdcdf19,
     type: 3}
   mazeMat1: {fileID: 2100000, guid: 2019d743bc0984ba1b81150901d44455, type: 2}
