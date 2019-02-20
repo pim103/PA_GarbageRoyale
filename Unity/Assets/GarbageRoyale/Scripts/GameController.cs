@@ -244,17 +244,17 @@ namespace GarbageRoyale.Scripts
 
             int k = 0;
             int l = 0;
-            
-            for (int i = (int)(currentPosX/4) - 10; i < (int)(currentPosX/4) + 10 ; i++)
+            int currentFloor = (int)currentPosY / 16;
+            for (int i = (int)(currentPosX/4) - 10 -4*currentFloor; i < (int)(currentPosX/4) + 10 -4*currentFloor ; i++)
             {
                 l = 0;
-                for (int j = (int)(currentPosZ/4) - 10; j < (int)(currentPosZ/4) + 10; j++)
+                for (int j = (int)(currentPosZ/4) - 10 -4*currentFloor; j < (int)(currentPosZ/4) + 10 -4*currentFloor; j++)
                 {
-                    if (i > 0 && j > 0)
+                    if (i > 0 && j > 0 && i < 81 -4*currentFloor && i < 81 -4*currentFloor )
                     {
-                        if (generator.floors[0][j, i] != 1)
+                        if (generator.floors[currentFloor][j, i] != 1)
                         {
-                            if(i != (int)((currentPosX+1)/4) || j != (int)((currentPosZ+0.5)/4)) GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), mapTexture);
+                            if(i != (int)((currentPosX+1)/4) -4*currentFloor|| j != (int)((currentPosZ+0.5)/4) -4*currentFloor) GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), mapTexture);
                             else GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), playerTexture);
                         }
                     }
