@@ -32,7 +32,8 @@ namespace GarbageRoyale.Scripts
         //List<GameObject> characterList = new List<GameObject>();
         public Dictionary <int, GameObject> characterList = new Dictionary<int, GameObject>();
         public Dictionary <int, GameObject> lampList = new Dictionary<int, GameObject>();
-        public Dictionary<int, GameObject> characterSound = new Dictionary<int, GameObject>();
+        public Dictionary <int, GameObject> characterSound = new Dictionary<int, GameObject>();
+        private int [][,] exploredRooms = new int[8][,];
 
         private GUIStyle currentStyle = null;
         private Texture2D mapTexture;
@@ -52,6 +53,14 @@ namespace GarbageRoyale.Scripts
 
         void Start()
         {
+            for (int i = 0; i < 8; i++)
+            {
+                exploredRooms[i] = new int[81, 81];
+                for (int j = 0; j < 81; j++)
+                {
+                    exploredRooms[i][j, j] = 0;
+                }
+            }
             mapTexture = MakeTex(4, 4, new Color(1f, 1f, 1f, 0.5f));
             playerTexture = MakeTex(4, 4, new Color(0.5f, 0.5f, 0.5f, 0.5f));
             generator = GetComponent<MazeConstructor>();      // 2
@@ -241,25 +250,52 @@ namespace GarbageRoyale.Scripts
                 currentPosY = characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform.position.y;
                 currentPosZ = characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform.position.z;
             }
-
             int k = 0;
             int l = 0;
-            int currentFloor = (int)currentPosY / 16;
-            for (int i = (int)(currentPosX/4) - 10 -4*currentFloor; i < (int)(currentPosX/4) + 10 -4*currentFloor ; i++)
+            int currentFloor = (int) currentPosY / 16;
+            int imin = (int) (currentPosX / 4) - 10 - 4 * currentFloor;
+            int imax = (int) (currentPosX / 4) + 10 - 4 * currentFloor;
+            int jmin = (int) (currentPosZ / 4) - 10 - 4 * currentFloor;
+            int jmax = (int) (currentPosZ / 4) + 10 - 4 * currentFloor;
+            
+            if (Input.GetKey(","))
+            {
+                imin = 0;
+                imax = 81;
+                jmin = 0;
+                jmax = 81;
+
+            }
+            
+            for (int i = imin;i < imax;i++)
             {
                 l = 0;
-                for (int j = (int)(currentPosZ/4) - 10 -4*currentFloor; j < (int)(currentPosZ/4) + 10 -4*currentFloor; j++)
+                for (int j = jmin;j < jmax;j++)
                 {
-                    if (i > 0 && j > 0 && i < 81 -4*currentFloor && i < 81 -4*currentFloor )
+                    if (i > 0 && j > 0  && i < 81 - 8 * currentFloor && j < 81 - 8 * currentFloor)
                     {
+                        
                         if (generator.floors[currentFloor][j, i] != 1)
                         {
-                            if(i != (int)((currentPosX+1)/4) -4*currentFloor|| j != (int)((currentPosZ+0.5)/4) -4*currentFloor) GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), mapTexture);
-                            else GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), playerTexture);
+                            if ((i != (int) ((currentPosX + 1) / 4) - 4 * currentFloor ||
+                                 j != (int) ((currentPosZ + 0.5) / 4) - 4 * currentFloor))
+                            {
+                                if (exploredRooms[currentFloor][j, i] == 1 || (currentFloor == 0 && i > (81 / 2 - 5) && i < (81 / 2 + 5) && j > 81 / 2 - 5 && j < 81 / 2 + 5 ))
+                                {
+                                    GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), mapTexture);
+                                }
+                            }
+                            else
+                            {
+                                exploredRooms[currentFloor][j, i] = 1;
+                                GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), playerTexture);
+                            }
                         }
                     }
+
                     l++;
                 }
+
                 k++;
             }
         }

@@ -26,7 +26,7 @@ namespace GarbageRoyale.Scripts
             if ((trapZ * 4) +(trapFloor*16) == ((int)transform.position.z) && (trapX * 4) +(trapFloor*16) == (int)transform.position.x && trapFloor*16 == (int)transform.position.y)
             {
                 //Debug.Log("OH GOD YES" + buttonX + " " + buttonZ);
-                Debug.Log(((int)transform.position.y/16));
+                //Debug.Log(((int)transform.position.y/16));
                 transform.GetChild(1).transform.position += new Vector3(4,0,0);
                 trapDoorToOpen = "999;999";
             }

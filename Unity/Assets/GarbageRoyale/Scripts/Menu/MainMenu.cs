@@ -59,11 +59,6 @@ namespace GarbageRoyale.Scripts.Menu
         {
             Application.Quit();
         }
-
-        public override void OnJoinedRoom()
-        {
-            PhotonNetwork.LoadLevel("ProceduralMapGeneration");
-        }
     }
 }
 

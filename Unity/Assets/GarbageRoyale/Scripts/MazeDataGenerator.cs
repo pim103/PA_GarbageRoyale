@@ -113,7 +113,7 @@ namespace GarbageRoyale.Scripts
                         {
                             rooms[i, j] = 1;
                             
-                        } else if (maze[k][i, j] == 0 && rooms[i,j] != 3)
+                        } else if (maze[k][i, j] == 0 && rooms[i,j] != 3 && rooms[i,j] != 2)
                         {
                             rooms[i, j] = Random.Range(4, 10);
                             //rooms[i, j] = 3;
