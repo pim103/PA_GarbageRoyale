@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 560}
   - component: {fileID: 559}
   - component: {fileID: 515}
-  - component: {fileID: 594}
+  - component: {fileID: 565}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -233,7 +233,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &594
+--- !u!114 &565
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -340,7 +340,7 @@ MonoBehaviour:
   viewIdField: 6
   InstantiationId: 6
   isRuntimeInstantiated: 0
---- !u!1 &96
+--- !u!1 &95
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -362,7 +362,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 96}
+  m_GameObject: {fileID: 95}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -1.001, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}

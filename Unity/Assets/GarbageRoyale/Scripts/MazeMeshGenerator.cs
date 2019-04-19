@@ -37,8 +37,46 @@ namespace GarbageRoyale.Scripts
                 for (int j = 0; j <= cMax; j++)
                 {
                     if (data[i, j] != 1)
-                    {   
-                        if(rooms[i,j]!=9999) Instantiate(Prefabs[rooms[i,j]], new Vector3(j * width+ypos, ypos, i * width+ypos), Quaternion.identity);
+                    {
+                        if (rooms[i, j] != 9999 && rooms[i, j] != 10)
+                        {
+                            Instantiate(Prefabs[rooms[i,j]], new Vector3(j * width+ypos, ypos, i * width+ypos), Quaternion.identity);
+                        } else if (rooms[i, j] == 10)
+                        {
+                            int rand = Random.Range(0, 2);
+                            if (rooms[i, j-1] == 9999 && rooms[i, j+1] == 9999)
+                            {
+                                if (rand == 0)
+                                {
+                                    Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos),
+                                        Quaternion.identity);
+                                }
+                                else
+                                {
+                                    Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos),
+                                        Quaternion.Euler(new Vector3(0,180,0)));
+                                }
+                                
+                            } else if (rooms[i+1, j] == 9999 && rooms[i-1,j] == 9999)
+                            {
+                                if (rand == 0)
+                                {
+                                    Instantiate(Prefabs[rooms[i, j]],
+                                        new Vector3(j * width + ypos, ypos, i * width + ypos),
+                                        Quaternion.Euler(new Vector3(0, 90, 0)));
+                                }
+                                else
+                                {
+                                    Instantiate(Prefabs[rooms[i, j]],
+                                        new Vector3(j * width + ypos, ypos, i * width + ypos),
+                                        Quaternion.Euler(new Vector3(0, -90, 0)));
+                                }
+                            }
+                            else
+                            {
+                                Instantiate(Instantiate(Prefabs[8], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity));
+                            }
+                        }
                         // floor
                         if (rooms[i, j] != 1)
                         {
@@ -109,7 +147,7 @@ namespace GarbageRoyale.Scripts
     
             //5
             maze.RecalculateNormals();
-    
+            Instantiate(Prefabs[10], new Vector3(150, ypos, 150), Quaternion.identity);
             return maze;
         }
 
@@ -143,6 +181,6 @@ namespace GarbageRoyale.Scripts
             newTriangles.Add(index+2);
             newTriangles.Add(index);
         }
-
+        
     }
 }

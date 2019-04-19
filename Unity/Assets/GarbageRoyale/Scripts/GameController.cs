@@ -87,7 +87,7 @@ namespace GarbageRoyale.Scripts
             roomLinksList = generator.dataGenerator.roomLinksList;
             isGameStart = false;
             wantToGoUp = false;
-            waterStart = false;
+            waterStart = false;                
             wantToGoDown = false;
         }
 

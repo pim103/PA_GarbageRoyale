@@ -13,6 +13,7 @@
             <e p="CameraRaycast.cs" t="Include" />
             <e p="CameraRaycastHitActions.cs" t="Include" />
             <e p="DesactivateCameraControl.cs" t="Include" />
+            <e p="DoorController.cs" t="Include" />
             <e p="GameController.cs" t="Include" />
             <e p="Inventory.cs" t="Include" />
             <e p="InventoryController.cs" t="Include" />
@@ -29,6 +30,7 @@
             </e>
             <e p="MinimapDrawer.cs" t="Include" />
             <e p="OnlinePlayerManager.cs" t="Include" />
+            <e p="OpenDoorScript.cs" t="Include" />
             <e p="PlayerAttack.cs" t="Include" />
             <e p="PlayerDisplay.cs" t="Include" />
             <e p="PlayerMovement.cs" t="Include" />

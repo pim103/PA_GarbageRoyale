@@ -60,4 +60,6 @@ MonoBehaviour:
   - OpenTrapDoors
   - findPlayer
   - setCanMove
+  - returnToMenu
+  - OpenByOtherPlayer
   DisableAutoOpenWizard: 1

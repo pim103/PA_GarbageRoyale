@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 1103656771}
   - component: {fileID: 1103656770}
   - component: {fileID: 1103656769}
+  - component: {fileID: 1103656779}
   - component: {fileID: 1103656772}
   - component: {fileID: 1103656773}
   - component: {fileID: 1103656775}
@@ -227,6 +228,7 @@ MonoBehaviour:
   - {fileID: 2008090796647901747, guid: 443d6fae659f6d44baaa09efd4c1a828, type: 3}
   - {fileID: 4449432576064577553, guid: a1fd8cbca2f1b784ca383feb0daf6291, type: 3}
   - {fileID: 4449432576064577553, guid: a4ecdf22c5717d7429e4a9f29d31c4cf, type: 3}
+  - {fileID: 4449432576064577553, guid: e3c7774464e7fe04aad4718ab99fea29, type: 3}
   floorTransition: {fileID: 4449432576064577553, guid: 503958394bf416442aa3518a8fdcdf19,
     type: 3}
   mazeMat1: {fileID: 2100000, guid: 2019d743bc0984ba1b81150901d44455, type: 2}
@@ -252,7 +254,7 @@ MonoBehaviour:
   characterObject: {fileID: 3846190481519509443, guid: 6bfa6ebee8251ca47a8a37ef8586c70e,
     type: 3}
   soundObject: {fileID: 98, guid: 7f38b25077dc64241933283385be2ae5, type: 3}
-  startDoorPrefab: {fileID: 241, guid: f761492eda4454a43bdbd6b44f5a64bc, type: 3}
+  startDoorPrefab: {fileID: 96, guid: f761492eda4454a43bdbd6b44f5a64bc, type: 3}
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0
@@ -372,6 +374,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7373fb3636ab1db4e9ca3894e811fb79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1103656779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103656768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16152de0bbd1cd14696272cb09b2ca9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorToOpen: 999;999
+  doorX: 999
+  doorZ: 999
 --- !u!1 &1147012261 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8878313210229368649, guid: 3691311aefd7c874a9b2b885d075c7d5,
