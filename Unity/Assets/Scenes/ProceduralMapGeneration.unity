@@ -252,7 +252,7 @@ MonoBehaviour:
   characterObject: {fileID: 3846190481519509443, guid: 6bfa6ebee8251ca47a8a37ef8586c70e,
     type: 3}
   soundObject: {fileID: 98, guid: 7f38b25077dc64241933283385be2ae5, type: 3}
-  lampPrefab: {fileID: 4476720104021577002, guid: 4bd4457a18072ca468a08574623ce937,
+  lampPrefab: {fileID: 7323132637370273842, guid: 746dd933304994449a40cf40e8e9c36a,
     type: 3}
   startDoorPrefab: {fileID: 241, guid: f761492eda4454a43bdbd6b44f5a64bc, type: 3}
 --- !u!4 &1103656771

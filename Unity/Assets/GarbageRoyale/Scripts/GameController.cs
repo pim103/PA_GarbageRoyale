@@ -262,15 +262,16 @@ namespace GarbageRoyale.Scripts
             lampList[info.Sender.ActorNumber].transform.Rotate(0, axeX * 10.0f, 0);
             photonView.RPC("RotatePlayerCamera", info.Sender, characterList[info.Sender.ActorNumber].transform.position.x, characterList[info.Sender.ActorNumber].transform.position.y, characterList[info.Sender.ActorNumber].transform.position.z, axeX, axeY);
 
+            Debug.Log(angleX);
             photonView.RPC("MoveLamp", RpcTarget.AllBuffered, 
-                info.Sender.ActorNumber, 
-                characterList[info.Sender.ActorNumber].transform.position.x, 
-                characterList[info.Sender.ActorNumber].transform.position.y, 
-                characterList[info.Sender.ActorNumber].transform.position.z,
-                angleX,
-                characterList[info.Sender.ActorNumber].transform.localEulerAngles.y, 
-                0.0f
-            );
+                              info.Sender.ActorNumber, 
+                              characterList[info.Sender.ActorNumber].transform.position.x, 
+                              characterList[info.Sender.ActorNumber].transform.position.y, 
+                              characterList[info.Sender.ActorNumber].transform.position.z,
+                              angleX,
+                              characterList[info.Sender.ActorNumber].transform.localEulerAngles.y, 
+                              0.0f
+                          );
         }
         
         [PunRPC]
