@@ -56,7 +56,7 @@ namespace GarbageRoyale.Scripts
             {
                 floors = dataGenerator.FromDimensions(sizeRows, sizeCols);
                 floorsRooms = dataGenerator.RoomData(sizeRows, sizeCols, floors);
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 1; i++)
                 {
                     DisplayMaze(i * 16,floors[i], floorsRooms[i]);
                 }
@@ -219,7 +219,7 @@ namespace GarbageRoyale.Scripts
             }*/
             floors = maze;
             floorsRooms = rooms;
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 1; i++)
             {
                 DisplayMaze(i*16,maze[i], rooms[i]);
             }

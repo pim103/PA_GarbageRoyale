@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GarbageRoyale.Scripts
@@ -22,11 +23,13 @@ namespace GarbageRoyale.Scripts
 		public float _rotationX = 0;
 		
 		private GameController gameControl;
-		private bool mine;
+        public Dictionary<int, GameObject> lampList = new Dictionary<int, GameObject>();
+        private bool mine;
 
 		private void Start()
 		{
 			gameControl = GameObject.Find("Controller").GetComponent<GameController>();
+            lampList = gameControl.lampList;
 			if (axes == RotationAxis.MouseY)
 			{
 				playerCam = GetComponent<Camera> ();
@@ -39,55 +42,53 @@ namespace GarbageRoyale.Scripts
 		// Update is called once per frame
 		void Update () {
 			
-				//if (!PhotonNetwork.IsMasterClient) return;
-				float rotationY;
-				if (axes == RotationAxis.MouseX)
+			//if (!PhotonNetwork.IsMasterClient) return;
+			float rotationY;
+            if (axes == RotationAxis.MouseX)
+			{
+				mine = false;
+				foreach (var pair in gameControl.characterList)
 				{
-					mine = false;
-					foreach (var pair in gameControl.characterList)
+					if ((pair.Value.transform == this.transform) && pair.Key == PhotonNetwork.LocalPlayer.ActorNumber)
 					{
-						if ((pair.Value.transform == this.transform) && pair.Key == PhotonNetwork.LocalPlayer.ActorNumber)
-						{
-							mine = true;
-						}
-					}
-
-					if (mine || !PhotonNetwork.IsMasterClient)
-					{
-						transform.Rotate(0, Input.GetAxis("Mouse X") * sensHorizontal, 0);
-						if (PhotonNetwork.IsMasterClient)
-						{
-							_rotationX -= Input.GetAxis("Mouse Y") * sensVertical;
-							_rotationX =
-								Mathf.Clamp(_rotationX, minimumVert,
-									maximumVert); //Clamps the vertical angle within the min and max limits (45 degrees)
-
-							rotationY = transform.localEulerAngles.y;
-							transform.GetChild(1).localEulerAngles = new Vector3(_rotationX, 0, 0);
-						}
-						
+						mine = true;
 					}
 				}
-				else if (axes == RotationAxis.MouseY)
+
+				if (mine || !PhotonNetwork.IsMasterClient)
 				{
-					
+					transform.Rotate(0, Input.GetAxis("Mouse X") * sensHorizontal, 0);
+					if (PhotonNetwork.IsMasterClient)
+					{
 						_rotationX -= Input.GetAxis("Mouse Y") * sensVertical;
 						_rotationX =
 							Mathf.Clamp(_rotationX, minimumVert,
 								maximumVert); //Clamps the vertical angle within the min and max limits (45 degrees)
 
-						rotationY = transform.localEulerAngles.y;
+						transform.GetChild(1).localEulerAngles = new Vector3(_rotationX, 0, 0);
+					}
+                }
 
-						transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
-						//
-						//transform.GetChild(1).Rotate(0, _rotationX,0);
-						//transform.GetChild(1).localEulerAngles = new Vector3(transform.GetChild(1).localEulerAngles.x, 
-						//transform.GetChild(1).localEulerAngles.y + 1.0f, transform.GetChild(1).localEulerAngles.z);
-					
-				}
+
+			}/*
+			else if (axes == RotationAxis.MouseY)
+			{
+				_rotationX -= Input.GetAxis("Mouse Y") * sensVertical;
+				_rotationX =
+					Mathf.Clamp(_rotationX, minimumVert,
+						maximumVert); //Clamps the vertical angle within the min and max limits (45 degrees)
+
+				rotationY = transform.localEulerAngles.y;
+
+				transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
+				//
+				//transform.GetChild(1).Rotate(0, _rotationX,0);
+				//transform.GetChild(1).localEulerAngles = new Vector3(transform.GetChild(1).localEulerAngles.x, 
+				//transform.GetChild(1).localEulerAngles.y + 1.0f, transform.GetChild(1).localEulerAngles.z);
+			}*/
 			
 		}
-		
+
 		void OnGUI() {
 			if (axes == RotationAxis.MouseY)
 			{
