@@ -98,8 +98,14 @@ namespace GarbageRoyale.Scripts
         {
             if (canMove)
             {
+                float angleX = lampList[PhotonNetwork.LocalPlayer.ActorNumber].transform.localEulerAngles.x;
+
                 photonView.RPC("SendSoundPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-                photonView.RPC("SendCameraPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), playerCamera.transform.localEulerAngles.x);
+                if(playerCamera.transform.localEulerAngles.x > 5 || playerCamera.transform.localEulerAngles.x < -5)
+                {
+                    angleX = playerCamera.transform.localEulerAngles.x;
+                }
+                photonView.RPC("SendCameraPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), angleX);
                 //photonView.RPC("SendLampPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             }
 
@@ -208,7 +214,7 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         private void initOwnLamp(int idPlayer)
         {
-            characterSound.Add(idPlayer, Instantiate(lampPrefab, new Vector3(150, 0.9f, 150), Quaternion.identity));
+            lampList.Add(idPlayer, Instantiate(lampPrefab, new Vector3(150, 0.9f, 150), Quaternion.identity));
         }
 
         [PunRPC]
@@ -220,7 +226,7 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         private void InstantiateOtherLamp(int idPlayer, float x, float y, float z)
         {
-            characterSound.Add(idPlayer, Instantiate(lampPrefab, new Vector3(x, y, z), Quaternion.identity));
+            lampList.Add(idPlayer, Instantiate(lampPrefab, new Vector3(x, y, z), Quaternion.identity));
         }
 
         [PunRPC]
@@ -374,7 +380,7 @@ namespace GarbageRoyale.Scripts
                 jmax = 81;
 
             }
-            /*
+            
             for (int i = imin;i < imax;i++)
             {
                 l = 0;
@@ -402,7 +408,7 @@ namespace GarbageRoyale.Scripts
                     l++;
                 }
                 k++;
-            }*/
+            }
         }
         
         public Texture2D MakeTex( int width, int height, Color col )
