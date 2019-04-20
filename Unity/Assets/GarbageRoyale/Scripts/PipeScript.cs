@@ -21,7 +21,15 @@ namespace GarbageRoyale.Scripts
         {
             if (!isBroken && ray.xTrap == (int)transform.position.x && ray.yTrap == (int)transform.position.y && ray.zTrap == (int)transform.position.z)
             {
+                GameObject BrokenPipe;
                 isBroken = true;
+
+                gameObject.SetActive(false);
+
+                BrokenPipe = ObjectPooler.SharedInstance.GetPooledObject(1);
+                BrokenPipe.SetActive(true);
+                BrokenPipe.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                BrokenPipe.transform.localEulerAngles = transform.localEulerAngles;
             }
         }
     }

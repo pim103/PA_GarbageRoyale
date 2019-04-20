@@ -487,6 +487,10 @@ MonoBehaviour:
   Send: 0
   trapDoorToOpen: 999;999
   TrapFloor: 0
+  type: 0
+  xTrap: 0
+  yTrap: 0
+  zTrap: 0
 --- !u!114 &1103656778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,6 +534,10 @@ MonoBehaviour:
   - objectToPool: {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117,
       type: 3}
     amountToPool: 20
+    shouldExpand: 1
+  - objectToPool: {fileID: 7771420425518142378, guid: 7c96079aa878020479bbd2e9093f1d29,
+      type: 3}
+    amountToPool: 30
     shouldExpand: 1
   pooledObjects:
   - {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117, type: 3}

@@ -61,9 +61,9 @@ namespace GarbageRoyale.Scripts
                         actionScript.Send = true; ;
                         soundManager.playSound(SoundManager.Sound.Pipe);
                     }
-                    gtest = ObjectPooler.SharedInstance.GetPooledObject(0);
+                    /*gtest = ObjectPooler.SharedInstance.GetPooledObject(0);
                     gtest.SetActive(true);
-                    gtest.transform.position = hitInfo.transform.position;
+                    gtest.transform.position = hitInfo.transform.position;*/
                 }
 
                 if (hitInfo.transform.name == "LeftDoor" || hitInfo.transform.name == "RightDoor")

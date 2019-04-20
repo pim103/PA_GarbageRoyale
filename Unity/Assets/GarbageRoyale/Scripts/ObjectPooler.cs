@@ -99,8 +99,8 @@ namespace GarbageRoyale.Scripts
 			for (int i = 0; i < item.amountToPool; i++)
 			{
 				GameObject obj = (GameObject)Instantiate(item.objectToPool);
-				//obj.AddComponent<Item>();
-				obj.GetComponent<Item>().initItem(1);
+				// obj.AddComponent<Item>();
+				// obj.GetComponent<Item>().initItem(1);
 				obj.SetActive(false);
 				obj.transform.parent = this.transform;
 				pooledObjects.Add(obj);

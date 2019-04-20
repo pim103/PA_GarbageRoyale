@@ -45,7 +45,6 @@ namespace GarbageRoyale.Scripts
                         photonView.RPC("AskTrapDoorOpening", RpcTarget.MasterClient, (int)hitInfo.transform.position.x,(int)hitInfo.transform.position.z, (int)hitInfo.transform.position.y);
                         break;
                     case TypeHit.Pipe:
-                        Debug.Log("Ok : " + (int)hitInfo.transform.position.x + (int)hitInfo.transform.position.z + (int)hitInfo.transform.position.y);
                         photonView.RPC("AskBrokenPipe", RpcTarget.MasterClient, (int)hitInfo.transform.position.x, (int)hitInfo.transform.position.z, (int)hitInfo.transform.position.y);
                         break;
                     default:
