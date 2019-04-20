@@ -29,6 +29,7 @@
               <e p="SubMenu.cs" t="Include" />
             </e>
             <e p="MinimapDrawer.cs" t="Include" />
+            <e p="ObjectPooler.cs" t="Include" />
             <e p="OnlinePlayerManager.cs" t="Include" />
             <e p="OpenDoorScript.cs" t="Include" />
             <e p="PlayerAttack.cs" t="Include" />

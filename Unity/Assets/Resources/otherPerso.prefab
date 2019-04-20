@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdf17ecd9b3caf840bfe7c1933e7b06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  gravity: -9.8
+  speed: 10
+  gravity: -15
   walkSound: {fileID: 0}
   needToPlaySong: 0
   soundNeeded: 

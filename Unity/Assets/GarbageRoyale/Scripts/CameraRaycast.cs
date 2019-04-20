@@ -12,6 +12,8 @@ namespace GarbageRoyale.Scripts
         private SoundManager soundManager;
         private int openingDoorLoading;
         private bool currentlyLoading;
+        private GameObject gtest;
+        private Inventory playerInventory;
 
         // Start is called before the first frame update
         void Start()
@@ -54,6 +56,9 @@ namespace GarbageRoyale.Scripts
                     {
                         soundManager.playSound(SoundManager.Sound.Pipe);
                     }
+                    gtest = ObjectPooler.SharedInstance.GetPooledObject(0);
+                    gtest.SetActive(true);
+                    gtest.transform.position = hitInfo.transform.position;
                 }
 
                 if (hitInfo.transform.name == "LeftDoor" || hitInfo.transform.name == "RightDoor")

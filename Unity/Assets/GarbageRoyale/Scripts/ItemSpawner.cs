@@ -29,11 +29,13 @@ namespace GarbageRoyale.Scripts
            
         
         // Start is called before the first frame update
-        void Start()
+        public void Start()
         {
             itemType = 1; //Random.Range(1, 4);
+
+            //itemPrefab.AddComponent<PhotonView>();
             itemGob = Instantiate(itemPrefab, new Vector3(_spawnerItems.transform.position.x, _spawnerItems.transform.position.y + 0.7f, _spawnerItems.transform.position.z), Quaternion.identity);
-            itemGob.AddComponent<Item>();
+            //itemGob.AddComponent<Item>();
             itemSelf = itemGob.GetComponent<Item>();
             itemSelf.initItem(itemType);
             switch (itemSelf.getType())
@@ -51,16 +53,6 @@ namespace GarbageRoyale.Scripts
                     itemGob.GetComponent<Renderer>().material = itemMaterial;
                     break; 
             }
-
-            //Debug.Log(string.Format("Test : {0} {1} {2} {3}", itemSelf.getName(), itemSelf.getDamage(), itemSelf.getType(), itemGob.name));
-            /*itemSelf = itemSelf.initItem(itemPrefab.GetComponent<Item>().getType());
-            Debug.Log(itemSelf.getName());*/
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
     }
 }

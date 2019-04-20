@@ -316,6 +316,7 @@ GameObject:
   - component: {fileID: 1103656776}
   - component: {fileID: 1103656777}
   - component: {fileID: 1103656778}
+  - component: {fileID: 1103656780}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -513,6 +514,25 @@ MonoBehaviour:
   doorToOpen: 999;999
   doorX: 999
   doorZ: 999
+--- !u!114 &1103656780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103656768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e857c782b1cca0f408b782f77b89088f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsToPool:
+  - objectToPool: {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117,
+      type: 3}
+    amountToPool: 20
+    shouldExpand: 1
+  pooledObjects:
+  - {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117, type: 3}
 --- !u!1 &1147012261 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8878313210229368649, guid: 3691311aefd7c874a9b2b885d075c7d5,

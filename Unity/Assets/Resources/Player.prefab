@@ -199,7 +199,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 614}
-  viewIdField: 2
+  viewIdField: 0
   InstantiationId: 2
   isRuntimeInstantiated: 0
 --- !u!114 &614
@@ -337,7 +337,7 @@ MonoBehaviour:
   Synchronization: 0
   OwnershipTransfer: 0
   ObservedComponents: []
-  viewIdField: 6
+  viewIdField: 0
   InstantiationId: 6
   isRuntimeInstantiated: 0
 --- !u!1 &101
@@ -377,11 +377,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 274}
     m_Modifications:
-    - target: {fileID: 7239401515535177374, guid: 4935dc64073e160458ad73b5afa36c34,
-        type: 3}
-      propertyPath: m_Name
-      value: PlayerSpotLight
-      objectReference: {fileID: 0}
     - target: {fileID: 8271404210305470472, guid: 4935dc64073e160458ad73b5afa36c34,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -436,6 +431,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239401515535177374, guid: 4935dc64073e160458ad73b5afa36c34,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerSpotLight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4935dc64073e160458ad73b5afa36c34, type: 3}
