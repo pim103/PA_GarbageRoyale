@@ -25,9 +25,12 @@ namespace GarbageRoyale.Scripts
 
         [SerializeField]
         private AudioClip pipeSound;
+        [SerializeField]
+        private AudioClip buttonSound;
 
         private GameController gc;
         private Dictionary<int, GameObject> characterList = new Dictionary<int, GameObject>();
+        private Dictionary<int, GameObject> characterSoundWalk = new Dictionary<int, GameObject>();
         private Dictionary<int, GameObject> characterSound = new Dictionary<int, GameObject>();
         private Dictionary<int, Sound> characterPlaying = new Dictionary<int, Sound>();
 
@@ -44,7 +47,8 @@ namespace GarbageRoyale.Scripts
             Pipe,
             Walk,
             Swim,
-            FeetOnWater
+            FeetOnWater,
+            Button
         }
 
         // Start is called before the first frame update
@@ -53,6 +57,7 @@ namespace GarbageRoyale.Scripts
             gc = GetComponent<GameController>();
             characterList = gc.characterList;
             characterSound = gc.characterSound;
+            characterSoundWalk = gc.characterSoundWalk;
 
             ambiantSource = Instantiate(ambiant, new Vector3(162f, 50f, 162f), Quaternion.identity);
             lastAmbientSoundPlayed = "cave";
@@ -107,11 +112,16 @@ namespace GarbageRoyale.Scripts
             {
                 AudioSource audio = characterSound[idPlayer].GetComponent<AudioSource>();
 
+                Debug.Log("OK : " + sound);
                 switch (sound)
                 {
                     case Sound.Pipe:
                         characterPlaying[idPlayer] = Sound.Pipe;
                         audio.PlayOneShot(pipeSound);
+                        break;
+                    case Sound.Button:
+                        characterPlaying[idPlayer] = Sound.Button;
+                        audio.PlayOneShot(buttonSound);
                         break;
                     default:
                         break;
@@ -133,7 +143,7 @@ namespace GarbageRoyale.Scripts
         {
             if(gc.getCanMove())
             {
-                AudioSource audio = characterSound[idPlayer].GetComponent<AudioSource>();
+                AudioSource audio = characterSoundWalk[idPlayer].GetComponent<AudioSource>();
 
                 if (playSong && !audio.isPlaying)
                 {
@@ -150,12 +160,9 @@ namespace GarbageRoyale.Scripts
                             break;
                     }
                 }
-                else if (!playSong && characterPlaying[idPlayer] != Sound.Pipe)
+                else if (!playSong)
                 {
                     audio.Stop();
-                } else if(!audio.isPlaying)
-                {
-                    characterPlaying[idPlayer] = Sound.None;
                 }
             }
         }

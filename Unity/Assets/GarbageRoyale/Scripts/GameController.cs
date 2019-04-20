@@ -32,7 +32,8 @@ namespace GarbageRoyale.Scripts
         //List<GameObject> characterList = new List<GameObject>();
         public Dictionary <int, GameObject> characterList = new Dictionary<int, GameObject>();
         public Dictionary <int, GameObject> lampList = new Dictionary<int, GameObject>();
-        public Dictionary <int, GameObject> characterSound = new Dictionary<int, GameObject>();
+        public Dictionary <int, GameObject> characterSoundWalk = new Dictionary<int, GameObject>();
+        public Dictionary<int, GameObject> characterSound = new Dictionary<int, GameObject>();
         private int [][,] exploredRooms = new int[8][,];
 
         private GUIStyle currentStyle = null;
@@ -79,6 +80,7 @@ namespace GarbageRoyale.Scripts
                 characterList.Add(PhotonNetwork.LocalPlayer.ActorNumber, PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
                 characterList[PhotonNetwork.LocalPlayer.ActorNumber].GetComponent<PlayerStats>().setId(PhotonNetwork.LocalPlayer.ActorNumber);
                 characterSound.Add(PhotonNetwork.LocalPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.7f, 150), Quaternion.identity));
+                characterSoundWalk.Add(PhotonNetwork.LocalPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.7f, 150), Quaternion.identity));
                 playerCamera.transform.SetParent(characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform);
                 canMove = true;
             }
@@ -161,6 +163,7 @@ namespace GarbageRoyale.Scripts
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
             characterSound.Add(newPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.7f, 150), Quaternion.identity));
+            characterSoundWalk.Add(newPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.7f, 150), Quaternion.identity));
 
             if (!PhotonNetwork.IsMasterClient) return;
 
@@ -197,12 +200,14 @@ namespace GarbageRoyale.Scripts
         private void initOwnSound(int idPlayer)
         {
             characterSound.Add(idPlayer, Instantiate(soundObject, new Vector3(150, 2.5f, 150), Quaternion.identity));
+            characterSoundWalk.Add(idPlayer, Instantiate(soundObject, new Vector3(150, 2.5f, 150), Quaternion.identity));
         }
 
         [PunRPC]
         private void InstantiateOtherSound(int idPlayer, float x, float y, float z)
         {
             characterSound.Add(idPlayer, Instantiate(soundObject, new Vector3(x, y, z), Quaternion.identity));
+            characterSoundWalk.Add(idPlayer, Instantiate(soundObject, new Vector3(x, y, z), Quaternion.identity));
         }
 
         [PunRPC]
@@ -273,6 +278,7 @@ namespace GarbageRoyale.Scripts
             if(canMove)
             {
                 characterSound[id].transform.position = new Vector3(posX, 2.5f, posZ);
+                characterSoundWalk[id].transform.position = new Vector3(posX, 2.5f, posZ);
             }
         }
 

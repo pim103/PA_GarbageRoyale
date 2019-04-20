@@ -468,6 +468,7 @@ MonoBehaviour:
     type: 3}
   ambiant: {fileID: 4016013931792837746, guid: 80a4bf41816e0a84fb082619a8b4c531, type: 3}
   pipeSound: {fileID: 8300000, guid: 094f7f94e95466d438dd43e2742ca065, type: 3}
+  buttonSound: {fileID: 8300000, guid: 852b3e9f7d3b71a4291217bf54845c22, type: 3}
 --- !u!114 &1103656777
 MonoBehaviour:
   m_ObjectHideFlags: 0

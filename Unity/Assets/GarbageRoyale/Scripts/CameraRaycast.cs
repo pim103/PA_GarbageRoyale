@@ -40,11 +40,15 @@ namespace GarbageRoyale.Scripts
                         actionScript = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
                         actionScript.hitInfo = hitInfo;
                         actionScript.Send = true;
+
+                        soundManager.playSound(SoundManager.Sound.Button);
                     }
                     else if (hitInfo.transform.name == "DoorButton")
                     {
                         OpenDoorScript openDoor = hitInfo.transform.parent.GetComponent<OpenDoorScript>();
                         openDoor.openDoors(true);
+
+                        soundManager.playSound(SoundManager.Sound.Button);
                     }
                     else if (hitInfo.transform.name == "pipe(Clone)")
                     {
