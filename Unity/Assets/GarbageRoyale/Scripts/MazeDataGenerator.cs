@@ -199,6 +199,11 @@ namespace GarbageRoyale.Scripts
                                     }
                                 }
                                 else rooms[i, j] = Random.Range(4, 9);
+
+                                /*if (rooms[i, j] == 9)
+                                {
+                                    rooms[i, j]
+                                }*/
                             }
                         }
                     }

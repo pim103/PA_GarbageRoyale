@@ -367,13 +367,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 1103656769}
-  player: {fileID: 1627776587, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
+  player: {fileID: 254, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
   cameraPrefab: {fileID: 6662625427913190848, guid: d246acae78f293140bc3c7927c3b2269,
     type: 3}
   characterObject: {fileID: 3846190481519509443, guid: 6bfa6ebee8251ca47a8a37ef8586c70e,
     type: 3}
   soundObject: {fileID: 98, guid: 7f38b25077dc64241933283385be2ae5, type: 3}
-  startDoorPrefab: {fileID: 102, guid: f761492eda4454a43bdbd6b44f5a64bc, type: 3}
+  startDoorPrefab: {fileID: 107, guid: f761492eda4454a43bdbd6b44f5a64bc, type: 3}
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ namespace GarbageRoyale.Scripts
 {
     public class ItemSpawner : MonoBehaviour
     {
+        private int spawnerId;
         private GameObject itemGob;
         private Item itemSelf;
         
