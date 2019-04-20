@@ -70,8 +70,8 @@ namespace GarbageRoyale.Scripts
                 }
 
 
-			}/*
-			else if (axes == RotationAxis.MouseY)
+			}
+			/*else if (axes == RotationAxis.MouseY)
 			{
 				_rotationX -= Input.GetAxis("Mouse Y") * sensVertical;
 				_rotationX =
