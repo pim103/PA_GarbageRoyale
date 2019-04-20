@@ -20,13 +20,13 @@ public class InventoryController : MonoBehaviourPunCallbacks
     }
 
     // Update is called once per frame
-    public override void OnPlayerEnteredRoom(Player newPlayer)
+    /*public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         if (!PhotonNetwork.IsMasterClient) return;
         
         characterList[newPlayer.ActorNumber].AddComponent<Inventory>();
         characterList[newPlayer.ActorNumber].GetComponent<Inventory>().initInventory();
-    }
+    }*/
         
     
 }
