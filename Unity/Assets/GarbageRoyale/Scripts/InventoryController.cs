@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class InventoryController : MonoBehaviour
+public class InventoryController : MonoBehaviourPunCallbacks
 {
+    public Dictionary <int, GameObject> characterList = new Dictionary<int, GameObject>();
     private Inventory playerInventory;
     [SerializeField]
     private GameObject playerPrefab;
@@ -11,8 +13,11 @@ public class InventoryController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerInventory = playerPrefab.AddComponent<Inventory>();
-        playerInventory.initInventory();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            characterList[PhotonNetwork.LocalPlayer.ActorNumber].AddComponent<Inventory>();
+            characterList[PhotonNetwork.LocalPlayer.ActorNumber].GetComponent<Inventory>().initInventory();
+        }
         //Debug.Log(string.Format("Inventory : {0}", playerInventory.getItemInventory()[0]));
     }
 
