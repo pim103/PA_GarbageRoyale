@@ -22,8 +22,7 @@ namespace GarbageRoyale.Scripts
         [SerializeField] private Material mazeMat2;
         [SerializeField] private Material startMat;
         [SerializeField] private Material treasureMat;
-        
-        
+
         public MazeDataGenerator dataGenerator;
         private MazeMeshGenerator meshGenerator;
 

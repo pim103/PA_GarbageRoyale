@@ -9,6 +9,7 @@ namespace GarbageRoyale.Scripts
     {
         private CameraRaycastHitActions actionScript;
         private PlayerAttack attackScript;
+        private SoundManager soundManager;
         private int openingDoorLoading;
         private bool currentlyLoading;
 
@@ -28,7 +29,7 @@ namespace GarbageRoyale.Scripts
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-
+                    soundManager = GameObject.Find("Controller").GetComponent<SoundManager>();
                     if (hitInfo.transform.name == "Player(Clone)")
                     {
                         attackScript = GameObject.Find("Controller").GetComponent<PlayerAttack>();
@@ -44,6 +45,10 @@ namespace GarbageRoyale.Scripts
                     {
                         OpenDoorScript openDoor = hitInfo.transform.parent.GetComponent<OpenDoorScript>();
                         openDoor.openDoors(true);
+                    }
+                    else if (hitInfo.transform.name == "pipe(Clone)")
+                    {
+                        soundManager.playSound(SoundManager.Sound.Pipe);
                     }
                 }
 

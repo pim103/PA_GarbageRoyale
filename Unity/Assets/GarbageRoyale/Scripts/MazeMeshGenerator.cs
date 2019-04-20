@@ -36,7 +36,7 @@ namespace GarbageRoyale.Scripts
             {
                 for (int j = 0; j <= cMax; j++)
                 {
-                    if (data[i, j] != 1)
+                    if (data[i, j] == 0)
                     {
                         if (rooms[i, j] != 9999 && rooms[i, j] != 10)
                         {
@@ -100,40 +100,60 @@ namespace GarbageRoyale.Scripts
 
                         // walls on sides next to blocked grid cells
     
-                        if (i - 1 < 0 || data[i-1, j] == 1)
+                        if (i - 1 < 0 || data[i-1, j] >= 1)
                         {
                             AddQuad(Matrix4x4.TRS(
                                 new Vector3(j * width+ypos, halfH, (i-.5f) * width+ypos),
                                 Quaternion.LookRotation(Vector3.forward),
                                 new Vector3(width, height, 1)
                             ), ref newVertices, ref newUVs, ref wallTriangles);
+
+                            if (i - 1 >= 0 && data[i - 1, j] == 2)
+                            {
+                                Instantiate(Prefabs[11], new Vector3(j * width + ypos, halfH - 0.5f, (i - .5f) * width + ypos), Quaternion.Euler(new Vector3(0, 0, 0)));
+                            }
                         }
     
-                        if (j + 1 > cMax || data[i, j+1] == 1)
+                        if (j + 1 > cMax || data[i, j+1] >= 1)
                         {
                             AddQuad(Matrix4x4.TRS(
                                 new Vector3((j+.5f) * width+ypos, halfH, i * width+ypos),
                                 Quaternion.LookRotation(Vector3.left),
                                 new Vector3(width, height, 1)
                             ), ref newVertices, ref newUVs, ref wallTriangles);
+
+                            if(j+1 <= cMax && data[i, j + 1] == 2)
+                            {
+                                Instantiate(Prefabs[11], new Vector3((j + .5f) * width + ypos, halfH - 0.5f, i * width + ypos), Quaternion.Euler(new Vector3(0, 270, 0)));
+                            }
                         }
     
-                        if (j - 1 < 0 || data[i, j-1] == 1)
+                        if (j - 1 < 0 || data[i, j-1] >= 1)
                         {
                             AddQuad(Matrix4x4.TRS(
                                 new Vector3((j-.5f) * width+ypos, halfH, i * width+ypos),
                                 Quaternion.LookRotation(Vector3.right),
                                 new Vector3(width, height, 1)
                             ), ref newVertices, ref newUVs, ref wallTriangles);
+
+                            if (j - 1 >= 0 && data[i, j - 1] == 2)
+                            {
+                                Instantiate(Prefabs[11], new Vector3((j - .5f) * width + ypos, halfH - 0.5f, i * width + ypos), Quaternion.Euler(new Vector3(0, 90, 0)));
+                            }
                         }
     
-                        if (i + 1 > rMax || data[i+1, j] == 1)
+                        if (i + 1 > rMax || data[i+1, j] >= 1)
                         {
                             AddQuad(Matrix4x4.TRS(
                                 new Vector3(j * width+ypos, halfH, (i+.5f) * width+ypos),
                                 Quaternion.LookRotation(Vector3.back),
                                 new Vector3(width, height, 1)
                             ), ref newVertices, ref newUVs, ref wallTriangles);
+
+                            if (i + 1 <= rMax && data[i + 1, j] == 2)
+                            {
+                                Instantiate(Prefabs[11], new Vector3(j * width + ypos, halfH - 0.5f, (i + .5f) * width + ypos), Quaternion.Euler(new Vector3(0, 180, 0)));
+                            }
                         }
                     }
                 }

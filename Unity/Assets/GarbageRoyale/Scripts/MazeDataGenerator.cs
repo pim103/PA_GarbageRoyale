@@ -20,6 +20,8 @@ namespace GarbageRoyale.Scripts
             int[,] maze;
             int rMax;
             int cMax;
+            int rand;
+
             for (int k = 0; k < 8; k++)
             {
                 roomLinksList[k] = new Dictionary<string, string>();
@@ -33,10 +35,11 @@ namespace GarbageRoyale.Scripts
                 {
                     for (int j = 0; j <= cMax; j++)
                     {
+                        rand = Mathf.RoundToInt((Random.Range(1, 8) % 8) + 1);
                         //1
                         if (i == 0 || j == 0 || i == rMax || j == cMax)
                         {
-                            maze[i, j] = 1;
+                            maze[i, j] = rand;
                         }
                         else if (i > (rMax / 2 - 5) && i < (rMax / 2 + 5) && j > cMax / 2 - 5 && j < cMax / 2 + 5 &&
                                  k == 0)
@@ -53,11 +56,11 @@ namespace GarbageRoyale.Scripts
                             if (Random.value > placementThreshold)
                             {
                                 //3
-                                maze[i, j] = 1;
+                                maze[i, j] = rand;
 
                                 int a = Random.value < .5 ? 0 : (Random.value < .5 ? -1 : 1);
                                 int b = a != 0 ? 0 : (Random.value < .5 ? -1 : 1);
-                                maze[i + a, j + b] = 1;
+                                maze[i + a, j + b] = rand;
                             }
                         }
                     }
