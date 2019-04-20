@@ -40,6 +40,7 @@ namespace GarbageRoyale.Scripts
                     else if (hitInfo.transform.name == "Button")
                     {
                         actionScript = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
+                        actionScript.type = CameraRaycastHitActions.TypeHit.Button;
                         actionScript.hitInfo = hitInfo;
                         actionScript.Send = true;
 
@@ -54,6 +55,10 @@ namespace GarbageRoyale.Scripts
                     }
                     else if (hitInfo.transform.name == "pipe(Clone)")
                     {
+                        actionScript = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
+                        actionScript.hitInfo = hitInfo;
+                        actionScript.type = CameraRaycastHitActions.TypeHit.Pipe;
+                        actionScript.Send = true; ;
                         soundManager.playSound(SoundManager.Sound.Pipe);
                     }
                     gtest = ObjectPooler.SharedInstance.GetPooledObject(0);

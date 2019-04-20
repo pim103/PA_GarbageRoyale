@@ -11,13 +11,27 @@ namespace GarbageRoyale.Scripts
         public bool Send = false;
         public string trapDoorToOpen = "999;999";
         public int TrapFloor = 0;
+        public TypeHit type;
+
+        public int xTrap;
+        public int yTrap;
+        public int zTrap;
+
         private Dictionary<string, string>[] roomLinksList;
+
+        public enum TypeHit
+        {
+            Button,
+            Pipe,
+        }
         
         // Start is called before the first frame update
         void Start()
         {
+            xTrap = -1;
+            yTrap = -1;
+            zTrap = -1;
             if (PhotonNetwork.IsMasterClient) return;
-            
         }
 
         // Update is called once per frame
@@ -25,15 +39,20 @@ namespace GarbageRoyale.Scripts
         {
             if (Send)
             {
-                if (PhotonNetwork.IsMasterClient)
+                switch(type)
                 {
-                    CheckTrapButton((int)hitInfo.transform.position.x,(int)hitInfo.transform.position.z, (int)hitInfo.transform.position.y);
+                    case TypeHit.Button:
+                        photonView.RPC("AskTrapDoorOpening", RpcTarget.MasterClient, (int)hitInfo.transform.position.x,(int)hitInfo.transform.position.z, (int)hitInfo.transform.position.y);
+                        break;
+                    case TypeHit.Pipe:
+                        Debug.Log("Ok : " + (int)hitInfo.transform.position.x + (int)hitInfo.transform.position.z + (int)hitInfo.transform.position.y);
+                        photonView.RPC("AskBrokenPipe", RpcTarget.MasterClient, (int)hitInfo.transform.position.x, (int)hitInfo.transform.position.z, (int)hitInfo.transform.position.y);
+                        break;
+                    default:
+                        break;
                 }
-                else
-                {
-                    photonView.RPC("AskTrapDoorOpening", RpcTarget.MasterClient, (int)hitInfo.transform.position.x,(int)hitInfo.transform.position.z, (int)hitInfo.transform.position.y);
-                }
-                
+
+                Send = false;
             }
         }
 
@@ -43,7 +62,6 @@ namespace GarbageRoyale.Scripts
             //Debug.Log(hitPosX+((hitPosY/18)*16));
             foreach (var link in roomLinksList[hitPosY/18])
             {
-                
                 //Debug.Log(link.Key+ " " + link.Value);
                 string[] buttonpos = link.Value.Split(';');
                 int buttonZ = System.Convert.ToInt32(buttonpos[0]);
@@ -52,11 +70,10 @@ namespace GarbageRoyale.Scripts
                 //Debug.Log(buttonX*4 + "=" + (hitPosX+((hitPosY/18)*16)));
                 if(hitPosX == buttonX*4+((hitPosY/18)*16) && hitPosZ == buttonZ*4+((hitPosY/18)*16))
                 {
-                    
                     //Debug.Log("yay" + link.Key);
                     trapDoorToOpen = link.Key;
                     TrapFloor = hitPosY/18;
-                    photonView.RPC("OpenTrapDoors", RpcTarget.Others, trapDoorToOpen);
+                    photonView.RPC("OpenTrapDoors", RpcTarget.All, trapDoorToOpen);
                     return true;
                 }
 
@@ -75,6 +92,20 @@ namespace GarbageRoyale.Scripts
         public void OpenTrapDoors(string toOpen)
         {
             trapDoorToOpen = toOpen;
+        }
+
+        [PunRPC]
+        public void AskBrokenPipe(int hitPosX, int hitPosZ, int hitPosY)
+        {
+            photonView.RPC("brokePipe", RpcTarget.All, hitPosX, hitPosZ, hitPosY);
+        }
+
+        [PunRPC]
+        public void brokePipe(int hitPosX, int hitPosZ, int hitPosY)
+        {
+            xTrap = hitPosX;
+            yTrap = hitPosY;
+            zTrap = hitPosZ;
         }
     }
 }

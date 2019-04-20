@@ -66,4 +66,6 @@ MonoBehaviour:
   - verifySongPlay
   - playSoundForAll
   - initListSound
+  - AskBrokenPipe
+  - brokePipe
   DisableAutoOpenWizard: 1
