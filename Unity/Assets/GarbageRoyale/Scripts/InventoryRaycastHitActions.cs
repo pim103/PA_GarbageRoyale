@@ -42,7 +42,7 @@ namespace GarbageRoyale.Scripts
                     }
                     else
                     {
-                        photonView.RPC("AskTakeItem", RpcTarget.MasterClient, itemGob);
+                        photonView.RPC("AskTakeItem", RpcTarget.MasterClient, itemGob.transform.position.x, itemGob.transform.position.y, itemGob.transform.position.z);
                     }
                     
                 }
@@ -60,7 +60,7 @@ namespace GarbageRoyale.Scripts
                 Debug.Log(string.Format("Item : \n ID : {0} - Name: {1} - Damage : {2} - Type : {3}", itemData.getId(), itemData.getName(), itemData.getDamage(), itemData.getType()));
                 if (inventoryData.setItemInventory(itemData.getId()))
                 {
-                    PhotonNetwork.Destroy(itemGob);
+                    itemGob.SetActive(false);
                 }
                 Debug.Log(string.Format("Inventory : \n ID : {0} {1} {2} {3} {4} ", inventoryData.getItemInventory()[0], inventoryData.getItemInventory()[1], inventoryData.getItemInventory()[2], inventoryData.getItemInventory()[3], inventoryData.getItemInventory()[4]));
             }
@@ -71,10 +71,10 @@ namespace GarbageRoyale.Scripts
         }
         
         [PunRPC]
-        private void AskTakeItem(GameObject itemGob, PhotonMessageInfo info)
+        private void AskTakeItem(Transform gobX, Transform gobY, Transform gobZ, PhotonMessageInfo info)
         {
-            Debug.Log(" " + itemGob.transform.position.x + " " + itemGob.transform.position.y);
-            actionTakeItem(itemGob, characterList[info.Sender.ActorNumber]);
+            Debug.Log(" " + gobX + " " + gobX + " " + gobZ);
+            //actionTakeItem(itemGob, characterList[info.Sender.ActorNumber]);
         }
     }
 }    

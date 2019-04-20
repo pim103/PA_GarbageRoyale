@@ -23,10 +23,12 @@ namespace GarbageRoyale.Scripts
 		
 		private GameController gameControl;
 		private bool mine;
+		
 
 		private void Start()
 		{
 			gameControl = GameObject.Find("Controller").GetComponent<GameController>();
+			
 			if (axes == RotationAxis.MouseY)
 			{
 				playerCam = GetComponent<Camera> ();

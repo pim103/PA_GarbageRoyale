@@ -24,6 +24,8 @@ public class Inventory : MonoBehaviour
         lastCounterSkill = 0;
     }
 
+    
+
     public void initInventory()
     {
         for (int i = 0; i < itemSlots; i++)

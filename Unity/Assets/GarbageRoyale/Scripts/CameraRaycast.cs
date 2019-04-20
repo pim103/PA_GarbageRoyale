@@ -11,6 +11,8 @@ namespace GarbageRoyale.Scripts
         private PlayerAttack attackScript;
         private int openingDoorLoading;
         private bool currentlyLoading;
+        private GameObject gtest;
+        private Inventory playerInventory;
 
         // Start is called before the first frame update
         void Start()
@@ -45,6 +47,9 @@ namespace GarbageRoyale.Scripts
                         OpenDoorScript openDoor = hitInfo.transform.parent.GetComponent<OpenDoorScript>();
                         openDoor.openDoors(true);
                     }
+                    gtest = ObjectPooler.SharedInstance.GetPooledObject(0);
+                    gtest.SetActive(true);
+                    gtest.transform.position = hitInfo.transform.position;
                 }
 
                 if (hitInfo.transform.name == "LeftDoor" || hitInfo.transform.name == "RightDoor")

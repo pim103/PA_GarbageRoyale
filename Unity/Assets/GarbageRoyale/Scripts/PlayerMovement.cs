@@ -6,8 +6,8 @@ namespace GarbageRoyale.Scripts
 	public class PlayerMovement : MonoBehaviourPunCallbacks
     {
 
-		public float speed = 6.0f;
-		public float gravity = -9.8f;
+		public float speed = 60.0f;
+		public float gravity = -90.8f;
 
         public AudioClip walkSound;
 
@@ -133,14 +133,15 @@ namespace GarbageRoyale.Scripts
             {
 	            //movement.y += 18.3f;
 	            
-	            if (Physics.Raycast(transform.GetChild(0).transform.position, Vector3.down, 0.2f))
+	            if (Physics.Raycast(transform.GetChild(0).transform.position, Vector3.down, 0.9f))
 	            {
+		            Debug.Log("YES");
 		            //this.GetComponent<Rigidbody>().velocity = Vector3.up * 10.0f;
-		            if (serverCall) movement.y += 20.3f;
-		            else movement.y += 40f;
+		            if (serverCall) movement.y += 200.3f*Time.deltaTime;
+		            else movement.y += 100f*Time.deltaTime;
 	            }
             }
-			movement.y += gravity;
+			movement.y += gravity*Time.deltaTime;
 			movement *= Time.deltaTime;		//Ensures the speed the player moves does not change based on frame rate
 			movement = transform.TransformDirection(movement);
 			_charCont.Move (movement);

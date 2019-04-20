@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7478333922926853283}
   - component: {fileID: 535886355388717034}
   - component: {fileID: 2920680713331117556}
+  - component: {fileID: 6248711224107480825}
   m_Layer: 0
   m_Name: Staff
   m_TagString: Untagged
@@ -92,3 +93,16 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &6248711224107480825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3657382005534258069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c39cd4afd64358ad9cd78dc50a3b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
