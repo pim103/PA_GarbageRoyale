@@ -17,6 +17,7 @@ namespace GarbageRoyale.Scripts
         void Start()
         {
             currentlyLoading = false;
+            soundManager = GameObject.Find("Controller").GetComponent<SoundManager>();
         }
 
         // Update is called once per frame
@@ -29,7 +30,6 @@ namespace GarbageRoyale.Scripts
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    soundManager = GameObject.Find("Controller").GetComponent<SoundManager>();
                     if (hitInfo.transform.name == "Player(Clone)")
                     {
                         attackScript = GameObject.Find("Controller").GetComponent<PlayerAttack>();
@@ -64,6 +64,7 @@ namespace GarbageRoyale.Scripts
                         Debug.Log("press E");
                         if (Input.GetKeyDown(KeyCode.E))
                         {
+                            soundManager.playSound(SoundManager.Sound.OpeningDoor);
                             currentlyLoading = true;
                         }
     
@@ -73,22 +74,27 @@ namespace GarbageRoyale.Scripts
                             Debug.Log("opening : " + openingDoorLoading + "%");
                             if (openingDoorLoading >= 100)
                             {
+                                openingDoorLoading = 0;
+                                soundManager.stopSound();
+                                currentlyLoading = false;
+                                soundManager.playSound(SoundManager.Sound.EndOpeningDoor);
                                 openDoor.openDoors(true);
                             }
-    
                         }
     
                         if (Input.GetKeyUp(KeyCode.E))
                         {
+                            soundManager.stopSound();
                             currentlyLoading = false;
                             openingDoorLoading = 0;
                         }
                     }
                 }
-            } else
+            } else if (openingDoorLoading > 0)
             {
-                currentlyLoading = false;
+                soundManager.stopSound();
                 openingDoorLoading = 0;
+                currentlyLoading = false;
             }
         }
     }

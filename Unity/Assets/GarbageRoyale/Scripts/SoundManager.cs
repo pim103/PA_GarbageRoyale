@@ -27,6 +27,10 @@ namespace GarbageRoyale.Scripts
         private AudioClip pipeSound;
         [SerializeField]
         private AudioClip buttonSound;
+        [SerializeField]
+        private AudioClip openingDoorSound;
+        [SerializeField]
+        private AudioClip endOpeningDoorSound;
 
         private GameController gc;
         private Dictionary<int, GameObject> characterList = new Dictionary<int, GameObject>();
@@ -48,7 +52,9 @@ namespace GarbageRoyale.Scripts
             Walk,
             Swim,
             FeetOnWater,
-            Button
+            Button,
+            OpeningDoor,
+            EndOpeningDoor
         }
 
         // Start is called before the first frame update
@@ -112,7 +118,6 @@ namespace GarbageRoyale.Scripts
             {
                 AudioSource audio = characterSound[idPlayer].GetComponent<AudioSource>();
 
-                Debug.Log("OK : " + sound);
                 switch (sound)
                 {
                     case Sound.Pipe:
@@ -123,10 +128,25 @@ namespace GarbageRoyale.Scripts
                         characterPlaying[idPlayer] = Sound.Button;
                         audio.PlayOneShot(buttonSound);
                         break;
+                    case Sound.OpeningDoor:
+                        characterPlaying[idPlayer] = Sound.Button;
+                        audio.PlayOneShot(openingDoorSound);
+                        break;
+                    case Sound.EndOpeningDoor:
+                        characterPlaying[idPlayer] = Sound.Button;
+                        audio.PlayOneShot(endOpeningDoorSound);
+                        break;
+                    case Sound.None:
                     default:
+                        audio.Stop();
                         break;
                 }
             }
+        }
+
+        public void stopSound()
+        {
+            photonView.RPC("verifySongPlay", RpcTarget.MasterClient, Sound.None);
         }
 
         [PunRPC]
