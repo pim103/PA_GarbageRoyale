@@ -55,6 +55,8 @@ namespace GarbageRoyale.Scripts
 
         private int playerConnected;
 
+        private GameObject testlamp;
+
         void Start()
         {
             for (int i = 0; i < 8; i++)
@@ -83,6 +85,7 @@ namespace GarbageRoyale.Scripts
                 characterSound.Add(PhotonNetwork.LocalPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.9f, 150), Quaternion.identity));
                 lampList.Add(PhotonNetwork.LocalPlayer.ActorNumber, Instantiate(lampPrefab, new Vector3(150, 0.7f, 150), Quaternion.identity));
                 playerCamera.transform.SetParent(characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform);
+                lampList[PhotonNetwork.LocalPlayer.ActorNumber].transform.parent = playerCamera.transform;
                 canMove = true;
             }
 
@@ -98,8 +101,14 @@ namespace GarbageRoyale.Scripts
         {
             if (canMove)
             {
+                float angleX = lampList[PhotonNetwork.LocalPlayer.ActorNumber].transform.localEulerAngles.x;
+
                 photonView.RPC("SendSoundPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-                photonView.RPC("SendCameraPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), playerCamera.transform.localEulerAngles.x);
+                if(playerCamera.transform.localEulerAngles.x <= -1 || playerCamera.transform.localEulerAngles.x >= 1)
+                {
+                    angleX = playerCamera.transform.localEulerAngles.x;
+                }
+                photonView.RPC("SendCameraPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), angleX);
                 //photonView.RPC("SendLampPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             }
 
@@ -208,7 +217,7 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         private void initOwnLamp(int idPlayer)
         {
-            characterSound.Add(idPlayer, Instantiate(lampPrefab, new Vector3(150, 0.9f, 150), Quaternion.identity));
+            lampList.Add(idPlayer, Instantiate(lampPrefab, new Vector3(150, 0.9f, 150), Quaternion.identity));
         }
 
         [PunRPC]
@@ -220,7 +229,7 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         private void InstantiateOtherLamp(int idPlayer, float x, float y, float z)
         {
-            characterSound.Add(idPlayer, Instantiate(lampPrefab, new Vector3(x, y, z), Quaternion.identity));
+            lampList.Add(idPlayer, Instantiate(lampPrefab, new Vector3(x, y, z), Quaternion.identity));
         }
 
         [PunRPC]
@@ -262,7 +271,6 @@ namespace GarbageRoyale.Scripts
             lampList[info.Sender.ActorNumber].transform.Rotate(0, axeX * 10.0f, 0);
             photonView.RPC("RotatePlayerCamera", info.Sender, characterList[info.Sender.ActorNumber].transform.position.x, characterList[info.Sender.ActorNumber].transform.position.y, characterList[info.Sender.ActorNumber].transform.position.z, axeX, axeY);
 
-            Debug.Log(angleX);
             photonView.RPC("MoveLamp", RpcTarget.AllBuffered, 
                               info.Sender.ActorNumber, 
                               characterList[info.Sender.ActorNumber].transform.position.x, 
@@ -303,6 +311,10 @@ namespace GarbageRoyale.Scripts
                 playerCamera.transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
             
                 playerCamera.transform.position = new Vector3(posX,posY+0.2f,posZ);
+                Debug.Log("lamp " + lampList[PhotonNetwork.LocalPlayer.ActorNumber].transform.eulerAngles);
+                Debug.Log("camera " + playerCamera.transform.localEulerAngles);
+                lampList[PhotonNetwork.LocalPlayer.ActorNumber].transform.eulerAngles = new Vector3(rotationX, rotationY, 0);
+                //testlamp.transform.eulerAngles = new Vector3(rotationX, rotationY, 0);
             }
         }
 
@@ -340,13 +352,13 @@ namespace GarbageRoyale.Scripts
 
                 rotationY = lampList[id].transform.localEulerAngles.y;
                 lampList[id].transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
-                */
+                
 
                 //Debug.Log(angleX);
-                //Debug.Log(angleY);
+                //Debug.Log(angleY);*/
 
-                lampList[id].transform.localEulerAngles = new Vector3(angleX, angleY, angleZ);
-                lampList[id].transform.position = new Vector3(posX, posY + 0.2f, posZ);
+                lampList[id].transform.eulerAngles = new Vector3(angleX, angleY, angleZ);
+                //lampList[id].transform.position = new Vector3(posX, posY + 0.2f, posZ);
             }
         }
 
