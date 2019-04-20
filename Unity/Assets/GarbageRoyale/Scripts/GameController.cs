@@ -67,7 +67,7 @@ namespace GarbageRoyale.Scripts
             playerTexture = MakeTex(4, 4, new Color(0.5f, 0.5f, 0.5f, 0.5f));
             generator = GetComponent<MazeConstructor>();      // 2
             generator.GenerateNewMaze(81, 81);
-            playerCamera = Instantiate(cameraPrefab, new Vector3(150, 0.9f, 150), Quaternion.identity);
+            playerCamera = Instantiate(cameraPrefab, new Vector3(150, 1.5f, 150), Quaternion.identity);
             canMove = false;
             
             if (PhotonNetwork.IsMasterClient)   

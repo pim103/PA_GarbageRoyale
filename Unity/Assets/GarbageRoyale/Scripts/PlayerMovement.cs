@@ -31,6 +31,8 @@ namespace GarbageRoyale.Scripts
         public bool needToPlaySong;
         public string soundNeeded;
 
+        private Animator anim;
+
         // Use this for initialization
         void Start () {
 			_charCont = GetComponent<CharacterController> ();
@@ -40,6 +42,7 @@ namespace GarbageRoyale.Scripts
             soundM = GameObject.Find("Controller").GetComponent<SoundManager>();
 
             audioWalk = GetComponent<AudioSource>();
+            anim = GetComponent<Animator>();
 
             isOnWater = false;
             headIsOnWater = false;
@@ -104,6 +107,12 @@ namespace GarbageRoyale.Scripts
 
             needToPlaySong = (axeX != 0 || axeZ != 0);
             setSong(wantToGoUp);
+            
+            if(needToPlaySong)
+            {
+                anim.Play("Movement");
+            }
+
 			if (isInTransition && wantToGoUp)
 			{
 				movement.y += 15.8f;

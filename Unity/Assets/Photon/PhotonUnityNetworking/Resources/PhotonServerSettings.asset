@@ -62,4 +62,5 @@ MonoBehaviour:
   - setCanMove
   - returnToMenu
   - OpenByOtherPlayer
+  - AskTakeItem
   DisableAutoOpenWizard: 1
