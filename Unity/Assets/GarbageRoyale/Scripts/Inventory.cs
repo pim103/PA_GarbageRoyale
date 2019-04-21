@@ -28,7 +28,10 @@ public class Inventory : MonoBehaviour
         lastCounterSkill = 0;
     }
 
-    
+    public void testtouch()
+    {
+        Debug.Log("touched");
+    }
 
     public void initInventory()
     {

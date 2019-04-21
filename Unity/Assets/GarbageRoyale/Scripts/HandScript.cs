@@ -4,7 +4,7 @@ using GarbageRoyale.Scripts;
 using Photon.Pun;
 using UnityEngine;
 
-public class HandScript : MonoBehaviour
+public class HandScript : MonoBehaviourPunCallbacks
 {
     public int currentItem;
     public int oldItem;
@@ -28,38 +28,39 @@ public class HandScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentItem = characterList[PhotonNetwork.LocalPlayer.ActorNumber].GetComponent<InventoryController>().itemInHand;
-        switch (currentItem)
+        currentItem = GameObject.Find("Controller").GetComponent<GameController>().GetComponent<InventoryActionsController>().itemInHand;
+        putInHand();
+        Debug.Log(currentItem);
+    }
+    
+    public void putInHand()
+    {
+        int poolID = 0;
+        
+        if (currentItem != oldItem)
         {
-            case 1:
-                if (currentItem != oldItem)
-                {
-                    item = ObjectPooler.SharedInstance.GetPooledObject(0);
-                    item.SetActive(true);
-                    item.transform.SetParent(transform.GetChild(0).transform);
-                    item.transform.localPosition = new Vector3(0,0,0);
-                    item.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-                    oldItem = currentItem;
-                }
-                break;
-            case 2:
-                item = ObjectPooler.SharedInstance.GetPooledObject(3);
-                item.SetActive(true);
-                item.transform.position = new Vector3(155,0.7f,155);
-                break;
-            case 4:
-                if (currentItem != oldItem)
-                {
-                    item = ObjectPooler.SharedInstance.GetPooledObject(5);
-                    item.SetActive(true);
-                    item.transform.SetParent(transform.GetChild(0).transform);
-                    item.transform.localPosition = new Vector3(0,0,0);
-                    item.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-                    oldItem = currentItem;
-                }
-                break;
-            default:
-                break;
+            switch (currentItem)
+            {
+                case 1:
+                    poolID = 0;
+                    break;
+                case 4:
+                    poolID = 5;
+                    break;
+            }
+            if (oldItem != 0)
+            {
+                item.transform.parent = null;
+                item.SetActive(false);
+            }
+            item = ObjectPooler.SharedInstance.GetPooledObject(poolID);
+            item.SetActive(true);
+            item.transform.SetParent(transform.GetChild(0).transform);
+            item.transform.localPosition = new Vector3(0,0,0);
+            item.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            oldItem = currentItem;
+            GameObject.Find("Controller").GetComponent<GameController>().GetComponent<InventoryActionsController>()
+                .Send = true;
         }
 
         if(currentItem == 4 && crateSound == null)
@@ -117,4 +118,6 @@ public class HandScript : MonoBehaviour
         }
         pressV = false;
     }
+
+    
 }

@@ -47,7 +47,7 @@ namespace GarbageRoyale.Scripts
 
         private bool isGameStart;
         private float timeLeft = 20;
-        private float waterStartTimeLeft = 60;
+        private float waterStartTimeLeft = 9999999999;
         private bool waterStart;
         private bool pressL;
 

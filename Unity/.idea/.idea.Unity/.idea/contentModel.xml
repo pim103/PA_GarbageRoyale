@@ -17,6 +17,7 @@
             <e p="GameController.cs" t="Include" />
             <e p="HandScript.cs" t="Include" />
             <e p="Inventory.cs" t="Include" />
+            <e p="InventoryActionsController.cs" t="Include" />
             <e p="InventoryController.cs" t="Include" />
             <e p="InventoryRaycastHitActions.cs" t="Include" />
             <e p="Item.cs" t="Include" />
@@ -31,6 +32,7 @@
             </e>
             <e p="MinimapDrawer.cs" t="Include" />
             <e p="ObjectPooler.cs" t="Include" />
+            <e p="ObjectPoolerPhoton.cs" t="Include" />
             <e p="OnlinePlayerManager.cs" t="Include" />
             <e p="OpenDoorScript.cs" t="Include" />
             <e p="PipeScript.cs" t="Include" />

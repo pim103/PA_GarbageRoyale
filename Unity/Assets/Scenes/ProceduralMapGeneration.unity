@@ -200,6 +200,8 @@ GameObject:
   - component: {fileID: 1103656780}
   - component: {fileID: 1103656781}
   - component: {fileID: 1103656782}
+  - component: {fileID: 1103656783}
+  - component: {fileID: 1103656784}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -474,6 +476,37 @@ MonoBehaviour:
   gazX: 0
   gazY: 0
   gazZ: 0
+--- !u!114 &1103656783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103656768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8678fa88076c064eb29a7bcaf714d32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInHand: 0
+  Send: 0
+--- !u!114 &1103656784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103656768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56cccb19fbbd04c42a73e20b9f920ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsToPool:
+  - objectToPool: woodenStaffOnline
+    amountToPool: 10
+    shouldExpand: 1
+  pooledObjects: []
 --- !u!1 &1147012261 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8878313210229368649, guid: 3691311aefd7c874a9b2b885d075c7d5,

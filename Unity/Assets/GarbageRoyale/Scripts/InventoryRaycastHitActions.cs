@@ -83,6 +83,8 @@ namespace GarbageRoyale.Scripts
             Debug.Log("Player Datas Inventory : " + characterList[info.Sender.ActorNumber].GetComponent<Inventory>().getItemInventory()[0]);
         }
         
+        
+        
         [PunRPC]
         public void AskDisableItem(string objName, PhotonMessageInfo info)
         {
