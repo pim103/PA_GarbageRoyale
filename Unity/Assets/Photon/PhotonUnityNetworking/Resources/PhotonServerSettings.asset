@@ -69,4 +69,5 @@ MonoBehaviour:
   - AskBrokenPipe
   - brokePipe
   - AskIn
+  - AskDisableItem
   DisableAutoOpenWizard: 1

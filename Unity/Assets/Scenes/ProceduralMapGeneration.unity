@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 1103656777}
   - component: {fileID: 1103656778}
   - component: {fileID: 1103656780}
+  - component: {fileID: 1103656781}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -349,6 +350,7 @@ MonoBehaviour:
   - {fileID: 4449432576064577553, guid: a1fd8cbca2f1b784ca383feb0daf6291, type: 3}
   - {fileID: 4449432576064577553, guid: a4ecdf22c5717d7429e4a9f29d31c4cf, type: 3}
   - {fileID: 4449432576064577553, guid: e3c7774464e7fe04aad4718ab99fea29, type: 3}
+  - {fileID: 4449432576064577553, guid: 8707b6970f3821d409e9587057f031ca, type: 3}
   - {fileID: 2340599181496208596, guid: 4b07d8887588dfb408d48ce21fe2f8ce, type: 3}
   floorTransition: {fileID: 4449432576064577553, guid: 503958394bf416442aa3518a8fdcdf19,
     type: 3}
@@ -546,8 +548,24 @@ MonoBehaviour:
   - objectToPool: {fileID: 50948832, guid: c86b252b8dffae84092b8c1a0e6dd6c8, type: 3}
     amountToPool: 50
     shouldExpand: 1
+  - objectToPool: {fileID: 2340599181496208596, guid: 4b07d8887588dfb408d48ce21fe2f8ce,
+      type: 3}
+    amountToPool: 20
+    shouldExpand: 1
   pooledObjects:
   - {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117, type: 3}
+--- !u!114 &1103656781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103656768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4fe1ece2009462084fb03881828789d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1147012261 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8878313210229368649, guid: 3691311aefd7c874a9b2b885d075c7d5,
