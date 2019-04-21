@@ -133,7 +133,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 706}
-  viewIdField: 6
+  viewIdField: 0
   InstantiationId: 6
   isRuntimeInstantiated: 0
 --- !u!114 &706
@@ -195,6 +195,9 @@ MonoBehaviour:
   itemInHand: 0
   rawSprites:
   - {fileID: 5833977737841398870, guid: ad67ab737c4b5a94f9a74e0fed20b690, type: 3}
+  - {fileID: 5833977737841398870, guid: 07e4c0a35c3b5354f8d0353136c26f48, type: 3}
+  - {fileID: 5833977737841398870, guid: 7fa254dcddedd94428d6748609bc2dfd, type: 3}
+  - {fileID: 5833977737841398870, guid: 7fa254dcddedd94428d6748609bc2dfd, type: 3}
   inventoryPrefab: {fileID: 8044369997333157998, guid: eec08ba0da3bcac40a57a8e5e2a64078,
     type: 3}
 --- !u!114 &711
@@ -304,8 +307,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 4
-  InstantiationId: 4
+  viewIdField: 0
+  InstantiationId: 5
   isRuntimeInstantiated: 0
 --- !u!1 &114
 GameObject:

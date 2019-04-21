@@ -22,10 +22,10 @@ namespace GarbageRoyale.Scripts.HUD
             Debug.Log("Oui " + rawSprites[0] + " " + inventoryPrefab.name);
         }
         
-        public void printSprite(int idx)
+        public void printSprite(int idx, int id)
         {
             RawImage rawImg = GameObject.Find("ItemImg_" + idx).GetComponent<RawImage>();
-            rawImg.texture = rawSprites[idx].texture;
+            rawImg.texture = rawSprites[id].texture;
             rawImg.color = Color.white;
         }
         

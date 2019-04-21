@@ -61,7 +61,7 @@ public class Inventory : MonoBehaviour
         if (voidIndex != -1)
         {
             this.itemInventory[voidIndex] = itemId;
-            player.GetComponent<InventoryGUI>().printSprite(voidIndex);
+            player.GetComponent<InventoryGUI>().printSprite(voidIndex, itemId-1);
             
             return true;
         }
