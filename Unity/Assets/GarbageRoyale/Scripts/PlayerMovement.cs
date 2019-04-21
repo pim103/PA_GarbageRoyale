@@ -141,7 +141,7 @@ namespace GarbageRoyale.Scripts
 		            else movement.y += 100f*Time.deltaTime;
 	            }
             }
-			movement.y += gravity*Time.deltaTime;
+			movement.y += gravity;
 			movement *= Time.deltaTime;		//Ensures the speed the player moves does not change based on frame rate
 			movement = transform.TransformDirection(movement);
 			_charCont.Move (movement);

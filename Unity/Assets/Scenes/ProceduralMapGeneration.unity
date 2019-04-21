@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 1103656769}
-  player: {fileID: 254, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
+  player: {fileID: 112, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
   cameraPrefab: {fileID: 6662625427913190848, guid: d246acae78f293140bc3c7927c3b2269,
     type: 3}
   characterObject: {fileID: 3846190481519509443, guid: 6bfa6ebee8251ca47a8a37ef8586c70e,
