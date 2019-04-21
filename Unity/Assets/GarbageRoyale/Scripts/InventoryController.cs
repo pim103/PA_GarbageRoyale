@@ -1,55 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using GarbageRoyale.Scripts;
+﻿using System.Collections.Generic;
 using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine;
 
-public class InventoryController : MonoBehaviourPunCallbacks
+namespace GarbageRoyale.Scripts
 {
-    public Dictionary <int, GameObject> characterList = new Dictionary<int, GameObject>();
-    private Inventory playerInventory;
-    [SerializeField]
-    private GameObject playerPrefab;
-    private GameObject gtest;
-    private int itemInHand;
-
-    // Start is called before the first frame update
-    void Start()
+    public class InventoryController : MonoBehaviourPunCallbacks
     {
-        playerInventory = playerPrefab.AddComponent<Inventory>();
-        playerInventory.initInventory();
-        itemInHand = 0;
+        public Dictionary <int, GameObject> characterList = new Dictionary<int, GameObject>();
+        private Inventory playerInventory;
+        [SerializeField]
+        private GameObject playerPrefab;
+        private GameObject gtest;
+        public int itemInHand;
+        
 
-        //Debug.Log(string.Format("Inventory : {0}", playerInventory.getItemInventory()[0]));
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        // Start is called before the first frame update
+        void Start()
         {
-            itemInHand = playerInventory.getItemInventory()[0];
+            characterList = GameObject.Find("Controller").GetComponent<GameController>().characterList;
+            playerPrefab = characterList[PhotonNetwork.LocalPlayer.ActorNumber];
+            playerInventory = playerPrefab.AddComponent<Inventory>();
+            playerInventory.initInventory();
+            itemInHand = 0;
+
+            //Debug.Log(string.Format("Inventory : {0}", playerInventory.getItemInventory()[0]));
         }
 
-        switch (itemInHand)
+        private void Update()
         {
-           case 1:
-               gtest = ObjectPooler.SharedInstance.GetPooledObject(0);
-               gtest.SetActive(true);
-               gtest.transform.position = new Vector3(155,0.7f,155);
-               break;
-            case 2:
-                gtest = ObjectPooler.SharedInstance.GetPooledObject(3);
-                gtest.SetActive(true);
-                gtest.transform.position = new Vector3(155,0.7f,155);
-                break;
-           default:
-               break;
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                itemInHand = playerInventory.getItemInventory()[0];
+            }
         }
-    }
 
-    // Update is called once per frame
-    /*public override void OnPlayerEnteredRoom(Player newPlayer)
+        // Update is called once per frame
+        /*public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         if (!PhotonNetwork.IsMasterClient) return;
         
@@ -58,4 +44,5 @@ public class InventoryController : MonoBehaviourPunCallbacks
     }*/
         
     
+    }
 }
