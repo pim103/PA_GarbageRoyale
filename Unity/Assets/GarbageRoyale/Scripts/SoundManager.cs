@@ -31,6 +31,8 @@ namespace GarbageRoyale.Scripts
         private AudioClip openingDoorSound;
         [SerializeField]
         private AudioClip endOpeningDoorSound;
+        [SerializeField]
+        private AudioClip gazSound;
 
         private GameController gc;
         private Dictionary<int, GameObject> characterList = new Dictionary<int, GameObject>();
@@ -95,6 +97,11 @@ namespace GarbageRoyale.Scripts
         public AudioClip getTrapSound()
         {
             return endOpeningDoorSound;
+        }
+
+        public AudioClip getGazSound()
+        {
+            return gazSound;
         }
 
         [PunRPC]
