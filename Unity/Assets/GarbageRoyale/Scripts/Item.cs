@@ -1,4 +1,6 @@
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GarbageRoyale.Scripts
 {
@@ -8,6 +10,7 @@ namespace GarbageRoyale.Scripts
         private string name;
         private float damage;
         public int type; // Weapon, Utils, Trap
+        public RawImage itemText;
         
         public Item()
         {
@@ -27,6 +30,7 @@ namespace GarbageRoyale.Scripts
                     setId(1);
                     setName("Wooden Staff");
                     setDamage(15f);
+                    //setTexture();
                     break;
                 case 2:
                     //Debug.Log("Init Steel Staff");
@@ -88,6 +92,15 @@ namespace GarbageRoyale.Scripts
         public void setType(int ty)
         {
             this.type = ty;
+        }
+        
+        public RawImage getTexture()
+        {
+            return this.itemText;
+        }
+        public void setTexture(RawImage it)
+        {
+            this.itemText = it;
         }
     }
 }

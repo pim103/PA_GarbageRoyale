@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using GarbageRoyale.Scripts;
+using GarbageRoyale.Scripts.HUD;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -12,6 +14,8 @@ public class Inventory : MonoBehaviour
     private static int skillSlots = 2;
     private int[] skillInventory; // = new int[skillSlots];
     private int lastCounterSkill;
+    
+
 
     public Inventory()
     {
@@ -51,12 +55,14 @@ public class Inventory : MonoBehaviour
         return this.itemInventory;
     }
     
-    public bool setItemInventory(int itemId)
+    public bool setItemInventory(int itemId, GameObject player)
     {
         int voidIndex = findPlaceInventory();
         if (voidIndex != -1)
         {
             this.itemInventory[voidIndex] = itemId;
+            player.GetComponent<InventoryGUI>().printSprite(voidIndex);
+            
             return true;
         }
         else

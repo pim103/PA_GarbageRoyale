@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GarbageRoyale.Scripts.HUD;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -62,7 +63,7 @@ namespace GarbageRoyale.Scripts
                 Inventory inventoryData = player.GetComponent<Inventory>();
 
                 Debug.Log(string.Format("Item : \n ID : {0} - Name: {1} - Damage : {2} - Type : {3}", itemData.getId(), itemData.getName(), itemData.getDamage(), itemData.getType()));
-                if (inventoryData.setItemInventory(itemData.getId()))
+                if (inventoryData.setItemInventory(itemData.getId(), player))
                 {
                     photonView.RPC("AskDisableItem", RpcTarget.All, itemGob.name);
                 }
@@ -85,7 +86,6 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         public void AskDisableItem(string objName, PhotonMessageInfo info)
         {
-            
             GameObject.Find(objName).SetActive(false);
         }
         
