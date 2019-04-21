@@ -32,7 +32,7 @@ namespace GarbageRoyale.Scripts
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    if (hitInfo.transform.name == "Player(Clone)")
+                    if (hitInfo.transform.name == "otherPerso(Clone)")
                     {
                         attackScript = GameObject.Find("Controller").GetComponent<PlayerAttack>();
                         attackScript.hitPlayer(hitInfo);

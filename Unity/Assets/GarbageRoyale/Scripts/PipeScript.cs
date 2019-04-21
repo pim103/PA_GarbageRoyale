@@ -46,6 +46,8 @@ namespace GarbageRoyale.Scripts
                 audioSource.clip = gazSound;
                 audioSource.loop = true;
                 audioSource.Play();
+
+                Particle.transform.GetChild(0).gameObject.GetComponent<Gaz>().audioSource = crateSound;
             }
         }
     }

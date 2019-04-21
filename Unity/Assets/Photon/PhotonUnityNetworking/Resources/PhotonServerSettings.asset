@@ -70,4 +70,6 @@ MonoBehaviour:
   - brokePipe
   - AskIn
   - AskDisableItem
+  - verifyTriggerExplosion
+  - explode
   DisableAutoOpenWizard: 1

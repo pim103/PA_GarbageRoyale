@@ -49,6 +49,7 @@ namespace GarbageRoyale.Scripts
         private float timeLeft = 20;
         private float waterStartTimeLeft = 60;
         private bool waterStart;
+        private bool pressL;
 
         public Dictionary<string, string>[] roomLinksList;
 
@@ -70,6 +71,7 @@ namespace GarbageRoyale.Scripts
             generator.GenerateNewMaze(81, 81);
             playerCamera = Instantiate(cameraPrefab, new Vector3(150, 1.5f, 150), Quaternion.identity);
             canMove = false;
+            pressL = false;
             
             if (PhotonNetwork.IsMasterClient)   
             {
@@ -91,6 +93,14 @@ namespace GarbageRoyale.Scripts
             wantToGoUp = false;
             waterStart = false;                
             wantToGoDown = false;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.L))
+            {
+                pressL = true;
+            }
         }
 
         private void FixedUpdate()
@@ -149,10 +159,11 @@ namespace GarbageRoyale.Scripts
                 }
             }
 
-            if (Input.GetKeyUp(KeyCode.L))
+            if(pressL)
             {
                 photonView.RPC("TurnLightOff", RpcTarget.MasterClient);
             }
+            pressL = false;
         }
 
         public override void OnJoinedRoom()

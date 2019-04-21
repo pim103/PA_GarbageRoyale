@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 1103656778}
   - component: {fileID: 1103656780}
   - component: {fileID: 1103656781}
+  - component: {fileID: 1103656782}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -357,6 +358,8 @@ MonoBehaviour:
   openingDoorSound: {fileID: 8300000, guid: fac663bd3a9d23e48ad66b64aff43692, type: 3}
   endOpeningDoorSound: {fileID: 8300000, guid: 4103bfc18b18ffd4b8bc6fca073f36f4, type: 3}
   gazSound: {fileID: 8300000, guid: b04667ce79be39a44b9c1549f2612227, type: 3}
+  explosionSound: {fileID: 8300000, guid: 37dbf3a192c693d478b175b4debeb4d0, type: 3}
+  torchLightSound: {fileID: 8300000, guid: 841e491a0a1e60041af4e325aa0dcab5, type: 3}
 --- !u!114 &1103656777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,6 +441,10 @@ MonoBehaviour:
       type: 3}
     amountToPool: 20
     shouldExpand: 1
+  - objectToPool: {fileID: 7001543911256280994, guid: b82a50dc242df944e94274d4a40dbf42,
+      type: 3}
+    amountToPool: 20
+    shouldExpand: 1
   pooledObjects:
   - {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117, type: 3}
 --- !u!114 &1103656781
@@ -452,6 +459,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4fe1ece2009462084fb03881828789d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1103656782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103656768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89402caab2fee7e409f30c7c34decfba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gazX: 0
+  gazY: 0
+  gazZ: 0
 --- !u!1 &1147012261 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8878313210229368649, guid: 3691311aefd7c874a9b2b885d075c7d5,
