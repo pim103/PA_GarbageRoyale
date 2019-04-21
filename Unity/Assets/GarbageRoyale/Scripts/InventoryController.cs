@@ -12,7 +12,7 @@ public class InventoryController : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject playerPrefab;
     private GameObject gtest;
-    private int itemInHand;
+    public int itemInHand;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +30,22 @@ public class InventoryController : MonoBehaviourPunCallbacks
         {
             itemInHand = playerInventory.getItemInventory()[0];
         }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            itemInHand = playerInventory.getItemInventory()[0];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            itemInHand = playerInventory.getItemInventory()[0];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            itemInHand = playerInventory.getItemInventory()[0];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            itemInHand = playerInventory.getItemInventory()[0];
+        }
 
         switch (itemInHand)
         {
@@ -38,11 +54,11 @@ public class InventoryController : MonoBehaviourPunCallbacks
                gtest.SetActive(true);
                gtest.transform.position = new Vector3(155,0.7f,155);
                break;
-            case 2:
-                gtest = ObjectPooler.SharedInstance.GetPooledObject(4);
-                gtest.SetActive(true);
-                gtest.transform.position = new Vector3(155,0.7f,155);
-                break;
+           case 2:
+               gtest = ObjectPooler.SharedInstance.GetPooledObject(4);
+               gtest.SetActive(true);
+               gtest.transform.position = new Vector3(155,0.7f,155);
+               break;
            default:
                break;
         }
