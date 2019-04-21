@@ -32,35 +32,19 @@ public class InventoryController : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            itemInHand = playerInventory.getItemInventory()[0];
+            itemInHand = playerInventory.getItemInventory()[1];
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            itemInHand = playerInventory.getItemInventory()[0];
+            itemInHand = playerInventory.getItemInventory()[2];
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            itemInHand = playerInventory.getItemInventory()[0];
+            itemInHand = playerInventory.getItemInventory()[3];
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            itemInHand = playerInventory.getItemInventory()[0];
-        }
-
-        switch (itemInHand)
-        {
-           case 1:
-               gtest = ObjectPooler.SharedInstance.GetPooledObject(0);
-               gtest.SetActive(true);
-               gtest.transform.position = new Vector3(155,0.7f,155);
-               break;
-           case 2:
-               gtest = ObjectPooler.SharedInstance.GetPooledObject(4);
-               gtest.SetActive(true);
-               gtest.transform.position = new Vector3(155,0.7f,155);
-               break;
-           default:
-               break;
+            itemInHand = playerInventory.getItemInventory()[4];
         }
     }
 

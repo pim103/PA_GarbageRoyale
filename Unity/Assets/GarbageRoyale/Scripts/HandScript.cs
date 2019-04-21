@@ -39,6 +39,17 @@ public class HandScript : MonoBehaviour
                 item.SetActive(true);
                 item.transform.position = new Vector3(155,0.7f,155);
                 break;
+            case 4:
+                if (currentItem != oldItem)
+                {
+                    item = ObjectPooler.SharedInstance.GetPooledObject(5);
+                    item.SetActive(true);
+                    item.transform.SetParent(transform.GetChild(0).transform);
+                    item.transform.localPosition = new Vector3(0,0,0);
+                    item.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                    oldItem = currentItem;
+                }
+                break;
             default:
                 break;
         }
