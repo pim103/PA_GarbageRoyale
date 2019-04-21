@@ -92,6 +92,11 @@ namespace GarbageRoyale.Scripts
             }
         }
 
+        public AudioClip getTrapSound()
+        {
+            return endOpeningDoorSound;
+        }
+
         [PunRPC]
         void initListSound(int id,  PhotonMessageInfo info)
         {

@@ -269,7 +269,7 @@ namespace GarbageRoyale.Scripts
 
             playerCamera.transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
             
-            playerCamera.transform.position = new Vector3(posX,posY+0.2f,posZ);
+            playerCamera.transform.position = new Vector3(posX,posY+0.8f,posZ);
         }
 
         [PunRPC]

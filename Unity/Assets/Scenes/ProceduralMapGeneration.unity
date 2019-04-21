@@ -539,6 +539,9 @@ MonoBehaviour:
       type: 3}
     amountToPool: 30
     shouldExpand: 1
+  - objectToPool: {fileID: 98, guid: 7f38b25077dc64241933283385be2ae5, type: 3}
+    amountToPool: 10
+    shouldExpand: 0
   pooledObjects:
   - {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117, type: 3}
 --- !u!1 &1147012261 stripped
