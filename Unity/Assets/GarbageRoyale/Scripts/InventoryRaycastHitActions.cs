@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,13 +15,15 @@ namespace GarbageRoyale.Scripts
 
         private GameController gc;
         private Dictionary<int, GameObject> characterList = new Dictionary<int, GameObject>();
+
+        private string staffName;
         // Start is called before the first frame update
+        
         void Start()
         {
-            //if (!PhotonNetwork.IsMasterClient) return;
-            
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             characterList = gc.characterList;
+            Debug.Log(characterList);
         }
         
         // Update is called once per frame
@@ -42,7 +45,9 @@ namespace GarbageRoyale.Scripts
                     }
                     else
                     {
-                        photonView.RPC("AskTakeItem", RpcTarget.MasterClient, itemGob.transform.position.x, itemGob.transform.position.y, itemGob.transform.position.z);
+                        staffName = "Staff_" + itemGob.transform.position.x + "_" + itemGob.transform.position.z;
+                        //Debug.Log(staffName);
+                        photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName);
                     }
                     
                 }
@@ -62,7 +67,7 @@ namespace GarbageRoyale.Scripts
                 {
                     itemGob.SetActive(false);
                 }
-                Debug.Log(string.Format("Inventory : \n ID : {0} {1} {2} {3} {4} ", inventoryData.getItemInventory()[0], inventoryData.getItemInventory()[1], inventoryData.getItemInventory()[2], inventoryData.getItemInventory()[3], inventoryData.getItemInventory()[4]));
+                Debug.Log(string.Format("Inventory : \n ID : {0} {1} {2} {3} {4} - Joueur : {5}", inventoryData.getItemInventory()[0], inventoryData.getItemInventory()[1], inventoryData.getItemInventory()[2], inventoryData.getItemInventory()[3], inventoryData.getItemInventory()[4], player));
             }
             else
             {
@@ -71,10 +76,17 @@ namespace GarbageRoyale.Scripts
         }
         
         [PunRPC]
-        private void AskTakeItem(Transform gobX, Transform gobY, Transform gobZ, PhotonMessageInfo info)
+        public void AskTakeItem(string objName, PhotonMessageInfo info)
         {
-            Debug.Log(" " + gobX + " " + gobX + " " + gobZ);
-            //actionTakeItem(itemGob, characterList[info.Sender.ActorNumber]);
+            Debug.Log("Infos : " + objName);
+            actionTakeItem(GameObject.Find(objName), characterList[info.Sender.ActorNumber]);
+        }
+        
+        [PunRPC]
+        public void AskIn(string objName, PhotonMessageInfo info)
+        {
+            Debug.Log("Infos : " + objName);
+            actionTakeItem(GameObject.Find(objName), characterList[info.Sender.ActorNumber]);
         }
     }
 }    

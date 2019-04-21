@@ -38,6 +38,11 @@ public class InventoryController : MonoBehaviourPunCallbacks
                gtest.SetActive(true);
                gtest.transform.position = new Vector3(155,0.7f,155);
                break;
+            case 2:
+                gtest = ObjectPooler.SharedInstance.GetPooledObject(3);
+                gtest.SetActive(true);
+                gtest.transform.position = new Vector3(155,0.7f,155);
+                break;
            default:
                break;
         }

@@ -28,7 +28,7 @@ namespace GarbageRoyale.Scripts
                     setName("Wooden Staff");
                     setDamage(15f);
                     break;
-                /*case 2:
+                case 2:
                     //Debug.Log("Init Steel Staff");
                     setId(2);
                     setName("Steel Staff");
@@ -45,7 +45,7 @@ namespace GarbageRoyale.Scripts
                     setId(4);
                     setName("Lit Torch");
                     setDamage(7f);
-                    break;*/
+                    break;
                 default:
                     setId(0);
                     setName("Void");

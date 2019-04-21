@@ -11,10 +11,13 @@ using Random = UnityEngine.Random;
 
 namespace GarbageRoyale.Scripts
 {
-    public class ItemSpawner : MonoBehaviour
+    public class ItemSpawner : MonoBehaviourPunCallbacks
     {
+        private int spawnerId;
         private GameObject itemGob;
         private Item itemSelf;
+
+        private bool isSpawned = false;
         
         [SerializeField] 
         private GameObject itemPrefab;
@@ -24,21 +27,23 @@ namespace GarbageRoyale.Scripts
         private GameObject _spawnerItems;
         [SerializeField] 
         private int itemType;
-        
-        
-           
-        
-        // Start is called before the first frame update
-        public void Start()
-        {
-            itemType = 1; //Random.Range(1, 4);
+        public RoomInfo gameInfo;
 
-            //itemPrefab.AddComponent<PhotonView>();
+        private void Start()
+        {
+            initItems();
+        }
+        
+        public void initItems()
+        {
+            //Debug.Log(info);
+            //itemType = 1; //Random.Range(1, 4);
             itemGob = Instantiate(itemPrefab, new Vector3(_spawnerItems.transform.position.x, _spawnerItems.transform.position.y + 0.7f, _spawnerItems.transform.position.z), Quaternion.identity);
+            itemGob.name = "Staff_" + _spawnerItems.transform.position.x + "_" + _spawnerItems.transform.position.z;
             //itemGob.AddComponent<Item>();
             itemSelf = itemGob.GetComponent<Item>();
             itemSelf.initItem(itemType);
-            switch (itemSelf.getType())
+            /*switch (itemSelf.getType())
             {
                 case 1:                    
                     itemGob.GetComponent<Renderer>().material = itemMaterial;
@@ -52,7 +57,13 @@ namespace GarbageRoyale.Scripts
                 default:
                     itemGob.GetComponent<Renderer>().material = itemMaterial;
                     break; 
-            }
+            }*/
         }
+        /*
+        [PunRPC]
+        public void clientCallItems()
+        {
+            
+        }*/
     }
 }

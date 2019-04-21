@@ -134,11 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 428b365e2a655c341bac52d3268bbb75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 9212573172730634276, guid: d6004d073389f734e860e202fe8fe23b,
+  itemPrefab: {fileID: 2340599181496208596, guid: 4b07d8887588dfb408d48ce21fe2f8ce,
     type: 3}
   itemMaterial: {fileID: 2100000, guid: ca313eee97ec25144bef182572923931, type: 2}
   _spawnerItems: {fileID: 2186616375220900141}
-  itemType: 1
+  itemType: 2
 --- !u!1 &4449432576064577553
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3218918595299594827}
   m_Layer: 0
-  m_Name: ItemRoom
+  m_Name: ItemRoom 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

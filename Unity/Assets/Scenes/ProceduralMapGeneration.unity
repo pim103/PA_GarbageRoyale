@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 1103656777}
   - component: {fileID: 1103656778}
   - component: {fileID: 1103656780}
+  - component: {fileID: 1103656781}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -350,6 +351,7 @@ MonoBehaviour:
   - {fileID: 4449432576064577553, guid: a4ecdf22c5717d7429e4a9f29d31c4cf, type: 3}
   - {fileID: 4449432576064577553, guid: e3c7774464e7fe04aad4718ab99fea29, type: 3}
   - {fileID: 2340599181496208596, guid: 4b07d8887588dfb408d48ce21fe2f8ce, type: 3}
+  - {fileID: 4449432576064577553, guid: 8707b6970f3821d409e9587057f031ca, type: 3}
   floorTransition: {fileID: 4449432576064577553, guid: 503958394bf416442aa3518a8fdcdf19,
     type: 3}
   mazeMat1: {fileID: 2100000, guid: 2019d743bc0984ba1b81150901d44455, type: 2}
@@ -369,13 +371,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 1103656769}
-  player: {fileID: 1627776587, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
+  player: {fileID: 254, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
   cameraPrefab: {fileID: 6662625427913190848, guid: d246acae78f293140bc3c7927c3b2269,
     type: 3}
   characterObject: {fileID: 3846190481519509443, guid: 6bfa6ebee8251ca47a8a37ef8586c70e,
     type: 3}
   soundObject: {fileID: 98, guid: 7f38b25077dc64241933283385be2ae5, type: 3}
-  startDoorPrefab: {fileID: 102, guid: f761492eda4454a43bdbd6b44f5a64bc, type: 3}
+  startDoorPrefab: {fileID: 107, guid: f761492eda4454a43bdbd6b44f5a64bc, type: 3}
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0
@@ -531,7 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemsToPool:
-  - objectToPool: {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117,
+  - objectToPool: {fileID: 9212573172730634276, guid: d6004d073389f734e860e202fe8fe23b,
       type: 3}
     amountToPool: 20
     shouldExpand: 1
@@ -542,8 +544,24 @@ MonoBehaviour:
   - objectToPool: {fileID: 98, guid: 7f38b25077dc64241933283385be2ae5, type: 3}
     amountToPool: 10
     shouldExpand: 0
+  - objectToPool: {fileID: 2340599181496208596, guid: 4b07d8887588dfb408d48ce21fe2f8ce,
+      type: 3}
+    amountToPool: 10
+    shouldExpand: 1
   pooledObjects:
   - {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117, type: 3}
+--- !u!114 &1103656781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103656768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4fe1ece2009462084fb03881828789d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1147012261 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8878313210229368649, guid: 3691311aefd7c874a9b2b885d075c7d5,
