@@ -351,6 +351,7 @@ MonoBehaviour:
   - {fileID: 4449432576064577553, guid: a4ecdf22c5717d7429e4a9f29d31c4cf, type: 3}
   - {fileID: 4449432576064577553, guid: e3c7774464e7fe04aad4718ab99fea29, type: 3}
   - {fileID: 4449432576064577553, guid: 8707b6970f3821d409e9587057f031ca, type: 3}
+  - {fileID: 4449432576064577553, guid: 114d2cf3190fda242820f7724b2b5969, type: 3}
   - {fileID: 2340599181496208596, guid: 4b07d8887588dfb408d48ce21fe2f8ce, type: 3}
   floorTransition: {fileID: 4449432576064577553, guid: 503958394bf416442aa3518a8fdcdf19,
     type: 3}
@@ -371,7 +372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 1103656769}
-  player: {fileID: 112, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
+  player: {fileID: 254, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
   cameraPrefab: {fileID: 6662625427913190848, guid: d246acae78f293140bc3c7927c3b2269,
     type: 3}
   characterObject: {fileID: 3846190481519509443, guid: 6bfa6ebee8251ca47a8a37ef8586c70e,

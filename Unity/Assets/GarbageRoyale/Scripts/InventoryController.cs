@@ -12,7 +12,7 @@ public class InventoryController : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject playerPrefab;
     private GameObject gtest;
-    private int itemInHand;
+    public int itemInHand;
 
     // Start is called before the first frame update
     void Start()

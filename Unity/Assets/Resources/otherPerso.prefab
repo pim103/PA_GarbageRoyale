@@ -133,8 +133,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 730}
-  viewIdField: 4
-  InstantiationId: 4
+  viewIdField: 6
+  InstantiationId: 6
   isRuntimeInstantiated: 0
 --- !u!114 &730
 MonoBehaviour:
@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 254}
+  itemInHand: 0
 --- !u!114 &738
 MonoBehaviour:
   m_ObjectHideFlags: 0
