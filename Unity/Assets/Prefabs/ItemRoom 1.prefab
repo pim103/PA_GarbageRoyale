@@ -134,9 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 428b365e2a655c341bac52d3268bbb75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 2340599181496208596, guid: 4b07d8887588dfb408d48ce21fe2f8ce,
+  itemPrefab: {fileID: 9212573172730634276, guid: d6004d073389f734e860e202fe8fe23b,
     type: 3}
-  itemMaterial: {fileID: 2100000, guid: ca313eee97ec25144bef182572923931, type: 2}
+  itemMaterial: {fileID: 2100000, guid: 90623549d4482f042ade35d8a0758e35, type: 2}
   _spawnerItems: {fileID: 2186616375220900141}
   itemType: 2
 --- !u!1 &4449432576064577553

@@ -39,31 +39,16 @@ namespace GarbageRoyale.Scripts
             //Debug.Log(info);
             //itemType = 1; //Random.Range(1, 4);
             itemGob = Instantiate(itemPrefab, new Vector3(_spawnerItems.transform.position.x, _spawnerItems.transform.position.y + 0.7f, _spawnerItems.transform.position.z), Quaternion.identity);
-            itemGob.name = "Staff_" + _spawnerItems.transform.position.x + "_" + _spawnerItems.transform.position.z;
+            itemGob.name = "Staff_" + _spawnerItems.transform.position.x + "_" + ((int)_spawnerItems.transform.position.y + 1) + "_" + _spawnerItems.transform.position.z;
             //itemGob.AddComponent<Item>();
             itemSelf = itemGob.GetComponent<Item>();
             itemSelf.initItem(itemType);
-            /*switch (itemSelf.getType())
+
+            /*if (itemType == 2)
             {
-                case 1:                    
-                    itemGob.GetComponent<Renderer>().material = itemMaterial;
-                    itemMaterial.shader = Shader.Find("_Color");
-                    itemMaterial.SetColor("_Color", new Color(156, 74, 0, 255));
-                    break;
-                case 2:
-                    itemMaterial.SetColor("_Color", new Color(100, 100, 100, 255));
-                    itemGob.GetComponent<Renderer>().material = itemMaterial;
-                    break;
-                default:
-                    itemGob.GetComponent<Renderer>().material = itemMaterial;
-                    break; 
+                itemGob.GetComponent<Material>().CopyPropertiesFromMaterial(itemMaterial);
             }*/
+
         }
-        /*
-        [PunRPC]
-        public void clientCallItems()
-        {
-            
-        }*/
     }
 }
