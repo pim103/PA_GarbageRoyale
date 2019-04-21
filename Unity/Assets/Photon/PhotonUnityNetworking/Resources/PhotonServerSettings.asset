@@ -68,4 +68,5 @@ MonoBehaviour:
   - initListSound
   - AskBrokenPipe
   - brokePipe
+  - AskIn
   DisableAutoOpenWizard: 1
