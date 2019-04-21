@@ -43,7 +43,7 @@ namespace GarbageRoyale.Scripts
 			
 				//if (!PhotonNetwork.IsMasterClient) return;
 				float rotationY;
-				/*if (axes == RotationAxis.MouseX)
+				if (axes == RotationAxis.MouseX)
 				{
 					mine = false;
 					foreach (var pair in gameControl.characterList)
@@ -86,7 +86,7 @@ namespace GarbageRoyale.Scripts
 						//transform.GetChild(1).localEulerAngles = new Vector3(transform.GetChild(1).localEulerAngles.x, 
 						//transform.GetChild(1).localEulerAngles.y + 1.0f, transform.GetChild(1).localEulerAngles.z);
 					
-				}*/
+				}
 			
 		}
 		
