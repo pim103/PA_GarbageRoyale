@@ -46,22 +46,29 @@ namespace GarbageRoyale.Scripts
             {
                 var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
                 RaycastHit hitInfo;
-
+                
                 if (Physics.Raycast(ray, out hitInfo, 2f))
                 {
-                    GameObject itemGob = hitInfo.transform.gameObject;
-                    if (PhotonNetwork.IsMasterClient)
+                    if (hitInfo.transform.name == "implantOnline(Clone)")
                     {
-                        var charFirst = characterList.First();
-                        GameObject player = charFirst.Value;
-                        actionTakeItem(itemGob, player, true);
+                        photonView.RPC("AskTakeImplant", RpcTarget.MasterClient, 1);
                     }
                     else
                     {
-                        staffName = "Staff_" + itemGob.transform.position.x + "_" + ((int)itemGob.transform.position.y + 1) + "_" + itemGob.transform.position.z;
-                        //Debug.Log(staffName);
-                        photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName);
-                        Item itemData = itemGob.GetComponent<Item>();
+                        GameObject itemGob = hitInfo.transform.gameObject;
+                        if (PhotonNetwork.IsMasterClient)
+                        {
+                            var charFirst = characterList.First();
+                            GameObject player = charFirst.Value;
+                            actionTakeItem(itemGob, player, true);
+                        }
+                        else
+                        {
+                            staffName = "Staff_" + itemGob.transform.position.x + "_" + ((int)itemGob.transform.position.y + 1) + "_" + itemGob.transform.position.z;
+                            //Debug.Log(staffName);
+                            photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName);
+                            Item itemData = itemGob.GetComponent<Item>();
+                        }
                     }
                 }
             }
@@ -116,6 +123,24 @@ namespace GarbageRoyale.Scripts
         {
             GameObject.Find(objName).SetActive(false);
         }
-        
+
+        [PunRPC]
+        public void AskTakeImplant(int id, PhotonMessageInfo info)
+        {
+            Debug.Log("allo");
+            Inventory inventoryData = characterList[info.Sender.ActorNumber].GetComponent<Inventory>();
+            Debug.Log("allo1");
+            controller = GameObject.Find("Controller");
+            photonView.RPC("AnswerTakeImplant", info.Sender, inventoryData.findPlaceSkills());
+            Debug.Log("allo2");
+            inventoryData.setSkillInventory(0);
+            Debug.Log("allo3");
+            
+        }
+        [PunRPC]
+        public void AnswerTakeImplant(int place, PhotonMessageInfo info)
+        {
+            controller.GetComponent<InventoryGUI>().printSkillSprite(place,1);
+        }
     }
 }    

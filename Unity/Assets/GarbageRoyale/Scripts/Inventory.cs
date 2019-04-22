@@ -37,8 +37,12 @@ namespace GarbageRoyale.Scripts
             for (int i = 0; i < itemSlots; i++)
             {
                 itemInventory[i] = 0;
-                skillInventory[i] = 0;
             }
+            for (int i = 0; i < skillSlots; i++)
+            {
+                skillInventory[i] = 0;;
+            }
+            
         }
 
         public int findPlaceInventory()
@@ -76,6 +80,21 @@ namespace GarbageRoyale.Scripts
             if (voidIndex != -1)
             {
                 this.itemInventory[voidIndex] = itemId;
+            
+                return true;
+            }
+            else
+            {
+                Debug.Log("No place found");
+                return false;
+            }
+        }
+        public bool setSkillInventory(int itemId)
+        {
+            int voidIndex = findPlaceSkills();
+            if (voidIndex != -1)
+            {
+                this.skillInventory[voidIndex] = itemId;
             
                 return true;
             }

@@ -69,6 +69,9 @@ namespace GarbageRoyale.Scripts
                     case 4:
                         poolID = 5;
                         break;
+                    case 5:
+                        poolID = 7;
+                        break;
                 }
                 if (oldItem != 0)
                 {

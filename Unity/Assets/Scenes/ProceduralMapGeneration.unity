@@ -320,8 +320,86 @@ PrefabInstance:
       propertyPath: m_CullTransparentMesh
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7308248908574293495, guid: eec08ba0da3bcac40a57a8e5e2a64078,
+        type: 3}
+      propertyPath: m_Name
+      value: SkillImg_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2738695995352787375, guid: eec08ba0da3bcac40a57a8e5e2a64078,
+        type: 3}
+      propertyPath: m_Name
+      value: SkillImg_0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6683574327873717355, guid: eec08ba0da3bcac40a57a8e5e2a64078, type: 3}
+    - {fileID: 6235726624846415209, guid: eec08ba0da3bcac40a57a8e5e2a64078, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: eec08ba0da3bcac40a57a8e5e2a64078, type: 3}
+--- !u!1 &669335997 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7308248908574293495, guid: eec08ba0da3bcac40a57a8e5e2a64078,
+    type: 3}
+  m_PrefabInstance: {fileID: 669335996}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &669335998 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2738695995352787375, guid: eec08ba0da3bcac40a57a8e5e2a64078,
+    type: 3}
+  m_PrefabInstance: {fileID: 669335996}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &669335999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669335997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -98529514, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!114 &669336000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669335998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -98529514, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &1103656768
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,6 +672,10 @@ MonoBehaviour:
       type: 3}
     amountToPool: 20
     shouldExpand: 1
+  - objectToPool: {fileID: 520855234544257083, guid: 79998b8b9a19e684eb8d5252ff930b7a,
+      type: 3}
+    amountToPool: 20
+    shouldExpand: 1
   pooledObjects:
   - {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117, type: 3}
 --- !u!114 &1103656781
@@ -660,6 +742,9 @@ MonoBehaviour:
     amountToPool: 10
     shouldExpand: 1
   - objectToPool: implantOnline
+    amountToPool: 10
+    shouldExpand: 1
+  - objectToPool: toiletPaperOnline
     amountToPool: 10
     shouldExpand: 1
   pooledObjects: []

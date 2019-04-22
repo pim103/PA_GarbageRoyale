@@ -80,4 +80,6 @@ MonoBehaviour:
   - AskThrowItem
   - punch
   - ChangeGUIClient
+  - AskTakeImplant
+  - AnswerTakeImplant
   DisableAutoOpenWizard: 1

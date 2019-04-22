@@ -109,6 +109,9 @@ namespace GarbageRoyale.Scripts
                 case 4:
                     poolID = 1;
                     break;
+                case 5:
+                    poolID = 3;
+                    break;
             }
         
             putitem = ObjectPoolerPhoton.SharedInstance.GetPooledObject(poolID);
