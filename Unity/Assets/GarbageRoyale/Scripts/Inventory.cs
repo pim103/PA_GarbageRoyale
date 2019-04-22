@@ -1,96 +1,98 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using GarbageRoyale.Scripts;
-using GarbageRoyale.Scripts.HUD;
+﻿using GarbageRoyale.Scripts.HUD;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Inventory : MonoBehaviour
+namespace GarbageRoyale.Scripts
 {
-    private static int itemSlots = 5;
-    private int[] itemInventory; //= new int[itemSlots];
-    private int lastCounterItem;
-    
-    private static int skillSlots = 2;
-    private int[] skillInventory; // = new int[skillSlots];
-    private int lastCounterSkill;
-    
-
-
-    public Inventory()
+    public class Inventory : MonoBehaviour
     {
-        // Item Inventory Init
-        itemInventory = new int[itemSlots];
-        lastCounterItem = 0;
+        private static int itemSlots = 5;
+        private int[] itemInventory; //= new int[itemSlots];
+        private int lastCounterItem;
+    
+        private static int skillSlots = 2;
+        private int[] skillInventory; // = new int[skillSlots];
+        private int lastCounterSkill;
+
+        private GameObject controller;
+    
+
+
+        public Inventory()
+        {
+            // Item Inventory Init
+            itemInventory = new int[itemSlots];
+            lastCounterItem = 0;
         
-        // Skill Inventory Init
-        skillInventory = new int[skillSlots];
-        lastCounterSkill = 0;
-    }
-
-    public void testtouch()
-    {
-        Debug.Log("touched");
-    }
-
-    public void initInventory()
-    {
-        for (int i = 0; i < itemSlots; i++)
-        {
-            itemInventory[i] = 0;
+            // Skill Inventory Init
+            skillInventory = new int[skillSlots];
+            lastCounterSkill = 0;
         }
-    }
 
-    public int findPlaceInventory()
-    {
-        for (int i = 0; i < itemSlots; i++)
+        public void testtouch()
         {
-            if (itemInventory[i] == 0)
+            Debug.Log("touched");
+        }
+
+        public void initInventory()
+        {
+            for (int i = 0; i < itemSlots; i++)
             {
-                return i;
+                itemInventory[i] = 0;
             }
         }
-        return -1;
-    }
-    
-    public int[] getItemInventory()
-    {
-        return this.itemInventory;
-    }
-    
-    public bool setItemInventory(int itemId, GameObject player)
-    {
-        int voidIndex = findPlaceInventory();
-        if (voidIndex != -1)
+
+        public int findPlaceInventory()
         {
-            this.itemInventory[voidIndex] = itemId;
-            player.GetComponent<InventoryGUI>().printSprite(voidIndex, itemId-1);
+            for (int i = 0; i < itemSlots; i++)
+            {
+                if (itemInventory[i] == 0)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    
+        public int[] getItemInventory()
+        {
+            return this.itemInventory;
+        }
+    
+        public bool setItemInventory(int itemId)
+        {
+            int voidIndex = findPlaceInventory();
+            if (voidIndex != -1)
+            {
+                controller = GameObject.Find("Controller");
+                this.itemInventory[voidIndex] = itemId;
+                controller.GetComponent<InventoryGUI>().printSprite(voidIndex, itemId-1);
             
-            return true;
+                return true;
+            }
+            else
+            {
+                Debug.Log("No place found");
+                return false;
+            }
         }
-        else
+        public int getLastCounterItem()
         {
-            Debug.Log("No place found");
-            return false;
+            return this.lastCounterItem;
         }
-    }
-    public int getLastCounterItem()
-    {
-        return this.lastCounterItem;
-    }
     
-    public void setLastCounterItem(int lastCounterItem)
-    {
-        this.lastCounterItem = lastCounterItem;
-    }
+        public void setLastCounterItem(int lastCounterItem)
+        {
+            this.lastCounterItem = lastCounterItem;
+        }
     
-    public int getLastCounterSkill()
-    {
-        return this.lastCounterSkill;
-    }
+        public int getLastCounterSkill()
+        {
+            return this.lastCounterSkill;
+        }
     
-    public void setLastCounterSkill(int lastCounterSkill)
-    {
-        this.lastCounterSkill = lastCounterSkill;
+        public void setLastCounterSkill(int lastCounterSkill)
+        {
+            this.lastCounterSkill = lastCounterSkill;
+        }
     }
 }

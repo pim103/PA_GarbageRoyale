@@ -14,20 +14,15 @@ namespace GarbageRoyale.Scripts
         private GameObject playerPrefab;
         private GameObject gtest;
         public int itemInHand;
-        private InventoryGUI playerInventoryGUI;
-        [SerializeField] 
-        private RawImage [] rawSprites;
-        [SerializeField] 
-        private GameObject inventoryPrefab;
-
+        
         // Start is called before the first frame update
         void Start()
         {
             playerInventory = playerPrefab.AddComponent<Inventory>();
             playerInventory.initInventory();
-            playerPrefab.AddComponent<InventoryGUI>();
-            playerInventoryGUI = playerPrefab.GetComponent<InventoryGUI>();
-            playerInventoryGUI.initInventoryGUI(inventoryPrefab, rawSprites);
+            //playerPrefab.AddComponent<InventoryGUI>();
+            //playerInventoryGUI = playerPrefab.GetComponent<InventoryGUI>();
+            //playerInventoryGUI.initInventoryGUI(inventoryPrefab, rawSprites);
             itemInHand = 0;
 
             //Debug.Log(string.Format("Inventory : {0}", playerInventory.getItemInventory()[0]));

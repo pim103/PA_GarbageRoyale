@@ -63,7 +63,7 @@ namespace GarbageRoyale.Scripts
                 Inventory inventoryData = player.GetComponent<Inventory>();
 
                 Debug.Log(string.Format("Item : \n ID : {0} - Name: {1} - Damage : {2} - Type : {3}", itemData.getId(), itemData.getName(), itemData.getDamage(), itemData.getType()));
-                if (inventoryData.setItemInventory(itemData.getId(), player))
+                if (inventoryData.setItemInventory(itemData.getId()))
                 {
                     photonView.RPC("AskDisableItem", RpcTarget.All, itemGob.name);
                 }
