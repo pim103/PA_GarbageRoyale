@@ -24,7 +24,7 @@ namespace GarbageRoyale.Scripts
             hp = 100f;
             stamina = 100f;
             breath = 100f;
-            basicAttack = 20f;
+            basicAttack = 3f;
 
             isDead = false;
             isRotatePlayer = false;

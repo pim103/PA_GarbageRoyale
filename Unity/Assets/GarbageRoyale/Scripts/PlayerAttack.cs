@@ -16,12 +16,6 @@ namespace GarbageRoyale.Scripts
             characterList = gc.characterList;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         public void hitPlayer(RaycastHit info)
         {
             photonView.RPC("findPlayer", RpcTarget.MasterClient, info.transform.position.x, info.transform.position.y, info.transform.position.z);
@@ -34,6 +28,12 @@ namespace GarbageRoyale.Scripts
 
             GameObject sourceDamage = characterList[info.Sender.ActorNumber];
             float damage = sourceDamage.GetComponent<PlayerStats>().getBasickAttack();
+            int objectInHand = sourceDamage.GetComponent<InventoryController>().itemInHand;
+
+            Item item = new Item();
+            item.initItem(objectInHand);
+
+            damage += item.getDamage();
 
             foreach (var player in characterList)
             {

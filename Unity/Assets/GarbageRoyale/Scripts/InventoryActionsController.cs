@@ -88,6 +88,7 @@ namespace GarbageRoyale.Scripts
         {
             Inventory inventoryData = characterList[info.Sender.ActorNumber].GetComponent<Inventory>();
             photonView.RPC("AnswerChangePlayerHandItem", info.Sender, inventoryData.getItemInventory()[inventoryPlace]);
+            characterList[info.Sender.ActorNumber].GetComponent<InventoryController>().itemInHand = inventoryData.getItemInventory()[inventoryPlace];
         }
     
         [PunRPC]

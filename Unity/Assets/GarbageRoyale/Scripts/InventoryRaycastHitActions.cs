@@ -57,7 +57,7 @@ namespace GarbageRoyale.Scripts
         
         private void actionTakeItem(GameObject itemGob, GameObject player)
         {
-            if (itemGob.GetComponent<Item>())
+            if (itemGob.GetComponent<Item>() != null)
             {
                 Item itemData = itemGob.GetComponent<Item>();
                 Inventory inventoryData = player.GetComponent<Inventory>();
