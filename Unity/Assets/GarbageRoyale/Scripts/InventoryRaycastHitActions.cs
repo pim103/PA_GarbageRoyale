@@ -50,7 +50,6 @@ namespace GarbageRoyale.Scripts
                         //Debug.Log(staffName);
                         photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName);
                     }
-                    
                 }
             }
         }

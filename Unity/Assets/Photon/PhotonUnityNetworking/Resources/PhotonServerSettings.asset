@@ -78,4 +78,5 @@ MonoBehaviour:
   - AnswerDropItem
   - AskDropItem
   - AskThrowItem
+  - punch
   DisableAutoOpenWizard: 1

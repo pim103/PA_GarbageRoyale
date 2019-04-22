@@ -23,6 +23,7 @@ namespace GarbageRoyale.Scripts
 
         private Texture2D breathTexture;
         private Texture2D hpTexture;
+        private Texture2D staminaTexture;
         private Texture2D borderTexture;
         private Texture2D filterWaterTexture;
         private Texture2D deadTexture;
@@ -82,7 +83,19 @@ namespace GarbageRoyale.Scripts
             GUI.DrawTexture(new Rect(Screen.width - 50, Screen.height - 53, 3, 36), borderTexture);
             //respi
             GUI.DrawTexture(new Rect(Screen.width - 150, Screen.height - 50, breath, 30), breathTexture);
-        
+
+            // STAMINA
+            //top
+            GUI.DrawTexture(new Rect(Screen.width - 153, Screen.height - 103, 106, 3), borderTexture);
+            //bot
+            GUI.DrawTexture(new Rect(Screen.width - 153, Screen.height - 70, 106, 3), borderTexture);
+            //left
+            GUI.DrawTexture(new Rect(Screen.width - 153, Screen.height - 103, 3, 36), borderTexture);
+            //right
+            GUI.DrawTexture(new Rect(Screen.width - 50, Screen.height - 103, 3, 36), borderTexture);
+            //respi
+            GUI.DrawTexture(new Rect(Screen.width - 150, Screen.height - 100, stamina, 30), staminaTexture);
+
             // HP
             //top
             GUI.DrawTexture(new Rect(47, Screen.height - 53, 106, 3), borderTexture);
@@ -109,6 +122,7 @@ namespace GarbageRoyale.Scripts
             filterWaterTexture = gc.MakeTex(Screen.width, Screen.height, new Color(0, 0.5f, 1, 0.5f));
             hpTexture = gc.MakeTex(100, 30, Color.red);
             breathTexture = gc.MakeTex(100, 30, Color.blue);
+            staminaTexture = gc.MakeTex(100, 30, Color.yellow);
             borderTexture = gc.MakeTex(110, 40, new Color(0.8f, 0.8f, 0.8f, 1f));
             deadTexture = gc.MakeTex(Screen.width, Screen.height, new Color(0.7f, 0.7f, 0.7f, 0.7f));
             // deadMessage.text = "Vous êtes mort !";

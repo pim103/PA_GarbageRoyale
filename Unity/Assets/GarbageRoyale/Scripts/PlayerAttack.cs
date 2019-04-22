@@ -16,6 +16,14 @@ namespace GarbageRoyale.Scripts
             characterList = gc.characterList;
         }
 
+        private void LateUpdate()
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                photonView.RPC("punch", RpcTarget.MasterClient, null);
+            }
+        }
+
         public void hitPlayer(RaycastHit info)
         {
             photonView.RPC("findPlayer", RpcTarget.MasterClient, info.transform.position.x, info.transform.position.y, info.transform.position.z);
@@ -27,7 +35,8 @@ namespace GarbageRoyale.Scripts
             if (!PhotonNetwork.IsMasterClient) return;
 
             GameObject sourceDamage = characterList[info.Sender.ActorNumber];
-            float damage = sourceDamage.GetComponent<PlayerStats>().getBasickAttack();
+            PlayerStats ps = sourceDamage.GetComponent<PlayerStats>();
+            float damage = ps.getBasickAttack();
             int objectInHand = sourceDamage.GetComponent<InventoryController>().itemInHand;
 
             Item item = new Item();
@@ -35,19 +44,31 @@ namespace GarbageRoyale.Scripts
 
             damage += item.getDamage();
 
-            foreach (var player in characterList)
+            if (ps.getStamina() >= ps.getAttackCostStamina())
             {
-                if(player.Value == sourceDamage)
+                foreach (var player in characterList)
                 {
-                    continue;
-                }
-                if(player.Value.transform.position.x == x && player.Value.transform.position.y == y && player.Value.transform.position.z == z)
-                {
-                    PlayerStats ps = player.Value.GetComponent<PlayerStats>();
-                    ps.takeDamage(damage);
-                    break;
+                    if(player.Value == sourceDamage)
+                    {
+                        continue;
+                    }
+                    if(player.Value.transform.position.x == x && player.Value.transform.position.y == y && player.Value.transform.position.z == z)
+                    {
+                        ps = player.Value.GetComponent<PlayerStats>();
+                        ps.takeDamage(damage);
+                        break;
+                    }
                 }
             }
+        }
+
+        [PunRPC]
+        private void punch(PhotonMessageInfo info)
+        {
+            PlayerStats ps = characterList[info.Sender.ActorNumber].GetComponent<PlayerStats>();
+
+            if (ps.getAttackCostStamina() > ps.getStamina()) return;
+            ps.useStamina();
         }
     }
 }

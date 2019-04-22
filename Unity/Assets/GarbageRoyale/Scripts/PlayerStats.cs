@@ -13,6 +13,7 @@ namespace GarbageRoyale.Scripts
         private float stamina;
         private float breath;
         private float basicAttack;
+        private float attackCostStamina;
 
         private PlayerMovement pm; //Like Pierre-Marie :thumbsup: 
         private bool isDead;
@@ -25,6 +26,7 @@ namespace GarbageRoyale.Scripts
             stamina = 100f;
             breath = 100f;
             basicAttack = 3f;
+            attackCostStamina = 20f;
 
             isDead = false;
             isRotatePlayer = false;
@@ -50,6 +52,11 @@ namespace GarbageRoyale.Scripts
                 {
                     breath += 1;
                 }
+            }
+
+            if(stamina < 100)
+            {
+                stamina += 0.3f;
             }
         }
 
@@ -86,6 +93,25 @@ namespace GarbageRoyale.Scripts
         public void setBreath(float b)
         {
             breath = b;
+        }
+
+        public void setStamina(float s)
+        {
+            stamina = s;
+        }
+
+        public void useStamina()
+        {
+            stamina -= attackCostStamina;
+            if(stamina < 0)
+            {
+                stamina = 0;
+            }
+        }
+
+        public float getAttackCostStamina()
+        {
+            return attackCostStamina;
         }
 
         public float getStamina()

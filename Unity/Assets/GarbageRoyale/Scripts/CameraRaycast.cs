@@ -28,6 +28,7 @@ namespace GarbageRoyale.Scripts
             var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
             RaycastHit hitInfo;
             bool touch = Physics.Raycast(ray, out hitInfo, 2f);
+
             if (touch)
             {
                 if (Input.GetMouseButtonDown(0))
