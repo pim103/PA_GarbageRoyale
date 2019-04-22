@@ -75,4 +75,7 @@ MonoBehaviour:
   - AnswerChangePlayerHandItem
   - AskChangePlayerHandItem
   - ChangeItemInHandOthers
+  - AnswerDropItem
+  - AskDropItem
+  - AskThrowItem
   DisableAutoOpenWizard: 1

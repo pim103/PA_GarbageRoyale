@@ -262,7 +262,7 @@ MonoBehaviour:
   characterObject: {fileID: 3846190481519509443, guid: 6bfa6ebee8251ca47a8a37ef8586c70e,
     type: 3}
   soundObject: {fileID: 98, guid: 7f38b25077dc64241933283385be2ae5, type: 3}
-  startDoorPrefab: {fileID: 107, guid: f761492eda4454a43bdbd6b44f5a64bc, type: 3}
+  startDoorPrefab: {fileID: 120, guid: f761492eda4454a43bdbd6b44f5a64bc, type: 3}
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0
@@ -489,6 +489,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemInHand: 0
+  placeInHand: 0
+  thrownItems: []
+  thrownItemsCount: 
   Send: 0
 --- !u!114 &1103656784
 MonoBehaviour:

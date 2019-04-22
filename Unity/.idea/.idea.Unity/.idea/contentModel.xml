@@ -14,8 +14,12 @@
             <e p="CameraRaycastHitActions.cs" t="Include" />
             <e p="DesactivateCameraControl.cs" t="Include" />
             <e p="DoorController.cs" t="Include" />
+            <e p="EnvironmentEvent.cs" t="Include" />
             <e p="GameController.cs" t="Include" />
             <e p="HandScript.cs" t="Include" />
+            <e p="HUD" t="Include">
+              <e p="InventoryGUI.cs" t="Include" />
+            </e>
             <e p="Inventory.cs" t="Include" />
             <e p="InventoryActionsController.cs" t="Include" />
             <e p="InventoryController.cs" t="Include" />
@@ -35,6 +39,10 @@
             <e p="ObjectPoolerPhoton.cs" t="Include" />
             <e p="OnlinePlayerManager.cs" t="Include" />
             <e p="OpenDoorScript.cs" t="Include" />
+            <e p="Particles" t="Include">
+              <e p="Explosion.cs" t="Include" />
+              <e p="Gaz.cs" t="Include" />
+            </e>
             <e p="PipeScript.cs" t="Include" />
             <e p="PlayerAttack.cs" t="Include" />
             <e p="PlayerDisplay.cs" t="Include" />

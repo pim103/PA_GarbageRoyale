@@ -10,7 +10,16 @@ namespace GarbageRoyale.Scripts
         private float damage;
         public int type; // Weapon, Utils, Trap
         public RawImage itemText;
-        
+        public bool initOnStart;
+
+        private void Start()
+        {
+            if (initOnStart)
+            {
+                initItem(type);
+            }
+        }
+
         public Item()
         {
             id = -1;
