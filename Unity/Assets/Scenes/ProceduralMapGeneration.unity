@@ -382,6 +382,7 @@ MonoBehaviour:
   - {fileID: 4449432576064577553, guid: 8707b6970f3821d409e9587057f031ca, type: 3}
   - {fileID: 4449432576064577553, guid: 114d2cf3190fda242820f7724b2b5969, type: 3}
   - {fileID: 4449432576064577553, guid: 40bf83f1f5e9c104ba64ee3587bd730b, type: 3}
+  - {fileID: 4449432576064577553, guid: b78af0028a570964cacde0be665b3db0, type: 3}
   - {fileID: 2340599181496208596, guid: 4b07d8887588dfb408d48ce21fe2f8ce, type: 3}
   floorTransition: {fileID: 4449432576064577553, guid: 503958394bf416442aa3518a8fdcdf19,
     type: 3}
@@ -402,13 +403,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 1103656769}
-  player: {fileID: 116, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
+  player: {fileID: 121, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
   cameraPrefab: {fileID: 6662625427913190848, guid: d246acae78f293140bc3c7927c3b2269,
     type: 3}
   characterObject: {fileID: 3846190481519509443, guid: 6bfa6ebee8251ca47a8a37ef8586c70e,
     type: 3}
   soundObject: {fileID: 98, guid: 7f38b25077dc64241933283385be2ae5, type: 3}
-  startDoorPrefab: {fileID: 125, guid: f761492eda4454a43bdbd6b44f5a64bc, type: 3}
+  startDoorPrefab: {fileID: 130, guid: f761492eda4454a43bdbd6b44f5a64bc, type: 3}
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0
@@ -658,6 +659,9 @@ MonoBehaviour:
   - objectToPool: torchOnline
     amountToPool: 10
     shouldExpand: 1
+  - objectToPool: Mob
+    amountToPool: 10
+    shouldExpand: 1
   pooledObjects: []
 --- !u!114 &1103656785
 MonoBehaviour:
@@ -676,6 +680,7 @@ MonoBehaviour:
   - {fileID: 5833977737841398870, guid: 07e4c0a35c3b5354f8d0353136c26f48, type: 3}
   - {fileID: 5833977737841398870, guid: 7fa254dcddedd94428d6748609bc2dfd, type: 3}
   - {fileID: 5833977737841398870, guid: 7fa254dcddedd94428d6748609bc2dfd, type: 3}
+  - {fileID: 5833977737841398870, guid: 14257fc03756d5e40ad7e71c68a168be, type: 3}
 --- !u!1 &1147012261 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8878313210229368649, guid: 3691311aefd7c874a9b2b885d075c7d5,
