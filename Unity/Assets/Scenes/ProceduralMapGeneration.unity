@@ -506,6 +506,9 @@ MonoBehaviour:
   - objectToPool: woodenStaffOnline
     amountToPool: 10
     shouldExpand: 1
+  - objectToPool: torchOnline
+    amountToPool: 10
+    shouldExpand: 1
   pooledObjects: []
 --- !u!1 &1147012261 stripped
 GameObject:

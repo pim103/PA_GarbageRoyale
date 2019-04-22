@@ -72,4 +72,7 @@ MonoBehaviour:
   - AskDisableItem
   - verifyTriggerExplosion
   - explode
+  - AnswerChangePlayerHandItem
+  - AskChangePlayerHandItem
+  - ChangeItemInHandOthers
   DisableAutoOpenWizard: 1

@@ -77,7 +77,7 @@ public class InventoryActionsController : MonoBehaviourPunCallbacks
                 poolID = 0;
                 break;
             case 4:
-                poolID = 5;
+                poolID = 1;
                 break;
         }
         
@@ -85,7 +85,6 @@ public class InventoryActionsController : MonoBehaviourPunCallbacks
         putitem.SetActive(true);
         putitem.transform.SetParent(characterList[info.Sender.ActorNumber].transform.GetChild(8).transform);
         putitem.transform.localPosition = new Vector3(0,0,0);
-        putitem.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
     }
     // Update is called once per frame
     /*public override void OnPlayerEnteredRoom(Player newPlayer)
