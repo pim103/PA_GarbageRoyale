@@ -659,7 +659,7 @@ MonoBehaviour:
   - objectToPool: torchOnline
     amountToPool: 10
     shouldExpand: 1
-  - objectToPool: Mob
+  - objectToPool: implantOnline
     amountToPool: 10
     shouldExpand: 1
   pooledObjects: []

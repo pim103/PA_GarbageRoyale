@@ -167,7 +167,7 @@ namespace GarbageRoyale.Scripts
     
             //5
             maze.RecalculateNormals();
-            Instantiate(Prefabs[13], new Vector3(150, ypos, 150), Quaternion.identity);
+            //Instantiate(Prefabs[13], new Vector3(150, ypos, 150), Quaternion.identity);
             return maze;
         }
 

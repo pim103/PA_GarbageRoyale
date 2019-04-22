@@ -61,6 +61,7 @@ namespace GarbageRoyale.Scripts
                         staffName = "Staff_" + itemGob.transform.position.x + "_" + ((int)itemGob.transform.position.y + 1) + "_" + itemGob.transform.position.z;
                         //Debug.Log(staffName);
                         photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName);
+                        Item itemData = itemGob.GetComponent<Item>();
                     }
                 }
             }

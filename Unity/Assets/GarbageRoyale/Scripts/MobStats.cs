@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GarbageRoyale.Scripts;
 using UnityEngine;
 
 public class MobStats : MonoBehaviour
@@ -12,7 +13,7 @@ public class MobStats : MonoBehaviour
     public float basicAttack;
     
     private bool isDead;
-    private bool isRotatePlayer;
+    private bool isRotateMob;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,24 +32,34 @@ public class MobStats : MonoBehaviour
         
     }
     
-    private void rotateDeadPlayer()
+    private void rotateDeadMob()
     {
         transform.Rotate(90, 0, 0);
-        isRotatePlayer = true;
+        isRotateMob = true;
     }
 
     public void takeDamage(float damage)
     {
-        Debug.Log("ui2");
         hp -= damage;
 
         if(hp <= 0)
         {
             isDead = true;
-            if (!isRotatePlayer)
+            if (!isRotateMob)
             {
-                rotateDeadPlayer();
+                rotateDeadMob();
+                lootSkill();
+                gameObject.SetActive(false);
             }
         }
+    }
+
+    private void lootSkill()
+    {
+        
+        GameObject lootedSkill;
+        lootedSkill = ObjectPoolerPhoton.SharedInstance.GetPooledObject(2);
+        lootedSkill.SetActive(true);
+        lootedSkill.transform.position = transform.position;
     }
 }

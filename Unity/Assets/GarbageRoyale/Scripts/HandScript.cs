@@ -81,8 +81,7 @@ namespace GarbageRoyale.Scripts
                 item.transform.localPosition = new Vector3(0,0,0);
                 item.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
                 oldItem = currentItem;
-                GameObject.Find("Controller").GetComponent<GameController>().GetComponent<InventoryActionsController>()
-                    .Send = true;
+                GameObject.Find("Controller").GetComponent<GameController>().GetComponent<InventoryActionsController>().Send = true;
             }
 
             if(currentItem == 4 && crateSound == null)

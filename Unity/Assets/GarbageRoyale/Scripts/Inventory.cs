@@ -37,6 +37,7 @@ namespace GarbageRoyale.Scripts
             for (int i = 0; i < itemSlots; i++)
             {
                 itemInventory[i] = 0;
+                skillInventory[i] = 0;
             }
         }
 
@@ -45,6 +46,18 @@ namespace GarbageRoyale.Scripts
             for (int i = 0; i < itemSlots; i++)
             {
                 if (itemInventory[i] == 0)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        
+        public int findPlaceSkills()
+        {
+            for (int i = 0; i < itemSlots; i++)
+            {
+                if (skillInventory[i] == 0)
                 {
                     return i;
                 }
