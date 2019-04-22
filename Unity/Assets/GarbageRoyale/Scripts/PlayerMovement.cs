@@ -6,8 +6,13 @@ namespace GarbageRoyale.Scripts
 	public class PlayerMovement : MonoBehaviourPunCallbacks
     {
 
-		public float speed = 60.0f;
-		public float gravity = -90.8f;
+        //public float speed = 6.0f;
+        //public float jumpSpeed = 20.0f;
+        //public float gravity = -9.8f;
+        public float speed = 6.0f;
+        public float jumpSpeed = 8.0f;
+        public float gravity = 20.0f;
+        public float swimY = 3.0f;
 
         public AudioClip walkSound;
 
@@ -19,6 +24,7 @@ namespace GarbageRoyale.Scripts
 		private GameController gameControl;
 		
 		private bool mine;
+        private Vector3 moveDirection = Vector3.zero;
 
         private bool isOnWater;
 	    private bool isInTransition;
@@ -32,6 +38,7 @@ namespace GarbageRoyale.Scripts
         public string soundNeeded;
 
         private Animator anim;
+        private Camera cam;
 
         // Use this for initialization
         void Start () {
@@ -50,8 +57,8 @@ namespace GarbageRoyale.Scripts
             feetIsInWater = false;
         }
 
-		// Update is called once per frame
-		void Update ()
+        // Update is called once per frame
+        void Update ()
 		{
 			mine = false;
 			foreach (var pair in gameControl.characterList)
@@ -83,7 +90,7 @@ namespace GarbageRoyale.Scripts
 
 				if(!playerStats.getIsDead())
 				{
-					Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), mineWantToGoUp, mineWantToGoDown, true);
+					Movement(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), Input.GetButton("Jump"), mineWantToGoDown, true);
 				}
 			}
 		}
@@ -98,13 +105,6 @@ namespace GarbageRoyale.Scripts
                 speed = 6.0f;
             }
 
-			float deltaX = axeX * speed;
-			float deltaZ = axeZ * speed;
-            float deltaY = 0.0f;
-
-			Vector3 movement = new Vector3 (deltaX, deltaY, deltaZ);
-			movement = Vector3.ClampMagnitude (movement, speed); //Limits the max speed of the player
-
             needToPlaySong = (axeX != 0 || axeZ != 0);
             setSong(wantToGoUp);
             
@@ -113,38 +113,60 @@ namespace GarbageRoyale.Scripts
                 anim.Play("Movement");
             }
 
-			if (isInTransition && wantToGoUp)
-			{
-				movement.y += 15.8f;
-			} if (isInTransition && wantToGoDown)
-			{
-				movement.y += 5f;
-			} else if (isInTransition)
-			{
-				movement.y += 9.8f;
-			}
-            else if (isOnWater && wantToGoUp)
+            if (_charCont.isGrounded)
             {
-                movement.y += 10.8f;
-            } else if (isOnWater)
+                // We are grounded, so recalculate
+                // move direction directly from axes
+
+                moveDirection = new Vector3(axeX, 0.0f, axeZ);
+                moveDirection *= speed;
+
+                moveDirection = transform.TransformDirection(moveDirection);
+
+                if (wantToGoUp && !isOnWater)
+                {
+                    moveDirection.y = jumpSpeed;
+                }
+            } else if (!isOnWater)
             {
-                movement.y += 8.8f;
-            } else if (wantToGoUp)
+                float tempY = moveDirection.y;
+                moveDirection = new Vector3(axeX, 0.0f, axeZ);
+                moveDirection *= speed;
+
+                moveDirection = transform.TransformDirection(moveDirection);
+                moveDirection.y = tempY;
+            } else
             {
-	            //movement.y += 18.3f;
-	            
-	            if (Physics.Raycast(transform.GetChild(0).transform.position, Vector3.down, 0.9f))
-	            {
-		            Debug.Log("YES");
-		            //this.GetComponent<Rigidbody>().velocity = Vector3.up * 10.0f;
-		            if (serverCall) movement.y += 200.3f*Time.deltaTime;
-		            else movement.y += 100f*Time.deltaTime;
-	            }
+                moveDirection = new Vector3(axeX, 0.0f, axeZ);
+                moveDirection *= speed;
+
+                moveDirection = transform.TransformDirection(moveDirection);
             }
-			movement.y += gravity;
-			movement *= Time.deltaTime;		//Ensures the speed the player moves does not change based on frame rate
-			movement = transform.TransformDirection(movement);
-			_charCont.Move (movement);
+            
+            if (isInTransition && wantToGoUp && moveDirection.y < 6.0f)
+            {
+                moveDirection.y += 6.0f;
+            }
+            if (isInTransition && wantToGoDown)
+            {
+                moveDirection.y += 1.0f;
+            }
+            else if (isInTransition)
+            {
+                moveDirection.y += 9.8f * Time.deltaTime;
+            }
+            else if (isOnWater && wantToGoUp && moveDirection.y < 3.0f)
+            {
+                moveDirection.y += 3.0f;
+            }
+            else if (isOnWater)
+            {
+                moveDirection.y += 1.0f;
+            }
+
+            moveDirection.y -= gravity * Time.deltaTime;
+
+            _charCont.Move(moveDirection * Time.deltaTime);
 
             if(_charCont.transform.position.y > (8+4) * 8 + 11)
             {

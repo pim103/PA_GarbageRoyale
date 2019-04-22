@@ -233,7 +233,6 @@ namespace GarbageRoyale.Scripts
             targetStats = characterList[info.Sender.ActorNumber].GetComponent<PlayerStats>();
             if (!targetStats.getIsDead())
             {
-                target = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();
                 target.Movement(axeX, axeZ, wantToGoUp, wantToGoDown, false);
             }
         }

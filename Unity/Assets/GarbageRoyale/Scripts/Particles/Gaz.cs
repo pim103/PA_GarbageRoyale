@@ -46,6 +46,7 @@ namespace GarbageRoyale.Scripts
             explo = ObjectPooler.SharedInstance.GetPooledObject(6);
             explo.SetActive(true);
             explo.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            explo.GetComponent<Explosion>().audioSource = audioSource;
 
             isExplode = true;
 

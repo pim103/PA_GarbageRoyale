@@ -61,7 +61,7 @@ namespace GarbageRoyale.Scripts
 
         public void takeDamage(float damage)
         {
-            hp -= damage;
+            //hp -= damage;
 
             if(hp <= 0)
             {
