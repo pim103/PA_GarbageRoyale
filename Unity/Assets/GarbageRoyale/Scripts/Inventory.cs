@@ -13,7 +13,6 @@ namespace GarbageRoyale.Scripts
         private int[] skillInventory; // = new int[skillSlots];
         private int lastCounterSkill;
 
-        private GameObject controller;
     
 
 
@@ -63,9 +62,7 @@ namespace GarbageRoyale.Scripts
             int voidIndex = findPlaceInventory();
             if (voidIndex != -1)
             {
-                controller = GameObject.Find("Controller");
                 this.itemInventory[voidIndex] = itemId;
-                controller.GetComponent<InventoryGUI>().printSprite(voidIndex, itemId-1);
             
                 return true;
             }

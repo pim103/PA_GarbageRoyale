@@ -58,6 +58,12 @@ namespace GarbageRoyale.Scripts
                     setName("Lit Torch");
                     setDamage(7f);
                     break;
+                case 5:
+                    //Debug.Log("Init Steel Staff");
+                    setId(5);
+                    setName("Toilet Paper");
+                    setDamage(-10f);
+                    break;
                 default:
                     setId(0);
                     setName("Void");

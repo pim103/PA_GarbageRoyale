@@ -23,7 +23,7 @@ namespace GarbageRoyale.Scripts.HUD
         public void printSprite(int idx, int id)
         {
             RawImage rawImg = GameObject.Find("ItemImg_" + idx).GetComponent<RawImage>();
-            rawImg.texture = rawSprites[id].texture;
+            rawImg.texture = rawSprites[id-1].texture;
             rawImg.color = Color.white;
         }
         
