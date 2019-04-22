@@ -14,11 +14,16 @@ namespace GarbageRoyale.Scripts
         public List<GameObject> thrownItems;
         public List<int> thrownItemsCount;
 
+        AudioClip torchLightSound;
+
+        public Dictionary<int, GameObject[]> listTorchLigt = new Dictionary<int, GameObject[]>();
+
         public bool Send;
         // Start is called before the first frame update
         void Start()
         {
             characterList = GameObject.Find("Controller").GetComponent<GameController>().characterList;
+            torchLightSound = GameObject.Find("Controller").GetComponent<SoundManager>().getTorchLightSound();
         }
 
         private void Update()
@@ -80,6 +85,91 @@ namespace GarbageRoyale.Scripts
                         thrownItemsCount[thrownItems.IndexOf(item)] = -1;
                     }
                 }
+
+                foreach(var torch in listTorchLigt)
+                {
+                    GameObject flame = torch.Value[0];
+                    GameObject sound = torch.Value[1];
+                    GameObject player = characterList[torch.Key];
+                    
+                    if(flame.activeSelf)
+                    {
+                        photonView.RPC("moveTorch", RpcTarget.All, torch.Key, player.transform.position.x, player.transform.position.y, player.transform.position.z);
+                    }
+                }
+            }
+        }
+
+        public void triggerTorch(bool isOn)
+        {
+            photonView.RPC("askTriggerTorch", RpcTarget.MasterClient, isOn);
+        }
+
+        [PunRPC]
+        private void askTriggerTorch(bool isOn, PhotonMessageInfo info)
+        {
+            Transform hand = characterList[info.Sender.ActorNumber].transform.GetChild(8).transform;
+            photonView.RPC("triggerTorchForAll", info.Sender, isOn, info.Sender.ActorNumber, hand.position.x, hand.position.y, hand.position.z);
+        }
+
+        [PunRPC]
+        private void triggerTorchForAll(bool isOn, int id, float posX, float posY, float posZ)
+        {
+            photonView.RPC("sendTriggerTorch", RpcTarget.Others, isOn, id, posX, posY, posZ);
+        }
+
+        [PunRPC]
+        private void sendTriggerTorch(bool isOn, int id, float posX, float posY, float posZ)
+        {
+            Vector3 positionTorch = new Vector3(posX, posY, posZ);
+
+            if(isOn && !listTorchLigt.ContainsKey(id))
+            {
+                GameObject flame = ObjectPooler.SharedInstance.GetPooledObject(7);
+                flame.SetActive(true);
+                flame.transform.position = positionTorch;
+
+                GameObject crateSound = ObjectPooler.SharedInstance.GetPooledObject(2);
+                crateSound.SetActive(true);
+                crateSound.transform.position = positionTorch;
+
+                AudioSource audio = crateSound.GetComponent<AudioSource>();
+                audio.clip = torchLightSound;
+                audio.loop = true;
+                audio.Play();
+
+                GameObject[] go = new GameObject[2];
+                go[0] = flame;
+                go[1] = crateSound;
+
+                listTorchLigt.Add(id, go);
+
+            } else if(isOn)
+            {
+                GameObject[] go = listTorchLigt[id];
+                go[0].SetActive(true);
+                go[1].SetActive(true);
+
+                go[0].transform.position = positionTorch;
+                go[1].transform.position = positionTorch;
+            }
+            else
+            {
+                GameObject[] go = listTorchLigt[id];
+                go[0].SetActive(false);
+                go[1].SetActive(false);
+            }
+        }
+
+        [PunRPC]
+        private void moveTorch(int id, float x, float y, float z)
+        {
+            if(id != PhotonNetwork.LocalPlayer.ActorNumber)
+            {
+                Vector3 newPos = new Vector3(x, y, z);
+                Debug.Log(newPos + " id = " + id);
+                listTorchLigt[id][0].transform.position = newPos;
+                listTorchLigt[id][1].transform.position = newPos;
             }
         }
     

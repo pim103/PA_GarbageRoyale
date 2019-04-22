@@ -13,6 +13,7 @@ namespace GarbageRoyale.Scripts
         private GameObject item;
         private GameObject crateSound;
         public Dictionary <int, GameObject> characterList = new Dictionary<int, GameObject>();
+        private InventoryActionsController inventoryController;
 
         AudioClip torchLightSound;
 
@@ -23,6 +24,7 @@ namespace GarbageRoyale.Scripts
             pressV = false;
             torchLightSound = GameObject.Find("Controller").GetComponent<SoundManager>().getTorchLightSound();
             crateSound = null;
+            inventoryController = GameObject.Find("Controller").GetComponent<GameController>().GetComponent<InventoryActionsController>();
         }
 
         // Update is called once per frame
@@ -50,7 +52,6 @@ namespace GarbageRoyale.Scripts
                     Transform child = transform.GetChild(0).GetChild(i);
                     child.gameObject.SetActive(false);
                     child.parent = null;
-                    Debug.Log(child.gameObject.name);
                 
                 }
                 /*transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
@@ -129,14 +130,14 @@ namespace GarbageRoyale.Scripts
             if(flame.activeSelf)
             {
                 flame.SetActive(false);
-                Debug.Log("Eteignage de torche");
+                inventoryController.triggerTorch(false);
                 audio.Stop();
             } else
             {
+                inventoryController.triggerTorch(true);
                 flame.SetActive(true);
                 if (!audio.isPlaying)
                 {
-                    Debug.Log("Allumage de torche");
                     audio.Play();
                 }
             }

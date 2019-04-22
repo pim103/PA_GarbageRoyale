@@ -149,7 +149,7 @@ namespace GarbageRoyale.Scripts
             }
             if (isInTransition && wantToGoDown)
             {
-                moveDirection.y += 1.0f;
+                moveDirection.y += 0.0f;
             }
             else if (isInTransition)
             {
@@ -158,10 +158,6 @@ namespace GarbageRoyale.Scripts
             else if (isOnWater && wantToGoUp && moveDirection.y < 3.0f)
             {
                 moveDirection.y += 3.0f;
-            }
-            else if (isOnWater)
-            {
-                moveDirection.y += 1.0f;
             }
 
             moveDirection.y -= gravity * Time.deltaTime;
