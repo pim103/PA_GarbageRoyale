@@ -110,7 +110,7 @@ namespace GarbageRoyale.Scripts
 
                             if (i - 1 >= 0 && data[i - 1, j] == 2)
                             {
-                                Instantiate(Prefabs[13], new Vector3(j * width + ypos, halfH - 0.5f, (i - .5f) * width + ypos), Quaternion.Euler(new Vector3(0, 0, 0)));
+                                Instantiate(Prefabs[14], new Vector3(j * width + ypos, halfH - 0.5f, (i - .5f) * width + ypos), Quaternion.Euler(new Vector3(0, 0, 0)));
                             }
                         }
     
@@ -124,7 +124,7 @@ namespace GarbageRoyale.Scripts
 
                             if(j+1 <= cMax && data[i, j + 1] == 2)
                             {
-                                Instantiate(Prefabs[13], new Vector3((j + .5f) * width + ypos, halfH - 0.5f, i * width + ypos), Quaternion.Euler(new Vector3(0, 270, 0)));
+                                Instantiate(Prefabs[14], new Vector3((j + .5f) * width + ypos, halfH - 0.5f, i * width + ypos), Quaternion.Euler(new Vector3(0, 270, 0)));
                             }
                         }
     
@@ -138,7 +138,7 @@ namespace GarbageRoyale.Scripts
 
                             if (j - 1 >= 0 && data[i, j - 1] == 2)
                             {
-                                Instantiate(Prefabs[13], new Vector3((j - .5f) * width + ypos, halfH - 0.5f, i * width + ypos), Quaternion.Euler(new Vector3(0, 90, 0)));
+                                Instantiate(Prefabs[14], new Vector3((j - .5f) * width + ypos, halfH - 0.5f, i * width + ypos), Quaternion.Euler(new Vector3(0, 90, 0)));
                             }
                         }
     
@@ -152,7 +152,7 @@ namespace GarbageRoyale.Scripts
 
                             if (i + 1 <= rMax && data[i + 1, j] == 2)
                             {
-                                Instantiate(Prefabs[13], new Vector3(j * width + ypos, halfH - 0.5f, (i + .5f) * width + ypos), Quaternion.Euler(new Vector3(0, 180, 0)));
+                                Instantiate(Prefabs[14], new Vector3(j * width + ypos, halfH - 0.5f, (i + .5f) * width + ypos), Quaternion.Euler(new Vector3(0, 180, 0)));
                             }
                         }
                     }
@@ -167,7 +167,7 @@ namespace GarbageRoyale.Scripts
     
             //5
             maze.RecalculateNormals();
-            Instantiate(Prefabs[10], new Vector3(150, ypos, 150), Quaternion.identity);
+            Instantiate(Prefabs[13], new Vector3(150, ypos, 150), Quaternion.identity);
             return maze;
         }
 

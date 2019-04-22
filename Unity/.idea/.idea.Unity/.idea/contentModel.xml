@@ -35,6 +35,7 @@
               <e p="SubMenu.cs" t="Include" />
             </e>
             <e p="MinimapDrawer.cs" t="Include" />
+            <e p="MobStats.cs" t="Include" />
             <e p="ObjectPooler.cs" t="Include" />
             <e p="ObjectPoolerPhoton.cs" t="Include" />
             <e p="OnlinePlayerManager.cs" t="Include" />
@@ -49,6 +50,7 @@
             <e p="PlayerMovement.cs" t="Include" />
             <e p="PlayerStats.cs" t="Include" />
             <e p="SoundManager.cs" t="Include" />
+            <e p="SpawnMob.cs" t="Include" />
             <e p="StaticSwitchScene.cs" t="Include" />
             <e p="TrapDoorCheckButton.cs" t="Include" />
             <e p="Water.cs" t="Include" />

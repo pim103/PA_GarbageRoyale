@@ -183,8 +183,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 0
-  InstantiationId: 6
+  viewIdField: 3
+  InstantiationId: 3
   isRuntimeInstantiated: 0
 --- !u!1 &713375066872601072
 GameObject:
@@ -608,7 +608,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  jumpSpeed: 8
   gravity: -9.8
+  swimY: 3
   walkSound: {fileID: 8300000, guid: 77e16f40c5a497d4c8ade305122eefa9, type: 3}
   needToPlaySong: 0
   soundNeeded: 
@@ -644,7 +646,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   viewIdField: 0
-  InstantiationId: 5
+  InstantiationId: 2
   isRuntimeInstantiated: 0
 --- !u!114 &1003069682535781910
 MonoBehaviour:
@@ -690,6 +692,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 4362969900466239144}
+  itemInHand: 0
+  rawSprites: []
+  inventoryPrefab: {fileID: 0}
 --- !u!114 &1438496213745485818
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -33,6 +33,7 @@ namespace GarbageRoyale.Scripts
         public Dictionary <int, GameObject> characterList = new Dictionary<int, GameObject>();
         public Dictionary <int, GameObject> lampList = new Dictionary<int, GameObject>();
         public Dictionary <int, GameObject> characterSoundWalk = new Dictionary<int, GameObject>();
+        public Dictionary <int, GameObject> mobList = new Dictionary<int, GameObject>();
         public Dictionary<int, GameObject> characterSound = new Dictionary<int, GameObject>();
         private int [][,] exploredRooms = new int[8][,];
 

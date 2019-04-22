@@ -61,6 +61,11 @@ namespace GarbageRoyale.Scripts
                         actionScript.Send = true; ;
                         soundManager.playSound(SoundManager.Sound.Pipe);
                     }
+                    if (hitInfo.transform.name == "Mob(Clone)")
+                    {
+                        Debug.Log("ui");
+                        hitInfo.transform.GetComponent<MobStats>().takeDamage(10);
+                    }
                     /*gtest = ObjectPooler.SharedInstance.GetPooledObject(0);
                     gtest.SetActive(true);
                     gtest.transform.position = hitInfo.transform.position;*/
