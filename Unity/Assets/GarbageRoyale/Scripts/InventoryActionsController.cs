@@ -125,7 +125,7 @@ namespace GarbageRoyale.Scripts
 
             if(isOn && !listTorchLigt.ContainsKey(id))
             {
-                GameObject flame = ObjectPooler.SharedInstance.GetPooledObject(7);
+                GameObject flame = ObjectPooler.SharedInstance.GetPooledObject(8);
                 flame.SetActive(true);
                 flame.transform.position = positionTorch;
 

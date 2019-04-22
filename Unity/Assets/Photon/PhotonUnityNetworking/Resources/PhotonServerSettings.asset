@@ -82,4 +82,8 @@ MonoBehaviour:
   - ChangeGUIClient
   - AskTakeImplant
   - AnswerTakeImplant
+  - askTriggerTorch
+  - moveTorch
+  - sendTriggerTorch
+  - triggerTorchForAll
   DisableAutoOpenWizard: 1
