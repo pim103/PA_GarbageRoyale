@@ -79,4 +79,5 @@ MonoBehaviour:
   - AskDropItem
   - AskThrowItem
   - punch
+  - ChangeGUIClient
   DisableAutoOpenWizard: 1
