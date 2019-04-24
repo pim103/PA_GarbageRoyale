@@ -10,7 +10,7 @@ namespace GarbageRoyale.Scripts
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                GameObject.Find("Controller").GetComponent<GameController>().mobList.Add((int)transform.position.x+(int)transform.position.y+(int)transform.position.z,PhotonNetwork.Instantiate("Mob", transform.position, Quaternion.identity));
+                //GameObject.Find("Controller").GetComponent<GameController>().mobList.Add((int)transform.position.x+(int)transform.position.y+(int)transform.position.z,PhotonNetwork.Instantiate("Mob", transform.position, Quaternion.identity));
             }
         }
     }
