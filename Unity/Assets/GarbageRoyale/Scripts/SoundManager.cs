@@ -68,8 +68,8 @@ namespace GarbageRoyale.Scripts
         {
             gc = GetComponent<GameController>();
             characterList = gc.characterList;
-            characterSound = gc.characterSound;
-            characterSoundWalk = gc.characterSoundWalk;
+            //characterSound = gc.characterSound;
+            //characterSoundWalk = gc.characterSoundWalk;
 
             ambiantSource = Instantiate(ambiant, new Vector3(162f, 50f, 162f), Quaternion.identity);
             lastAmbientSoundPlayed = "cave";

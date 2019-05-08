@@ -3,6 +3,10 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using System.Collections;
+using Photon.Pun.UtilityScripts;
+using System;
+using GarbageRoyale.Scripts.PrefabPlayer;
+using GarbageRoyale.Scripts.PlayerController;
 
 namespace GarbageRoyale.Scripts
 {
@@ -29,12 +33,9 @@ namespace GarbageRoyale.Scripts
         private GameObject startDoor;
         
         private bool canMove = false;
-        //List<GameObject> characterList = new List<GameObject>();
-        public Dictionary <int, GameObject> characterList = new Dictionary<int, GameObject>();
-        public Dictionary <int, GameObject> lampList = new Dictionary<int, GameObject>();
-        public Dictionary <int, GameObject> characterSoundWalk = new Dictionary<int, GameObject>();
-        public Dictionary <int, GameObject> mobList = new Dictionary<int, GameObject>();
-        public Dictionary<int, GameObject> characterSound = new Dictionary<int, GameObject>();
+        //public List<GameObject> characterList = new List<GameObject>();
+        public Dictionary<int, GameObject> characterList = new Dictionary<int, GameObject>();
+        //public Dictionary <int, GameObject> mobList = new Dictionary<int, GameObject>();
         private int [][,] exploredRooms = new int[8][,];
 
         private GUIStyle currentStyle = null;
@@ -46,7 +47,7 @@ namespace GarbageRoyale.Scripts
         private bool wantToGoUp;
         private bool wantToGoDown;
 
-        private bool isGameStart;
+        public bool isGameStart;
         private float timeLeft = 20;
         private float waterStartTimeLeft = 9999999999;
         private bool waterStart;
@@ -56,8 +57,25 @@ namespace GarbageRoyale.Scripts
 
         private int playerConnected;
 
+        public event Action<int> PlayerJoined;
+        public event Action PlayerLeft;
+        public event Action OnlinePlayReady;
+
+        [SerializeField]
+        public ExposerPlayer[] players;
+
+        [SerializeField]
+        public ListPlayerIntents[] playersActions;
+
+        public ListPlayerIntents[] playersActionsActivated;
+
+        public Vector3[] rotationPlayer;
+
+        public Vector3[] moveDirection;
+
         void Start()
         {
+            // INIT MAP AND MINIMAP
             for (int i = 0; i < 8; i++)
             {
                 exploredRooms[i] = new int[81, 81];
@@ -70,43 +88,129 @@ namespace GarbageRoyale.Scripts
             playerTexture = MakeTex(4, 4, new Color(0.5f, 0.5f, 0.5f, 0.5f));
             generator = GetComponent<MazeConstructor>();      // 2
             generator.GenerateNewMaze(81, 81);
-            playerCamera = Instantiate(cameraPrefab, new Vector3(150, 1.5f, 150), Quaternion.identity);
+
+            moveDirection = new Vector3[10];
+            rotationPlayer = new Vector3[10];
+            // END INIT MAP
+
+            PlayerJoined += ActivateAvatar;
+            PlayerLeft += null;
+            OnlinePlayReady += StartGame;
+
+            StartCoroutine(SearchForActivateAvatar());
+            //playerCamera = Instantiate(cameraPrefab, new Vector3(150, 1.5f, 150), Quaternion.identity);
             canMove = false;
             pressL = false;
-            
-            if (PhotonNetwork.IsMasterClient)   
-            {
-                if (!PhotonNetwork.OfflineMode)
-                {
-                    startDoor = PhotonNetwork.Instantiate(startDoorPrefab.name, new Vector3(142, 0.7f, 160), Quaternion.identity);
-                }
-                characterList.Add(PhotonNetwork.LocalPlayer.ActorNumber, PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
-                characterList[PhotonNetwork.LocalPlayer.ActorNumber].GetComponent<PlayerStats>().setId(PhotonNetwork.LocalPlayer.ActorNumber);
-                characterSound.Add(PhotonNetwork.LocalPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.7f, 150), Quaternion.identity));
-                characterSoundWalk.Add(PhotonNetwork.LocalPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.7f, 150), Quaternion.identity));
-                playerCamera.transform.SetParent(characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform);
-                canMove = true;
-            }
 
-            playerConnected = 1;
+            //playerConnected = 1;
             roomLinksList = generator.dataGenerator.roomLinksList;
             isGameStart = false;
-            wantToGoUp = false;
+            //wantToGoUp = false;
             waterStart = false;                
-            wantToGoDown = false;
+            //wantToGoDown = false;
         }
 
-        private void Update()
+        public override void OnPlayerEnteredRoom(Player newPlayer)
         {
-            if (Input.GetKeyUp(KeyCode.L))
+            if (PhotonNetwork.IsMasterClient)
             {
-                pressL = true;
+                StartCoroutine(ActivateClientAvatar(newPlayer.ActorNumber));
+            }
+        }
+
+        private IEnumerator ActivateClientAvatar(int actorNumber)
+        {
+            yield return new WaitForSeconds(0.1f);
+
+            var i = 0;
+            for (; i < PlayerNumbering.SortedPlayers.Length; i++)
+            {
+                if (actorNumber == PlayerNumbering.SortedPlayers[i].ActorNumber)
+                {
+                    break;
+                }
+            }
+
+            PlayerJoined?.Invoke(i);
+        }
+
+        private IEnumerator SearchForActivateAvatar()
+        {
+            yield return new WaitForSeconds(0.1f);
+
+            var i = 0;
+            for (; i < PlayerNumbering.SortedPlayers.Length; i++)
+            {
+                if (PhotonNetwork.LocalPlayer.ActorNumber == PlayerNumbering.SortedPlayers[i].ActorNumber)
+                {
+                    break;
+                }
+            }
+
+            OnlinePlayReady?.Invoke();
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PlayerJoined?.Invoke(i);
+            }
+        }
+
+        private void ActivateAvatar(int id)
+        {
+            Debug.Log("active : " + id);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                photonView.RPC("ActivateAvatarRPC", RpcTarget.AllBuffered, id);
+            }
+        }
+
+        [PunRPC]
+        private void ActivateAvatarRPC(int id)
+        {
+            Debug.Log("active rpc: " + id);
+            players[id].PlayerGameObject.SetActive(true);
+            players[id].transform.position = new Vector3(160, 2, 160);
+            if(PhotonNetwork.LocalPlayer.ActorNumber == PlayerNumbering.SortedPlayers[id].ActorNumber)
+            {
+                players[id].PlayerCamera.enabled = true;
+            }
+
+            moveDirection[id] = Vector3.zero;
+            rotationPlayer[id] = Vector3.zero;
+        }
+
+        private void StartGame()
+        {
+            playersActionsActivated = playersActions;
+            ActivateGame();
+        }
+
+        private void ActivateGame()
+        {
+            isGameStart = true;
+
+            if(playersActionsActivated == null)
+            {
+                return;
+            }
+
+            for(var i = 0; i < playersActionsActivated.Length; i++)
+            {
+                playersActionsActivated[i].enabled = true;
+                playersActionsActivated[i].wantToJump = false;
+                playersActionsActivated[i].wantToLightUp = true;
+                playersActionsActivated[i].verticalAxe = 0.0f;
+                playersActionsActivated[i].horizontalAxe = 0.0f;
+                playersActionsActivated[i].wantToTurnOnTorch = false;
+                playersActionsActivated[i].wantToGoDown= false;
+                playersActionsActivated[i].isInTransition = false;
+                playersActionsActivated[i].isInWater = false;
             }
         }
 
         private void FixedUpdate()
         {
-            if (canMove)
+            /*if (canMove)
             {
                 photonView.RPC("SendSoundPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             }
@@ -164,37 +268,7 @@ namespace GarbageRoyale.Scripts
             {
                 photonView.RPC("TurnLightOff", RpcTarget.MasterClient);
             }
-            pressL = false;
-        }
-
-        public override void OnJoinedRoom()
-        {
-
-        }
-
-        public override void OnPlayerEnteredRoom(Player newPlayer)
-        {
-            characterSound.Add(newPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.7f, 150), Quaternion.identity));
-            characterSoundWalk.Add(newPlayer.ActorNumber, Instantiate(soundObject, new Vector3(150, 0.7f, 150), Quaternion.identity));
-
-            if (!PhotonNetwork.IsMasterClient) return;
-
-            playerConnected += 1;
-            
-            characterList.Add(newPlayer.ActorNumber,PhotonNetwork.Instantiate(player.name, new Vector3(150, 0.7f, 150), Quaternion.identity));
-            characterList[newPlayer.ActorNumber].GetComponent<PlayerStats>().setId(newPlayer.ActorNumber);
-            photonView.RPC("initOwnSound", newPlayer, newPlayer.ActorNumber);
-
-            //Instancie Chaque objet son
-            foreach (KeyValuePair<int, GameObject> eachPlayer in characterSound)
-            {
-                if(eachPlayer.Key != newPlayer.ActorNumber)
-                {
-                    photonView.RPC("InstantiateOtherSound", newPlayer, eachPlayer.Key, eachPlayer.Value.transform.position.x, eachPlayer.Value.transform.position.y, eachPlayer.Value.transform.position.z);
-                }
-            }
-            
-            photonView.RPC("setCanMove", newPlayer, null);
+            pressL = false;*/
         }
 
         [PunRPC]
@@ -208,7 +282,7 @@ namespace GarbageRoyale.Scripts
             return canMove;
         }
 
-        [PunRPC]
+        /*[PunRPC]
         private void initOwnSound(int idPlayer)
         {
             characterSound.Add(idPlayer, Instantiate(soundObject, new Vector3(150, 2.5f, 150), Quaternion.identity));
@@ -347,8 +421,8 @@ namespace GarbageRoyale.Scripts
                 }
                 k++;
             }
-        }
-        
+        }*/
+
         public Texture2D MakeTex( int width, int height, Color col )
         {
             Color[] pix = new Color[width * height];

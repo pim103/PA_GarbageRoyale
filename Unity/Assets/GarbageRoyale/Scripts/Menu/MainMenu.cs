@@ -26,15 +26,11 @@ namespace GarbageRoyale.Scripts.Menu
 
             createRoomButton.interactable = false;
             joinRoomButton.interactable = false;
+
             PhotonNetwork.ConnectUsingSettings();
 
             offlineRoomButton.onClick.AddListener(AskForOffline);
             exitRoomButton.onClick.AddListener(AskForExit);
-        }
-
-        private void Update()
-        {
-            
         }
 
         public override void OnConnectedToMaster()

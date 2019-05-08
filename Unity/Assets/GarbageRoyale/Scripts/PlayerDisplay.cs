@@ -31,7 +31,7 @@ namespace GarbageRoyale.Scripts
         private Text deadMessage;
 
         // Start is called before the first frame update
-        void Start()
+        /*void Start()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             characterList = gc.characterList;
@@ -126,6 +126,6 @@ namespace GarbageRoyale.Scripts
             borderTexture = gc.MakeTex(110, 40, new Color(0.8f, 0.8f, 0.8f, 1f));
             deadTexture = gc.MakeTex(Screen.width, Screen.height, new Color(0.7f, 0.7f, 0.7f, 0.7f));
             // deadMessage.text = "Vous êtes mort !";
-        }
+        }*/
     }
 }

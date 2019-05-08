@@ -86,4 +86,15 @@ MonoBehaviour:
   - moveTorch
   - sendTriggerTorch
   - triggerTorchForAll
+  - ActivateAvatarRPC
+  - WantToJumpRPC
+  - WantToLightUpRPC
+  - WantToMoveHorizontalRPC
+  - WantToMoveVerticalRPC
+  - WantToRotateXRPC
+  - WantToRotateYRPC
+  - WantToUseTorcj
+  - WantToUseTorch
+  - RotateLampRPC
+  - LightUpRPC
   DisableAutoOpenWizard: 1

@@ -10,7 +10,7 @@ namespace GarbageRoyale.Scripts
         public Dictionary<int, GameObject> characterList = new Dictionary<int, GameObject>();
 
         // Start is called before the first frame update
-        void Start()
+        /*void Start()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             characterList = gc.characterList;
@@ -23,7 +23,7 @@ namespace GarbageRoyale.Scripts
                 photonView.RPC("punch", RpcTarget.MasterClient, null);
             }
         }
-
+        */
         public void hitPlayer(RaycastHit info)
         {
             photonView.RPC("findPlayer", RpcTarget.MasterClient, info.transform.position.x, info.transform.position.y, info.transform.position.z);
@@ -61,7 +61,7 @@ namespace GarbageRoyale.Scripts
                 }
             }
         }
-
+        /*
         [PunRPC]
         private void punch(PhotonMessageInfo info)
         {
@@ -69,6 +69,6 @@ namespace GarbageRoyale.Scripts
 
             if (ps.getAttackCostStamina() > ps.getStamina()) return;
             ps.useStamina();
-        }
+        }*/
     }
 }
