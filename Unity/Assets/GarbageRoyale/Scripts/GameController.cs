@@ -73,6 +73,31 @@ namespace GarbageRoyale.Scripts
 
         public Vector3[] moveDirection;
 
+        public Dictionary<int, string> AvatarToUserId = new Dictionary<int, string>();
+
+        private void Awake()
+        {
+            PlayerJoined += ActivateAvatar;
+            PlayerLeft += null;
+            OnlinePlayReady += StartGame;
+
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                photonView.RPC("askAvatarToUserId", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId);
+                for (var i = 0; i < AvatarToUserId.Count; i++)
+                {
+                    Debug.Log("OUI : " + i + " " + AvatarToUserId[i]);
+                }
+            }
+            else
+            {
+                //photonView.RPC("ActivateAvatarRPC", RpcTarget.All, 0, PhotonNetwork.AuthValues.UserId);
+                StartCoroutine(SearchForActivateAvatar());
+            }
+
+            OnlinePlayReady?.Invoke();
+        }
+
         void Start()
         {
             // INIT MAP AND MINIMAP
@@ -93,11 +118,6 @@ namespace GarbageRoyale.Scripts
             rotationPlayer = new Vector3[10];
             // END INIT MAP
 
-            PlayerJoined += ActivateAvatar;
-            PlayerLeft += null;
-            OnlinePlayReady += StartGame;
-
-            StartCoroutine(SearchForActivateAvatar());
             //playerCamera = Instantiate(cameraPrefab, new Vector3(150, 1.5f, 150), Quaternion.identity);
             canMove = false;
             pressL = false;
@@ -106,32 +126,8 @@ namespace GarbageRoyale.Scripts
             roomLinksList = generator.dataGenerator.roomLinksList;
             isGameStart = false;
             //wantToGoUp = false;
-            waterStart = false;                
+            waterStart = false;
             //wantToGoDown = false;
-        }
-
-        public override void OnPlayerEnteredRoom(Player newPlayer)
-        {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                StartCoroutine(ActivateClientAvatar(newPlayer.ActorNumber));
-            }
-        }
-
-        private IEnumerator ActivateClientAvatar(int actorNumber)
-        {
-            yield return new WaitForSeconds(0.1f);
-
-            var i = 0;
-            for (; i < PlayerNumbering.SortedPlayers.Length; i++)
-            {
-                if (actorNumber == PlayerNumbering.SortedPlayers[i].ActorNumber)
-                {
-                    break;
-                }
-            }
-
-            PlayerJoined?.Invoke(i);
         }
 
         private IEnumerator SearchForActivateAvatar()
@@ -139,40 +135,76 @@ namespace GarbageRoyale.Scripts
             yield return new WaitForSeconds(0.1f);
 
             var i = 0;
-            for (; i < PlayerNumbering.SortedPlayers.Length; i++)
-            {
-                if (PhotonNetwork.LocalPlayer.ActorNumber == PlayerNumbering.SortedPlayers[i].ActorNumber)
-                {
-                    break;
-                }
-            }
 
             OnlinePlayReady?.Invoke();
 
             if (PhotonNetwork.IsMasterClient)
             {
-                PlayerJoined?.Invoke(i);
+                photonView.RPC("ActivateAvatarRPC", RpcTarget.All, i, PhotonNetwork.AuthValues.UserId);
             }
+        }
+
+        private void askAvatarToUserId(string userId, PhotonMessageInfo info)
+        {
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            var i = 0;
+            while (i < AvatarToUserId.Count)
+            {
+                i++;
+            }
+
+            //AvatarToUserId.Add(i, userId);
+            for (var j = 0; j < AvatarToUserId.Count; j++)
+            {
+                photonView.RPC("initUserIdRPC", info.Sender, j, AvatarToUserId[j]);
+            }
+
+            //photonView.RPC("startCoroutineRPC", info.Sender);
+            photonView.RPC("ActivateAvatarRPC", RpcTarget.All, i, userId);
+        }
+
+        [PunRPC]
+        private void initUserIdRPC(int i, string userId)
+        {
+            AvatarToUserId.Add(i, userId);
+        }
+
+        [PunRPC]
+        private void startCoroutineRPC()
+        {
+            StartCoroutine(SearchForActivateAvatar());
         }
 
         private void ActivateAvatar(int id)
         {
-            Debug.Log("active : " + id);
             if (PhotonNetwork.IsMasterClient)
             {
-                photonView.RPC("ActivateAvatarRPC", RpcTarget.AllBuffered, id);
+                photonView.RPC("ActivateAvatarRPC", RpcTarget.All, id, PhotonNetwork.AuthValues.UserId);
             }
         }
 
         [PunRPC]
-        private void ActivateAvatarRPC(int id)
+        private void ActivateAvatarRPC(int id, string userId)
         {
-            Debug.Log("active rpc: " + id);
+            AvatarToUserId.Add(id, userId);
             players[id].PlayerGameObject.SetActive(true);
             players[id].transform.position = new Vector3(160, 2, 160);
-            if(PhotonNetwork.LocalPlayer.ActorNumber == PlayerNumbering.SortedPlayers[id].ActorNumber)
+
+            for(var i = 0; i < AvatarToUserId.Count; i++)
             {
+                Debug.Log("i : " + i + " userId : " + AvatarToUserId[i]);
+            }
+
+            if(AvatarToUserId[id] == PhotonNetwork.AuthValues.UserId)
+            {
+                Debug.Log("id : " + id + " userId : " + AvatarToUserId[id] + " UserId local : " + PhotonNetwork.AuthValues.UserId);
                 players[id].PlayerCamera.enabled = true;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
 
             moveDirection[id] = Vector3.zero;
@@ -366,14 +398,13 @@ namespace GarbageRoyale.Scripts
                 characterSoundWalk[id].transform.position = new Vector3(posX, 2.5f, posZ);
             }
         }
-
         private void OnGUI()
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                currentPosX = characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform.position.x;
-                currentPosY = characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform.position.y;
-                currentPosZ = characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform.position.z;
+                currentPosX = players[0].PlayerGameObject.transform.position.x;
+                currentPosY = players[0].PlayerGameObject.transform.position.y;
+                currentPosZ = players[0].PlayerGameObject.transform.position.z;
             }
             int k = 0;
             int l = 0;
@@ -421,7 +452,8 @@ namespace GarbageRoyale.Scripts
                 }
                 k++;
             }
-        }*/
+        }
+        */
 
         public Texture2D MakeTex( int width, int height, Color col )
         {
