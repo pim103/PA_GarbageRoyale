@@ -13,16 +13,13 @@ namespace GarbageRoyale.Scripts.PlayerController {
         public int PlayerIndex;
 
         [SerializeField]
-        private GameController gc;
-
-        [SerializeField]
         private PhotonView photonView;
 
         // Update is called once per frame
         void Update()
         {
-            if (gc.AvatarToUserId.ContainsKey(PlayerIndex) && 
-                gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
+            if(PlayerNumbering.SortedPlayers.Length <= PlayerIndex ||
+                PlayerNumbering.SortedPlayers[PlayerIndex].ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
             {
                 return;
             }
@@ -63,8 +60,8 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
         void FixedUpdate()
         {
-            if (gc.AvatarToUserId.ContainsKey(PlayerIndex) &&
-                gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
+            if (PlayerNumbering.SortedPlayers.Length <= PlayerIndex ||
+                PlayerNumbering.SortedPlayers[PlayerIndex].ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
             {
                 return;
             }
