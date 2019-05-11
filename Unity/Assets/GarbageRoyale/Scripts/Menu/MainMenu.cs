@@ -57,15 +57,12 @@ namespace GarbageRoyale.Scripts.Menu
 
         public void AskForOffline()
         {
-            RoomOptions room = new RoomOptions();
-            room.PublishUserId = true;
-
             if(PhotonNetwork.IsConnected)
             {
                 PhotonNetwork.Disconnect();
             }
             PhotonNetwork.OfflineMode = true;
-            PhotonNetwork.CreateRoom("offlineRoom", room);
+            PhotonNetwork.CreateRoom("offlineRoom");
         }
 
         public void AskForExit()

@@ -166,7 +166,7 @@ namespace GarbageRoyale.Scripts.PlayerController
             players[id].PlayerCamera.transform.localEulerAngles = rotationPlayer[id];
 
             players[id].SpotLight.transform.localEulerAngles = rotationPlayer[id];
-            //photonView.RPC("RotateLampRPC", RpcTarget.OthersBuffered, id, rotationX);
+            photonView.RPC("RotateLampRPC", RpcTarget.OthersBuffered, id, rotationX);
         }
 
         [PunRPC]
@@ -178,7 +178,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         [PunRPC]
         private void RotateLampRPC(int id, float rotX)
         {
-            if(gc.AvatarToUserId[id] == PhotonNetwork.AuthValues.UserId)
+            if (PlayerNumbering.SortedPlayers[id].ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
             {
                 Vector3 vec = new Vector3(rotX, 0, 0);
                 players[id].SpotLight.transform.localEulerAngles = vec;
