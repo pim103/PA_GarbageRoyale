@@ -288,6 +288,7 @@ MonoBehaviour:
   PlayerIndex: 2
   photonView: {fileID: 53284246}
   gc: {fileID: 1103656770}
+  pcm: {fileID: 274310795}
 --- !u!1 &181369254
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,6 +501,7 @@ MonoBehaviour:
   PlayerIndex: 4
   photonView: {fileID: 289716585}
   gc: {fileID: 1103656770}
+  pcm: {fileID: 274310795}
 --- !u!1001 &385923011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -628,7 +630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 365, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 365, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -783,6 +785,7 @@ MonoBehaviour:
   PlayerIndex: 0
   photonView: {fileID: 412184089}
   gc: {fileID: 1103656770}
+  pcm: {fileID: 274310795}
 --- !u!1 &415303307
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,6 +902,7 @@ MonoBehaviour:
   PlayerIndex: 3
   photonView: {fileID: 603259537}
   gc: {fileID: 1103656770}
+  pcm: {fileID: 274310795}
 --- !u!1 &616407919
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,6 +972,7 @@ MonoBehaviour:
   PlayerIndex: 7
   photonView: {fileID: 616407921}
   gc: {fileID: 1103656770}
+  pcm: {fileID: 274310795}
 --- !u!1001 &669335996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1466,7 +1471,6 @@ GameObject:
   - component: {fileID: 1103656783}
   - component: {fileID: 1103656784}
   - component: {fileID: 1103656785}
-  - component: {fileID: 1103656786}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -1553,6 +1557,7 @@ MonoBehaviour:
   rotationPlayer: []
   moveDirection: []
   AvatarToUserId: []
+  endOfInit: 0
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0
@@ -1835,19 +1840,6 @@ MonoBehaviour:
   - {fileID: 5833977737841398870, guid: 7fa254dcddedd94428d6748609bc2dfd, type: 3}
   - {fileID: 5833977737841398870, guid: 7fa254dcddedd94428d6748609bc2dfd, type: 3}
   - {fileID: 5833977737841398870, guid: 14257fc03756d5e40ad7e71c68a168be, type: 3}
---- !u!114 &1103656786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1103656768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b28dd60f6abf16d4094cf0f642a043e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 0
 --- !u!1 &1147012261 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8878313210229368649, guid: 3691311aefd7c874a9b2b885d075c7d5,
@@ -1967,6 +1959,7 @@ MonoBehaviour:
   PlayerIndex: 5
   photonView: {fileID: 1209141750}
   gc: {fileID: 1103656770}
+  pcm: {fileID: 274310795}
 --- !u!1001 &1233626684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2619,6 +2612,7 @@ MonoBehaviour:
   PlayerIndex: 1
   photonView: {fileID: 1946594782}
   gc: {fileID: 1103656770}
+  pcm: {fileID: 274310795}
 --- !u!1001 &1947442242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2822,3 +2816,4 @@ MonoBehaviour:
   PlayerIndex: 6
   photonView: {fileID: 2041371790}
   gc: {fileID: 1103656770}
+  pcm: {fileID: 274310795}
