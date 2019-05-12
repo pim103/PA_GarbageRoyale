@@ -7,11 +7,8 @@ using UnityEngine;
 
 namespace GarbageRoyale.Scripts.PlayerController
 {
-    public class PlayerControllerMaster : MonoBehaviour
+    public class PlayerControllerMaster : MonoBehaviourPunCallbacks
     {
-        [SerializeField]
-        private PhotonView photonView;
-
         [SerializeField]
         private GameController gc;
 
@@ -36,6 +33,8 @@ namespace GarbageRoyale.Scripts.PlayerController
 
         void FixedUpdate()
         {
+            //getParams();
+
             if (PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient)
             {
                 return;
@@ -46,12 +45,10 @@ namespace GarbageRoyale.Scripts.PlayerController
                 return;
             }
 
-            getParams();
-
-            for (var i = 0; i < playersActionsActivated.Length; i++)
+            for (var i = 0; i < gc.playersActionsActivated.Length; i++)
             {
-                var playerAction = playersActions[i];
-                var player = players[i];
+                var playerAction = gc.playersActions[i];
+                var player = gc.players[i];
 
                 if (!player.PlayerGameObject.activeSelf)
                 {
@@ -69,11 +66,11 @@ namespace GarbageRoyale.Scripts.PlayerController
                 else if (!playerAction.wantToLightUp && player.SpotLight.gameObject.activeSelf)
                 {
                     player.SpotLight.gameObject.SetActive(false);
-                    photonView.RPC("LightUpRPC", RpcTarget.OthersBuffered, i, false);
+                    photonView.RPC("LightUpRPC", RpcTarget.Others, i, false);
                 }
             }
 
-            setParams();
+            //setParams();
         }
 
         private void getParams()
@@ -96,92 +93,95 @@ namespace GarbageRoyale.Scripts.PlayerController
 
         public void PlayerMovement(int id)
         {
-            var playerAction = playersActions[id];
+            var playerAction = gc.playersActions[id];
 
-            if (players[id].PlayerChar.isGrounded)
+            if (gc.players[id].PlayerChar.isGrounded)
             {
-                // We are grounded, so recalculate
-                // move direction directly from axes
+                gc.moveDirection[id] = new Vector3(playerAction.horizontalAxe, 0.0f, playerAction.verticalAxe);
+                gc.moveDirection[id] *= speed;
 
-                moveDirection[id] = new Vector3(playerAction.horizontalAxe, 0.0f, playerAction.verticalAxe);
-                moveDirection[id] *= speed;
-
-                moveDirection[id] = players[id].PlayerGameObject.transform.TransformDirection(moveDirection[id]);
+                gc.moveDirection[id] = gc.players[id].PlayerGameObject.transform.TransformDirection(gc.moveDirection[id]);
 
                 if (playerAction.wantToJump && !playerAction.isInWater)
                 {
-                    moveDirection[id].y = jumpSpeed;
+                    gc.moveDirection[id].y = jumpSpeed;
                 }
             }
             else if (!playerAction.isInWater)
             {
-                float tempY = moveDirection[id].y;
-                moveDirection[id] = new Vector3(playerAction.horizontalAxe, 0.0f, playerAction.verticalAxe);
-                moveDirection[id] *= speed;
+                float tempY = gc.moveDirection[id].y;
+                gc.moveDirection[id] = new Vector3(playerAction.horizontalAxe, 0.0f, playerAction.verticalAxe);
+                gc.moveDirection[id] *= speed;
 
-                moveDirection[id] = players[id].PlayerGameObject.transform.TransformDirection(moveDirection[id]);
-                moveDirection[id].y = tempY;
+                gc.moveDirection[id] = gc.players[id].PlayerGameObject.transform.TransformDirection(gc.moveDirection[id]);
+                gc.moveDirection[id].y = tempY;
             }
             else
             {
-                moveDirection[id] = new Vector3(playerAction.horizontalAxe, 0.0f, playerAction.verticalAxe);
-                moveDirection[id] *= speed;
+                gc.moveDirection[id] = new Vector3(playerAction.horizontalAxe, 0.0f, playerAction.verticalAxe);
+                gc.moveDirection[id] *= speed;
 
-                moveDirection[id] = players[id].PlayerGameObject.transform.TransformDirection(moveDirection[id]);
+                gc.moveDirection[id] = gc.players[id].PlayerGameObject.transform.TransformDirection(gc.moveDirection[id]);
             }
 
-            if (playerAction.isInTransition && playerAction.wantToJump && moveDirection[id].y < 6.0f)
+            if (playerAction.isInTransition && playerAction.wantToJump && gc.moveDirection[id].y < 6.0f)
             {
-                moveDirection[id].y += 6.0f;
+                gc.moveDirection[id].y += 6.0f;
             }
             if (playerAction.isInTransition && playerAction.wantToGoDown)
             {
-                moveDirection[id].y += 0.0f;
+                gc.moveDirection[id].y += 0.0f;
             }
             else if (playerAction.isInTransition)
             {
-                moveDirection[id].y += 9.8f * Time.deltaTime;
+                gc.moveDirection[id].y += 9.8f * Time.deltaTime;
             }
-            else if (playerAction.isInWater && playerAction.wantToJump && moveDirection[id].y < 3.0f)
+            else if (playerAction.isInWater && playerAction.wantToJump && gc.moveDirection[id].y < 3.0f)
             {
-                moveDirection[id].y += 3.0f;
+                gc.moveDirection[id].y += 3.0f;
             }
 
-            moveDirection[id].y -= gravity * Time.deltaTime;
+            gc.moveDirection[id].y -= gravity * Time.deltaTime;
 
-            players[id].PlayerChar.Move(moveDirection[id] * Time.deltaTime);
+            gc.players[id].PlayerChar.Move(gc.moveDirection[id] * Time.deltaTime);
         }
 
         public void PlayerRotation(int id)
         {
-            var playerAction = playersActions[id];
+            var playerAction = gc.playersActions[id];
 
-            players[id].PlayerGameObject.transform.Rotate(0, playerAction.rotationY * sensHorizontal, 0);
+            gc.players[id].PlayerGameObject.transform.Rotate(0, playerAction.rotationY * sensHorizontal, 0);
 
-            float rotationX = rotationPlayer[id].x;
+            float rotationX = gc.rotationPlayer[id].x;
             rotationX -= Mathf.Clamp(playerAction.rotationX * sensVertical, minimumVert, maximumVert);
-            float rotationY = players[id].transform.localEulerAngles.y;
+            float rotationY = gc.players[id].transform.localEulerAngles.y;
 
-            rotationPlayer[id] = new Vector3(rotationX, 0, 0);
-            players[id].PlayerCamera.transform.localEulerAngles = rotationPlayer[id];
+            gc.rotationPlayer[id] = new Vector3(rotationX, 0, 0);
+            gc.players[id].PlayerCamera.transform.localEulerAngles = gc.rotationPlayer[id];
 
-            players[id].SpotLight.transform.localEulerAngles = rotationPlayer[id];
-            photonView.RPC("RotateLampRPC", RpcTarget.OthersBuffered, id, rotationX);
+            gc.players[id].SpotLight.transform.localEulerAngles = gc.rotationPlayer[id];
+
+            if (PhotonNetwork.IsMasterClient && rotationX != gc.players[id].SpotLight.transform.localEulerAngles.x)
+            {
+                Debug.Log(id);
+                photonView.RPC("RotateLampRPC", RpcTarget.Others, id, rotationX);
+            }
         }
 
         [PunRPC]
         private void LightUpRPC(int id, bool action)
         {
-            players[id].SpotLight.gameObject.SetActive(action);
+            gc.players[id].SpotLight.gameObject.SetActive(action);
         }
 
         [PunRPC]
         private void RotateLampRPC(int id, float rotX)
         {
-            if (PlayerNumbering.SortedPlayers[id].ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+            Debug.Log("Rotate id : " + id);
+            if (gc.AvatarToUserId[id] != PhotonNetwork.AuthValues.UserId)
             {
                 Vector3 vec = new Vector3(rotX, 0, 0);
-                players[id].SpotLight.transform.localEulerAngles = vec;
+                gc.players[id].SpotLight.transform.localEulerAngles = vec;
             }
         }
     }

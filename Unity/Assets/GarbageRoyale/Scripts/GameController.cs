@@ -8,6 +8,8 @@ using System;
 using GarbageRoyale.Scripts.PrefabPlayer;
 using GarbageRoyale.Scripts.PlayerController;
 
+using System.Linq;
+
 namespace GarbageRoyale.Scripts
 {
     [RequireComponent(typeof(MazeConstructor))]               // 1
@@ -73,8 +75,29 @@ namespace GarbageRoyale.Scripts
 
         public Vector3[] moveDirection;
 
+        public string[] AvatarToUserId;
+
+        public bool endOfInit;
+
+        private void Awake()
+        {
+            AvatarToUserId = Enumerable.Repeat("", 8).ToArray();
+            PlayerJoined += ActivateAvatar;
+            PlayerLeft += null;
+            OnlinePlayReady += StartGame;
+        }
+
         void Start()
         {
+            endOfInit = false;
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                photonView.RPC("SendUserId", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId);
+            } else
+            {
+                StartCoroutine(SearchForActivateAvatar());
+            }
+
             // INIT MAP AND MINIMAP
             for (int i = 0; i < 8; i++)
             {
@@ -93,11 +116,6 @@ namespace GarbageRoyale.Scripts
             rotationPlayer = new Vector3[10];
             // END INIT MAP
 
-            PlayerJoined += ActivateAvatar;
-            PlayerLeft += null;
-            OnlinePlayReady += StartGame;
-
-            StartCoroutine(SearchForActivateAvatar());
             //playerCamera = Instantiate(cameraPrefab, new Vector3(150, 1.5f, 150), Quaternion.identity);
             canMove = false;
             pressL = false;
@@ -110,26 +128,28 @@ namespace GarbageRoyale.Scripts
             //wantToGoDown = false;
         }
 
-        public override void OnPlayerEnteredRoom(Player newPlayer)
+        [PunRPC]
+        private void SendUserId(string userId)
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                StartCoroutine(ActivateClientAvatar(newPlayer.ActorNumber));
+                StartCoroutine(ActivateClientAvatar(userId));
             }
         }
 
-        private IEnumerator ActivateClientAvatar(int actorNumber)
+        private IEnumerator ActivateClientAvatar(string userId)
         {
             yield return new WaitForSeconds(0.1f);
 
             var i = 0;
-            for (; i < PlayerNumbering.SortedPlayers.Length; i++)
+            while (i < AvatarToUserId.Length && AvatarToUserId[i] != "")
             {
-                if (actorNumber == PlayerNumbering.SortedPlayers[i].ActorNumber)
-                {
-                    break;
-                }
+                i++;
             }
+
+            AvatarToUserId[i] = userId;
+
+            photonView.RPC("initAvatarUserIdRPC", RpcTarget.Others, AvatarToUserId, userId);
 
             PlayerJoined?.Invoke(i);
         }
@@ -139,44 +159,62 @@ namespace GarbageRoyale.Scripts
             yield return new WaitForSeconds(0.1f);
 
             var i = 0;
-            for (; i < PlayerNumbering.SortedPlayers.Length; i++)
+            while(i < AvatarToUserId.Length && AvatarToUserId[i] != "")
             {
-                if (PhotonNetwork.LocalPlayer.ActorNumber == PlayerNumbering.SortedPlayers[i].ActorNumber)
-                {
-                    break;
-                }
+                i++;
             }
-
-            OnlinePlayReady?.Invoke();
 
             if (PhotonNetwork.IsMasterClient)
             {
+                AvatarToUserId[i] = PhotonNetwork.AuthValues.UserId;
                 PlayerJoined?.Invoke(i);
+            }
+        }
+
+        [PunRPC]
+        private void initAvatarUserIdRPC(string[] UserIdList, string userId)
+        {
+            AvatarToUserId = UserIdList;
+
+            var i = 0;
+            if(PhotonNetwork.AuthValues.UserId == userId)
+            {
+                while(i < AvatarToUserId.Length)
+                {
+                    if(PhotonNetwork.AuthValues.UserId != AvatarToUserId[i] && AvatarToUserId[i] != "")
+                    {
+                        ActivateAvatarRPC(i);
+                    }
+                    i++;
+                }
             }
         }
 
         private void ActivateAvatar(int id)
         {
-            Debug.Log("active : " + id);
             if (PhotonNetwork.IsMasterClient)
             {
-                photonView.RPC("ActivateAvatarRPC", RpcTarget.AllBuffered, id);
+                photonView.RPC("ActivateAvatarRPC", RpcTarget.All, id);
             }
         }
 
         [PunRPC]
         private void ActivateAvatarRPC(int id)
         {
-            Debug.Log("active rpc: " + id);
             players[id].PlayerGameObject.SetActive(true);
-            players[id].transform.position = new Vector3(160, 2, 160);
-            if(PhotonNetwork.LocalPlayer.ActorNumber == PlayerNumbering.SortedPlayers[id].ActorNumber)
+            
+            if(PhotonNetwork.AuthValues.UserId == AvatarToUserId[id])
             {
                 players[id].PlayerCamera.enabled = true;
+
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
 
             moveDirection[id] = Vector3.zero;
             rotationPlayer[id] = Vector3.zero;
+
+            OnlinePlayReady?.Invoke();
         }
 
         private void StartGame()
@@ -201,6 +239,8 @@ namespace GarbageRoyale.Scripts
                 playersActionsActivated[i].wantToLightUp = true;
                 playersActionsActivated[i].verticalAxe = 0.0f;
                 playersActionsActivated[i].horizontalAxe = 0.0f;
+                playersActionsActivated[i].rotationX = 0.0f;
+                playersActionsActivated[i].rotationY = 0.0f;
                 playersActionsActivated[i].wantToTurnOnTorch = false;
                 playersActionsActivated[i].wantToGoDown= false;
                 playersActionsActivated[i].isInTransition = false;

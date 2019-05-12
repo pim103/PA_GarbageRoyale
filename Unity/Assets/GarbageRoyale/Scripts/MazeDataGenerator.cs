@@ -185,8 +185,8 @@ namespace GarbageRoyale.Scripts
                                                 {
                                                     if (Random.Range(0, 1000) < rangeCap)
                                                     {
-                                                        Debug.Log("étage : " + k + " trappe : " + i * 4 + " " + j * 4 +
-                                                                  " bouton : " + n * 4 + " " + p * 4);
+                                                        /*Debug.Log("étage : " + k + " trappe : " + i * 4 + " " + j * 4 +
+                                                                  " bouton : " + n * 4 + " " + p * 4);*/
                                                         roomLinksList[k].Add(i + ";" + j, n + ";" + p);
                                                         rooms[n, p] = 2;
                                                         breaker = true;

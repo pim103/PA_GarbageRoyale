@@ -15,33 +15,50 @@ namespace GarbageRoyale.Scripts.PlayerController {
         [SerializeField]
         private PhotonView photonView;
 
+        [SerializeField]
+        private GameController gc;
+
+        [SerializeField]
+        private PlayerControllerMaster pcm;
+
         // Update is called once per frame
         void Update()
         {
-            if(PlayerNumbering.SortedPlayers.Length <= PlayerIndex ||
-                PlayerNumbering.SortedPlayers[PlayerIndex].ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+            if (gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
             {
                 return;
             }
+            
+            if(horizontalAxe != Input.GetAxis("Horizontal"))
+            {
+                horizontalAxe = Input.GetAxis("Horizontal");
+                photonView.RPC("WantToMoveHorizontalRPC", RpcTarget.MasterClient, Input.GetAxis("Horizontal"));
+            }
+            
+            if(verticalAxe != Input.GetAxis("Vertical"))
+            {
+                verticalAxe = Input.GetAxis("Vertical");
+                photonView.RPC("WantToMoveVerticalRPC", RpcTarget.MasterClient, Input.GetAxis("Vertical"));
+            }
 
-            horizontalAxe = Input.GetAxis("Horizontal");
-            photonView.RPC("WantToMoveHorizontalRPC", RpcTarget.MasterClient, Input.GetAxis("Horizontal"));
+            if(rotationX != Input.GetAxis("Mouse Y"))
+            {
+                rotationX = Input.GetAxis("Mouse Y");
+                photonView.RPC("WantToRotateXRPC", RpcTarget.MasterClient, Input.GetAxis("Mouse Y"));
+            }
 
-            verticalAxe = Input.GetAxis("Vertical");
-            photonView.RPC("WantToMoveVerticalRPC", RpcTarget.MasterClient, Input.GetAxis("Vertical"));
+            if(rotationY != Input.GetAxis("Mouse X"))
+            {
+                rotationY = Input.GetAxis("Mouse X");
+                photonView.RPC("WantToRotateYRPC", RpcTarget.MasterClient, Input.GetAxis("Mouse X"));
+            }
 
-            rotationX = Input.GetAxis("Mouse Y");
-            photonView.RPC("WantToRotateXRPC", RpcTarget.MasterClient, Input.GetAxis("Mouse Y"));
-
-            rotationY = Input.GetAxis("Mouse X");
-            photonView.RPC("WantToRotateYRPC", RpcTarget.MasterClient, Input.GetAxis("Mouse X"));
-
-            if (Input.GetButton("Jump"))
+            if (Input.GetButtonDown("Jump"))
             {
                 wantToJump = true;
                 photonView.RPC("WantToJumpRPC", RpcTarget.MasterClient, true);
             }
-            else
+            else if(Input.GetButtonUp("Jump"))
             {
                 wantToJump = false;
                 photonView.RPC("WantToJumpRPC", RpcTarget.MasterClient, false);
@@ -60,18 +77,16 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
         void FixedUpdate()
         {
-            if (PlayerNumbering.SortedPlayers.Length <= PlayerIndex ||
-                PlayerNumbering.SortedPlayers[PlayerIndex].ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+            if (gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
             {
                 return;
             }
-            /*
+
             if (!PhotonNetwork.IsMasterClient)
             {
-                pc.PlayerMovement(PlayerIndex);
-                pc.PlayerRotation(PlayerIndex);
+                pcm.PlayerMovement(PlayerIndex);
+                pcm.PlayerRotation(PlayerIndex);
             }
-            */
         }
 
         [PunRPC]

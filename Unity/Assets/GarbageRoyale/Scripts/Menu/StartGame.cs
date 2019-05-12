@@ -7,21 +7,19 @@ namespace GarbageRoyale.Scripts.Menu
     public class StartGame : MonoBehaviour
     {
         [SerializeField]
-        private Canvas mainMenu;
+        public GameObject mainMenu;
         [SerializeField]
-        private Canvas subMenu;
+        public GameObject subMenu;
 
-        private Canvas main;
-        private Canvas sub;
+        [SerializeField]
+        public Camera mainCamera;
+
+        [SerializeField]
+        public GameObject gameController;
 
         // Start is called before the first frame update
         void Start()
         {
-            main = Instantiate(mainMenu);
-            main.enabled = false;
-            sub = Instantiate(subMenu);
-            sub.enabled = false;
-
             launchMainMenu();
 
             Cursor.lockState = CursorLockMode.None;
@@ -36,14 +34,14 @@ namespace GarbageRoyale.Scripts.Menu
 
         public void launchMainMenu()
         {
-            main.enabled = true;
-            sub.enabled = false;
+            mainMenu.SetActive(true);
+            subMenu.SetActive(false);
         }
 
         public void launchSubMenu()
         {
-            main.enabled = false;
-            sub.enabled = true;
+            mainMenu.SetActive(false);
+            subMenu.SetActive(true);
         }
     }
 }

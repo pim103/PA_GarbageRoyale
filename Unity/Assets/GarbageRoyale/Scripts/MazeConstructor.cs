@@ -63,25 +63,11 @@ namespace GarbageRoyale.Scripts
             }
             else
             {
-                PhotonNetwork.JoinRandomRoom();
-            }
-            
-        }
-        
-        public override void OnJoinedRoom()
-        {
-                
-            if (photonView != null)
-            {
                 photonView.RPC("SendData", RpcTarget.MasterClient);
+                //PhotonNetwork.JoinRandomRoom();
             }
             
         }
-        /*+-public override void OnPlayerEnteredRoom(Player player)
-        {
-            if (!PhotonNetwork.IsMasterClient) return;
-            photonView.RPC("SendData", RpcTarget.Others,data);
-        }*/
 
         void OnGUI()
         {

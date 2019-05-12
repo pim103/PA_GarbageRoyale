@@ -79,23 +79,19 @@ namespace GarbageRoyale.Scripts
         {
             characterPlaying.Add(newPlayer.ActorNumber, Sound.None);
             photonView.RPC("initListSound", newPlayer, newPlayer.ActorNumber);
-
+            /*
             if(!PhotonNetwork.IsMasterClient)
             {
                 foreach (KeyValuePair<int, GameObject> eachPlayer in characterSound)
                 {
                     photonView.RPC("initListSound", newPlayer, eachPlayer.Key);
                 }
-            }
+            }*/
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (gc.getCanMove())
-            {
-                photonView.RPC("getNeededSong", RpcTarget.MasterClient, null);
-            }
         }
 
         public AudioClip getTrapSound()

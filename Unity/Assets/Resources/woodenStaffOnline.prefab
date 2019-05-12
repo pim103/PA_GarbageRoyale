@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &160
+--- !u!1 &104
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,14 +8,14 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 379}
-  - component: {fileID: 611}
-  - component: {fileID: 547}
-  - component: {fileID: 688}
-  - component: {fileID: 755}
-  - component: {fileID: 678}
-  - component: {fileID: 754}
-  - component: {fileID: 753}
+  - component: {fileID: 296}
+  - component: {fileID: 539}
+  - component: {fileID: 477}
+  - component: {fileID: 613}
+  - component: {fileID: 663}
+  - component: {fileID: 607}
+  - component: {fileID: 662}
+  - component: {fileID: 661}
   m_Layer: 0
   m_Name: woodenStaffOnline
   m_TagString: Untagged
@@ -23,13 +23,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &379
+--- !u!4 &296
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160}
+  m_GameObject: {fileID: 104}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -11.036169, y: -1.5224671, z: -8.654489}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
@@ -37,21 +37,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &611
+--- !u!33 &539
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160}
+  m_GameObject: {fileID: 104}
   m_Mesh: {fileID: 4300000, guid: bb4c9cf473604f4418db97f83d0bacc1, type: 3}
---- !u!23 &547
+--- !u!23 &477
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160}
+  m_GameObject: {fileID: 104}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -82,14 +82,14 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!95 &688
+--- !u!95 &613
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160}
+  m_GameObject: {fileID: 104}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: bb4c9cf473604f4418db97f83d0bacc1, type: 3}
   m_Controller: {fileID: 0}
@@ -101,13 +101,13 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &755
+--- !u!114 &663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160}
+  m_GameObject: {fileID: 104}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8c39cd4afd64358ad9cd78dc50a3b1c, type: 3}
@@ -117,13 +117,13 @@ MonoBehaviour:
   itemText: {fileID: 5833977737841398870, guid: ad67ab737c4b5a94f9a74e0fed20b690,
     type: 3}
   initOnStart: 1
---- !u!64 &678
+--- !u!64 &607
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160}
+  m_GameObject: {fileID: 104}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -131,13 +131,13 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: bb4c9cf473604f4418db97f83d0bacc1, type: 3}
---- !u!114 &754
+--- !u!114 &662
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160}
+  m_GameObject: {fileID: 104}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
@@ -149,17 +149,17 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 753}
-  viewIdField: 5
-  InstantiationId: 5
+  - {fileID: 661}
+  viewIdField: 9
+  InstantiationId: 9
   isRuntimeInstantiated: 0
---- !u!114 &753
+--- !u!114 &661
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160}
+  m_GameObject: {fileID: 104}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}

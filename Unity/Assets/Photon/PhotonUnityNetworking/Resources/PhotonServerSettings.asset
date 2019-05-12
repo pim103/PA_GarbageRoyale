@@ -97,4 +97,6 @@ MonoBehaviour:
   - WantToUseTorch
   - RotateLampRPC
   - LightUpRPC
+  - SendUserId
+  - initAvatarUserIdRPC
   DisableAutoOpenWizard: 1
