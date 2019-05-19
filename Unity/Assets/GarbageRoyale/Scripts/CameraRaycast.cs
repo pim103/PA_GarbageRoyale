@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GarbageRoyale.Scripts.PlayerController;
 using Photon.Pun;
 using UnityEngine;
 
@@ -15,17 +16,32 @@ namespace GarbageRoyale.Scripts
         private GameObject gtest;
         private Inventory playerInventory;
 
+        [SerializeField]
+        private GameController gc;
+
+        public int cameraIndex = -1;
+        private Camera PlayerCamera;
+
         // Start is called before the first frame update
         void Start()
         {
             currentlyLoading = false;
-            soundManager = GameObject.Find("Controller").GetComponent<SoundManager>();
+            //activatedCamera = gc.players[PlayerIndex].PlayerCamera;
+            //soundManager = GameObject.Find("Controller").GetComponent<SoundManager>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+            if(cameraIndex == -1)
+            {
+                return;
+            } else if(PlayerCamera == null)
+            {
+                PlayerCamera = gc.players[cameraIndex].PlayerCamera;
+            }
+
+            var ray = PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
             RaycastHit hitInfo;
             bool touch = Physics.Raycast(ray, out hitInfo, 2f);
 
@@ -45,22 +61,25 @@ namespace GarbageRoyale.Scripts
                         actionScript.hitInfo = hitInfo;
                         actionScript.Send = true;
 
-                        soundManager.playSound(SoundManager.Sound.Button);
+                        //soundManager.playSound(SoundManager.Sound.Button);
                     }
                     else if (hitInfo.transform.name == "DoorButton")
                     {
                         OpenDoorScript openDoor = hitInfo.transform.parent.GetComponent<OpenDoorScript>();
                         openDoor.openDoors(true);
 
-                        soundManager.playSound(SoundManager.Sound.Button);
+                        //soundManager.playSound(SoundManager.Sound.Button);
                     }
-                    else if (hitInfo.transform.name == "pipe(Clone)")
+                    else if (hitInfo.transform.name == "pipe")
                     {
+                        Debug.Log(hitInfo.transform.parent.GetComponent<PipeScript>().pipeIndex);
+                        /*
                         actionScript = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
                         actionScript.hitInfo = hitInfo;
                         actionScript.type = CameraRaycastHitActions.TypeHit.Pipe;
                         actionScript.Send = true; ;
-                        soundManager.playSound(SoundManager.Sound.Pipe);
+                        */
+                        //soundManager.playSound(SoundManager.Sound.Pipe);
                     }
                     if (hitInfo.transform.name == "Mob(Clone)")
                     {
@@ -80,7 +99,7 @@ namespace GarbageRoyale.Scripts
                         Debug.Log("press E");
                         if (Input.GetKeyDown(KeyCode.E))
                         {
-                            soundManager.playSound(SoundManager.Sound.OpeningDoor);
+                            //soundManager.playSound(SoundManager.Sound.OpeningDoor);
                             currentlyLoading = true;
                         }
     
@@ -91,16 +110,16 @@ namespace GarbageRoyale.Scripts
                             if (openingDoorLoading >= 100)
                             {
                                 openingDoorLoading = 0;
-                                soundManager.stopSound();
+                                //soundManager.stopSound();
                                 currentlyLoading = false;
-                                soundManager.playSound(SoundManager.Sound.EndOpeningDoor);
+                                //soundManager.playSound(SoundManager.Sound.EndOpeningDoor);
                                 openDoor.openDoors(true);
                             }
                         }
     
                         if (Input.GetKeyUp(KeyCode.E))
                         {
-                            soundManager.stopSound();
+                            //soundManager.stopSound();
                             currentlyLoading = false;
                             openingDoorLoading = 0;
                         }
@@ -108,7 +127,7 @@ namespace GarbageRoyale.Scripts
                 }
             } else if (openingDoorLoading > 0)
             {
-                soundManager.stopSound();
+                //soundManager.stopSound();
                 openingDoorLoading = 0;
                 currentlyLoading = false;
             }

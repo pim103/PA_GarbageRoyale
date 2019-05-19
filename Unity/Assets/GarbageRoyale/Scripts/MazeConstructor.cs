@@ -24,7 +24,7 @@ namespace GarbageRoyale.Scripts
         [SerializeField] private Material treasureMat;
 
         public MazeDataGenerator dataGenerator;
-        private MazeMeshGenerator meshGenerator;
+        public MazeMeshGenerator meshGenerator;
 
         public int[][,] floors;
         public int[][,] floorsRooms;

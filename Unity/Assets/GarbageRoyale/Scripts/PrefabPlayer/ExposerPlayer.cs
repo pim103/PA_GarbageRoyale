@@ -7,6 +7,8 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
 {
     public class ExposerPlayer : MonoBehaviour
     {
+        public int PlayerIndex;
+
         public CharacterController PlayerChar;
         public PhotonTransformView PlayerPhotonTransform;
         public Transform PlayerTransform;

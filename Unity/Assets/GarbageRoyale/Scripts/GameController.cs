@@ -72,12 +72,11 @@ namespace GarbageRoyale.Scripts
         public ListPlayerIntents[] playersActionsActivated;
 
         public Vector3[] rotationPlayer;
-
         public Vector3[] moveDirection;
-
         public string[] AvatarToUserId;
-
         public bool endOfInit;
+
+        public Dictionary<int, GameObject> pipes = new Dictionary<int, GameObject>();
 
         private void Awake()
         {
@@ -124,8 +123,14 @@ namespace GarbageRoyale.Scripts
             roomLinksList = generator.dataGenerator.roomLinksList;
             isGameStart = false;
             //wantToGoUp = false;
-            waterStart = false;                
+            waterStart = false;
             //wantToGoDown = false;
+            pipes = generator.meshGenerator.pipes;
+
+            for(var i = 0; i < pipes.Count; i++)
+            {
+                Debug.Log(pipes[i].transform);
+            }
         }
 
         [PunRPC]

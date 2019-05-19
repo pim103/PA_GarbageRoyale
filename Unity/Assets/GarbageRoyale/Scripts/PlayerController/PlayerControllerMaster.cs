@@ -163,7 +163,6 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             if (PhotonNetwork.IsMasterClient && rotationX != gc.players[id].SpotLight.transform.localEulerAngles.x)
             {
-                Debug.Log(id);
                 photonView.RPC("RotateLampRPC", RpcTarget.Others, id, rotationX);
             }
         }

@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 7285394685404760195}
   - component: {fileID: 4322067878847052287}
   - component: {fileID: 8421827584243176554}
-  - component: {fileID: 2112829423495281468}
-  - component: {fileID: 7088054098602513054}
   m_Layer: 0
   m_Name: pipe
   m_TagString: Untagged
@@ -114,28 +112,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 7865a13e6eeada74a89c5422261a10a8, type: 3}
---- !u!114 &2112829423495281468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2340599181496208596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8388b3a5ad88e594e856bc0ff21a47ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7088054098602513054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2340599181496208596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8c39cd4afd64358ad9cd78dc50a3b1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0

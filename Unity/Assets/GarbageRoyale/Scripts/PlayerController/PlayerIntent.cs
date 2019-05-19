@@ -16,15 +16,22 @@ namespace GarbageRoyale.Scripts.PlayerController {
         private PhotonView photonView;
 
         [SerializeField]
-        private GameController gc;
+        private ScriptExposer scripts;
 
-        [SerializeField]
-        private PlayerControllerMaster pcm;
+        private void Start()
+        {
+            if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
+            {
+                return;
+            }
+
+            scripts.cr.cameraIndex = PlayerIndex;
+        }
 
         // Update is called once per frame
         void Update()
         {
-            if (gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
+            if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
             {
                 return;
             }
@@ -77,15 +84,15 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
         void FixedUpdate()
         {
-            if (gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
+            if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
             {
                 return;
             }
 
             if (!PhotonNetwork.IsMasterClient)
             {
-                pcm.PlayerMovement(PlayerIndex);
-                pcm.PlayerRotation(PlayerIndex);
+                scripts.pcm.PlayerMovement(PlayerIndex);
+                scripts.pcm.PlayerRotation(PlayerIndex);
             }
         }
 

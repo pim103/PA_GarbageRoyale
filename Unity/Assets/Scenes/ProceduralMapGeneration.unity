@@ -199,6 +199,11 @@ PrefabInstance:
       propertyPath: InstantiationId
       value: 18
       objectReference: {fileID: 0}
+    - target: {fileID: 2757889613284234158, guid: b88fe910c5709a04d97508e2aa5446c1,
+        type: 3}
+      propertyPath: PlayerIndex
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
 --- !u!4 &21820040 stripped
@@ -287,8 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerIndex: 2
   photonView: {fileID: 53284246}
-  gc: {fileID: 1103656770}
-  pcm: {fileID: 274310795}
+  scripts: {fileID: 274310797}
 --- !u!1 &181369254
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +370,8 @@ GameObject:
   - component: {fileID: 274310794}
   - component: {fileID: 274310795}
   - component: {fileID: 274310796}
+  - component: {fileID: 274310798}
+  - component: {fileID: 274310797}
   m_Layer: 0
   m_Name: PlayerListScripts
   m_TagString: Untagged
@@ -432,6 +438,35 @@ MonoBehaviour:
   viewIdField: 35
   InstantiationId: 35
   isRuntimeInstantiated: 0
+--- !u!114 &274310797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274310793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44693face54ca14468f28c38cb6b4fce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pcm: {fileID: 274310795}
+  gc: {fileID: 1103656770}
+  cr: {fileID: 274310798}
+--- !u!114 &274310798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274310793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9baa335a9bedf2d40be5a637cd10f239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gc: {fileID: 1103656770}
+  cameraIndex: 0
 --- !u!1 &289716583
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,8 +535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerIndex: 4
   photonView: {fileID: 289716585}
-  gc: {fileID: 1103656770}
-  pcm: {fileID: 274310795}
+  scripts: {fileID: 274310797}
 --- !u!1001 &385923011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -588,6 +622,11 @@ PrefabInstance:
     - target: {fileID: 766, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
       propertyPath: InstantiationId
       value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 2757889613284234158, guid: b88fe910c5709a04d97508e2aa5446c1,
+        type: 3}
+      propertyPath: PlayerIndex
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
@@ -696,6 +735,11 @@ PrefabInstance:
       propertyPath: InstantiationId
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 2757889613284234158, guid: b88fe910c5709a04d97508e2aa5446c1,
+        type: 3}
+      propertyPath: PlayerIndex
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
 --- !u!4 &397393349 stripped
@@ -784,8 +828,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerIndex: 0
   photonView: {fileID: 412184089}
-  gc: {fileID: 1103656770}
-  pcm: {fileID: 274310795}
+  scripts: {fileID: 274310797}
 --- !u!1 &415303307
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,8 +944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerIndex: 3
   photonView: {fileID: 603259537}
-  gc: {fileID: 1103656770}
-  pcm: {fileID: 274310795}
+  scripts: {fileID: 274310797}
 --- !u!1 &616407919
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,8 +1013,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerIndex: 7
   photonView: {fileID: 616407921}
-  gc: {fileID: 1103656770}
-  pcm: {fileID: 274310795}
+  scripts: {fileID: 274310797}
 --- !u!1001 &669335996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1282,6 +1323,11 @@ PrefabInstance:
       propertyPath: InstantiationId
       value: 22
       objectReference: {fileID: 0}
+    - target: {fileID: 2757889613284234158, guid: b88fe910c5709a04d97508e2aa5446c1,
+        type: 3}
+      propertyPath: PlayerIndex
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
 --- !u!4 &894370818 stripped
@@ -1474,7 +1520,7 @@ GameObject:
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
@@ -1507,7 +1553,7 @@ MonoBehaviour:
   - {fileID: 4449432576064577553, guid: 114d2cf3190fda242820f7724b2b5969, type: 3}
   - {fileID: 4449432576064577553, guid: 40bf83f1f5e9c104ba64ee3587bd730b, type: 3}
   - {fileID: 4449432576064577553, guid: b78af0028a570964cacde0be665b3db0, type: 3}
-  - {fileID: 2340599181496208596, guid: 4b07d8887588dfb408d48ce21fe2f8ce, type: 3}
+  - {fileID: 2474355071110532685, guid: 9a6f7d477777d6b4a80f36b3c2f525b3, type: 3}
   floorTransition: {fileID: 4449432576064577553, guid: 503958394bf416442aa3518a8fdcdf19,
     type: 3}
   mazeMat1: {fileID: 2100000, guid: 2019d743bc0984ba1b81150901d44455, type: 2}
@@ -1958,8 +2004,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerIndex: 5
   photonView: {fileID: 1209141750}
-  gc: {fileID: 1103656770}
-  pcm: {fileID: 274310795}
+  scripts: {fileID: 274310797}
 --- !u!1001 &1233626684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2046,6 +2091,11 @@ PrefabInstance:
     - target: {fileID: 766, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
       propertyPath: InstantiationId
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 2757889613284234158, guid: b88fe910c5709a04d97508e2aa5446c1,
+        type: 3}
+      propertyPath: PlayerIndex
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
@@ -2153,6 +2203,11 @@ PrefabInstance:
     - target: {fileID: 766, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
       propertyPath: InstantiationId
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2757889613284234158, guid: b88fe910c5709a04d97508e2aa5446c1,
+        type: 3}
+      propertyPath: PlayerIndex
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
@@ -2422,6 +2477,11 @@ PrefabInstance:
       propertyPath: InstantiationId
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 2757889613284234158, guid: b88fe910c5709a04d97508e2aa5446c1,
+        type: 3}
+      propertyPath: PlayerIndex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
 --- !u!4 &1705087943 stripped
@@ -2523,6 +2583,16 @@ PrefabInstance:
       propertyPath: InstantiationId
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1375012805831040674, guid: b88fe910c5709a04d97508e2aa5446c1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375012805831040652, guid: b88fe910c5709a04d97508e2aa5446c1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
 --- !u!4 &1944728898 stripped
@@ -2611,8 +2681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerIndex: 1
   photonView: {fileID: 1946594782}
-  gc: {fileID: 1103656770}
-  pcm: {fileID: 274310795}
+  scripts: {fileID: 274310797}
 --- !u!1001 &1947442242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2815,5 +2884,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerIndex: 6
   photonView: {fileID: 2041371790}
-  gc: {fileID: 1103656770}
-  pcm: {fileID: 274310795}
+  scripts: {fileID: 274310797}
