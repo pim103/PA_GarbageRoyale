@@ -99,4 +99,11 @@ MonoBehaviour:
   - LightUpRPC
   - SendUserId
   - initAvatarUserIdRPC
+  - brokePipeRPC
+  - brokeSpecificPipe
+  - brokeSpecificPipeRPC
+  - openSpecificTrapRPC
+  - openTrapRPC
+  - openDoorRPC
+  - openSpecificDoorRPC
   DisableAutoOpenWizard: 1

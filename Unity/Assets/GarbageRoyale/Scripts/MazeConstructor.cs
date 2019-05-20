@@ -57,7 +57,7 @@ namespace GarbageRoyale.Scripts
                 floorsRooms = dataGenerator.RoomData(sizeRows, sizeCols, floors);
                 for (int i = 0; i < 8; i++)
                 {
-                    DisplayMaze(i * 16,floors[i], floorsRooms[i]);
+                    DisplayMaze(i * 16,floors[i], floorsRooms[i], i);
                 }
                 
             }
@@ -105,14 +105,14 @@ namespace GarbageRoyale.Scripts
             GUI.Label(new Rect(20, 20, 500, 500), msg);
         }
     
-        private void DisplayMaze(int ypos, int[,] maze, int[,] rooms)
+        private void DisplayMaze(int ypos, int[,] maze, int[,] rooms, int level)
         {
             GameObject go = new GameObject();
             go.transform.position = Vector3.zero;
             go.name = "Procedural Maze";
 
             MeshFilter mf = go.AddComponent<MeshFilter>();
-            mf.mesh = meshGenerator.FromData(maze,ypos,Prefabs, rooms, floorTransition);
+            mf.mesh = meshGenerator.FromData(maze,ypos,Prefabs, rooms, floorTransition, dataGenerator.roomTrap[level]);
     
             MeshCollider mc = go.AddComponent<MeshCollider>();
             mc.sharedMesh = mf.mesh;
@@ -206,7 +206,7 @@ namespace GarbageRoyale.Scripts
             floorsRooms = rooms;
             for (int i = 0; i < 8; i++)
             {
-                DisplayMaze(i*16,maze[i], rooms[i]);
+                DisplayMaze(i*16,maze[i], rooms[i], i);
             }
         }
 

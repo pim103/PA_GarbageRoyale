@@ -14,7 +14,6 @@ namespace GarbageRoyale.Scripts
 {
     [RequireComponent(typeof(MazeConstructor))]               // 1
 
-    
     public class GameController : MonoBehaviourPunCallbacks
     {
         public MazeConstructor generator;
@@ -29,6 +28,9 @@ namespace GarbageRoyale.Scripts
         private GameObject soundObject;
         [SerializeField]
         private GameObject startDoorPrefab;
+
+        [SerializeField]
+        private GameObject mainCamera;
 
         private GameObject playerCamera;
 
@@ -77,6 +79,9 @@ namespace GarbageRoyale.Scripts
         public bool endOfInit;
 
         public Dictionary<int, GameObject> pipes = new Dictionary<int, GameObject>();
+        public Dictionary<GameObject, int> buttonsTrap = new Dictionary<GameObject, int>();
+        public Dictionary<int, GameObject> traps = new Dictionary<int, GameObject>();
+        public Dictionary<int, GameObject> doors = new Dictionary<int, GameObject>();
 
         private void Awake()
         {
@@ -126,11 +131,9 @@ namespace GarbageRoyale.Scripts
             waterStart = false;
             //wantToGoDown = false;
             pipes = generator.meshGenerator.pipes;
-
-            for(var i = 0; i < pipes.Count; i++)
-            {
-                Debug.Log(pipes[i].transform);
-            }
+            traps = generator.meshGenerator.trap;
+            buttonsTrap = generator.meshGenerator.buttonsTrap;
+            doors = generator.meshGenerator.doors;
         }
 
         [PunRPC]
@@ -210,6 +213,7 @@ namespace GarbageRoyale.Scripts
             
             if(PhotonNetwork.AuthValues.UserId == AvatarToUserId[id])
             {
+                mainCamera.SetActive(false);
                 players[id].PlayerCamera.enabled = true;
 
                 Cursor.lockState = CursorLockMode.Locked;

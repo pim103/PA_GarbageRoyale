@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+//UNUSED
 namespace GarbageRoyale.Scripts
 {
     public class TrapDoorCheckButton : MonoBehaviour
@@ -29,7 +29,6 @@ namespace GarbageRoyale.Scripts
                 string[] trap = trapDoorToOpen.Split(';');
                 int trapZ = System.Convert.ToInt32(trap[0]);
                 int trapX = System.Convert.ToInt32(trap[1]);
-
 
                 if ((trapZ * 4) + (trapFloor * 16) == ((int)transform.position.z) && (trapX * 4) + (trapFloor * 16) == (int)transform.position.x && trapFloor * 16 == (int)transform.position.y)
                 {

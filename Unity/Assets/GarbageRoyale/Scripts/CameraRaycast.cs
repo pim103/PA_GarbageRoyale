@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GarbageRoyale.Scripts
 {
-    public class CameraRaycast : MonoBehaviour
+    public class CameraRaycast : MonoBehaviourPunCallbacks
     {
         private CameraRaycastHitActions actionScript;
         private PlayerAttack attackScript;
@@ -26,6 +26,7 @@ namespace GarbageRoyale.Scripts
         void Start()
         {
             currentlyLoading = false;
+            openingDoorLoading = 0;
             //activatedCamera = gc.players[PlayerIndex].PlayerCamera;
             //soundManager = GameObject.Find("Controller").GetComponent<SoundManager>();
         }
@@ -56,28 +57,32 @@ namespace GarbageRoyale.Scripts
                     }
                     else if (hitInfo.transform.name == "Button")
                     {
-                        actionScript = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
+                        photonView.RPC("openTrapRPC", RpcTarget.MasterClient, gc.buttonsTrap[hitInfo.transform.parent.gameObject]);
+                        /*actionScript = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
                         actionScript.type = CameraRaycastHitActions.TypeHit.Button;
                         actionScript.hitInfo = hitInfo;
                         actionScript.Send = true;
-
+                        */
                         //soundManager.playSound(SoundManager.Sound.Button);
                     }
                     else if (hitInfo.transform.name == "DoorButton")
                     {
-                        OpenDoorScript openDoor = hitInfo.transform.parent.GetComponent<OpenDoorScript>();
-                        openDoor.openDoors(true);
+                        int doorId = hitInfo.transform.parent.GetComponent<OpenDoorScript>().doorId;
+                        Debug.Log(doorId);
+                        photonView.RPC("openDoorRPC", RpcTarget.MasterClient, doorId);
+                        //OpenDoorScript openDoor = hitInfo.transform.parent.GetComponent<OpenDoorScript>();
+                        //openDoor.openDoors(true);
 
                         //soundManager.playSound(SoundManager.Sound.Button);
                     }
                     else if (hitInfo.transform.name == "pipe")
                     {
                         int pipeId = hitInfo.transform.parent.GetComponent<PipeScript>().pipeIndex;
-                        gc.pipes[pipeId].GetComponent<PipeScript>().brokePipe();
+                        photonView.RPC("brokePipeRPC", RpcTarget.MasterClient, pipeId);
+
                     }
                     if (hitInfo.transform.name == "Mob(Clone)")
                     {
-                        Debug.Log("ui");
                         hitInfo.transform.GetComponent<MobStats>().takeDamage(10);
                     }
                     /*gtest = ObjectPooler.SharedInstance.GetPooledObject(0);
@@ -107,10 +112,12 @@ namespace GarbageRoyale.Scripts
                                 //soundManager.stopSound();
                                 currentlyLoading = false;
                                 //soundManager.playSound(SoundManager.Sound.EndOpeningDoor);
-                                openDoor.openDoors(true);
+                                //openDoor.openDoor();
+                                int doorId = openDoor.doorId;
+                                photonView.RPC("openDoorRPC", RpcTarget.MasterClient, doorId);
                             }
                         }
-    
+
                         if (Input.GetKeyUp(KeyCode.E))
                         {
                             //soundManager.stopSound();
@@ -125,6 +132,45 @@ namespace GarbageRoyale.Scripts
                 openingDoorLoading = 0;
                 currentlyLoading = false;
             }
+        }
+
+        [PunRPC]
+        private void brokePipeRPC(int pipeId)
+        {
+            //TODO verify coord
+            photonView.RPC("brokeSpecificPipeRPC", RpcTarget.AllBuffered, pipeId);
+        }
+
+        [PunRPC]
+        private void brokeSpecificPipeRPC(int pipeId)
+        {
+            gc.pipes[pipeId].GetComponent<PipeScript>().brokePipe();
+        }
+
+        [PunRPC]
+        private void openTrapRPC(int trapId)
+        {
+            //TODO verify coord
+            photonView.RPC("openSpecificTrapRPC", RpcTarget.AllBuffered, trapId);
+        }
+
+        [PunRPC]
+        private void openSpecificTrapRPC(int trapId)
+        {
+            gc.traps[trapId].transform.position += new Vector3(4, 0, 0);
+        }
+
+        [PunRPC]
+        private void openDoorRPC(int doorId)
+        {
+            //TODO verify coord
+            photonView.RPC("openSpecificDoorRPC", RpcTarget.AllBuffered, doorId);
+        }
+
+        [PunRPC]
+        private void openSpecificDoorRPC(int doorId)
+        {
+            gc.doors[doorId].GetComponent<OpenDoorScript>().openDoor();
         }
     }
 }    

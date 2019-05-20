@@ -8,6 +8,9 @@ namespace GarbageRoyale.Scripts
         public float placementThreshold;    // chance of empty space
         
         public Dictionary<string,string>[] roomLinksList = new Dictionary<string, string>[8];
+        public Dictionary<string, int>[] roomTrap = new Dictionary<string, int>[8];
+
+        private int nbTrap;
 
         public MazeDataGenerator()
         {
@@ -25,6 +28,7 @@ namespace GarbageRoyale.Scripts
             for (int k = 0; k < 8; k++)
             {
                 roomLinksList[k] = new Dictionary<string, string>();
+                roomTrap[k] = new Dictionary<string, int>();
                 sizeCols = 8 * (10 - k) + 1;
                 sizeRows = 8 * (10 - k) + 1;
                 maze = new int[sizeRows, sizeCols];
@@ -185,9 +189,12 @@ namespace GarbageRoyale.Scripts
                                                 {
                                                     if (Random.Range(0, 1000) < rangeCap)
                                                     {
-                                                        /*Debug.Log("étage : " + k + " trappe : " + i * 4 + " " + j * 4 +
-                                                                  " bouton : " + n * 4 + " " + p * 4);*/
+                                                        Debug.Log("étage : " + k + " trappe : " + i * 4 + " " + j * 4 +
+                                                                  " bouton : " + n * 4 + " " + p * 4);
                                                         roomLinksList[k].Add(i + ";" + j, n + ";" + p);
+                                                        roomTrap[k].Add(i + ";" + j, nbTrap);
+                                                        roomTrap[k].Add(n + ";" + p, nbTrap);
+                                                        nbTrap++;
                                                         rooms[n, p] = 2;
                                                         breaker = true;
                                                         break;
