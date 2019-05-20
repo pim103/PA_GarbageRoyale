@@ -72,14 +72,8 @@ namespace GarbageRoyale.Scripts
                     }
                     else if (hitInfo.transform.name == "pipe")
                     {
-                        Debug.Log(hitInfo.transform.parent.GetComponent<PipeScript>().pipeIndex);
-                        /*
-                        actionScript = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
-                        actionScript.hitInfo = hitInfo;
-                        actionScript.type = CameraRaycastHitActions.TypeHit.Pipe;
-                        actionScript.Send = true; ;
-                        */
-                        //soundManager.playSound(SoundManager.Sound.Pipe);
+                        int pipeId = hitInfo.transform.parent.GetComponent<PipeScript>().pipeIndex;
+                        gc.pipes[pipeId].GetComponent<PipeScript>().brokePipe();
                     }
                     if (hitInfo.transform.name == "Mob(Clone)")
                     {

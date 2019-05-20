@@ -8,8 +8,6 @@ namespace GarbageRoyale.Scripts
 {
     public class PipeScript : MonoBehaviour
     {
-        private CameraRaycastHitActions ray;
-
         public int pipeIndex;
 
         bool isBroken;
@@ -30,7 +28,6 @@ namespace GarbageRoyale.Scripts
         // Start is called before the first frame update
         void Start()
         {
-            ray = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
             isBroken = false;
             isExplode = false;
             canTakeDamage = false;
@@ -39,12 +36,7 @@ namespace GarbageRoyale.Scripts
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (!isBroken && ray.xTrap == (int)transform.position.x && ray.yTrap == (int)transform.position.y && ray.zTrap == (int)transform.position.z)
-            {
-                pipe.SetActive(false);
-                brokenPipe.SetActive(true);
-                isBroken = true;
-            } else if(isExplode)
+            if(isExplode)
             {
                 if(explosionTimer > 0)
                 {
@@ -55,6 +47,16 @@ namespace GarbageRoyale.Scripts
                     Explosion.SetActive(false);
                     canTakeDamage = false;
                 }
+            }
+        }
+
+        public void brokePipe()
+        {
+            if (!isBroken)
+            {
+                pipe.SetActive(false);
+                brokenPipe.SetActive(true);
+                isBroken = true;
             }
         }
 
@@ -69,10 +71,14 @@ namespace GarbageRoyale.Scripts
 
         private void OnTriggerStay(Collider other)
         {
-            if (isBroken && !isExplode && other.name.StartsWith("Player"))
+            if(!other.name.StartsWith("Player"))
+            {
+                return;
+            }
+
+            if (isBroken && !isExplode && other.GetComponent<ExposerPlayer>().PlayerTorch.transform.GetChild(0).gameObject.activeSelf)
             {
                 explosion();
-                //events.triggerExplosion((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
             } else if(isExplode && canTakeDamage && other.name.StartsWith("Player"))
             {
                 Debug.Log(other.GetComponent<ExposerPlayer>().PlayerIndex);
@@ -86,20 +92,6 @@ namespace GarbageRoyale.Scripts
             Explosion.SetActive(true);
             isExplode = true;
             canTakeDamage = true;
-            /*
-            gameObject.SetActive(false);
-
-            GameObject explo;
-            explo = ObjectPooler.SharedInstance.GetPooledObject(6);
-            explo.SetActive(true);
-            explo.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            explo.GetComponent<Explosion>().audioSource = audioSource;
-
-            isExplode = true;
-
-            audioSource.GetComponent<AudioSource>().Stop();
-            audioSource.GetComponent<AudioSource>().PlayOneShot(explosionSound);
-            */
         }
     }
 }
