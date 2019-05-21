@@ -44,7 +44,7 @@ namespace GarbageRoyale.Scripts
         {
             if (wantUse)
             {
-                var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+                var ray = gc.players[System.Array.IndexOf(gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
                 RaycastHit hitInfo;
                 
                 if (Physics.Raycast(ray, out hitInfo, 2f))
@@ -56,19 +56,21 @@ namespace GarbageRoyale.Scripts
                     else
                     {
                         GameObject itemGob = hitInfo.transform.gameObject;
-                        if (PhotonNetwork.IsMasterClient)
+                        /*if (PhotonNetwork.IsMasterClient)
                         {
-                            var charFirst = characterList.First();
-                            GameObject player = charFirst.Value;
+                            //var charFirst = characterList.First();
+                            Debug.Log(hitInfo.transform.name);
+                            GameObject player =
+                                gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].gameObject;
                             actionTakeItem(itemGob, player, true);
                         }
                         else
-                        {
+                        {*/
                             staffName = "Staff_" + itemGob.transform.position.x + "_" + ((int)itemGob.transform.position.y + 1) + "_" + itemGob.transform.position.z;
                             //Debug.Log(staffName);
-                            photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName);
+                            photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                             Item itemData = itemGob.GetComponent<Item>();
-                        }
+                        //}
                     }
                 }
             }
@@ -103,13 +105,18 @@ namespace GarbageRoyale.Scripts
         }
         
         [PunRPC]
-        public void AskTakeItem(string objName, PhotonMessageInfo info)
+        public void AskTakeItem(string objName, int playerIndex, PhotonMessageInfo info)
         {
-            photonView.RPC("ChangeGUIClient", info.Sender, characterList[info.Sender.ActorNumber].GetComponent<Inventory>().findPlaceInventory(), GameObject.Find(objName).GetComponent<Item>().getId());
-            actionTakeItem(GameObject.Find(objName), characterList[info.Sender.ActorNumber], false);
-            Debug.Log("ID du joueur : " + info.Sender.ActorNumber);
+            //photonView.RPC("ChangeGUIClient", info.Sender, gc.players[playerIndex].GetComponent<Inventory>().findPlaceInventory(), GameObject.Find(objName).GetComponent<Item>().getId());
+            photonView.RPC("PutItemInInventory",RpcTarget.All, objName, playerIndex);
+            //Debug.Log("ID du joueur : " + info.Sender.ActorNumber);
         }
 
+        [PunRPC]
+        public void PutItemInInventory(string objName, int playerIndex)
+        {
+            actionTakeItem(GameObject.Find(objName), gc.players[playerIndex].gameObject, false);
+        }
 
         [PunRPC]
         public void ChangeGUIClient(int place, int id, PhotonMessageInfo info)

@@ -99,11 +99,5 @@ MonoBehaviour:
   - LightUpRPC
   - SendUserId
   - initAvatarUserIdRPC
-  - brokePipeRPC
-  - brokeSpecificPipe
-  - brokeSpecificPipeRPC
-  - openSpecificTrapRPC
-  - openTrapRPC
-  - openDoorRPC
-  - openSpecificDoorRPC
+  - PutItemInInventory
   DisableAutoOpenWizard: 1

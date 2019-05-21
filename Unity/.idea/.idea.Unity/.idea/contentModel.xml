@@ -46,9 +46,20 @@
             </e>
             <e p="PipeScript.cs" t="Include" />
             <e p="PlayerAttack.cs" t="Include" />
+            <e p="PlayerController" t="Include">
+              <e p="ListPlayerIntents.cs" t="Include" />
+              <e p="PlayerControllerMaster.cs" t="Include" />
+              <e p="PlayerIntent.cs" t="Include" />
+            </e>
             <e p="PlayerDisplay.cs" t="Include" />
             <e p="PlayerMovement.cs" t="Include" />
             <e p="PlayerStats.cs" t="Include" />
+            <e p="PrefabPlayer" t="Include">
+              <e p="ExposerPlayer.cs" t="Include" />
+            </e>
+            <e p="ScriptExposer.cs" t="Include" />
+            <e p="Skill.cs" t="Include" />
+            <e p="SkillSpawner.cs" t="Include" />
             <e p="SoundManager.cs" t="Include" />
             <e p="SpawnMob.cs" t="Include" />
             <e p="StaticSwitchScene.cs" t="Include" />

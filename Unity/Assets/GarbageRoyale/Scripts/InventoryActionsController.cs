@@ -10,10 +10,12 @@ namespace GarbageRoyale.Scripts
         private Inventory playerInventory;
         private GameObject gtest;
         public int itemInHand;
-        public int placeInHand;
+        public int placeInHand = -1;
         public List<GameObject> thrownItems;
         public List<int> thrownItemsCount;
 
+        private GameController gc;
+        
         AudioClip torchLightSound;
 
         public Dictionary<int, GameObject[]> listTorchLigt = new Dictionary<int, GameObject[]>();
@@ -22,7 +24,8 @@ namespace GarbageRoyale.Scripts
         // Start is called before the first frame update
         void Start()
         {
-            characterList = GameObject.Find("Controller").GetComponent<GameController>().characterList;
+            //characterList = GameObject.Find("Controller").GetComponent<GameController>().characterList;
+            gc = GameObject.Find("Controller").GetComponent<GameController>();
             torchLightSound = GameObject.Find("Controller").GetComponent<SoundManager>().getTorchLightSound();
         }
 
@@ -31,43 +34,44 @@ namespace GarbageRoyale.Scripts
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 //itemInHand = playerInventory.getItemInventory()[0];
-                photonView.RPC("AskChangePlayerHandItem", RpcTarget.MasterClient, 0);
+                photonView.RPC("AskChangePlayerHandItem", RpcTarget.MasterClient, 0, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 placeInHand = 0;
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                photonView.RPC("AskChangePlayerHandItem", RpcTarget.MasterClient, 1);
+                photonView.RPC("AskChangePlayerHandItem", RpcTarget.MasterClient, 1, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 placeInHand = 1;
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                photonView.RPC("AskChangePlayerHandItem", RpcTarget.MasterClient, 2);
+                photonView.RPC("AskChangePlayerHandItem", RpcTarget.MasterClient, 2 ,System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 placeInHand = 2;
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                photonView.RPC("AskChangePlayerHandItem", RpcTarget.MasterClient, 3);
+                photonView.RPC("AskChangePlayerHandItem", RpcTarget.MasterClient, 3, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 placeInHand = 3;
             }
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                photonView.RPC("AskChangePlayerHandItem", RpcTarget.MasterClient, 4);
+                photonView.RPC("AskChangePlayerHandItem", RpcTarget.MasterClient, 4, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 placeInHand = 4;
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
-                if(itemInHand!=0) photonView.RPC("AskDropItem", RpcTarget.MasterClient, placeInHand);
+                if(placeInHand!=-1) photonView.RPC("AskDropItem", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                placeInHand = -1;
             }
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 if(itemInHand!=0) photonView.RPC("AskThrowItem", RpcTarget.MasterClient, placeInHand);
             }
 
-            if (Send)
+            /*if (Send)
             {
                 photonView.RPC("ChangeItemInHandOthers", RpcTarget.MasterClient, itemInHand);
                 Send = false;
-            }
+            }*/
 
             if (PhotonNetwork.IsMasterClient)
             {
@@ -174,17 +178,37 @@ namespace GarbageRoyale.Scripts
         }
     
         [PunRPC]
-        public void AskChangePlayerHandItem(int inventoryPlace,PhotonMessageInfo info)
+        public void AskChangePlayerHandItem(int inventoryPlace,int playerIndex,PhotonMessageInfo info)
         {
-            Inventory inventoryData = characterList[info.Sender.ActorNumber].GetComponent<Inventory>();
-            photonView.RPC("AnswerChangePlayerHandItem", info.Sender, inventoryData.getItemInventory()[inventoryPlace]);
-            characterList[info.Sender.ActorNumber].GetComponent<InventoryController>().itemInHand = inventoryData.getItemInventory()[inventoryPlace];
+            Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
+            photonView.RPC("AnswerChangePlayerHandItem", RpcTarget.All, inventoryData.getItemInventory()[inventoryPlace], playerIndex);
+            //gc.players[playerIndex].GetComponent<InventoryController>().itemInHand = inventoryData.getItemInventory()[inventoryPlace];
         }
     
         [PunRPC]
-        public void AnswerChangePlayerHandItem(int item,PhotonMessageInfo info)
+        public void AnswerChangePlayerHandItem(int item, int playerIndex,PhotonMessageInfo info)
         {
-            itemInHand = item;
+            int handChild = -1;
+            switch (item)
+            {
+                case 1:
+                    handChild = 1;
+                    break;
+                case 2:
+                    handChild = 1;
+                    break;
+                case 4:
+                    handChild = 0;
+                    break;
+                case 5:
+                    handChild = 2;
+                    break;
+                default:
+                    Debug.Log("Error, wrong item");
+                    break;
+            }
+            if(handChild>-1) gc.players[playerIndex].gameObject.transform.GetChild(8).GetChild(0).GetChild(handChild).gameObject.SetActive(true);
+            //Debug.Log("yaaay");
         }
         [PunRPC]
         public void ChangeItemInHandOthers(int item,PhotonMessageInfo info)
@@ -212,12 +236,12 @@ namespace GarbageRoyale.Scripts
         }
     
         [PunRPC]
-        public void AskDropItem(int inventoryPlace,PhotonMessageInfo info)
+        public void AskDropItem(int inventoryPlace,int playerIndex,PhotonMessageInfo info)
         {
-            Inventory inventoryData = characterList[info.Sender.ActorNumber].GetComponent<Inventory>();
+            /*Inventory inventoryData = characterList[info.Sender.ActorNumber].GetComponent<Inventory>();
             characterList[info.Sender.ActorNumber].transform.GetChild(8).GetChild(0).parent = null;
-            inventoryData.getItemInventory()[inventoryPlace] = 0;
-            photonView.RPC("AnswerDropItem", info.Sender);
+            inventoryData.getItemInventory()[inventoryPlace] = 0;*/
+            photonView.RPC("AnswerDropItem", RpcTarget.All,inventoryPlace,playerIndex);
         }
     
         [PunRPC]
@@ -243,9 +267,54 @@ namespace GarbageRoyale.Scripts
         }
     
         [PunRPC]
-        public void AnswerDropItem()
+        public void AnswerDropItem(int placeInHand, int playerIndex)
         {
-            itemInHand = 0;
+            int item = gc.players[playerIndex].GetComponent<Inventory>().getItemInventory()[placeInHand];
+            gc.players[playerIndex].GetComponent<Inventory>().getItemInventory()[placeInHand] = 0;
+            int handChild = -1;
+            switch (item)
+            {
+                case 1:
+                    handChild = 1;
+                    break;
+                case 2:
+                    handChild = 1;
+                    break;
+                case 4:
+                    handChild = 0;
+                    break;
+                case 5:
+                    handChild = 2;
+                    break;
+                default:
+                    Debug.Log("Error, wrong item");
+                    break;
+            }
+            if(handChild>-1) gc.players[playerIndex].gameObject.transform.GetChild(8).GetChild(0).GetChild(handChild).gameObject.SetActive(false);
+            if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            {
+                Debug.Log("allo");
+                int poolID = 0;
+                switch (item)
+                {
+                    case 1:
+                        poolID = 0;
+                        break;
+                    case 4:
+                        poolID = 1;
+                        break;
+                    case 5:
+                        poolID = 3;
+                        break;
+                }
+                
+                GameObject droppedItem =  ObjectPoolerPhoton.SharedInstance.GetPooledObject(poolID);
+                droppedItem.SetActive(true);
+                droppedItem.transform.SetParent(gc.players[playerIndex].gameObject.transform.GetChild(8).GetChild(0).transform);
+                droppedItem.transform.localPosition = new Vector3(0,0,0);
+                droppedItem.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                droppedItem.transform.parent = null;
+            }
         }
     
     

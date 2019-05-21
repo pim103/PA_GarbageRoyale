@@ -32,7 +32,7 @@ namespace GarbageRoyale.Scripts
             Debug.Log("touched");
         }
 
-        public void initInventory()
+        public void Start()
         {
             for (int i = 0; i < itemSlots; i++)
             {
