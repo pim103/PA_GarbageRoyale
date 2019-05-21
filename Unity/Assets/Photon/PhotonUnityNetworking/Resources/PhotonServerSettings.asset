@@ -109,4 +109,6 @@ MonoBehaviour:
   - LightOnTorchRPC
   - setItemInHand
   - LightOnSpecificTorch
+  - PlayWalkSoundRPC
+  - endOfInitRPC
   DisableAutoOpenWizard: 1

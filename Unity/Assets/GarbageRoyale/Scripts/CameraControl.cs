@@ -23,7 +23,6 @@ namespace GarbageRoyale.Scripts
 		
 		private GameController gameControl;
 		private bool mine;
-		
 
 		private void Start()
 		{

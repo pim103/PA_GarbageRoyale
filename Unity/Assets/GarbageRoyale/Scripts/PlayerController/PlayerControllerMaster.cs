@@ -144,6 +144,11 @@ namespace GarbageRoyale.Scripts.PlayerController
             gc.moveDirection[id].y -= gravity * Time.deltaTime;
 
             gc.players[id].PlayerChar.Move(gc.moveDirection[id] * Time.deltaTime);
+
+            if(PhotonNetwork.IsMasterClient)
+            {
+                photonView.RPC("PlayWalkSoundRPC", RpcTarget.All, id, (playerAction.horizontalAxe != 0 | playerAction.verticalAxe != 0) );
+            }
         }
 
         public void PlayerRotation(int id)
@@ -154,7 +159,7 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             float rotationX = gc.rotationPlayer[id].x;
             rotationX -= Mathf.Clamp(playerAction.rotationX * sensVertical, minimumVert, maximumVert);
-            float rotationY = gc.players[id].transform.localEulerAngles.y;
+            //float rotationY = gc.players[id].transform.localEulerAngles.y;
 
             gc.rotationPlayer[id] = new Vector3(rotationX, 0, 0);
             gc.players[id].PlayerCamera.transform.localEulerAngles = gc.rotationPlayer[id];
@@ -182,6 +187,12 @@ namespace GarbageRoyale.Scripts.PlayerController
                 Vector3 vec = new Vector3(rotX, 0, 0);
                 gc.players[id].SpotLight.transform.localEulerAngles = vec;
             }
+        }
+
+        [PunRPC]
+        private void PlayWalkSoundRPC(int id, bool isMoving)
+        {
+            gc.soundManager.playWalkSound(id, isMoving);
         }
     }
 }

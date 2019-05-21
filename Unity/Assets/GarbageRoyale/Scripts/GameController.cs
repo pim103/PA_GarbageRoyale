@@ -31,6 +31,10 @@ namespace GarbageRoyale.Scripts
 
         [SerializeField]
         private GameObject mainCamera;
+        [SerializeField]
+        public AudioSource menuSound;
+        [SerializeField]
+        public SoundManager soundManager;
 
         private GameObject playerCamera;
 
@@ -82,6 +86,8 @@ namespace GarbageRoyale.Scripts
         public Dictionary<GameObject, int> buttonsTrap = new Dictionary<GameObject, int>();
         public Dictionary<int, GameObject> traps = new Dictionary<int, GameObject>();
         public Dictionary<int, GameObject> doors = new Dictionary<int, GameObject>();
+
+        public Dictionary<int, bool> endInit = new Dictionary<int, bool>();
 
         private void Awake()
         {
@@ -219,13 +225,24 @@ namespace GarbageRoyale.Scripts
 
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+
+                //photonView.RPC("endOfInitRPC", RpcTarget.MasterClient, id);
             }
 
             moveDirection[id] = Vector3.zero;
             rotationPlayer[id] = Vector3.zero;
 
+            soundManager.initAmbientSound();
             OnlinePlayReady?.Invoke();
-            endOfInit = true;
+        }
+
+        [PunRPC]
+        private void endOfInitRPC(int id)
+        {
+            if(PhotonNetwork.IsMasterClient)
+            {
+                endInit.Add(id, true);
+            }
         }
 
         private void StartGame()
@@ -257,6 +274,9 @@ namespace GarbageRoyale.Scripts
                 playersActionsActivated[i].isInTransition = false;
                 playersActionsActivated[i].isInWater = false;
             }
+
+            endOfInit = true;
+
         }
 
         private void FixedUpdate()
