@@ -20,7 +20,6 @@ namespace GarbageRoyale.Scripts
         private GameController gc;
 
         public int cameraIndex = -1;
-        private Camera PlayerCamera;
 
         // Start is called before the first frame update
         void Start()
@@ -34,15 +33,12 @@ namespace GarbageRoyale.Scripts
         // Update is called once per frame
         void Update()
         {
-            if(cameraIndex == -1)
+            if(!gc.endOfInit)
             {
                 return;
-            } else if(PlayerCamera == null)
-            {
-                PlayerCamera = gc.players[cameraIndex].PlayerCamera;
             }
 
-            var ray = PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+            var ray = gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
             RaycastHit hitInfo;
             bool touch = Physics.Raycast(ray, out hitInfo, 2f);
 

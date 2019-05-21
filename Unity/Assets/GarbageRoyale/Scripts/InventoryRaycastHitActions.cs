@@ -69,7 +69,7 @@ namespace GarbageRoyale.Scripts
                             staffName = "Staff_" + itemGob.transform.position.x + "_" + ((int)itemGob.transform.position.y + 1) + "_" + itemGob.transform.position.z;
                             //Debug.Log(staffName);
                             photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                            Item itemData = itemGob.GetComponent<Item>();
+                            //Item itemData = itemGob.GetComponent<Item>();
                         //}
                     }
                 }
@@ -93,7 +93,8 @@ namespace GarbageRoyale.Scripts
                 }
                 if (inventoryData.setItemInventory(itemData.getId()))
                 {
-                    photonView.RPC("AskDisableItem", RpcTarget.All, itemGob.name);
+                    itemGob.SetActive(false);
+                    //photonView.RPC("AskDisableItem", RpcTarget.All, itemGob.name);
                     
                 }
                 Debug.Log(string.Format("Inventory : \n ID : {0} {1} {2} {3} {4} - Joueur : {5}", inventoryData.getItemInventory()[0], inventoryData.getItemInventory()[1], inventoryData.getItemInventory()[2], inventoryData.getItemInventory()[3], inventoryData.getItemInventory()[4], player));
@@ -124,12 +125,14 @@ namespace GarbageRoyale.Scripts
             controller = GameObject.Find("Controller");
             controller.GetComponent<InventoryGUI>().printSprite(place, id);
         }
-        
+        /*
         [PunRPC]
         public void AskDisableItem(string objName, PhotonMessageInfo info)
         {
+            Debug.Log(objName);
+            Debug.Log(GameObject.Find(objName).activeSelf);
             GameObject.Find(objName).SetActive(false);
-        }
+        }*/
 
         [PunRPC]
         public void AskTakeImplant(int id, PhotonMessageInfo info)

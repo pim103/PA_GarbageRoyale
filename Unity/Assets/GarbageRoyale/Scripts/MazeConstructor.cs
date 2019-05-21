@@ -69,7 +69,6 @@ namespace GarbageRoyale.Scripts
                 photonView.RPC("SendData", RpcTarget.MasterClient);
                 //PhotonNetwork.JoinRandomRoom();
             }
-            
         }
 
         void OnGUI()

@@ -215,6 +215,7 @@ namespace GarbageRoyale.Scripts
             {
                 mainCamera.SetActive(false);
                 players[id].PlayerCamera.enabled = true;
+                players[id].PlayerAudioListener.enabled = true;
 
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
@@ -224,6 +225,7 @@ namespace GarbageRoyale.Scripts
             rotationPlayer[id] = Vector3.zero;
 
             OnlinePlayReady?.Invoke();
+            endOfInit = true;
         }
 
         private void StartGame()

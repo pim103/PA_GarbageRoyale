@@ -176,7 +176,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         [PunRPC]
         private void RotateLampRPC(int id, float rotX)
         {
-            Debug.Log("Rotate id : " + id);
+            //Debug.Log("Rotate id : " + id);
             if (gc.AvatarToUserId[id] != PhotonNetwork.AuthValues.UserId)
             {
                 Vector3 vec = new Vector3(rotX, 0, 0);
