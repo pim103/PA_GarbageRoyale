@@ -63,14 +63,17 @@ namespace GarbageRoyale.Scripts
                             if(rooms[i, j] == 3)
                             {
                                 // Add door
+                                /*
                                 var newTrap = Instantiate(Prefabs[rooms[i,j]], new Vector3(j * width+ypos, ypos, i * width+ypos), Quaternion.identity);
-                                trap.Add(idTrap[i+";"+j], newTrap);
+                                Debug.Log(idTrap[i + ";" + j]);
+                                trap.Add(idTrap[i+";"+j], newTrap);*/
                             }
                             else if (rooms[i, j] == 2)
                             {
                                 // Add button
-                                var newButton = Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
-                                buttonsTrap.Add(newButton, idTrap[i + ";" + j]);
+                                /*var newButton = Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
+                                Debug.Log(idTrap[i + ";" + j]);
+                                buttonsTrap.Add(newButton, idTrap[i + ";" + j]);*/
                             } else
                             {
                                 Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);

@@ -37,10 +37,10 @@ namespace GarbageRoyale.Scripts
             GameObject sourceDamage = characterList[info.Sender.ActorNumber];
             PlayerStats ps = sourceDamage.GetComponent<PlayerStats>();
             float damage = ps.getBasickAttack();
-            int objectInHand = sourceDamage.GetComponent<InventoryController>().itemInHand;
+            //int objectInHand = sourceDamage.GetComponent<InventoryController>().itemInHand;
 
             Item item = new Item();
-            item.initItem(objectInHand);
+            //item.initItem(objectInHand);
 
             damage += item.getDamage();
 

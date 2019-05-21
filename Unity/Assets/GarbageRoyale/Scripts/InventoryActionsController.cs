@@ -66,6 +66,10 @@ namespace GarbageRoyale.Scripts
             {
                 if(itemInHand!=0) photonView.RPC("AskThrowItem", RpcTarget.MasterClient, placeInHand);
             }
+            if(Input.GetKeyDown(KeyCode.V))
+            {
+                if(itemInHand == 4) photonView.RPC("LightOnTorchRPC", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+            }
 
             /*if (Send)
             {
@@ -89,7 +93,7 @@ namespace GarbageRoyale.Scripts
                         thrownItemsCount[thrownItems.IndexOf(item)] = -1;
                     }
                 }
-
+                /*
                 foreach(var torch in listTorchLigt)
                 {
                     GameObject flame = torch.Value[0];
@@ -100,10 +104,10 @@ namespace GarbageRoyale.Scripts
                     {
                         photonView.RPC("moveTorch", RpcTarget.All, torch.Key, player.transform.position.x, player.transform.position.y, player.transform.position.z);
                     }
-                }
+                }*/
             }
         }
-
+        /*
         public void triggerTorch(bool isOn)
         {
             photonView.RPC("askTriggerTorch", RpcTarget.MasterClient, isOn);
@@ -176,40 +180,58 @@ namespace GarbageRoyale.Scripts
                 listTorchLigt[id][1].transform.position = newPos;
             }
         }
-    
+    */
         [PunRPC]
         public void AskChangePlayerHandItem(int inventoryPlace,int playerIndex,PhotonMessageInfo info)
         {
             Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
             photonView.RPC("AnswerChangePlayerHandItem", RpcTarget.All, inventoryData.getItemInventory()[inventoryPlace], playerIndex);
+            photonView.RPC("setItemInHand", info.Sender, inventoryData.getItemInventory()[inventoryPlace]);
             //gc.players[playerIndex].GetComponent<InventoryController>().itemInHand = inventoryData.getItemInventory()[inventoryPlace];
         }
     
         [PunRPC]
-        public void AnswerChangePlayerHandItem(int item, int playerIndex,PhotonMessageInfo info)
+        public void AnswerChangePlayerHandItem(int item, int playerIndex)
         {
             int handChild = -1;
+            //Desactivate unused items
+            gc.players[playerIndex].PlayerStaff.SetActive(false);
+            gc.players[playerIndex].PlayerTorch.SetActive(false);
+            gc.players[playerIndex].PlayerToiletPaper.SetActive(false);
+
             switch (item)
             {
                 case 1:
                     handChild = 1;
+                    gc.players[playerIndex].PlayerStaff.SetActive(true);
                     break;
                 case 2:
                     handChild = 1;
+                    gc.players[playerIndex].PlayerStaff.SetActive(true);
                     break;
                 case 4:
                     handChild = 0;
+                    gc.players[playerIndex].PlayerTorch.SetActive(true);
                     break;
                 case 5:
                     handChild = 2;
+                    gc.players[playerIndex].PlayerToiletPaper.SetActive(true);
                     break;
                 default:
                     Debug.Log("Error, wrong item");
                     break;
             }
-            if(handChild>-1) gc.players[playerIndex].gameObject.transform.GetChild(8).GetChild(0).GetChild(handChild).gameObject.SetActive(true);
+
+            //if(handChild>-1) gc.players[playerIndex].gameObject.transform.GetChild(8).GetChild(0).GetChild(handChild).gameObject.SetActive(true);
             //Debug.Log("yaaay");
         }
+
+        [PunRPC]
+        public void setItemInHand(int newItemInHand)
+        {
+            itemInHand = newItemInHand;
+        }
+        /*
         [PunRPC]
         public void ChangeItemInHandOthers(int item,PhotonMessageInfo info)
         {
@@ -234,7 +256,8 @@ namespace GarbageRoyale.Scripts
             putitem.transform.localPosition = new Vector3(0,0,0);
             putitem.transform.localEulerAngles = new Vector3(0,0,0);
         }
-    
+        */
+        
         [PunRPC]
         public void AskDropItem(int inventoryPlace,int playerIndex,PhotonMessageInfo info)
         {
@@ -243,7 +266,7 @@ namespace GarbageRoyale.Scripts
             inventoryData.getItemInventory()[inventoryPlace] = 0;*/
             photonView.RPC("AnswerDropItem", RpcTarget.All,inventoryPlace,playerIndex);
         }
-    
+        
         [PunRPC]
         public void AskThrowItem(int inventoryPlace,PhotonMessageInfo info)
         {
@@ -316,7 +339,22 @@ namespace GarbageRoyale.Scripts
                 droppedItem.transform.parent = null;
             }
         }
-    
-    
+        
+        [PunRPC]
+        private void LightOnTorchRPC(int placeInHand, int playerIndex)
+        {
+            Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
+            if (gc.players[playerIndex].PlayerTorch.activeSelf && inventoryData.getItemInventory()[placeInHand] == 4)
+            {
+                bool toggle = !gc.players[playerIndex].PlayerTorch.transform.GetChild(0).gameObject.activeSelf;
+                photonView.RPC("LightOnSpecificTorch", RpcTarget.All, playerIndex, toggle);
+            }
+        }
+
+        [PunRPC]
+        private void LightOnSpecificTorch(int playerIndex, bool toggle)
+        {
+            gc.players[playerIndex].PlayerTorch.transform.GetChild(0).gameObject.SetActive(toggle);
+        }
     }
 }
