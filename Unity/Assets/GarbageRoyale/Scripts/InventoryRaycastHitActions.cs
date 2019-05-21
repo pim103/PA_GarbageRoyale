@@ -115,7 +115,7 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         public void PutItemInInventory(string objName, int playerIndex)
         {
-            actionTakeItem(GameObject.Find(objName), gc.players[playerIndex].gameObject, false);
+            actionTakeItem(GameObject.Find(objName), gc.players[playerIndex].PlayerGameObject, false);
         }
 
         [PunRPC]

@@ -100,4 +100,10 @@ MonoBehaviour:
   - SendUserId
   - initAvatarUserIdRPC
   - PutItemInInventory
+  - brokePipeRPC
+  - brokeSpecificPipeRPC
+  - openDoorRPC
+  - openSpecificDoorRPC
+  - openSpecificTrapRPC
+  - openTrapRPC
   DisableAutoOpenWizard: 1
