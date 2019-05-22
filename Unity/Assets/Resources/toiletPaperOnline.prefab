@@ -129,7 +129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 5
   itemText: {fileID: 0}
-  initOnStart: 0
+  initOnStart: 1
+  isOnline: 1
 --- !u!114 &667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,8 +150,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 666}
-  viewIdField: 34
-  InstantiationId: 34
+  viewIdField: 33
+  InstantiationId: 33
   isRuntimeInstantiated: 0
 --- !u!114 &666
 MonoBehaviour:

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GarbageRoyale.Scripts.HUD;
 using Photon.Pun;
 using UnityEngine;
 
@@ -59,12 +60,12 @@ namespace GarbageRoyale.Scripts
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
-                if(placeInHand!=-1) photonView.RPC("AskDropItem", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                if(placeInHand!=-1) photonView.RPC("AskDropItem", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),false);
                 placeInHand = -1;
             }
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
-                if(itemInHand!=0) photonView.RPC("AskThrowItem", RpcTarget.MasterClient, placeInHand);
+                if(placeInHand!=-1) photonView.RPC("AskDropItem", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),true);
             }
             if(Input.GetKeyDown(KeyCode.V))
             {
@@ -259,15 +260,15 @@ namespace GarbageRoyale.Scripts
         */
         
         [PunRPC]
-        public void AskDropItem(int inventoryPlace,int playerIndex,PhotonMessageInfo info)
+        public void AskDropItem(int inventoryPlace,int playerIndex, bool throwItem,PhotonMessageInfo info)
         {
             /*Inventory inventoryData = characterList[info.Sender.ActorNumber].GetComponent<Inventory>();
             characterList[info.Sender.ActorNumber].transform.GetChild(8).GetChild(0).parent = null;
             inventoryData.getItemInventory()[inventoryPlace] = 0;*/
-            photonView.RPC("AnswerDropItem", RpcTarget.All,inventoryPlace,playerIndex);
+            photonView.RPC("AnswerDropItem", RpcTarget.All,inventoryPlace,playerIndex, throwItem);
         }
         
-        [PunRPC]
+        /*[PunRPC]
         public void AskThrowItem(int inventoryPlace,PhotonMessageInfo info)
         {
             Transform child;
@@ -284,16 +285,16 @@ namespace GarbageRoyale.Scripts
         {
             child.Translate(Vector3.forward*Time.deltaTime,Space.Self);
             
-        }*/
+        }
             thrownItems.Add(newParent);
             thrownItemsCount.Add(0);
-        }
+        }*/
     
         [PunRPC]
-        public void AnswerDropItem(int placeInHand, int playerIndex)
+        public void AnswerDropItem(int placeInHand, int playerIndex, bool throwItem)
         {
             int item = gc.players[playerIndex].GetComponent<Inventory>().getItemInventory()[placeInHand];
-            gc.players[playerIndex].GetComponent<Inventory>().getItemInventory()[placeInHand] = 0;
+            gc.players[playerIndex].GetComponent<Inventory>().itemInventory[placeInHand] = 0;
             int handChild = -1;
             switch (item)
             {
@@ -316,7 +317,7 @@ namespace GarbageRoyale.Scripts
             if(handChild>-1) gc.players[playerIndex].gameObject.transform.GetChild(8).GetChild(0).GetChild(handChild).gameObject.SetActive(false);
             if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
-                Debug.Log("allo");
+                //Debug.Log("allo");
                 int poolID = 0;
                 switch (item)
                 {
@@ -334,9 +335,29 @@ namespace GarbageRoyale.Scripts
                 GameObject droppedItem =  ObjectPoolerPhoton.SharedInstance.GetPooledObject(poolID);
                 droppedItem.SetActive(true);
                 droppedItem.transform.SetParent(gc.players[playerIndex].gameObject.transform.GetChild(8).GetChild(0).transform);
-                droppedItem.transform.localPosition = new Vector3(0,0,0);
-                droppedItem.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-                droppedItem.transform.parent = null;
+                if (throwItem)
+                {
+                    GameObject newParent = new GameObject("thrownObjectParent");
+                    droppedItem.transform.localPosition = new Vector3(0, 0, 0);
+                    droppedItem.transform.localRotation =
+                        gc.players[playerIndex].PlayerTorch.transform.parent.transform.rotation;
+                    newParent.transform.position = droppedItem.transform.position;
+                    newParent.transform.rotation = droppedItem.transform.rotation;
+                    droppedItem.transform.parent = newParent.transform;
+                    newParent.transform.Translate(0,1,0);
+                    thrownItems.Add(newParent);
+                    thrownItemsCount.Add(0);
+                }
+                else
+                {
+                    droppedItem.transform.localPosition = new Vector3(0, 0, 0);
+                    droppedItem.transform.localRotation =
+                        gc.players[playerIndex].PlayerTorch.transform.parent.transform.rotation;
+                    //droppedItem.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                    droppedItem.transform.parent = null;
+                }
+
+                gc.GetComponent<InventoryGUI>().deleteSprite(placeInHand);
             }
         }
         

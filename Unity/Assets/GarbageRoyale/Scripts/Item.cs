@@ -11,7 +11,9 @@ namespace GarbageRoyale.Scripts
         public int type; // Weapon, Utils, Trap
         public RawImage itemText;
         public bool initOnStart;
-
+        public bool isOnline;
+        
+        
         private void Start()
         {
             if (initOnStart)

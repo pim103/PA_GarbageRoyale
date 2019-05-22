@@ -117,6 +117,7 @@ MonoBehaviour:
   itemText: {fileID: 5833977737841398870, guid: ad67ab737c4b5a94f9a74e0fed20b690,
     type: 3}
   initOnStart: 1
+  isOnline: 1
 --- !u!64 &607
 MeshCollider:
   m_ObjectHideFlags: 0

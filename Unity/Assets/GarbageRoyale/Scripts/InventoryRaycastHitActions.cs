@@ -56,6 +56,7 @@ namespace GarbageRoyale.Scripts
                     else
                     {
                         GameObject itemGob = hitInfo.transform.gameObject;
+                        Item itemScript = itemGob.GetComponent<Item>();
                         /*if (PhotonNetwork.IsMasterClient)
                         {
                             //var charFirst = characterList.First();
@@ -66,10 +67,30 @@ namespace GarbageRoyale.Scripts
                         }
                         else
                         {*/
-                            staffName = "Staff_" + itemGob.transform.position.x + "_" + ((int)itemGob.transform.position.y + 1) + "_" + itemGob.transform.position.z;
-                            //Debug.Log(staffName);
-                            photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                            //Item itemData = itemGob.GetComponent<Item>();
+                        if (itemScript)
+                        {
+                            if (!itemScript.isOnline)
+                            {
+                                staffName = "Staff_" + itemGob.transform.position.x + "_" +
+                                            ((int) itemGob.transform.position.y + 1) + "_" +
+                                            itemGob.transform.position.z;
+                                //Debug.Log(staffName);
+                                photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName,
+                                System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),false,0);
+                            }
+                            else
+                            {
+                                photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName,
+                                    System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),true,itemScript.getId());
+                                hitInfo.transform.localPosition = new Vector3(0, 0, 0);
+                                hitInfo.transform.gameObject.SetActive(false);
+                            }
+                        } else
+                        {
+                            Debug.Log("Not an item");
+                        }
+
+                        //Item itemData = itemGob.GetComponent<Item>();
                         //}
                     }
                 }
@@ -80,50 +101,68 @@ namespace GarbageRoyale.Scripts
 
         private void actionTakeItem(GameObject itemGob, GameObject player, bool isMaster)
         {
-            if (itemGob.GetComponent<Item>() != null)
-            {
-                Item itemData = itemGob.GetComponent<Item>();
-                Inventory inventoryData = player.GetComponent<Inventory>();
+            Item itemData = itemGob.GetComponent<Item>();
+            Inventory inventoryData = player.GetComponent<Inventory>();
 
-                Debug.Log(string.Format("Item : \n ID : {0} - Name: {1} - Damage : {2} - Type : {3}", itemData.getId(), itemData.getName(), itemData.getDamage(), itemData.getType()));
-                if(isMaster)
-                {
-                    controller = GameObject.Find("Controller");
-                    controller.GetComponent<InventoryGUI>().printSprite(inventoryData.findPlaceInventory(), itemData.getId());
-                }
-                if (inventoryData.setItemInventory(itemData.getId()))
-                {
-                    itemGob.SetActive(false);
-                    //photonView.RPC("AskDisableItem", RpcTarget.All, itemGob.name);
-                    
-                }
-                Debug.Log(string.Format("Inventory : \n ID : {0} {1} {2} {3} {4} - Joueur : {5}", inventoryData.getItemInventory()[0], inventoryData.getItemInventory()[1], inventoryData.getItemInventory()[2], inventoryData.getItemInventory()[3], inventoryData.getItemInventory()[4], player));
-            }
-            else
+            Debug.Log(string.Format("Item : \n ID : {0} - Name: {1} - Damage : {2} - Type : {3}", itemData.getId(), itemData.getName(), itemData.getDamage(), itemData.getType()));
+            if(isMaster)
             {
-                Debug.Log("Not an item");
+                gc.GetComponent<InventoryGUI>().printSprite(inventoryData.findPlaceInventory(), itemData.getId());
             }
+            if (inventoryData.setItemInventory(itemData.getId()))
+            {
+                itemGob.SetActive(false);
+                //photonView.RPC("AskDisableItem", RpcTarget.All, itemGob.name);
+                
+            }
+            Debug.Log(string.Format("Inventory : \n ID : {0} {1} {2} {3} {4} - Joueur : {5}", inventoryData.getItemInventory()[0], inventoryData.getItemInventory()[1], inventoryData.getItemInventory()[2], inventoryData.getItemInventory()[3], inventoryData.getItemInventory()[4], player));
+            
         }
         
         [PunRPC]
-        public void AskTakeItem(string objName, int playerIndex, PhotonMessageInfo info)
+        public void AskTakeItem(string objName, int playerIndex, bool isOnline, int itemId, PhotonMessageInfo info)
         {
-            //photonView.RPC("ChangeGUIClient", info.Sender, gc.players[playerIndex].GetComponent<Inventory>().findPlaceInventory(), GameObject.Find(objName).GetComponent<Item>().getId());
-            photonView.RPC("PutItemInInventory",RpcTarget.All, objName, playerIndex);
+            if (!isOnline)
+            {
+                photonView.RPC("ChangeGUIClient", info.Sender,
+                    gc.players[playerIndex].GetComponent<Inventory>().findPlaceInventory(),
+                    GameObject.Find(objName).GetComponent<Item>().getId());
+            }
+
+            photonView.RPC("PutItemInInventory",RpcTarget.All, objName, playerIndex, isOnline, itemId);
             //Debug.Log("ID du joueur : " + info.Sender.ActorNumber);
         }
 
         [PunRPC]
-        public void PutItemInInventory(string objName, int playerIndex)
+        public void PutItemInInventory(string objName, int playerIndex, bool isOnline, int itemId)
         {
-            actionTakeItem(GameObject.Find(objName), gc.players[playerIndex].PlayerGameObject, false);
+            if (!isOnline)
+            {
+                actionTakeItem(GameObject.Find(objName), gc.players[playerIndex].PlayerGameObject, false);
+            }
+            else
+            {
+                takeDroppedItem(itemId, gc.players[playerIndex].PlayerGameObject);
+            }
+            
+        }
+
+        public void takeDroppedItem(int itemId, GameObject player)
+        {
+            Inventory inventoryData = player.GetComponent<Inventory>();
+            Debug.Log("well "+inventoryData.findPlaceInventory());
+            if (player == gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)])
+            {
+                gc.GetComponent<InventoryGUI>().printSprite(inventoryData.findPlaceInventory(), itemId);
+            }
+            inventoryData.setItemInventory(itemId);
+            Debug.Log(string.Format("Inventory : \n ID : {0} {1} {2} {3} {4} - Joueur : {5}", inventoryData.getItemInventory()[0], inventoryData.getItemInventory()[1], inventoryData.getItemInventory()[2], inventoryData.getItemInventory()[3], inventoryData.getItemInventory()[4], player));
         }
 
         [PunRPC]
         public void ChangeGUIClient(int place, int id, PhotonMessageInfo info)
         {
-            controller = GameObject.Find("Controller");
-            controller.GetComponent<InventoryGUI>().printSprite(place, id);
+            gc.GetComponent<InventoryGUI>().printSprite(place, id);
         }
         /*
         [PunRPC]
@@ -134,7 +173,7 @@ namespace GarbageRoyale.Scripts
             GameObject.Find(objName).SetActive(false);
         }*/
 
-        [PunRPC]
+        /*[PunRPC]
         public void AskTakeImplant(int id, PhotonMessageInfo info)
         {
             Debug.Log("allo");
@@ -150,7 +189,7 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         public void AnswerTakeImplant(int place, PhotonMessageInfo info)
         {
-            controller.GetComponent<InventoryGUI>().printSkillSprite(place,1);
-        }
+            gc.GetComponent<InventoryGUI>().printSkillSprite(place,1);
+        }*/
     }
 }    
