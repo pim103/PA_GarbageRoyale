@@ -59,7 +59,7 @@ namespace GarbageRoyale.Scripts
                 isBroken = true;
             }
         }
-        
+        /*
         private void OnTriggerEnter(Collider other)
         {
             if (isExplode && canTakeDamage && other.name.StartsWith("Player"))
@@ -109,7 +109,7 @@ namespace GarbageRoyale.Scripts
                 }
             }
         }
-        
+        */
         private void explosion()
         {
             brokenPipe.transform.GetChild(0).gameObject.SetActive(false);

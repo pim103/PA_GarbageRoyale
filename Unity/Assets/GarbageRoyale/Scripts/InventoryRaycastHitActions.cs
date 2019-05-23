@@ -139,15 +139,27 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         public void PutItemInInventory(string objName, int playerIndex, bool isOnline, int itemId)
         {
-            if (!isOnline)
+            Item itemData = gc.items[itemId].GetComponent<Item>();
+            Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
+
+            if (inventoryData.setItemInventory(itemData.getId()))
+            {
+                gc.items[itemId].transform.SetParent(gc.players[playerIndex].PlayerTorch.transform.parent);
+                gc.items[itemId].transform.localPosition = new Vector3(0, 0, 0);
+                gc.items[itemId].transform.localRotation = gc.items[itemId].transform.parent.transform.localRotation;
+                gc.items[itemId].SetActive(false);
+                //photonView.RPC("AskDisableItem", RpcTarget.All, itemGob.name);
+
+            }
+            /*if (!isOnline)
             {
                 actionTakeItem(gc.items[itemId], gc.players[playerIndex].PlayerGameObject, false);
             }
-            /*else
+            else
             {
                 takeDroppedItem(itemId, gc.players[playerIndex].PlayerGameObject);
             }*/
-            
+
         }
 
         public void takeDroppedItem(int itemId, GameObject player)

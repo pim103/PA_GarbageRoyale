@@ -15,7 +15,6 @@ namespace GarbageRoyale.Scripts.PlayerController
         public bool wantToTurnOnTorch { get; set; }
         public bool wantToGoDown { get; set; }
 
-
         public bool isInWater { get; set; }
         public bool isInTransition { get; set; }
     }

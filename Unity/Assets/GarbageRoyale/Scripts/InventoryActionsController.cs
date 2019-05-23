@@ -322,15 +322,15 @@ namespace GarbageRoyale.Scripts
             int handChild = -1;
 
             gc.items[idItem].SetActive(true);
+            gc.items[idItem].transform.parent = null;
+            /*
             gc.items[idItem].transform.localPosition = gc.players[playerIndex].transform.localPosition;
-            gc.items[idItem].transform.SetPositionAndRotation(
-                gc.players[playerIndex].transform.localPosition, 
-                gc.players[playerIndex].PlayerCamera.transform.rotation
-            );
-
+            gc.items[idItem].transform.localRotation = gc.players[playerIndex].PlayerTorch.transform.parent.transform.rotation;
+            gc.items[idItem].transform.Translate(Vector3.forward, Space.Self);
+            */
             if (throwItem)
             {
-                gc.items[idItem].GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, 10), ForceMode.Impulse);
+                gc.items[idItem].GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 2, 10), ForceMode.Impulse);
             }
 
             switch (typeItem)
@@ -363,7 +363,6 @@ namespace GarbageRoyale.Scripts
                     break;
             }
             
-            //if(handChild>-1) gc.players[playerIndex].gameObject.transform.GetChild(8).GetChild(0).GetChild(handChild).gameObject.SetActive(false);
             if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
                 gc.GetComponent<InventoryGUI>().deleteSprite(placeInHand);
