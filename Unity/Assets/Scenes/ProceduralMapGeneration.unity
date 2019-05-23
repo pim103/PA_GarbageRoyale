@@ -1734,6 +1734,7 @@ MonoBehaviour:
   moveDirection: []
   AvatarToUserId: []
   endOfInit: 0
+  nbItems: 0
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0
@@ -1949,6 +1950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8678fa88076c064eb29a7bcaf714d32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gc: {fileID: 1103656770}
   itemInHand: 0
   placeInHand: 0
   thrownItems: []

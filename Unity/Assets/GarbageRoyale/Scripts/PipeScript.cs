@@ -59,7 +59,7 @@ namespace GarbageRoyale.Scripts
                 isBroken = true;
             }
         }
-
+        
         private void OnTriggerEnter(Collider other)
         {
             if (isExplode && canTakeDamage && other.name.StartsWith("Player"))
@@ -71,21 +71,45 @@ namespace GarbageRoyale.Scripts
 
         private void OnTriggerStay(Collider other)
         {
-            if(!other.name.StartsWith("Player"))
+            bool isPlayer = false;
+            bool isTorch = false;
+
+            if(other.name.StartsWith("Player"))
+            {
+                isPlayer = true;
+            }
+            else if(other.name.StartsWith("torch"))
+            {
+                isTorch = true;
+            } else
             {
                 return;
             }
 
-            if (isBroken && !isExplode && other.GetComponent<ExposerPlayer>().PlayerTorch.transform.GetChild(0).gameObject.activeSelf)
+            if(isBroken && !isExplode)
             {
-                explosion();
-            } else if(isExplode && canTakeDamage && other.name.StartsWith("Player"))
-            {
-                Debug.Log(other.GetComponent<ExposerPlayer>().PlayerIndex);
-                Debug.Log("damage");
+                if(isPlayer)
+                {
+
+                    if (other.GetComponent<ExposerPlayer>().PlayerTorch.transform.GetChild(0).gameObject.activeSelf && other.GetComponent<ExposerPlayer>().PlayerTorch.activeSelf)
+                    {
+                        explosion();
+                    } else if(isExplode && canTakeDamage && other.name.StartsWith("Player"))
+                    {
+                        Debug.Log(other.GetComponent<ExposerPlayer>().PlayerIndex);
+                        Debug.Log("damage");
+                    }
+                }
+                else if(isTorch)
+                {
+                    if(other.transform.GetChild(0).gameObject.activeSelf)
+                    {
+                        explosion();
+                    }
+                }
             }
         }
-
+        
         private void explosion()
         {
             brokenPipe.transform.GetChild(0).gameObject.SetActive(false);

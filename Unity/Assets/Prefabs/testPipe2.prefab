@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8388b3a5ad88e594e856bc0ff21a47ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pipeIndex: 0
   pipe: {fileID: 7464668704521182575}
   brokenPipe: {fileID: 2811865998010443188}
   Explosion: {fileID: 6929817978182962001}

@@ -87,10 +87,14 @@ namespace GarbageRoyale.Scripts
         public Dictionary<int, GameObject> traps = new Dictionary<int, GameObject>();
         public Dictionary<int, GameObject> doors = new Dictionary<int, GameObject>();
 
+        public int nbItems;
         public Dictionary<int, bool> endInit = new Dictionary<int, bool>();
+
+        public Dictionary<int, GameObject> items = new Dictionary<int, GameObject>();
 
         private void Awake()
         {
+            nbItems = 0;
             AvatarToUserId = Enumerable.Repeat("", 8).ToArray();
             PlayerJoined += ActivateAvatar;
             PlayerLeft += null;

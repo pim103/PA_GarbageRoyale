@@ -44,7 +44,7 @@ namespace GarbageRoyale.Scripts
         {
             if (wantUse)
             {
-                var ray = gc.players[System.Array.IndexOf(gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+                var ray = gc.players[Array.IndexOf(gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
                 RaycastHit hitInfo;
                 
                 if (Physics.Raycast(ray, out hitInfo, 2f))
@@ -76,15 +76,16 @@ namespace GarbageRoyale.Scripts
                                             itemGob.transform.position.z;
                                 //Debug.Log(staffName);
                                 photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName,
-                                System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),false,0);
+                                Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),false,itemScript.getId());
                             }
-                            else
+                            /*else
                             {
                                 photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName,
-                                    System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),true,itemScript.getId());
+                                    Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),true,itemScript.getId()
+                                );
                                 hitInfo.transform.localPosition = new Vector3(0, 0, 0);
                                 hitInfo.transform.gameObject.SetActive(false);
-                            }
+                            }*/
                         } else
                         {
                             Debug.Log("Not an item");
@@ -107,7 +108,7 @@ namespace GarbageRoyale.Scripts
             Debug.Log(string.Format("Item : \n ID : {0} - Name: {1} - Damage : {2} - Type : {3}", itemData.getId(), itemData.getName(), itemData.getDamage(), itemData.getType()));
             if(isMaster)
             {
-                gc.GetComponent<InventoryGUI>().printSprite(inventoryData.findPlaceInventory(), itemData.getId());
+                gc.GetComponent<InventoryGUI>().printSprite(inventoryData.findPlaceInventory(), itemData.type);
             }
             if (inventoryData.setItemInventory(itemData.getId()))
             {
@@ -122,11 +123,13 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         public void AskTakeItem(string objName, int playerIndex, bool isOnline, int itemId, PhotonMessageInfo info)
         {
+            Debug.Log(gc.items[itemId].GetComponent<Item>().type);
             if (!isOnline)
             {
                 photonView.RPC("ChangeGUIClient", info.Sender,
                     gc.players[playerIndex].GetComponent<Inventory>().findPlaceInventory(),
-                    GameObject.Find(objName).GetComponent<Item>().getId());
+                    gc.items[itemId].GetComponent<Item>().type
+                );
             }
 
             photonView.RPC("PutItemInInventory",RpcTarget.All, objName, playerIndex, isOnline, itemId);
@@ -138,12 +141,12 @@ namespace GarbageRoyale.Scripts
         {
             if (!isOnline)
             {
-                actionTakeItem(GameObject.Find(objName), gc.players[playerIndex].PlayerGameObject, false);
+                actionTakeItem(gc.items[itemId], gc.players[playerIndex].PlayerGameObject, false);
             }
-            else
+            /*else
             {
                 takeDroppedItem(itemId, gc.players[playerIndex].PlayerGameObject);
-            }
+            }*/
             
         }
 
@@ -151,7 +154,7 @@ namespace GarbageRoyale.Scripts
         {
             Inventory inventoryData = player.GetComponent<Inventory>();
             Debug.Log("well "+inventoryData.findPlaceInventory());
-            if (player == gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)])
+            if (player == gc.players[Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)])
             {
                 gc.GetComponent<InventoryGUI>().printSprite(inventoryData.findPlaceInventory(), itemId);
             }
@@ -160,9 +163,9 @@ namespace GarbageRoyale.Scripts
         }
 
         [PunRPC]
-        public void ChangeGUIClient(int place, int id, PhotonMessageInfo info)
+        public void ChangeGUIClient(int place, int type, PhotonMessageInfo info)
         {
-            gc.GetComponent<InventoryGUI>().printSprite(place, id);
+            gc.GetComponent<InventoryGUI>().printSprite(place, type);
         }
         /*
         [PunRPC]

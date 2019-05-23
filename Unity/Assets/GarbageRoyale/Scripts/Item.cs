@@ -37,37 +37,37 @@ namespace GarbageRoyale.Scripts
             {
                 case 1:
                     //Debug.Log("Init Wooden Staff");
-                    setId(1);
+                    //setId(1);
                     setName("Wooden Staff");
                     setDamage(15f);
                     //setTexture();
                     break;
                 case 2:
                     //Debug.Log("Init Steel Staff");
-                    setId(2);
+                    //setId(2);
                     setName("Steel Staff");
                     setDamage(20f);
                     break;
                 case 3:
                     //Debug.Log("Init Steel Staff");
-                    setId(3);
+                    // setId(3);
                     setName("Extinct Torch");
                     setDamage(7f);
                     break;
                 case 4:
                     //Debug.Log("Init Steel Staff");
-                    setId(4);
+                    //setId(4);
                     setName("Lit Torch");
                     setDamage(7f);
                     break;
                 case 5:
                     //Debug.Log("Init Steel Staff");
-                    setId(5);
+                    //setId(5);
                     setName("Toilet Paper");
                     setDamage(-10f);
                     break;
                 default:
-                    setId(0);
+                    //setId(0);
                     setName("Void");
                     setDamage(0f);
                     break;

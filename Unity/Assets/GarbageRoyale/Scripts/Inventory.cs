@@ -36,11 +36,11 @@ namespace GarbageRoyale.Scripts
         {
             for (int i = 0; i < itemSlots; i++)
             {
-                itemInventory[i] = 0;
+                itemInventory[i] = -1;
             }
             for (int i = 0; i < skillSlots; i++)
             {
-                skillInventory[i] = 0;;
+                skillInventory[i] = -1;
             }
             
         }
@@ -49,7 +49,7 @@ namespace GarbageRoyale.Scripts
         {
             for (int i = 0; i < itemSlots; i++)
             {
-                if (itemInventory[i] == 0)
+                if (itemInventory[i] == -1)
                 {
                     return i;
                 }
@@ -61,7 +61,7 @@ namespace GarbageRoyale.Scripts
         {
             for (int i = 0; i < itemSlots; i++)
             {
-                if (skillInventory[i] == 0)
+                if (skillInventory[i] == -1)
                 {
                     return i;
                 }
@@ -94,7 +94,7 @@ namespace GarbageRoyale.Scripts
             int voidIndex = findPlaceSkills();
             if (voidIndex != -1)
             {
-                this.skillInventory[voidIndex] = itemId;
+                skillInventory[voidIndex] = itemId;
             
                 return true;
             }
@@ -106,7 +106,7 @@ namespace GarbageRoyale.Scripts
         }
         public int getLastCounterItem()
         {
-            return this.lastCounterItem;
+            return lastCounterItem;
         }
     
         public void setLastCounterItem(int lastCounterItem)
@@ -116,7 +116,7 @@ namespace GarbageRoyale.Scripts
     
         public int getLastCounterSkill()
         {
-            return this.lastCounterSkill;
+            return lastCounterSkill;
         }
     
         public void setLastCounterSkill(int lastCounterSkill)

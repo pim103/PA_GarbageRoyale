@@ -7,6 +7,9 @@ namespace GarbageRoyale.Scripts
 {
     public class InventoryActionsController : MonoBehaviourPunCallbacks
     {
+        [SerializeField]
+        private GameController gc;
+
         public Dictionary <int, GameObject> characterList = new Dictionary<int, GameObject>();
         private Inventory playerInventory;
         private GameObject gtest;
@@ -14,8 +17,6 @@ namespace GarbageRoyale.Scripts
         public int placeInHand = -1;
         public List<GameObject> thrownItems;
         public List<int> thrownItemsCount;
-
-        private GameController gc;
         
         AudioClip torchLightSound;
 
@@ -26,7 +27,6 @@ namespace GarbageRoyale.Scripts
         void Start()
         {
             //characterList = GameObject.Find("Controller").GetComponent<GameController>().characterList;
-            gc = GameObject.Find("Controller").GetComponent<GameController>();
             torchLightSound = GameObject.Find("Controller").GetComponent<SoundManager>().getTorchLightSound();
         }
 
@@ -66,6 +66,7 @@ namespace GarbageRoyale.Scripts
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 if(placeInHand!=-1) photonView.RPC("AskDropItem", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),true);
+                placeInHand = -1;
             }
             if(Input.GetKeyDown(KeyCode.V))
             {
@@ -186,8 +187,16 @@ namespace GarbageRoyale.Scripts
         public void AskChangePlayerHandItem(int inventoryPlace,int playerIndex,PhotonMessageInfo info)
         {
             Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
-            photonView.RPC("AnswerChangePlayerHandItem", RpcTarget.All, inventoryData.getItemInventory()[inventoryPlace], playerIndex);
-            photonView.RPC("setItemInHand", info.Sender, inventoryData.getItemInventory()[inventoryPlace]);
+            var idItem = inventoryData.getItemInventory()[inventoryPlace];
+            var typeItem = 0;
+
+            if(idItem > -1)
+            {
+                typeItem = gc.items[idItem].GetComponent<Item>().type;
+            }
+
+            photonView.RPC("AnswerChangePlayerHandItem", RpcTarget.All, typeItem, playerIndex);
+            photonView.RPC("setItemInHand", info.Sender, typeItem);
             //gc.players[playerIndex].GetComponent<InventoryController>().itemInHand = inventoryData.getItemInventory()[inventoryPlace];
         }
     
@@ -199,7 +208,7 @@ namespace GarbageRoyale.Scripts
             gc.players[playerIndex].PlayerStaff.SetActive(false);
             gc.players[playerIndex].PlayerTorch.SetActive(false);
             gc.players[playerIndex].PlayerToiletPaper.SetActive(false);
-
+            
             switch (item)
             {
                 case 1:
@@ -265,7 +274,23 @@ namespace GarbageRoyale.Scripts
             /*Inventory inventoryData = characterList[info.Sender.ActorNumber].GetComponent<Inventory>();
             characterList[info.Sender.ActorNumber].transform.GetChild(8).GetChild(0).parent = null;
             inventoryData.getItemInventory()[inventoryPlace] = 0;*/
-            photonView.RPC("AnswerDropItem", RpcTarget.All,inventoryPlace,playerIndex, throwItem);
+            Debug.Log(inventoryPlace);
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            int idItem = gc.players[playerIndex].GetComponent<Inventory>().getItemInventory()[inventoryPlace];
+            if (idItem == -1)
+            {
+                return;
+            }
+            
+            int typeItem = gc.items[idItem].GetComponent<Item>().type;
+
+
+            gc.players[playerIndex].GetComponent<Inventory>().itemInventory[inventoryPlace] = -1;
+            photonView.RPC("AnswerDropItem", RpcTarget.All, typeItem, idItem, playerIndex, throwItem);
         }
         
         /*[PunRPC]
@@ -291,81 +316,109 @@ namespace GarbageRoyale.Scripts
         }*/
     
         [PunRPC]
-        public void AnswerDropItem(int placeInHand, int playerIndex, bool throwItem)
+        public void AnswerDropItem(int typeItem, int idItem, int playerIndex, bool throwItem)
         {
-            int item = gc.players[playerIndex].GetComponent<Inventory>().getItemInventory()[placeInHand];
-            gc.players[playerIndex].GetComponent<Inventory>().itemInventory[placeInHand] = 0;
+            gc.players[playerIndex].GetComponent<Inventory>().itemInventory[placeInHand] = -1;
             int handChild = -1;
-            switch (item)
+
+            gc.items[idItem].SetActive(true);
+            gc.items[idItem].transform.localPosition = gc.players[playerIndex].transform.localPosition;
+            gc.items[idItem].transform.SetPositionAndRotation(
+                gc.players[playerIndex].transform.localPosition, 
+                gc.players[playerIndex].PlayerCamera.transform.rotation
+            );
+
+            if (throwItem)
+            {
+                gc.items[idItem].GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, 10), ForceMode.Impulse);
+            }
+
+            switch (typeItem)
             {
                 case 1:
                     handChild = 1;
+                    gc.players[playerIndex].PlayerStaff.SetActive(false);
                     break;
                 case 2:
                     handChild = 1;
+                    gc.players[playerIndex].PlayerStaff.SetActive(false);
                     break;
                 case 4:
                     handChild = 0;
+                    gc.players[playerIndex].PlayerTorch.SetActive(false);
+                    if(gc.players[playerIndex].PlayerTorch.transform.GetChild(0).gameObject.activeSelf)
+                    {
+                        gc.items[idItem].transform.GetChild(0).gameObject.SetActive(true);
+                    } else
+                    {
+                        gc.items[idItem].transform.GetChild(0).gameObject.SetActive(false);
+                    }
                     break;
                 case 5:
                     handChild = 2;
+                    gc.players[playerIndex].PlayerToiletPaper.SetActive(false);
                     break;
                 default:
                     Debug.Log("Error, wrong item");
                     break;
             }
-            if(handChild>-1) gc.players[playerIndex].gameObject.transform.GetChild(8).GetChild(0).GetChild(handChild).gameObject.SetActive(false);
+            
+            //if(handChild>-1) gc.players[playerIndex].gameObject.transform.GetChild(8).GetChild(0).GetChild(handChild).gameObject.SetActive(false);
             if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
-                //Debug.Log("allo");
-                int poolID = 0;
-                switch (item)
-                {
-                    case 1:
-                        poolID = 0;
-                        break;
-                    case 4:
-                        poolID = 1;
-                        break;
-                    case 5:
-                        poolID = 3;
-                        break;
-                }
-                
-                GameObject droppedItem =  ObjectPoolerPhoton.SharedInstance.GetPooledObject(poolID);
-                droppedItem.SetActive(true);
-                droppedItem.transform.SetParent(gc.players[playerIndex].gameObject.transform.GetChild(8).GetChild(0).transform);
-                if (throwItem)
-                {
-                    GameObject newParent = new GameObject("thrownObjectParent");
-                    droppedItem.transform.localPosition = new Vector3(0, 0, 0);
-                    droppedItem.transform.localRotation =
-                        gc.players[playerIndex].PlayerTorch.transform.parent.transform.rotation;
-                    newParent.transform.position = droppedItem.transform.position;
-                    newParent.transform.rotation = droppedItem.transform.rotation;
-                    droppedItem.transform.parent = newParent.transform;
-                    newParent.transform.Translate(0,1,0);
-                    thrownItems.Add(newParent);
-                    thrownItemsCount.Add(0);
-                }
-                else
-                {
-                    droppedItem.transform.localPosition = new Vector3(0, 0, 0);
-                    droppedItem.transform.localRotation =
-                        gc.players[playerIndex].PlayerTorch.transform.parent.transform.rotation;
-                    //droppedItem.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-                    droppedItem.transform.parent = null;
-                }
-
                 gc.GetComponent<InventoryGUI>().deleteSprite(placeInHand);
+                itemInHand = 0;
             }
+            /*
+            //Debug.Log("allo");
+            int poolID = 0;
+            switch (item)
+            {
+                case 1:
+                    poolID = 0;
+                    break;
+                case 4:
+                    poolID = 1;
+                    break;
+                case 5:
+                    poolID = 3;
+                    break;
+            }
+
+            GameObject droppedItem =  ObjectPoolerPhoton.SharedInstance.GetPooledObject(poolID);
+            droppedItem.SetActive(true);
+            droppedItem.transform.SetParent(gc.players[playerIndex].gameObject.transform.GetChild(8).GetChild(0).transform);
+            if (throwItem)
+            {
+                GameObject newParent = new GameObject("thrownObjectParent");
+                droppedItem.transform.localPosition = new Vector3(0, 0, 0);
+                droppedItem.transform.localRotation =
+                    gc.players[playerIndex].PlayerTorch.transform.parent.transform.rotation;
+                newParent.transform.position = droppedItem.transform.position;
+                newParent.transform.rotation = droppedItem.transform.rotation;
+                droppedItem.transform.parent = newParent.transform;
+                newParent.transform.Translate(0,1,0);
+                thrownItems.Add(newParent);
+                thrownItemsCount.Add(0);
+            }
+            else
+            {
+                droppedItem.transform.localPosition = new Vector3(0, 0, 0);
+                droppedItem.transform.localRotation =
+                    gc.players[playerIndex].PlayerTorch.transform.parent.transform.rotation;
+                //droppedItem.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                droppedItem.transform.parent = null;
+            }
+            */
         }
         
         [PunRPC]
         private void LightOnTorchRPC(int placeInHand, int playerIndex)
         {
             Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
-            if (gc.players[playerIndex].PlayerTorch.activeSelf && inventoryData.getItemInventory()[placeInHand] == 4)
+            int itemId = inventoryData.getItemInventory()[placeInHand];
+
+            if (gc.players[playerIndex].PlayerTorch.activeSelf && gc.items[itemId].GetComponent<Item>().type == 4)
             {
                 bool toggle = !gc.players[playerIndex].PlayerTorch.transform.GetChild(0).gameObject.activeSelf;
                 photonView.RPC("LightOnSpecificTorch", RpcTarget.All, playerIndex, toggle);
