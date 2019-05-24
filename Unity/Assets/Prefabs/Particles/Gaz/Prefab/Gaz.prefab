@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 672168648}
   - component: {fileID: 672168650}
   - component: {fileID: 672168649}
-  - component: {fileID: 11488742968267802}
   - component: {fileID: 5836880220017871114}
   m_Layer: 0
   m_Name: Gaz
@@ -4740,18 +4739,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &11488742968267802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672168647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464458bacbe4bf04b891d51f739bb330, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &5836880220017871114
 BoxCollider:
   m_ObjectHideFlags: 0

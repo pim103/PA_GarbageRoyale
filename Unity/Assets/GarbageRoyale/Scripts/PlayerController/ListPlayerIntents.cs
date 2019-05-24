@@ -8,6 +8,12 @@ namespace GarbageRoyale.Scripts.PlayerController
     {
         public float horizontalAxe { get; set; }
         public float verticalAxe { get; set; }
+
+        public bool wantToGoForward { get; set; }
+        public bool wantToGoBackward { get; set; }
+        public bool wantToGoRight { get; set; }
+        public bool wantToGoLeft { get; set; }
+
         public float rotationX { get; set; }
         public float rotationY { get; set; }
         public bool wantToJump { get; set; }

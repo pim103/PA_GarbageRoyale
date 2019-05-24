@@ -34,7 +34,7 @@ namespace GarbageRoyale.Scripts
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F) && !wantUse)
             {
                 wantUse = true;
             }
@@ -57,42 +57,19 @@ namespace GarbageRoyale.Scripts
                     {
                         GameObject itemGob = hitInfo.transform.gameObject;
                         Item itemScript = itemGob.GetComponent<Item>();
-                        /*if (PhotonNetwork.IsMasterClient)
-                        {
-                            //var charFirst = characterList.First();
-                            Debug.Log(hitInfo.transform.name);
-                            GameObject player =
-                                gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].gameObject;
-                            actionTakeItem(itemGob, player, true);
-                        }
-                        else
-                        {*/
+
                         if (itemScript)
                         {
-                            if (!itemScript.isOnline)
-                            {
-                                staffName = "Staff_" + itemGob.transform.position.x + "_" +
-                                            ((int) itemGob.transform.position.y + 1) + "_" +
-                                            itemGob.transform.position.z;
-                                //Debug.Log(staffName);
-                                photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName,
-                                Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),false,itemScript.getId());
-                            }
-                            /*else
-                            {
-                                photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName,
-                                    Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),true,itemScript.getId()
-                                );
-                                hitInfo.transform.localPosition = new Vector3(0, 0, 0);
-                                hitInfo.transform.gameObject.SetActive(false);
-                            }*/
+                            staffName = "Staff_" + itemGob.transform.position.x + "_" +
+                                        ((int) itemGob.transform.position.y + 1) + "_" +
+                                        itemGob.transform.position.z;
+                            //Debug.Log(staffName);
+                            photonView.RPC("AskTakeItem", RpcTarget.MasterClient, staffName,
+                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),false,itemScript.getId());
                         } else
                         {
                             Debug.Log("Not an item");
                         }
-
-                        //Item itemData = itemGob.GetComponent<Item>();
-                        //}
                     }
                 }
             }

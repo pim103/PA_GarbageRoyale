@@ -51,6 +51,7 @@ MonoBehaviour:
   pipe: {fileID: 7464668704521182575}
   brokenPipe: {fileID: 2811865998010443188}
   Explosion: {fileID: 6929817978182962001}
+  bx: {fileID: 4349555689509337579}
 --- !u!65 &4349555689509337579
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -60,7 +61,7 @@ BoxCollider:
   m_GameObject: {fileID: 2474355071110532685}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 15, y: 13, z: 15}
   m_Center: {x: 0, y: 0, z: 1}
@@ -78,14 +79,14 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.104
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 25
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -120,7 +121,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -181,7 +182,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -216,7 +217,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

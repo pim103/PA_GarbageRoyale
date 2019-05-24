@@ -25,6 +25,9 @@ namespace GarbageRoyale.Scripts
         [SerializeField]
         private GameObject Explosion;
 
+        [SerializeField]
+        private BoxCollider bx;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -54,12 +57,18 @@ namespace GarbageRoyale.Scripts
         {
             if (!isBroken)
             {
+                bx.enabled = true;
                 pipe.SetActive(false);
                 brokenPipe.SetActive(true);
                 isBroken = true;
             }
         }
-        /*
+
+        private void OnParticleCollision(GameObject other)
+        {
+            Debug.Log("pipe particle Script " + other.name);
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (isExplode && canTakeDamage && other.name.StartsWith("Player"))
@@ -94,6 +103,7 @@ namespace GarbageRoyale.Scripts
                     if (other.GetComponent<ExposerPlayer>().PlayerTorch.transform.GetChild(0).gameObject.activeSelf && other.GetComponent<ExposerPlayer>().PlayerTorch.activeSelf)
                     {
                         explosion();
+                        StartCoroutine("DesactivateBx");
                     } else if(isExplode && canTakeDamage && other.name.StartsWith("Player"))
                     {
                         Debug.Log(other.GetComponent<ExposerPlayer>().PlayerIndex);
@@ -105,17 +115,25 @@ namespace GarbageRoyale.Scripts
                     if(other.transform.GetChild(0).gameObject.activeSelf)
                     {
                         explosion();
+                        StartCoroutine("DesactivateBx");
                     }
                 }
             }
         }
-        */
+        
         private void explosion()
         {
             brokenPipe.transform.GetChild(0).gameObject.SetActive(false);
             Explosion.SetActive(true);
             isExplode = true;
             canTakeDamage = true;
+        }
+
+        private IEnumerator DesactivateBx()
+        {
+            yield return new WaitForSeconds(1.5f);
+
+            bx.enabled = false;
         }
     }
 }

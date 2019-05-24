@@ -10,8 +10,11 @@ namespace GarbageRoyale.Scripts
         EnvironmentEvent events;
         AudioClip explosionSound;
 
-        public GameObject audioSource;
-
+        private void OnParticleCollision(GameObject other)
+        {
+            Debug.Log("gaz Script " + other.name);
+        }
+        /*
         // Start is called before the first frame update
         void Start()
         {
@@ -53,5 +56,6 @@ namespace GarbageRoyale.Scripts
             audioSource.GetComponent<AudioSource>().Stop();
             audioSource.GetComponent<AudioSource>().PlayOneShot(explosionSound);
         }
+        */
     }
 }

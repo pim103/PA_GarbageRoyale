@@ -13,9 +13,6 @@ namespace GarbageRoyale.Scripts
         private int[] skillInventory; // = new int[skillSlots];
         private int lastCounterSkill;
 
-    
-
-
         public Inventory()
         {
             // Item Inventory Init

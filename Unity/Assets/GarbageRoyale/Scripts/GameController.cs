@@ -230,13 +230,13 @@ namespace GarbageRoyale.Scripts
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 
+                soundManager.initAmbientSound();
                 //photonView.RPC("endOfInitRPC", RpcTarget.MasterClient, id);
             }
 
             moveDirection[id] = Vector3.zero;
             rotationPlayer[id] = Vector3.zero;
 
-            soundManager.initAmbientSound();
             OnlinePlayReady?.Invoke();
         }
 

@@ -61,12 +61,10 @@ namespace GarbageRoyale.Scripts
             if (Input.GetKeyDown(KeyCode.R))
             {
                 if(placeInHand!=-1) photonView.RPC("AskDropItem", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),false);
-                placeInHand = -1;
             }
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 if(placeInHand!=-1) photonView.RPC("AskDropItem", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),true);
-                placeInHand = -1;
             }
             if(Input.GetKeyDown(KeyCode.V))
             {
@@ -288,9 +286,7 @@ namespace GarbageRoyale.Scripts
             
             int typeItem = gc.items[idItem].GetComponent<Item>().type;
 
-
-            gc.players[playerIndex].GetComponent<Inventory>().itemInventory[inventoryPlace] = -1;
-            photonView.RPC("AnswerDropItem", RpcTarget.All, typeItem, idItem, playerIndex, throwItem);
+            photonView.RPC("AnswerDropItem", RpcTarget.All, typeItem, idItem, playerIndex, throwItem, inventoryPlace);
         }
         
         /*[PunRPC]
@@ -316,13 +312,14 @@ namespace GarbageRoyale.Scripts
         }*/
     
         [PunRPC]
-        public void AnswerDropItem(int typeItem, int idItem, int playerIndex, bool throwItem)
+        public void AnswerDropItem(int typeItem, int idItem, int playerIndex, bool throwItem, int inventoryPlace)
         {
-            gc.players[playerIndex].GetComponent<Inventory>().itemInventory[placeInHand] = -1;
+            gc.players[playerIndex].GetComponent<Inventory>().itemInventory[inventoryPlace] = -1;
             int handChild = -1;
 
-            gc.items[idItem].SetActive(true);
             gc.items[idItem].transform.parent = null;
+            gc.items[idItem].SetActive(true);
+            gc.items[idItem].GetComponent<Item>().resetScale();
             /*
             gc.items[idItem].transform.localPosition = gc.players[playerIndex].transform.localPosition;
             gc.items[idItem].transform.localRotation = gc.players[playerIndex].PlayerTorch.transform.parent.transform.rotation;
@@ -367,6 +364,7 @@ namespace GarbageRoyale.Scripts
             {
                 gc.GetComponent<InventoryGUI>().deleteSprite(placeInHand);
                 itemInHand = 0;
+                placeInHand = -1;
             }
             /*
             //Debug.Log("allo");

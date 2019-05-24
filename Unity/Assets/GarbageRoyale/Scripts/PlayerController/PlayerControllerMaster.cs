@@ -1,4 +1,4 @@
-﻿using GarbageRoyale.Scripts.PrefabPlayer;
+using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using System.Collections;
@@ -182,10 +182,11 @@ namespace GarbageRoyale.Scripts.PlayerController
         private void RotateLampRPC(int id, float rotX)
         {
             //Debug.Log("Rotate id : " + id);
-            if (gc.AvatarToUserId[id] != PhotonNetwork.AuthValues.UserId)
+            Vector3 vec = new Vector3(rotX, 0, 0);
+            gc.players[id].SpotLight.transform.localEulerAngles = vec;
+            if (gc.AvatarToUserId[id] == PhotonNetwork.AuthValues.UserId)
             {
-                Vector3 vec = new Vector3(rotX, 0, 0);
-                gc.players[id].SpotLight.transform.localEulerAngles = vec;
+                gc.players[id].PlayerCamera.transform.localEulerAngles = new Vector3(rotX, 0, 0);
             }
         }
 

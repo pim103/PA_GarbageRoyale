@@ -73,6 +73,32 @@ namespace GarbageRoyale.Scripts
                     break;
             }
         }
+
+        public void resetScale()
+        {
+            switch (type)
+            {
+                case 1:
+                    gameObject.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                    break;
+                case 2:
+                    gameObject.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    gameObject.transform.localScale = new Vector3(0.8f, 0.8f, 0.5f);
+                    break;
+                case 5:
+                    gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                    break;
+                default:
+                    //setId(0);
+                    setName("Void");
+                    setDamage(0f);
+                    break;
+            }
+        }
         
         public int getId()
         {
