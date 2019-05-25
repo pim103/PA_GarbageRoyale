@@ -272,7 +272,6 @@ namespace GarbageRoyale.Scripts
             /*Inventory inventoryData = characterList[info.Sender.ActorNumber].GetComponent<Inventory>();
             characterList[info.Sender.ActorNumber].transform.GetChild(8).GetChild(0).parent = null;
             inventoryData.getItemInventory()[inventoryPlace] = 0;*/
-            Debug.Log(inventoryPlace);
             if (!PhotonNetwork.IsMasterClient)
             {
                 return;

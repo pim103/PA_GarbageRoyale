@@ -147,6 +147,7 @@ MonoBehaviour:
   PlayerMovement: {fileID: 6553464172161898997}
   PlayerAction: {fileID: 5922517063198565877}
   PlayerStats: {fileID: 2672521290786738108}
+  PlayerInventory: {fileID: 4832625293819186159}
 --- !u!114 &4832625293819186159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +173,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abd2e6ac95a6b394ba7da157498d3096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultHp: 0
+  defaultStamina: 0
+  defaultBreath: 0
+  currentHp: 0
+  currentStamina: 0
+  currentBreath: 0
+  basicAttack: 0
+  attackCostStamina: 0
 --- !u!1 &122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1923,15 +1932,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3579673351212051476, guid: 05be5c53f20f9964e8ab9bcfe54397fc,
-        type: 3}
-      propertyPath: m_Range
-      value: 4.3202486
-      objectReference: {fileID: 0}
     - target: {fileID: 469938558710332768, guid: 05be5c53f20f9964e8ab9bcfe54397fc,
         type: 3}
       propertyPath: MaxDistance
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3579673351212051476, guid: 05be5c53f20f9964e8ab9bcfe54397fc,
+        type: 3}
+      propertyPath: m_Range
+      value: 4.3202486
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05be5c53f20f9964e8ab9bcfe54397fc, type: 3}

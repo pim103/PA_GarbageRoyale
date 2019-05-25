@@ -3,74 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using GarbageRoyale.Scripts.PrefabPlayer;
+using System;
 
 namespace GarbageRoyale.Scripts
 {
     public class PlayerAttack : MonoBehaviourPunCallbacks
     {
+        [SerializeField]
         private GameController gc;
-        public Dictionary<int, GameObject> characterList = new Dictionary<int, GameObject>();
+
+        [SerializeField]
+        private InventoryActionsController iac;
 
         // Start is called before the first frame update
-        /*void Start()
-        {
-            gc = GameObject.Find("Controller").GetComponent<GameController>();
-            characterList = gc.characterList;
-        }
-
         private void LateUpdate()
         {
             if(Input.GetMouseButtonDown(0))
             {
-                photonView.RPC("punch", RpcTarget.MasterClient, null);
+                photonView.RPC("PunchRPC", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId);
             }
         }
-        */
+
         public void hitPlayer(RaycastHit info, int id)
         {
-            photonView.RPC("findPlayer", RpcTarget.MasterClient, info.transform.position.x, info.transform.position.y, info.transform.position.z);
+            photonView.RPC("findPlayer", RpcTarget.MasterClient, id, info.transform.position.x, info.transform.position.y, info.transform.position.z, iac.placeInHand, PhotonNetwork.AuthValues.UserId);
         }
 
         [PunRPC]
-        private void findPlayer(float x, float y, float z, PhotonMessageInfo info)
+        private void findPlayer(int playerId, float x, float y, float z, int inventorySlot, string userId, PhotonMessageInfo info)
         {
             if (!PhotonNetwork.IsMasterClient) return;
 
-            GameObject sourceDamage = characterList[info.Sender.ActorNumber];
-            PlayerStats ps = sourceDamage.GetComponent<PlayerStats>();
+            int playerIdSrc = Array.IndexOf(gc.AvatarToUserId, userId);
+            PlayerStats ps = gc.players[playerIdSrc].PlayerStats;
             float damage = ps.getBasickAttack();
-            //int objectInHand = sourceDamage.GetComponent<InventoryController>().itemInHand;
+            int indexItem = gc.players[playerIdSrc].PlayerInventory.itemInventory[inventorySlot];
 
-            Item item = new Item();
-            //item.initItem(objectInHand);
+            if (indexItem != -1)
+            {
+                Item item = gc.items[gc.players[playerIdSrc].PlayerInventory.itemInventory[inventorySlot]].GetComponent<Item>();
+                damage += item.getDamage();
+            }
 
-            damage += item.getDamage();
 
             if (ps.getStamina() >= ps.getAttackCostStamina())
             {
-                foreach (var player in characterList)
+                GameObject target = gc.players[playerId].PlayerGameObject;
+                if (target.transform.position.x == x && target.transform.position.y == y && target.transform.position.z == z)
                 {
-                    if(player.Value == sourceDamage)
-                    {
-                        continue;
-                    }
-                    if(player.Value.transform.position.x == x && player.Value.transform.position.y == y && player.Value.transform.position.z == z)
-                    {
-                        ps = player.Value.GetComponent<PlayerStats>();
-                        ps.takeDamage(damage);
-                        break;
-                    }
+                    gc.players[playerId].PlayerStats.takeDamage(damage);
                 }
             }
         }
-        /*
+
         [PunRPC]
-        private void punch(PhotonMessageInfo info)
+        private void PunchRPC(string userId, PhotonMessageInfo info)
         {
-            PlayerStats ps = characterList[info.Sender.ActorNumber].GetComponent<PlayerStats>();
+            if (!PhotonNetwork.IsMasterClient) return;
+
+            int playerIdSrc = Array.IndexOf(gc.AvatarToUserId, userId);
+            PlayerStats ps = gc.players[playerIdSrc].PlayerStats;
 
             if (ps.getAttackCostStamina() > ps.getStamina()) return;
             ps.useStamina();
-        }*/
+        }
     }
 }

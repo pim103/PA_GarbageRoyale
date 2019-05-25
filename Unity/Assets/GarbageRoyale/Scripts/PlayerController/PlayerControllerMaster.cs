@@ -33,7 +33,6 @@ namespace GarbageRoyale.Scripts.PlayerController
 
         void FixedUpdate()
         {
-            //getParams();
             bool isMoving = false;
             float rotationX = 0.0f;
 
@@ -74,7 +73,6 @@ namespace GarbageRoyale.Scripts.PlayerController
 
                 if(gc.endOfInit)
                 {
-                    Debug.Log("sendRpc : " + gc.endOfInit);
                     photonView.RPC("UpdateDataRPC", RpcTarget.All,
                         i,
                         isMoving,
@@ -85,26 +83,6 @@ namespace GarbageRoyale.Scripts.PlayerController
                     );
                 }
             }
-
-            //setParams();
-        }
-
-        private void getParams()
-        {
-            players = gc.players;
-            playersActionsActivated = gc.playersActionsActivated;
-            playersActions = gc.playersActions;
-            rotationPlayer = gc.rotationPlayer;
-            moveDirection = gc.moveDirection;
-        }
-
-        private void setParams()
-        {
-            gc.players = players;
-            gc.playersActionsActivated = playersActionsActivated;
-            gc.playersActions = playersActions;
-            gc.rotationPlayer = rotationPlayer;
-            gc.moveDirection = moveDirection;
         }
 
         public bool PlayerMovement(int id)

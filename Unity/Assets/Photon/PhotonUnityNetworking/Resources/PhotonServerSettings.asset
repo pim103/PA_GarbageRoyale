@@ -112,4 +112,5 @@ MonoBehaviour:
   - PlayWalkSoundRPC
   - endOfInitRPC
   - UpdateDataRPC
+  - PunchRPC
   DisableAutoOpenWizard: 1

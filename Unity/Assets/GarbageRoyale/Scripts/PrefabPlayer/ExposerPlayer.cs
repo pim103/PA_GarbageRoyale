@@ -25,5 +25,6 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public AudioSource PlayerAction;
 
         public PlayerStats PlayerStats;
+        public Inventory PlayerInventory;
     }
 }

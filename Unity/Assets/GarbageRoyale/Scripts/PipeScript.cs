@@ -1,4 +1,5 @@
 ﻿using GarbageRoyale.Scripts.PrefabPlayer;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -64,17 +65,16 @@ namespace GarbageRoyale.Scripts
             }
         }
 
-        private void OnParticleCollision(GameObject other)
-        {
-            Debug.Log("pipe particle Script " + other.name);
-        }
-
         private void OnTriggerEnter(Collider other)
         {
-            if (isExplode && canTakeDamage && other.name.StartsWith("Player"))
+            if (isExplode && other.name.StartsWith("Player"))
             {
-                Debug.Log(other.GetComponent<ExposerPlayer>().PlayerIndex);
-                Debug.Log("damage");
+                if(PhotonNetwork.IsMasterClient)
+                {
+                    GameController gc = GameObject.Find("Controller").GetComponent<GameController>();
+                    int id = other.GetComponent<ExposerPlayer>().PlayerIndex;
+                    gc.players[id].PlayerStats.takeDamage(30.0f);
+                }
             }
         }
 
@@ -102,18 +102,16 @@ namespace GarbageRoyale.Scripts
 
                     if (other.GetComponent<ExposerPlayer>().PlayerTorch.transform.GetChild(0).gameObject.activeSelf && other.GetComponent<ExposerPlayer>().PlayerTorch.activeSelf)
                     {
+                        bx.enabled = false;
                         explosion();
                         StartCoroutine("DesactivateBx");
-                    } else if(isExplode && canTakeDamage && other.name.StartsWith("Player"))
-                    {
-                        Debug.Log(other.GetComponent<ExposerPlayer>().PlayerIndex);
-                        Debug.Log("damage");
                     }
                 }
                 else if(isTorch)
                 {
                     if(other.transform.GetChild(0).gameObject.activeSelf)
                     {
+                        bx.enabled = false;
                         explosion();
                         StartCoroutine("DesactivateBx");
                     }
@@ -123,6 +121,7 @@ namespace GarbageRoyale.Scripts
         
         private void explosion()
         {
+            bx.enabled = true;
             brokenPipe.transform.GetChild(0).gameObject.SetActive(false);
             Explosion.SetActive(true);
             isExplode = true;

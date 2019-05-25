@@ -45,51 +45,6 @@ namespace GarbageRoyale.Scripts
 
             if (touch)
             {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    if (hitInfo.transform.name == "Button")
-                    {
-                        photonView.RPC("openTrapRPC", RpcTarget.MasterClient, gc.buttonsTrap[hitInfo.transform.parent.gameObject]);
-                        /*actionScript = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
-                        actionScript.type = CameraRaycastHitActions.TypeHit.Button;
-                        actionScript.hitInfo = hitInfo;
-                        actionScript.Send = true;
-                        */
-                        //soundManager.playSound(SoundManager.Sound.Button);
-                    }
-                    else if (hitInfo.transform.name == "DoorButton")
-                    {
-                        int doorId = hitInfo.transform.parent.GetComponent<OpenDoorScript>().doorId;
-                        photonView.RPC("openDoorRPC", RpcTarget.MasterClient, doorId);
-                        //OpenDoorScript openDoor = hitInfo.transform.parent.GetComponent<OpenDoorScript>();
-                        //openDoor.openDoors(true);
-
-                        //soundManager.playSound(SoundManager.Sound.Button);
-                    }
-                    else if (hitInfo.transform.name == "pipe")
-                    {
-                        int pipeId = hitInfo.transform.parent.GetComponent<PipeScript>().pipeIndex;
-                        photonView.RPC("brokePipeRPC", RpcTarget.MasterClient, pipeId);
-
-                    }
-                    if (hitInfo.transform.name == "Mob(Clone)")
-                    {
-                        hitInfo.transform.GetComponent<MobStats>().takeDamage(10);
-                    }
-                    else if (hitInfo.transform.name.StartsWith("Player"))
-                    {
-                        int idHit = hitInfo.transform.gameObject.GetComponent<ExposerPlayer>().PlayerIndex;
-                        Debug.Log(idHit);
-                        /*
-                        attackScript = GameObject.Find("Controller").GetComponent<PlayerAttack>();
-                        attackScript.hitPlayer(hitInfo);
-                        */
-                    }
-                    /*gtest = ObjectPooler.SharedInstance.GetPooledObject(0);
-                    gtest.SetActive(true);
-                    gtest.transform.position = hitInfo.transform.position;*/
-                }
-
                 if (hitInfo.transform.name == "LeftDoor" || hitInfo.transform.name == "RightDoor")
                 {
                     OpenDoorScript openDoor = hitInfo.transform.parent.parent.GetComponent<OpenDoorScript>();
@@ -101,7 +56,7 @@ namespace GarbageRoyale.Scripts
                             //soundManager.playSound(SoundManager.Sound.OpeningDoor);
                             currentlyLoading = true;
                         }
-    
+
                         if (currentlyLoading)
                         {
                             openingDoorLoading++;
@@ -124,6 +79,49 @@ namespace GarbageRoyale.Scripts
                             currentlyLoading = false;
                             openingDoorLoading = 0;
                         }
+                    }
+                }
+
+                if(Input.GetKeyDown(KeyCode.F))
+                {
+                    if (hitInfo.transform.name == "Button")
+                    {
+                        photonView.RPC("openTrapRPC", RpcTarget.MasterClient, gc.buttonsTrap[hitInfo.transform.parent.gameObject]);
+                        /*actionScript = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
+                        actionScript.type = CameraRaycastHitActions.TypeHit.Button;
+                        actionScript.hitInfo = hitInfo;
+                        actionScript.Send = true;
+                        */
+                        //soundManager.playSound(SoundManager.Sound.Button);
+                    }
+                    else if (hitInfo.transform.name == "DoorButton")
+                    {
+                        int doorId = hitInfo.transform.parent.GetComponent<OpenDoorScript>().doorId;
+                        photonView.RPC("openDoorRPC", RpcTarget.MasterClient, doorId);
+                        //OpenDoorScript openDoor = hitInfo.transform.parent.GetComponent<OpenDoorScript>();
+                        //openDoor.openDoors(true);
+
+                        //soundManager.playSound(SoundManager.Sound.Button);
+                    }
+                }
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    attackScript = GameObject.Find("Controller").GetComponent<PlayerAttack>();
+
+                    if (hitInfo.transform.name == "pipe")
+                    {
+                        int pipeId = hitInfo.transform.parent.GetComponent<PipeScript>().pipeIndex;
+                        photonView.RPC("brokePipeRPC", RpcTarget.MasterClient, pipeId);
+                    }
+                    else if (hitInfo.transform.name == "Mob(Clone)")
+                    {
+                        hitInfo.transform.GetComponent<MobStats>().takeDamage(10);
+                    }
+                    else if (hitInfo.transform.name.StartsWith("Player"))
+                    {
+                        int idHit = hitInfo.transform.gameObject.GetComponent<ExposerPlayer>().PlayerIndex;
+                        attackScript.hitPlayer(hitInfo, idHit);
                     }
                 }
             } else if (openingDoorLoading > 0)
