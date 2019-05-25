@@ -111,4 +111,5 @@ MonoBehaviour:
   - LightOnSpecificTorch
   - PlayWalkSoundRPC
   - endOfInitRPC
+  - UpdateDataRPC
   DisableAutoOpenWizard: 1

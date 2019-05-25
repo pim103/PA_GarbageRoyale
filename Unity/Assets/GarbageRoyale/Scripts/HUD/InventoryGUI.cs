@@ -12,6 +12,15 @@ namespace GarbageRoyale.Scripts.HUD
 
         private GameObject inventoryGui;
 
+        [SerializeField]
+        private Slider healthBar;
+
+        [SerializeField]
+        private Slider staminaBar;
+
+        [SerializeField]
+        private Slider breathBar;
+
         public void initInventoryGUI(GameObject invPr, RawImage [] rwSpr)
         {
             rawSprites = rwSpr;
@@ -37,6 +46,13 @@ namespace GarbageRoyale.Scripts.HUD
             RawImage rawImg = GameObject.Find("SkillImg_" + idx).GetComponent<RawImage>();
             rawImg.texture = rawSprites[id-1].texture;
             rawImg.color = Color.white;
+        }
+
+        public void updateBar(float hp, float stamina, float breath)
+        {
+            healthBar.value = hp;
+            staminaBar.value = stamina;
+            breathBar.value = breath;
         }
     }
     

@@ -23,5 +23,7 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
 
         public AudioSource PlayerMovement;
         public AudioSource PlayerAction;
+
+        public PlayerStats PlayerStats;
     }
 }

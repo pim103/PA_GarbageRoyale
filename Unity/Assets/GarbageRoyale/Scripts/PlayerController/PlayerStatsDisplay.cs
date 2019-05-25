@@ -5,21 +5,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using GarbageRoyale.Scripts.PrefabPlayer;
 
-namespace GarbageRoyale.Scripts
+namespace GarbageRoyale.Scripts.PlayerController
 {
-    public class PlayerDisplay : MonoBehaviourPunCallbacks
+    public class PlayerStatsDisplay : MonoBehaviourPunCallbacks
     {
-        private GameController gc;
-        public Dictionary<int, GameObject> characterList = new Dictionary<int, GameObject>();
-
         private float hp;
         private float breath;
         private float stamina;
         private bool isOnWater;
 
         private PlayerStats playerStats;
-        private PlayerMovement playerMov;
 
         private Texture2D breathTexture;
         private Texture2D hpTexture;
@@ -29,6 +26,9 @@ namespace GarbageRoyale.Scripts
         private Texture2D deadTexture;
 
         private Text deadMessage;
+
+        [SerializeField]
+        private GameController gc;
 
         // Start is called before the first frame update
         /*void Start()

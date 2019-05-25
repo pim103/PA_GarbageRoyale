@@ -2,75 +2,86 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using GarbageRoyale.Scripts.HUD;
 
-namespace GarbageRoyale.Scripts
+namespace GarbageRoyale.Scripts.PrefabPlayer
 {
     public class PlayerStats : MonoBehaviour
     {
-        private int id;
+        public float defaultHp;
+        public float defaultStamina;
+        public float defaultBreath;
 
-        private float hp;
-        private float stamina;
-        private float breath;
-        private float basicAttack;
-        private float attackCostStamina;
+        public float currentHp;
+        public float currentStamina;
+        public float currentBreath;
+        public float basicAttack;
+        public float attackCostStamina;
 
-        private PlayerMovement pm; //Like Pierre-Marie :thumbsup: 
         private bool isDead;
         private bool isRotatePlayer;
+
+        private InventoryGUI ig;
 
         // Start is called before the first frame update
         void Start()
         {
-            hp = 100f;
-            stamina = 100f;
-            breath = 100f;
+            defaultHp = 100f;
+            defaultStamina = 100f;
+            defaultBreath = 100f;
+
+            currentHp = defaultHp;
+            currentStamina = defaultStamina;
+            currentBreath = 1.0f;
             basicAttack = 3f;
             attackCostStamina = 20f;
 
             isDead = false;
             isRotatePlayer = false;
 
-            pm = GetComponent<PlayerMovement>();
+            ig = GameObject.Find("Controller").GetComponent<InventoryGUI>();
         }
 
         // Update is called once per frame
-        void FixedUpdate()
-        {
-            if(pm.getHeadIsOnWater())
+        //void FixedUpdate()
+        //{
+            //Verify head on water
+            /*if(false)
             {
-                if(breath > 0)
+                if(currentBreath > 0)
                 {
-                    breath -= 0.1f;
-                } else if(hp > 0)
+                    currentBreath -= 0.1f;
+                } else if(currentHp > 0)
                 {
                     takeDamage(0.2f);
                 }
             } else
             {
-                if (breath < 100)
+                if (currentBreath < defaultBreath)
                 {
-                    breath += 1;
+                    currentBreath += 1;
                 }
             }
 
-            if(stamina < 100)
+            if(currentStamina < defaultStamina)
             {
-                stamina += 0.3f;
-            }
-        }
+                currentStamina += 0.3f;
+            }*/
+
+            //ig.updateBar(currentHp, currentStamina, currentBreath);
+        //}
 
         private void rotateDeadPlayer()
         {
-            pm.transform.Rotate(90, 0, 0);
+            //pm.transform.Rotate(90, 0, 0);
             isRotatePlayer = true;
         }
 
         public void takeDamage(float damage)
         {
-            hp -= damage;
+            currentHp -= damage;
 
-            if(hp <= 0)
+            if(currentHp <= 0)
             {
                 isDead = true;
                 if (!isRotatePlayer)
@@ -82,30 +93,30 @@ namespace GarbageRoyale.Scripts
 
         public float getHp()
         {
-            return hp;
+            return currentHp;
         }
 
         public float getBreath()
         {
-            return breath;
+            return currentBreath;
         }
 
         public void setBreath(float b)
         {
-            breath = b;
+            currentBreath = b;
         }
 
         public void setStamina(float s)
         {
-            stamina = s;
+            currentStamina = s;
         }
 
         public void useStamina()
         {
-            stamina -= attackCostStamina;
-            if(stamina < 0)
+            currentStamina -= attackCostStamina;
+            if(currentStamina < 0)
             {
-                stamina = 0;
+                currentStamina = 0;
             }
         }
 
@@ -116,25 +127,12 @@ namespace GarbageRoyale.Scripts
 
         public float getStamina()
         {
-            return stamina;
+            return currentStamina;
         }
 
         public bool getIsDead()
         {
             return isDead;
-        }
-
-        public void setId(int idPlayer)
-        {
-            if(PhotonNetwork.IsMasterClient)
-            {
-                id = idPlayer;
-            }
-        }
-
-        public int getId()
-        {
-            return id;
         }
 
         public float getBasickAttack()

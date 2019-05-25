@@ -170,10 +170,11 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         void getNeededSong(PhotonMessageInfo info)
         {
+            /*
             PlayerMovement playerMov;
-            playerMov = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();
+            playerMov = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();*/
             //photonView.RPC("playWalkSound", RpcTarget.AllBuffered, playerMov.needToPlaySong, info.Sender.ActorNumber, playerMov.soundNeeded);
-            photonView.RPC("playAmbientSound", info.Sender, playerMov.getHeadIsOnWater());
+            //photonView.RPC("playAmbientSound", info.Sender, playerMov.getHeadIsOnWater());
         }
 
         public void playWalkSound(int idPlayer, bool playSong)

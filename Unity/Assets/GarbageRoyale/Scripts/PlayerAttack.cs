@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using GarbageRoyale.Scripts.PrefabPlayer;
+
 namespace GarbageRoyale.Scripts
 {
     public class PlayerAttack : MonoBehaviourPunCallbacks
@@ -24,7 +26,7 @@ namespace GarbageRoyale.Scripts
             }
         }
         */
-        public void hitPlayer(RaycastHit info)
+        public void hitPlayer(RaycastHit info, int id)
         {
             photonView.RPC("findPlayer", RpcTarget.MasterClient, info.transform.position.x, info.transform.position.y, info.transform.position.z);
         }

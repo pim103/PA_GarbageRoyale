@@ -9,6 +9,7 @@ using GarbageRoyale.Scripts.PrefabPlayer;
 using GarbageRoyale.Scripts.PlayerController;
 
 using System.Linq;
+using GarbageRoyale.Scripts.HUD;
 
 namespace GarbageRoyale.Scripts
 {
@@ -35,6 +36,9 @@ namespace GarbageRoyale.Scripts
         public AudioSource menuSound;
         [SerializeField]
         public SoundManager soundManager;
+
+        [SerializeField]
+        public InventoryGUI inventoryGui;
 
         private GameObject playerCamera;
 
@@ -67,7 +71,7 @@ namespace GarbageRoyale.Scripts
 
         public event Action<int> PlayerJoined;
         public event Action PlayerLeft;
-        public event Action OnlinePlayReady;
+        public event Action<int> OnlinePlayReady;
 
         [SerializeField]
         public ExposerPlayer[] players;
@@ -99,6 +103,11 @@ namespace GarbageRoyale.Scripts
             PlayerJoined += ActivateAvatar;
             PlayerLeft += null;
             OnlinePlayReady += StartGame;
+        }
+        
+        public override void OnPlayerEnteredRoom(Player newPlayer)
+        {
+            endOfInit = false;
         }
 
         void Start()
@@ -231,31 +240,27 @@ namespace GarbageRoyale.Scripts
                 Cursor.visible = false;
 
                 soundManager.initAmbientSound();
-                //photonView.RPC("endOfInitRPC", RpcTarget.MasterClient, id);
             }
 
             moveDirection[id] = Vector3.zero;
             rotationPlayer[id] = Vector3.zero;
 
-            OnlinePlayReady?.Invoke();
+            OnlinePlayReady?.Invoke(id);
         }
 
         [PunRPC]
-        private void endOfInitRPC(int id)
+        private void endOfInitRPC()
         {
-            if(PhotonNetwork.IsMasterClient)
-            {
-                endInit.Add(id, true);
-            }
+            endOfInit = true;
         }
 
-        private void StartGame()
+        private void StartGame(int id)
         {
             playersActionsActivated = playersActions;
-            ActivateGame();
+            ActivateGame(id);
         }
 
-        private void ActivateGame()
+        private void ActivateGame(int id)
         {
             isGameStart = true;
 
@@ -278,9 +283,10 @@ namespace GarbageRoyale.Scripts
                 playersActionsActivated[i].isInTransition = false;
                 playersActionsActivated[i].isInWater = false;
             }
-
-            endOfInit = true;
-
+            if (PhotonNetwork.AuthValues.UserId == AvatarToUserId[id])
+            {
+                photonView.RPC("endOfInitRPC", RpcTarget.All);
+            }
         }
 
         private void FixedUpdate()

@@ -1,4 +1,4 @@
-﻿using Photon.Pun;
+﻿/*using Photon.Pun;
 using UnityEngine;
 
 namespace GarbageRoyale.Scripts
@@ -254,3 +254,4 @@ namespace GarbageRoyale.Scripts
         }
     }
 }
+*/

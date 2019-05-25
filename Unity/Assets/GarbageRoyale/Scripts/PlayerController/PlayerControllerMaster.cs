@@ -34,6 +34,8 @@ namespace GarbageRoyale.Scripts.PlayerController
         void FixedUpdate()
         {
             //getParams();
+            bool isMoving = false;
+            float rotationX = 0.0f;
 
             if (PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient)
             {
@@ -55,8 +57,9 @@ namespace GarbageRoyale.Scripts.PlayerController
                     return;
                 }
 
-                PlayerMovement(i);
-                PlayerRotation(i);
+                isMoving = PlayerMovement(i);
+                rotationX = PlayerRotation(i);
+                PlayerUpdateStats(i);
 
                 if (playerAction.wantToLightUp && !player.SpotLight.gameObject.activeSelf)
                 {
@@ -67,6 +70,19 @@ namespace GarbageRoyale.Scripts.PlayerController
                 {
                     player.SpotLight.gameObject.SetActive(false);
                     photonView.RPC("LightUpRPC", RpcTarget.Others, i, false);
+                }
+
+                if(gc.endOfInit)
+                {
+                    Debug.Log("sendRpc : " + gc.endOfInit);
+                    photonView.RPC("UpdateDataRPC", RpcTarget.All,
+                        i,
+                        isMoving,
+                        rotationX,
+                        gc.players[i].PlayerStats.currentHp,
+                        gc.players[i].PlayerStats.currentStamina,
+                        gc.players[i].PlayerStats.currentBreath
+                    );
                 }
             }
 
@@ -91,7 +107,7 @@ namespace GarbageRoyale.Scripts.PlayerController
             gc.moveDirection = moveDirection;
         }
 
-        public void PlayerMovement(int id)
+        public bool PlayerMovement(int id)
         {
             var playerAction = gc.playersActions[id];
 
@@ -145,13 +161,10 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             gc.players[id].PlayerChar.Move(gc.moveDirection[id] * Time.deltaTime);
 
-            if(PhotonNetwork.IsMasterClient)
-            {
-                photonView.RPC("PlayWalkSoundRPC", RpcTarget.All, id, (playerAction.horizontalAxe != 0 | playerAction.verticalAxe != 0) );
-            }
+            return (playerAction.horizontalAxe != 0 | playerAction.verticalAxe != 0);
         }
 
-        public void PlayerRotation(int id)
+        public float PlayerRotation(int id)
         {
             var playerAction = gc.playersActions[id];
 
@@ -166,9 +179,36 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             gc.players[id].SpotLight.transform.localEulerAngles = gc.rotationPlayer[id];
 
-            if (PhotonNetwork.IsMasterClient && rotationX != gc.players[id].SpotLight.transform.localEulerAngles.x)
+            return rotationX;
+        }
+
+        private void PlayerUpdateStats(int id)
+        {
+            PlayerStats ps = gc.players[id].PlayerStats;
+            
+            //if is in water
+            if (false)
             {
-                photonView.RPC("RotateLampRPC", RpcTarget.Others, id, rotationX);
+                if (ps.currentBreath > 0)
+                {
+                    ps.currentBreath -= 0.1f;
+                }
+                else if (ps.currentHp > 0)
+                {
+                    ps.takeDamage(0.2f);
+                }
+            }
+            else
+            {
+                if (ps.currentBreath < ps.defaultBreath)
+                {
+                    ps.currentBreath += 1;
+                }
+            }
+
+            if (ps.currentStamina < ps.defaultStamina)
+            {
+                ps.currentStamina += 0.3f;
             }
         }
 
@@ -178,6 +218,26 @@ namespace GarbageRoyale.Scripts.PlayerController
             gc.players[id].SpotLight.gameObject.SetActive(action);
         }
 
+        [PunRPC]
+        private void UpdateDataRPC(int id, bool isMoving, float rotX, float h, float s, float b)
+        {
+            Vector3 vec = new Vector3(rotX, 0, 0);
+            gc.players[id].SpotLight.transform.localEulerAngles = vec;
+
+            gc.soundManager.playWalkSound(id, isMoving);
+
+            PlayerStats ps = gc.players[id].PlayerStats;
+            ps.currentHp = h;
+            ps.currentStamina = s;
+            ps.currentBreath = b;
+
+            if (gc.AvatarToUserId[id] == PhotonNetwork.AuthValues.UserId)
+            {
+                gc.players[id].PlayerCamera.transform.localEulerAngles = new Vector3(rotX, 0, 0);
+                gc.inventoryGui.updateBar(ps.currentHp, ps.currentStamina, ps.currentBreath);
+            }
+        }
+        /*
         [PunRPC]
         private void RotateLampRPC(int id, float rotX)
         {
@@ -195,5 +255,6 @@ namespace GarbageRoyale.Scripts.PlayerController
         {
             gc.soundManager.playWalkSound(id, isMoving);
         }
+        */
     }
 }

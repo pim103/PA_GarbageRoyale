@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using GarbageRoyale.Scripts.PlayerController;
+using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
 using UnityEngine;
 
@@ -46,12 +47,7 @@ namespace GarbageRoyale.Scripts
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    if (hitInfo.transform.name == "otherPerso(Clone)")
-                    {
-                        attackScript = GameObject.Find("Controller").GetComponent<PlayerAttack>();
-                        attackScript.hitPlayer(hitInfo);
-                    }
-                    else if (hitInfo.transform.name == "Button")
+                    if (hitInfo.transform.name == "Button")
                     {
                         photonView.RPC("openTrapRPC", RpcTarget.MasterClient, gc.buttonsTrap[hitInfo.transform.parent.gameObject]);
                         /*actionScript = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
@@ -64,7 +60,6 @@ namespace GarbageRoyale.Scripts
                     else if (hitInfo.transform.name == "DoorButton")
                     {
                         int doorId = hitInfo.transform.parent.GetComponent<OpenDoorScript>().doorId;
-                        Debug.Log(doorId);
                         photonView.RPC("openDoorRPC", RpcTarget.MasterClient, doorId);
                         //OpenDoorScript openDoor = hitInfo.transform.parent.GetComponent<OpenDoorScript>();
                         //openDoor.openDoors(true);
@@ -80,6 +75,15 @@ namespace GarbageRoyale.Scripts
                     if (hitInfo.transform.name == "Mob(Clone)")
                     {
                         hitInfo.transform.GetComponent<MobStats>().takeDamage(10);
+                    }
+                    else if (hitInfo.transform.name.StartsWith("Player"))
+                    {
+                        int idHit = hitInfo.transform.gameObject.GetComponent<ExposerPlayer>().PlayerIndex;
+                        Debug.Log(idHit);
+                        /*
+                        attackScript = GameObject.Find("Controller").GetComponent<PlayerAttack>();
+                        attackScript.hitPlayer(hitInfo);
+                        */
                     }
                     /*gtest = ObjectPooler.SharedInstance.GetPooledObject(0);
                     gtest.SetActive(true);
