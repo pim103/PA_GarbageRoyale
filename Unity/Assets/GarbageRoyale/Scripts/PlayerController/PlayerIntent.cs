@@ -18,6 +18,9 @@ namespace GarbageRoyale.Scripts.PlayerController {
         [SerializeField]
         private ScriptExposer scripts;
 
+        private bool isInInventory = false;
+        
+
         private void Start()
         {
             if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
@@ -35,7 +38,16 @@ namespace GarbageRoyale.Scripts.PlayerController {
             {
                 return;
             }
-            
+
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                isInInventory = !isInInventory;
+            }
+            if (isInInventory)
+            {
+                return;
+            }
+
             if(horizontalAxe != Input.GetAxis("Horizontal"))
             {
                 horizontalAxe = Input.GetAxis("Horizontal");

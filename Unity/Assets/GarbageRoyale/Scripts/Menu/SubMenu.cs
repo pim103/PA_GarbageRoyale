@@ -49,6 +49,8 @@ namespace GarbageRoyale.Scripts.Menu
         public override void OnJoinedRoom()
         {
             controller.gameController.SetActive(true);
+            controller.invHUD.SetActive(true);
+            controller.playerGUI.SetActive(true);
 
             controller.mainCamera.enabled = false;
             controller.mainMenu.SetActive(false);

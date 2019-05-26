@@ -16,6 +16,10 @@ namespace GarbageRoyale.Scripts.Menu
 
         [SerializeField]
         public GameObject gameController;
+        [SerializeField]
+        public GameObject invHUD;
+        [SerializeField]
+        public GameObject playerGUI;
 
         // Start is called before the first frame update
         void Start()

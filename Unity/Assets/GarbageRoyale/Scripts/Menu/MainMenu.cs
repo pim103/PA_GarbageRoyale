@@ -60,6 +60,8 @@ namespace GarbageRoyale.Scripts.Menu
             controller.mainCamera.enabled = false;
             controller.mainMenu.SetActive(false);
             controller.subMenu.SetActive(false);
+            controller.invHUD.SetActive(true);
+            controller.playerGUI.SetActive(true);
 
             createRoomButton.interactable = false;
             joinRoomButton.interactable = false;
