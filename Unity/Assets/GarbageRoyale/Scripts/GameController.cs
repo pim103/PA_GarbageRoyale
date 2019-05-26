@@ -40,6 +40,9 @@ namespace GarbageRoyale.Scripts
         [SerializeField]
         public InventoryGUI inventoryGui;
 
+        [SerializeField]
+        public Water water;
+
         private GameObject playerCamera;
 
         private GameObject startDoor;
@@ -90,6 +93,7 @@ namespace GarbageRoyale.Scripts
         public Dictionary<GameObject, int> buttonsTrap = new Dictionary<GameObject, int>();
         public Dictionary<int, GameObject> traps = new Dictionary<int, GameObject>();
         public Dictionary<int, GameObject> doors = new Dictionary<int, GameObject>();
+        public Dictionary<int, GameObject> buttonsTrapReversed = new Dictionary<int, GameObject>();
 
         public int nbItems;
         public Dictionary<int, bool> endInit = new Dictionary<int, bool>();
@@ -153,6 +157,7 @@ namespace GarbageRoyale.Scripts
             traps = generator.meshGenerator.trap;
             buttonsTrap = generator.meshGenerator.buttonsTrap;
             doors = generator.meshGenerator.doors;
+            buttonsTrapReversed = generator.meshGenerator.buttonsTrapReversed;
         }
 
         [PunRPC]
@@ -291,6 +296,14 @@ namespace GarbageRoyale.Scripts
 
         private void FixedUpdate()
         {
+            if(PhotonNetwork.IsMasterClient)
+            {
+                if (Input.GetKeyDown(KeyCode.U))
+                {
+                    waterStart = true;
+                    water.setStartWater(true);
+                }
+            }
             /*if (canMove)
             {
                 photonView.RPC("SendSoundPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));

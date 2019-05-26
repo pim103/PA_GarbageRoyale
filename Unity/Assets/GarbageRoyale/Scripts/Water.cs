@@ -5,7 +5,7 @@ using UnityEngine;
 public class Water : MonoBehaviour
 {
     [SerializeField]
-    private GameObject waterObject;
+    public GameObject waterObject;
 
     private int timerWaterUp;
     private int cooldownWaterUp;

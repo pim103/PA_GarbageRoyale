@@ -14,6 +14,7 @@ namespace GarbageRoyale.Scripts
 
         public Dictionary<int, GameObject> pipes = new Dictionary<int, GameObject>();
         public Dictionary<GameObject, int> buttonsTrap = new Dictionary<GameObject, int>();
+        public Dictionary<int, GameObject> buttonsTrapReversed = new Dictionary<int, GameObject>();
         public Dictionary<int, GameObject> trap = new Dictionary<int, GameObject>();
         public Dictionary<int, GameObject> doors = new Dictionary<int, GameObject>();
 
@@ -63,17 +64,18 @@ namespace GarbageRoyale.Scripts
                             if(rooms[i, j] == 3)
                             {
                                 // Add door
-                                /*
+                                
                                 var newTrap = Instantiate(Prefabs[rooms[i,j]], new Vector3(j * width+ypos, ypos, i * width+ypos), Quaternion.identity);
                                 Debug.Log(idTrap[i + ";" + j]);
-                                trap.Add(idTrap[i+";"+j], newTrap);*/
+                                trap.Add(idTrap[i+";"+j], newTrap);
                             }
                             else if (rooms[i, j] == 2)
                             {
                                 // Add button
-                                /*var newButton = Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
+                                var newButton = Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
                                 Debug.Log(idTrap[i + ";" + j]);
-                                buttonsTrap.Add(newButton, idTrap[i + ";" + j]);*/
+                                buttonsTrap.Add(newButton, idTrap[i + ";" + j]);
+                                buttonsTrapReversed.Add(idTrap[i + ";" + j], newButton);
                             } else
                             {
                                 Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);

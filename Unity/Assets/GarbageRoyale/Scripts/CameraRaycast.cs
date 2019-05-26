@@ -22,6 +22,8 @@ namespace GarbageRoyale.Scripts
 
         public int cameraIndex = -1;
 
+        private int lastDoorId = -1;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -48,12 +50,15 @@ namespace GarbageRoyale.Scripts
                 if (hitInfo.transform.name == "LeftDoor" || hitInfo.transform.name == "RightDoor")
                 {
                     OpenDoorScript openDoor = hitInfo.transform.parent.parent.GetComponent<OpenDoorScript>();
+                    int doorId = openDoor.doorId;
+                    lastDoorId = doorId;
+
                     if (openDoor.isOpen)
                     {
                         Debug.Log("press E");
                         if (Input.GetKeyDown(KeyCode.E))
                         {
-                            //soundManager.playSound(SoundManager.Sound.OpeningDoor);
+                            photonView.RPC("soundOpenDoorRPC", RpcTarget.MasterClient, doorId, true);
                             currentlyLoading = true;
                         }
 
@@ -64,18 +69,14 @@ namespace GarbageRoyale.Scripts
                             if (openingDoorLoading >= 100)
                             {
                                 openingDoorLoading = 0;
-                                //soundManager.stopSound();
                                 currentlyLoading = false;
-                                //soundManager.playSound(SoundManager.Sound.EndOpeningDoor);
-                                //openDoor.openDoor();
-                                int doorId = openDoor.doorId;
-                                photonView.RPC("openDoorRPC", RpcTarget.MasterClient, doorId);
+                                photonView.RPC("openDoorRPC", RpcTarget.MasterClient, doorId, true, false);
                             }
                         }
 
                         if (Input.GetKeyUp(KeyCode.E))
                         {
-                            //soundManager.stopSound();
+                            photonView.RPC("soundOpenDoorRPC", RpcTarget.MasterClient, doorId, false);
                             currentlyLoading = false;
                             openingDoorLoading = 0;
                         }
@@ -87,21 +88,12 @@ namespace GarbageRoyale.Scripts
                     if (hitInfo.transform.name == "Button")
                     {
                         photonView.RPC("openTrapRPC", RpcTarget.MasterClient, gc.buttonsTrap[hitInfo.transform.parent.gameObject]);
-                        /*actionScript = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
-                        actionScript.type = CameraRaycastHitActions.TypeHit.Button;
-                        actionScript.hitInfo = hitInfo;
-                        actionScript.Send = true;
-                        */
-                        //soundManager.playSound(SoundManager.Sound.Button);
+                        hitInfo.transform.GetComponent<AudioSource>().Play();
                     }
                     else if (hitInfo.transform.name == "DoorButton")
                     {
                         int doorId = hitInfo.transform.parent.GetComponent<OpenDoorScript>().doorId;
-                        photonView.RPC("openDoorRPC", RpcTarget.MasterClient, doorId);
-                        //OpenDoorScript openDoor = hitInfo.transform.parent.GetComponent<OpenDoorScript>();
-                        //openDoor.openDoors(true);
-
-                        //soundManager.playSound(SoundManager.Sound.Button);
+                        photonView.RPC("openDoorRPC", RpcTarget.MasterClient, doorId, false, true);
                     }
                 }
 
@@ -126,9 +118,13 @@ namespace GarbageRoyale.Scripts
                 }
             } else if (openingDoorLoading > 0)
             {
-                //soundManager.stopSound();
                 openingDoorLoading = 0;
                 currentlyLoading = false;
+                if(lastDoorId != -1)
+                {
+                    photonView.RPC("soundOpenDoorRPC", RpcTarget.MasterClient, lastDoorId, false);
+                    lastDoorId = -1;
+                }
             }
         }
 
@@ -136,7 +132,7 @@ namespace GarbageRoyale.Scripts
         private void brokePipeRPC(int pipeId)
         {
             //TODO verify coord
-            photonView.RPC("brokeSpecificPipeRPC", RpcTarget.AllBuffered, pipeId);
+            photonView.RPC("brokeSpecificPipeRPC", RpcTarget.All, pipeId);
         }
 
         [PunRPC]
@@ -149,26 +145,58 @@ namespace GarbageRoyale.Scripts
         private void openTrapRPC(int trapId)
         {
             //TODO verify coord
-            photonView.RPC("openSpecificTrapRPC", RpcTarget.AllBuffered, trapId);
+            photonView.RPC("openSpecificTrapRPC", RpcTarget.All, trapId);
         }
 
         [PunRPC]
         private void openSpecificTrapRPC(int trapId)
         {
             gc.traps[trapId].transform.position += new Vector3(4, 0, 0);
+            gc.buttonsTrapReversed[trapId].GetComponent<AudioSource>().Play();
         }
 
         [PunRPC]
-        private void openDoorRPC(int doorId)
+        private void openDoorRPC(int doorId, bool playEndSong, bool playButtonSong)
         {
             //TODO verify coord
-            photonView.RPC("openSpecificDoorRPC", RpcTarget.AllBuffered, doorId);
+            photonView.RPC("openSpecificDoorRPC", RpcTarget.All, doorId, playEndSong, playButtonSong);
         }
 
         [PunRPC]
-        private void openSpecificDoorRPC(int doorId)
+        private void openSpecificDoorRPC(int doorId, bool playEndSong, bool playButtonSong)
         {
-            gc.doors[doorId].GetComponent<OpenDoorScript>().openDoor();
+            OpenDoorScript ods = gc.doors[doorId].GetComponent<OpenDoorScript>();
+            ods.openDoor();
+
+            if(playEndSong)
+            {
+                ods.PlayEndOpeningSound();
+            }
+            if(playButtonSong)
+            {
+                ods.PlayButtonSound();
+            }
+        }
+
+        [PunRPC]
+        private void soundOpenDoorRPC(int doorId, bool playSound)
+        {
+            //TODO verify coord
+            photonView.RPC("soundOpenSpecificDoorRPC", RpcTarget.All, doorId, playSound);
+        }
+
+        [PunRPC]
+        private void soundOpenSpecificDoorRPC(int doorId, bool playSound)
+        {
+            OpenDoorScript ods = gc.doors[doorId].GetComponent<OpenDoorScript>();
+            if(playSound)
+            {
+                ods.PlayOpenSound();
+            }
+            else
+            {
+                ods.StopOpenSound();
+            }
         }
     }
 }    

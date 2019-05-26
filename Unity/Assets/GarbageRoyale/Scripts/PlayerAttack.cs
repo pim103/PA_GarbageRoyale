@@ -45,7 +45,6 @@ namespace GarbageRoyale.Scripts
                 damage += item.getDamage();
             }
 
-
             if (ps.getStamina() >= ps.getAttackCostStamina())
             {
                 GameObject target = gc.players[playerId].PlayerGameObject;

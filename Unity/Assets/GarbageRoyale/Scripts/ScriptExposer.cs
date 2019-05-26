@@ -10,5 +10,6 @@ namespace GarbageRoyale.Scripts
         public PlayerControllerMaster pcm;
         public GameController gc;
         public CameraRaycast cr;
+        public InventoryActionsController iac;
     }
 }

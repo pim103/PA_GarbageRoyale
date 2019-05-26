@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Linq;
 
 namespace GarbageRoyale.Scripts
 {
@@ -41,14 +42,11 @@ namespace GarbageRoyale.Scripts
         [SerializeField]
         private AudioClip torchLightSound;
 
-        private Dictionary<int, GameObject> characterList = new Dictionary<int, GameObject>();
-        private Dictionary<int, GameObject> characterSoundWalk = new Dictionary<int, GameObject>();
-        private Dictionary<int, GameObject> characterSound = new Dictionary<int, GameObject>();
         private Dictionary<int, Sound> characterPlaying = new Dictionary<int, Sound>();
 
         private GameObject cloneSource;
         private AudioSource sourceOrigin;
-        private string lastSoundPlayed;
+        private Sound[] lastSoundPlayed;
 
         private GameObject ambiantSource;
         private Sound lastAmbientSoundPlayed;
@@ -69,13 +67,15 @@ namespace GarbageRoyale.Scripts
         }
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             lastAmbientSoundPlayed = Sound.Menu;
+            lastSoundPlayed = Enumerable.Repeat(Sound.Walk, 10).ToArray();
         }
 
         public void initAmbientSound()
         {
+            gc.menuSound.Stop();
             lastAmbientSoundPlayed = Sound.Cave;
             gc.menuSound.clip = caveAmbientSound;
             gc.menuSound.loop = true;
@@ -84,6 +84,7 @@ namespace GarbageRoyale.Scripts
 
         public void initWaterSound()
         {
+            gc.menuSound.Stop();
             lastAmbientSoundPlayed = Sound.Water;
             gc.menuSound.clip = underwaterAmbientSound;
             gc.menuSound.loop = true;
@@ -177,9 +178,27 @@ namespace GarbageRoyale.Scripts
             //photonView.RPC("playAmbientSound", info.Sender, playerMov.getHeadIsOnWater());
         }
 
-        public void playWalkSound(int idPlayer, bool playSong)
+        public void playWalkSound(int idPlayer, bool playSong, Sound soundNeeded)
         {
             AudioSource audio = gc.players[idPlayer].PlayerMovement;
+
+            if (gc.AvatarToUserId[idPlayer] == PhotonNetwork.AuthValues.UserId)
+            {
+                if (soundNeeded == Sound.Swim && lastAmbientSoundPlayed == Sound.Cave)
+                {
+                    initWaterSound();
+                }
+                else if(soundNeeded != Sound.Swim && lastAmbientSoundPlayed == Sound.Water)
+                {
+                    initAmbientSound();
+                }
+            }
+
+            if(lastSoundPlayed[idPlayer] != soundNeeded)
+            {
+                audio.Stop();
+                lastSoundPlayed[idPlayer] = soundNeeded;
+            }
 
             if (!playSong)
             {
@@ -189,57 +208,20 @@ namespace GarbageRoyale.Scripts
             {
                 if (!audio.isPlaying)
                 {
-                    audio.PlayOneShot(walkSound);
-                }
-            }
-            /*
-            if(gc.getCanMove())
-            {
-                AudioSource audio = characterSoundWalk[idPlayer].GetComponent<AudioSource>();
-
-                if (playSong && !audio.isPlaying)
-                {
-                    switch (soundPlayed)
+                    switch(soundNeeded)
                     {
-                        case "walk":
+                        case Sound.Walk:
                             audio.PlayOneShot(walkSound);
                             break;
-                        case "walkInWater":
+                        case Sound.FeetOnWater:
                             audio.PlayOneShot(walkWaterSound);
                             break;
-                        case "swimming":
+                        case Sound.Swim:
                             audio.PlayOneShot(swimmingSound);
                             break;
                     }
                 }
-                else if (!playSong)
-                {
-                    audio.Stop();
-                }
-            }*/
-        }
-
-        private void playAmbientSound(bool isHeadInWater)
-        {
-            /*AudioSource ambiant = ambiantSource.GetComponent<AudioSource>();
-
-            if(isHeadInWater && lastAmbientSoundPlayed == Sound.Cave)
-            {
-                ambiant.Stop();
-            } else if(!isHeadInWater && lastAmbientSoundPlayed == Sound.Water)
-            {
-                ambiant.Stop();
             }
-
-            if (isHeadInWater && !ambiant.isPlaying)
-            {
-                ambiant.PlayOneShot(underwaterAmbientSound);
-                lastAmbientSoundPlayed = Sound.Water;
-            }
-            else if(!ambiant.isPlaying){
-                ambiant.PlayOneShot(caveAmbientSound);
-                lastAmbientSoundPlayed = Sound.Cave;
-            }*/
         }
     }
 }

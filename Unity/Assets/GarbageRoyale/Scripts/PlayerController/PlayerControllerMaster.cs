@@ -12,6 +12,9 @@ namespace GarbageRoyale.Scripts.PlayerController
         [SerializeField]
         private GameController gc;
 
+        [SerializeField]
+        private ScriptExposer se;
+
         private ExposerPlayer[] players;
         private ListPlayerIntents[] playersActions;
         private ListPlayerIntents[] playersActionsActivated;
@@ -138,6 +141,25 @@ namespace GarbageRoyale.Scripts.PlayerController
             gc.moveDirection[id].y -= gravity * Time.deltaTime;
 
             gc.players[id].PlayerChar.Move(gc.moveDirection[id] * Time.deltaTime);
+            
+            if (gc.water.waterObject.transform.position.y > gc.players[id].PlayerGameObject.transform.position.y + 0.4f)
+            {
+                gc.playersActions[id].isInWater = true;
+                gc.playersActions[id].feetIsInWater = false;
+                gc.playersActions[id].headIsInWater = true;
+                se.iac.ExtinctTorch(id);
+            }
+            else if (gc.water.waterObject.transform.position.y > gc.players[id].PlayerGameObject.transform.position.y - 1f)
+            {
+                gc.playersActions[id].isInWater = true;
+                gc.playersActions[id].feetIsInWater = true;
+                gc.playersActions[id].headIsInWater = false;
+            } else
+            {
+                gc.playersActions[id].isInWater = false;
+                gc.playersActions[id].feetIsInWater = false;
+                gc.playersActions[id].headIsInWater = false;
+            }
 
             return (playerAction.horizontalAxe != 0 | playerAction.verticalAxe != 0);
         }
@@ -150,13 +172,12 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             float rotationX = gc.rotationPlayer[id].x;
             rotationX -= Mathf.Clamp(playerAction.rotationX * sensVertical, minimumVert, maximumVert);
-            //float rotationY = gc.players[id].transform.localEulerAngles.y;
 
             gc.rotationPlayer[id] = new Vector3(rotationX, 0, 0);
             gc.players[id].PlayerCamera.transform.localEulerAngles = gc.rotationPlayer[id];
 
             gc.players[id].SpotLight.transform.localEulerAngles = gc.rotationPlayer[id];
-
+            
             return rotationX;
         }
 
@@ -164,8 +185,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         {
             PlayerStats ps = gc.players[id].PlayerStats;
             
-            //if is in water
-            if (false)
+            if (gc.playersActions[id].headIsInWater)
             {
                 if (ps.currentBreath > 0)
                 {
@@ -201,8 +221,18 @@ namespace GarbageRoyale.Scripts.PlayerController
         {
             Vector3 vec = new Vector3(rotX, 0, 0);
             gc.players[id].SpotLight.transform.localEulerAngles = vec;
+            SoundManager.Sound soundNeeded = SoundManager.Sound.Walk;
 
-            gc.soundManager.playWalkSound(id, isMoving);
+            if (gc.playersActions[id].headIsInWater)
+            {
+                soundNeeded = SoundManager.Sound.Swim;
+            }
+            else if (gc.playersActions[id].feetIsInWater)
+            {
+                soundNeeded = SoundManager.Sound.FeetOnWater;
+            }
+
+            gc.soundManager.playWalkSound(id, isMoving, soundNeeded);
 
             PlayerStats ps = gc.players[id].PlayerStats;
             ps.currentHp = h;
@@ -215,24 +245,5 @@ namespace GarbageRoyale.Scripts.PlayerController
                 gc.inventoryGui.updateBar(ps.currentHp, ps.currentStamina, ps.currentBreath);
             }
         }
-        /*
-        [PunRPC]
-        private void RotateLampRPC(int id, float rotX)
-        {
-            //Debug.Log("Rotate id : " + id);
-            Vector3 vec = new Vector3(rotX, 0, 0);
-            gc.players[id].SpotLight.transform.localEulerAngles = vec;
-            if (gc.AvatarToUserId[id] == PhotonNetwork.AuthValues.UserId)
-            {
-                gc.players[id].PlayerCamera.transform.localEulerAngles = new Vector3(rotX, 0, 0);
-            }
-        }
-
-        [PunRPC]
-        private void PlayWalkSoundRPC(int id, bool isMoving)
-        {
-            gc.soundManager.playWalkSound(id, isMoving);
-        }
-        */
     }
 }

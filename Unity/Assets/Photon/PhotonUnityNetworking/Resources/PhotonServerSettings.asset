@@ -113,4 +113,6 @@ MonoBehaviour:
   - endOfInitRPC
   - UpdateDataRPC
   - PunchRPC
+  - soundOpenDoorRPC
+  - soundOpenSpecificDoorRPC
   DisableAutoOpenWizard: 1

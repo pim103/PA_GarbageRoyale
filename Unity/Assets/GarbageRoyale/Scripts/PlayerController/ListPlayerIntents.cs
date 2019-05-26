@@ -22,6 +22,8 @@ namespace GarbageRoyale.Scripts.PlayerController
         public bool wantToGoDown { get; set; }
 
         public bool isInWater { get; set; }
+        public bool headIsInWater { get; set; }
+        public bool feetIsInWater { get; set; }
         public bool isInTransition { get; set; }
     }
 }

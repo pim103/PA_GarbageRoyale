@@ -324,7 +324,6 @@ MonoBehaviour:
   PlayerIndex: 2
   photonView: {fileID: 53284246}
   scripts: {fileID: 274310797}
-  isInInventory: 0
 --- !u!1 &133661621
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,6 +851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 1103656770}
+  se: {fileID: 274310797}
   rotationPlayer: []
   moveDirection: []
 --- !u!114 &274310796
@@ -891,6 +891,7 @@ MonoBehaviour:
   pcm: {fileID: 274310795}
   gc: {fileID: 1103656770}
   cr: {fileID: 274310798}
+  iac: {fileID: 1103656783}
 --- !u!114 &274310798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1135,7 +1136,6 @@ MonoBehaviour:
   PlayerIndex: 4
   photonView: {fileID: 289716585}
   scripts: {fileID: 274310797}
-  isInInventory: 0
 --- !u!1 &314287997
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,7 +1515,6 @@ MonoBehaviour:
   PlayerIndex: 0
   photonView: {fileID: 412184089}
   scripts: {fileID: 274310797}
-  isInInventory: 0
 --- !u!1 &415303307
 GameObject:
   m_ObjectHideFlags: 0
@@ -2070,7 +2069,6 @@ MonoBehaviour:
   PlayerIndex: 3
   photonView: {fileID: 603259537}
   scripts: {fileID: 274310797}
-  isInInventory: 0
 --- !u!1 &616407919
 GameObject:
   m_ObjectHideFlags: 0
@@ -2140,7 +2138,6 @@ MonoBehaviour:
   PlayerIndex: 7
   photonView: {fileID: 616407921}
   scripts: {fileID: 274310797}
-  isInInventory: 0
 --- !u!1 &622491273 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1060859146352789093, guid: eec08ba0da3bcac40a57a8e5e2a64078,
@@ -3704,6 +3701,7 @@ MonoBehaviour:
   menuSound: {fileID: 901990065}
   soundManager: {fileID: 1103656776}
   inventoryGui: {fileID: 1103656785}
+  water: {fileID: 1103656773}
   isGameStart: 0
   players:
   - {fileID: 1944728899}
@@ -3842,6 +3840,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7373fb3636ab1db4e9ca3894e811fb79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gc: {fileID: 1103656770}
+  iac: {fileID: 1103656783}
 --- !u!114 &1103656779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4603,7 +4603,6 @@ MonoBehaviour:
   PlayerIndex: 5
   photonView: {fileID: 1209141750}
   scripts: {fileID: 274310797}
-  isInInventory: 0
 --- !u!1001 &1233626684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6412,7 +6411,6 @@ MonoBehaviour:
   PlayerIndex: 1
   photonView: {fileID: 1946594782}
   scripts: {fileID: 274310797}
-  isInInventory: 0
 --- !u!1001 &1947442242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6819,7 +6817,6 @@ MonoBehaviour:
   PlayerIndex: 6
   photonView: {fileID: 2041371790}
   scripts: {fileID: 274310797}
-  isInInventory: 0
 --- !u!1 &2051380462
 GameObject:
   m_ObjectHideFlags: 0

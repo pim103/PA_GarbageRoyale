@@ -7,7 +7,17 @@ namespace GarbageRoyale.Scripts
     {
         public int doorId;
         public bool isOpen = false;
-        
+        public int doorLoading = 0;
+
+        [SerializeField]
+        public AudioSource DoorSound;
+
+        [SerializeField]
+        public AudioSource ButtonSound;
+
+        [SerializeField]
+        public AudioClip EndOpeningClip;
+
         public void openDoor()
         {
             isOpen = !isOpen;
@@ -21,6 +31,30 @@ namespace GarbageRoyale.Scripts
                 transform.GetChild(2).transform.Rotate(new Vector3(0,90,0));
                 transform.GetChild(3).transform.Rotate(new Vector3(0,-90,0));
             }
+        }
+
+        public void PlayOpenSound()
+        {
+            if(!DoorSound.isPlaying)
+            {
+                DoorSound.Play();
+            }
+        }
+
+        public void StopOpenSound()
+        {
+            DoorSound.Stop();
+        }
+
+        public void PlayEndOpeningSound()
+        {
+            DoorSound.Stop();
+            DoorSound.PlayOneShot(EndOpeningClip);
+        }
+
+        public void PlayButtonSound()
+        {
+            ButtonSound.Play();
         }
     }
     
