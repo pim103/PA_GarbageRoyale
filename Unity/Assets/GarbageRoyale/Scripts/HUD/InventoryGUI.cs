@@ -8,7 +8,7 @@ namespace GarbageRoyale.Scripts.HUD
     public class InventoryGUI : MonoBehaviour
     {
         [SerializeField]
-        private RawImage [] rawSprites;
+        public RawImage [] rawSprites;
 
         private GameObject inventoryGui;
 

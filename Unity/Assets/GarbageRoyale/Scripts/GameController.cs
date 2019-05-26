@@ -99,6 +99,11 @@ namespace GarbageRoyale.Scripts
         public Dictionary<int, bool> endInit = new Dictionary<int, bool>();
 
         public Dictionary<int, GameObject> items = new Dictionary<int, GameObject>();
+        
+        [SerializeField]
+        public GameObject invHUD;
+        [SerializeField]
+        public GameObject playerGUI;
 
         private void Awake()
         {
@@ -245,6 +250,8 @@ namespace GarbageRoyale.Scripts
                 Cursor.visible = false;
 
                 soundManager.initAmbientSound();
+                invHUD.SetActive(true);
+                playerGUI.SetActive(true);
             }
 
             moveDirection[id] = Vector3.zero;
@@ -291,6 +298,7 @@ namespace GarbageRoyale.Scripts
             if (PhotonNetwork.AuthValues.UserId == AvatarToUserId[id])
             {
                 photonView.RPC("endOfInitRPC", RpcTarget.All);
+                
             }
         }
 

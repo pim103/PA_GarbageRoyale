@@ -5,7 +5,7 @@ namespace GarbageRoyale.Scripts
 {
     public class Inventory : MonoBehaviour
     {
-        private static int itemSlots = 20;
+        private static int itemSlots = 26;
         public int[] itemInventory; //= new int[itemSlots];
         private int lastCounterItem;
     
