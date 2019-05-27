@@ -59,18 +59,36 @@ namespace GarbageRoyale.Scripts
         public void OnDrag(PointerEventData eventData)
         {
             transform.position = Input.mousePosition;
+            if (RectTransformUtility.RectangleContainsScreenPoint(CraftingResultRect, Input.mousePosition))
+            {
+                Inventory playerInventory = gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerGameObject.GetComponent<Inventory>();
+                if (playerInventory.itemInventory[25] != -1)
+                {
+                    for (int j = 20; j < 25; j++)
+                    {
+                        if (playerInventory.itemInventory[j] != -1)
+                        {
+                            gc.items[playerInventory.itemInventory[j]].SetActive(false);
+                            playerInventory.itemInventory[j] = -1;
+                            
+                        }
+
+                        CraftingSlots[j-20].texture = null;
+                    }
+                }
+            }
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            gc = GameObject.Find("Controller").GetComponent<GameController>();
+            //gc = GameObject.Find("Controller").GetComponent<GameController>();
             Inventory playerInventory = gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerGameObject.GetComponent<Inventory>();
             transform.localPosition = Vector3.zero;
             for (int i = 0; i<20; i++)
             {
                 if (RectTransformUtility.RectangleContainsScreenPoint(ItemRects[i], Input.mousePosition))
                 {
-                    Debug.Log("playerindex "+System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)+" oldplace "+invIndex+" newplace "+i);
+                    //Debug.Log("playerindex "+System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)+" oldplace "+invIndex+" newplace "+i);
                     /*photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),invIndex,i);*/
                     //ItemSlots[i].transform.position = ItemRects[i].position;
                     RawImage rawImg = GameObject.Find("ItemImg_" + i).GetComponent<RawImage>();
@@ -105,19 +123,19 @@ namespace GarbageRoyale.Scripts
             craftingList.Clear();
             for (int j = 20; j < 25; j++)
             {
-                Debug.Log("eheh "+playerInventory.itemInventory[j]);
+                //Debug.Log("eheh "+playerInventory.itemInventory[j]);
                 if (playerInventory.itemInventory[j] != -1)
                 {
-                    Debug.Log("eh "+gc.items[playerInventory.itemInventory[j]].GetComponent<Item>().type);
+                    //Debug.Log("eh "+gc.items[playerInventory.itemInventory[j]].GetComponent<Item>().type);
                     craftingList.Add(gc.items[playerInventory.itemInventory[j]].GetComponent<Item>().type);
                     
                 }
             }
-            if (craftingList.Contains(1) && craftingList.Contains(5))
+            if (craftingList.Contains(1) && craftingList.Contains(5) && craftingList.Count == 2)
             {
                 CraftingResultSlot.texture = gc.inventoryGui.rawSprites[1].texture;
                 playerInventory.itemInventory[25] = 2;
-                Debug.Log("yees");
+                //Debug.Log("yees");
             }
         }
 
