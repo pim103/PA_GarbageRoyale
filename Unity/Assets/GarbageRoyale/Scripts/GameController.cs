@@ -166,6 +166,12 @@ namespace GarbageRoyale.Scripts
         }
 
         [PunRPC]
+        public void testrpc()
+        {
+            Debug.Log("ALLO");
+        }
+        
+        [PunRPC]
         private void SendUserId(string userId)
         {
             if (PhotonNetwork.IsMasterClient)

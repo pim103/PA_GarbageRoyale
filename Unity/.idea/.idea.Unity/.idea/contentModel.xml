@@ -13,6 +13,7 @@
             <e p="CameraRaycast.cs" t="Include" />
             <e p="CameraRaycastHitActions.cs" t="Include" />
             <e p="DesactivateCameraControl.cs" t="Include" />
+            <e p="DetailedInventoryRPCManager.cs" t="Include" />
             <e p="DoorController.cs" t="Include" />
             <e p="EnvironmentEvent.cs" t="Include" />
             <e p="GameController.cs" t="Include" />

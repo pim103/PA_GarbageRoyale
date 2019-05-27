@@ -29,10 +29,13 @@ namespace GarbageRoyale.Scripts
         public int invIndex;
 
         public List<int> craftingList;
+
+        private DetailedInventoryRPCManager RpcManager;
         // Start is called before the first frame update
         void Start()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
+            RpcManager = GameObject.Find("DetailedInventory").GetComponent<DetailedInventoryRPCManager>();
             spritesExposer = GameObject.Find("DetailedInventory").GetComponent<InventorySpritesExposer>();
             ItemSlots = spritesExposer.ItemSlots;
             CraftingSlots = spritesExposer.CraftingSlots;
@@ -89,17 +92,18 @@ namespace GarbageRoyale.Scripts
                 if (RectTransformUtility.RectangleContainsScreenPoint(ItemRects[i], Input.mousePosition))
                 {
                     //Debug.Log("playerindex "+System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)+" oldplace "+invIndex+" newplace "+i);
-                    /*photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),invIndex,i);*/
+                    //RpcManager.photonView.RPC("testrpc",RpcTarget.MasterClient);
+                    RpcManager.photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),invIndex,i);
                     //ItemSlots[i].transform.position = ItemRects[i].position;
                     RawImage rawImg = GameObject.Find("ItemImg_" + i).GetComponent<RawImage>();
                     Texture textureMem = rawImg.texture;
                     rawImg.texture = GetComponent<RawImage>().texture;
                     GetComponent<RawImage>().texture = textureMem;
                     
-                    int idMem = playerInventory.itemInventory[i];
+                    /*int idMem = playerInventory.itemInventory[i];
                     playerInventory.itemInventory[i] = playerInventory.itemInventory[invIndex];
                     playerInventory.itemInventory[invIndex] = idMem;
-                    Debug.Log("newPlace " + playerInventory.itemInventory[i]+ " oldplace " + idMem);
+                    Debug.Log("newPlace " + playerInventory.itemInventory[i]+ " oldplace " + idMem);*/
                 }
             }
             for (int i = 0; i<5; i++)
@@ -107,16 +111,16 @@ namespace GarbageRoyale.Scripts
                 if (RectTransformUtility.RectangleContainsScreenPoint(CraftingRects[i], Input.mousePosition))
                 {
                     Debug.Log("playerindex "+System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)+" oldplace "+invIndex+" newplace "+i);
-                    /*photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),invIndex,i);*/
+                    RpcManager.photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),invIndex,20+i);
                     //ItemSlots[i].transform.position = ItemRects[i].position;
                     RawImage rawImg = GameObject.Find("CraftingImg_" + i).GetComponent<RawImage>();
                     Texture textureMem = rawImg.texture;
                     rawImg.texture = GetComponent<RawImage>().texture;
                     GetComponent<RawImage>().texture = textureMem;
                     //Inventory playerInventory = gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerGameObject.GetComponent<Inventory>();
-                    int idMem = playerInventory.itemInventory[20+i];
+                    /*int idMem = playerInventory.itemInventory[20+i];
                     playerInventory.itemInventory[20+i] = playerInventory.itemInventory[invIndex];
-                    playerInventory.itemInventory[invIndex] = idMem;
+                    playerInventory.itemInventory[invIndex] = idMem;*/
                     
                 }
             }
@@ -133,9 +137,16 @@ namespace GarbageRoyale.Scripts
             }
             if (craftingList.Contains(1) && craftingList.Contains(5) && craftingList.Count == 2)
             {
+                RpcManager.photonView.RPC("AskCraftItem",RpcTarget.All,2,System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 CraftingResultSlot.texture = gc.inventoryGui.rawSprites[1].texture;
-                playerInventory.itemInventory[25] = 2;
+                //playerInventory.itemInventory[25] = 2;
                 //Debug.Log("yees");
+            }
+            else
+            {
+                CraftingResultSlot.texture = null;
+                //playerInventory.itemInventory[25] = -1;
+                RpcManager.photonView.RPC("AskDeleteCraftItem",RpcTarget.All,System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
             }
         }
 
