@@ -7763,7 +7763,7 @@ PrefabInstance:
     - target: {fileID: 5797197074124910300, guid: b88fe910c5709a04d97508e2aa5446c1,
         type: 3}
       propertyPath: CollisionModule.enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5797197074124910300, guid: b88fe910c5709a04d97508e2aa5446c1,
         type: 3}

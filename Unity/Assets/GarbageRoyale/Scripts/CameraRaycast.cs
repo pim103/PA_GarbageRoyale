@@ -88,7 +88,6 @@ namespace GarbageRoyale.Scripts
                     if (hitInfo.transform.name == "Button")
                     {
                         photonView.RPC("openTrapRPC", RpcTarget.MasterClient, gc.buttonsTrap[hitInfo.transform.parent.gameObject]);
-                        hitInfo.transform.GetComponent<AudioSource>().Play();
                     }
                     else if (hitInfo.transform.name == "DoorButton")
                     {

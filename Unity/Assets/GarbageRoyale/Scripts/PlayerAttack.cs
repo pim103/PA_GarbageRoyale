@@ -58,13 +58,13 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         private void PunchRPC(string userId, PhotonMessageInfo info)
         {
-            /*if (!PhotonNetwork.IsMasterClient) return;
+            if (!PhotonNetwork.IsMasterClient) return;
 
             int playerIdSrc = Array.IndexOf(gc.AvatarToUserId, userId);
             PlayerStats ps = gc.players[playerIdSrc].PlayerStats;
 
             if (ps.getAttackCostStamina() > ps.getStamina()) return;
-            ps.useStamina();*/
+            ps.useStamina();
         }
     }
 }

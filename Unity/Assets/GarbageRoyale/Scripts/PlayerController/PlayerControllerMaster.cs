@@ -51,6 +51,10 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             for (var i = 0; i < gc.playersActionsActivated.Length; i++)
             {
+                if(gc.players[i].PlayerStats.getIsDead())
+                {
+                    return;
+                }
                 var playerAction = gc.playersActions[i];
                 var player = gc.players[i];
 
