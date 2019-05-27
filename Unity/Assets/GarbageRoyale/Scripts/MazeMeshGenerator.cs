@@ -161,7 +161,7 @@ namespace GarbageRoyale.Scripts
 
                             if (i - 1 >= 0 && data[i - 1, j] == 2)
                             {
-                                GameObject newPipe = Instantiate(Prefabs[15], new Vector3(j * width + ypos, halfH - 0.5f, (i - .5f) * width + ypos), Quaternion.Euler(new Vector3(0, 0, 0)));
+                                GameObject newPipe = Instantiate(Prefabs[4], new Vector3(j * width + ypos, halfH - 0.5f, (i - .5f) * width + ypos), Quaternion.Euler(new Vector3(0, 0, 0)));
                                 newPipe.GetComponent<PipeScript>().pipeIndex = nbPipe;
                                 pipes.Add(nbPipe, newPipe.transform.gameObject);
                                 nbPipe++;
@@ -178,7 +178,7 @@ namespace GarbageRoyale.Scripts
 
                             if(j+1 <= cMax && data[i, j + 1] == 2)
                             {
-                                GameObject newPipe = Instantiate(Prefabs[15], new Vector3((j + .5f) * width + ypos, halfH - 0.5f, i * width + ypos), Quaternion.Euler(new Vector3(0, 270, 0)));
+                                GameObject newPipe = Instantiate(Prefabs[4], new Vector3((j + .5f) * width + ypos, halfH - 0.5f, i * width + ypos), Quaternion.Euler(new Vector3(0, 270, 0)));
                                 newPipe.GetComponent<PipeScript>().pipeIndex = nbPipe;
                                 pipes.Add(nbPipe, newPipe.transform.gameObject);
                                 nbPipe++;
@@ -195,7 +195,7 @@ namespace GarbageRoyale.Scripts
 
                             if (j - 1 >= 0 && data[i, j - 1] == 2)
                             {
-                                GameObject newPipe = Instantiate(Prefabs[15], new Vector3((j - .5f) * width + ypos, halfH - 0.5f, i * width + ypos), Quaternion.Euler(new Vector3(0, 90, 0)));
+                                GameObject newPipe = Instantiate(Prefabs[4], new Vector3((j - .5f) * width + ypos, halfH - 0.5f, i * width + ypos), Quaternion.Euler(new Vector3(0, 90, 0)));
                                 newPipe.GetComponent<PipeScript>().pipeIndex = nbPipe;
                                 pipes.Add(nbPipe, newPipe.transform.gameObject);
                                 nbPipe++;
@@ -212,7 +212,7 @@ namespace GarbageRoyale.Scripts
 
                             if (i + 1 <= rMax && data[i + 1, j] == 2)
                             {
-                                GameObject newPipe = Instantiate(Prefabs[15], new Vector3(j * width + ypos, halfH - 0.5f, (i + .5f) * width + ypos), Quaternion.Euler(new Vector3(0, 180, 0)));
+                                GameObject newPipe = Instantiate(Prefabs[4], new Vector3(j * width + ypos, halfH - 0.5f, (i + .5f) * width + ypos), Quaternion.Euler(new Vector3(0, 180, 0)));
                                 newPipe.GetComponent<PipeScript>().pipeIndex = nbPipe;
                                 pipes.Add(nbPipe, newPipe.transform.gameObject);
                                 nbPipe++;

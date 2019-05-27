@@ -13,7 +13,6 @@ namespace GarbageRoyale.Scripts
         public bool initOnStart;
         public bool isOnline;
         
-        
         private void Start()
         {
             if (initOnStart)
@@ -66,6 +65,10 @@ namespace GarbageRoyale.Scripts
                     setName("Toilet Paper");
                     setDamage(-10f);
                     break;
+                case 6:
+                    setName("Oil Container");
+                    setDamage(0f);
+                    break;
                 default:
                     //setId(0);
                     setName("Void");
@@ -92,10 +95,10 @@ namespace GarbageRoyale.Scripts
                 case 5:
                     gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
                     break;
+                case 6:
+                    gameObject.transform.localScale = new Vector3(0.075f, 0.075f, 0.6f);
+                    break;
                 default:
-                    //setId(0);
-                    setName("Void");
-                    setDamage(0f);
                     break;
             }
         }

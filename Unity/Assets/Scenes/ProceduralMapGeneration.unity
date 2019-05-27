@@ -4639,7 +4639,7 @@ MonoBehaviour:
   - {fileID: 4449432576064577553, guid: 83d60b5460dc9bb45b29ed5038b78c9c, type: 3}
   - {fileID: 4449432576064577553, guid: b12fa1f0f1ca78f469292e6777348080, type: 3}
   - {fileID: 4449432576064577553, guid: 8d6dd9217b1b6184dac2b260b32e2f6f, type: 3}
-  - {fileID: 765828400005556183, guid: 1ccd3b25d3e123d4fa9353bdd8a0b37b, type: 3}
+  - {fileID: 2474355071110532685, guid: 9a6f7d477777d6b4a80f36b3c2f525b3, type: 3}
   - {fileID: 2511107686252528056, guid: 35714039c3f7a2a49a68b096ccd0e00b, type: 3}
   - {fileID: 4449432576064577553, guid: 0689db0e62733f34381d05548c4f71cd, type: 3}
   - {fileID: 2008090796647901747, guid: 443d6fae659f6d44baaa09efd4c1a828, type: 3}
@@ -4650,7 +4650,8 @@ MonoBehaviour:
   - {fileID: 4449432576064577553, guid: 114d2cf3190fda242820f7724b2b5969, type: 3}
   - {fileID: 4449432576064577553, guid: 40bf83f1f5e9c104ba64ee3587bd730b, type: 3}
   - {fileID: 4449432576064577553, guid: b78af0028a570964cacde0be665b3db0, type: 3}
-  - {fileID: 2474355071110532685, guid: 9a6f7d477777d6b4a80f36b3c2f525b3, type: 3}
+  - {fileID: 765828400005556183, guid: 1ccd3b25d3e123d4fa9353bdd8a0b37b, type: 3}
+  - {fileID: 4449432576064577553, guid: 6a4df48ac1ee2ef4687f74ddaf88cbc4, type: 3}
   floorTransition: {fileID: 4449432576064577553, guid: 503958394bf416442aa3518a8fdcdf19,
     type: 3}
   mazeMat1: {fileID: 2100000, guid: 2019d743bc0984ba1b81150901d44455, type: 2}
@@ -4978,6 +4979,7 @@ MonoBehaviour:
   - {fileID: 5833977737841398870, guid: 7fa254dcddedd94428d6748609bc2dfd, type: 3}
   - {fileID: 5833977737841398870, guid: 7fa254dcddedd94428d6748609bc2dfd, type: 3}
   - {fileID: 5833977737841398870, guid: 14257fc03756d5e40ad7e71c68a168be, type: 3}
+  - {fileID: 5833977737841398870, guid: 958b20c1d58b5ad4897855919e7c5713, type: 3}
   healthBar: {fileID: 669336003}
   staminaBar: {fileID: 669336002}
   breathBar: {fileID: 669336001}

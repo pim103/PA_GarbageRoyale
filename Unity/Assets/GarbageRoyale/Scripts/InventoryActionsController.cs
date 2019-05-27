@@ -60,13 +60,15 @@ namespace GarbageRoyale.Scripts
             {
                 if(placeInHand!=-1) photonView.RPC("AskDropItem", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),false);
             }
-            if (Input.GetKeyDown(KeyCode.Mouse1))
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 if(placeInHand!=-1) photonView.RPC("AskDropItem", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),true);
             }
-            if(Input.GetKeyDown(KeyCode.V))
+
+            if(Input.GetKeyDown(KeyCode.Mouse1))
             {
                 if(itemInHand == 4) photonView.RPC("LightOnTorchRPC", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                if(itemInHand == 6) photonView.RPC("DisperseOil", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
             }
 
             if (PhotonNetwork.IsMasterClient)
@@ -120,7 +122,8 @@ namespace GarbageRoyale.Scripts
             gc.players[playerIndex].PlayerStaff.SetActive(false);
             gc.players[playerIndex].PlayerTorch.SetActive(false);
             gc.players[playerIndex].PlayerToiletPaper.SetActive(false);
-            
+            gc.players[playerIndex].PlayerJerrican.SetActive(false);
+
             switch (item)
             {
                 case 1:
@@ -138,6 +141,9 @@ namespace GarbageRoyale.Scripts
                 case 5:
                     handChild = 2;
                     gc.players[playerIndex].PlayerToiletPaper.SetActive(true);
+                    break;
+                case 6:
+                    gc.players[playerIndex].PlayerJerrican.SetActive(true);
                     break;
                 default:
                     Debug.Log("Error, wrong item");
@@ -210,6 +216,9 @@ namespace GarbageRoyale.Scripts
                     handChild = 2;
                     gc.players[playerIndex].PlayerToiletPaper.SetActive(false);
                     break;
+                case 6:
+                    gc.players[playerIndex].PlayerJerrican.SetActive(false);
+                    break;
                 default:
                     Debug.Log("Error, wrong item");
                     break;
@@ -250,6 +259,23 @@ namespace GarbageRoyale.Scripts
         private void LightOnSpecificTorch(int playerIndex, bool toggle)
         {
             gc.players[playerIndex].PlayerTorch.transform.GetChild(0).gameObject.SetActive(toggle);
+        }
+
+        [PunRPC]
+        private void DisperseOil(int placeInHand, int playerIndex)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
+            int itemId = inventoryData.getItemInventory()[placeInHand];
+
+            if (gc.items[itemId].GetComponent<Item>().type == 6)
+            {
+                Debug.Log("Oiiiiiil");
+            }
         }
     }
 }

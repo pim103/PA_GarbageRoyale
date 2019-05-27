@@ -281,7 +281,6 @@ namespace GarbageRoyale.Scripts.PlayerController
             }
 
             int id = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
-            Debug.Log(id);
             bool isDead = gc.players[id].PlayerStats.isDead;
             bool headIsInWater = gc.playersActions[id].headIsInWater;
 
