@@ -1102,6 +1102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 1103656770}
+  se: {fileID: 274310797}
   rotationPlayer: []
   moveDirection: []
 --- !u!114 &274310796
@@ -1141,6 +1142,7 @@ MonoBehaviour:
   pcm: {fileID: 274310795}
   gc: {fileID: 1103656770}
   cr: {fileID: 274310798}
+  iac: {fileID: 1103656783}
 --- !u!114 &274310798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4680,6 +4682,7 @@ MonoBehaviour:
   menuSound: {fileID: 901990065}
   soundManager: {fileID: 1103656776}
   inventoryGui: {fileID: 1103656785}
+  water: {fileID: 1103656773}
   isGameStart: 0
   players:
   - {fileID: 1944728899}
@@ -4768,7 +4771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31b1fa7934554d47a259befbf967579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gc: {fileID: 0}
+  gc: {fileID: 1103656770}
 --- !u!114 &1103656775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4820,8 +4823,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7373fb3636ab1db4e9ca3894e811fb79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gc: {fileID: 0}
-  iac: {fileID: 0}
+  gc: {fileID: 1103656770}
+  iac: {fileID: 1103656783}
 --- !u!114 &1103656779
 MonoBehaviour:
   m_ObjectHideFlags: 0

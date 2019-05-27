@@ -42,35 +42,6 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
             ig = GameObject.Find("Controller").GetComponent<InventoryGUI>();
         }
 
-        // Update is called once per frame
-        //void FixedUpdate()
-        //{
-            //Verify head on water
-            /*if(false)
-            {
-                if(currentBreath > 0)
-                {
-                    currentBreath -= 0.1f;
-                } else if(currentHp > 0)
-                {
-                    takeDamage(0.2f);
-                }
-            } else
-            {
-                if (currentBreath < defaultBreath)
-                {
-                    currentBreath += 1;
-                }
-            }
-
-            if(currentStamina < defaultStamina)
-            {
-                currentStamina += 0.3f;
-            }*/
-
-            //ig.updateBar(currentHp, currentStamina, currentBreath);
-        //}
-
         private void rotateDeadPlayer()
         {
             //pm.transform.Rotate(90, 0, 0);

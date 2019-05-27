@@ -115,4 +115,7 @@ MonoBehaviour:
   - PunchRPC
   - soundOpenDoorRPC
   - soundOpenSpecificDoorRPC
+  - AnswerSwapInventoryItems
+  - AskSwapInventoryItems
+  - testrpc
   DisableAutoOpenWizard: 1
