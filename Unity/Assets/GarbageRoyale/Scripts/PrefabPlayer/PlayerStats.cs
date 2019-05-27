@@ -18,7 +18,7 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public float basicAttack;
         public float attackCostStamina;
 
-        private bool isDead;
+        public bool isDead;
         private bool isRotatePlayer;
 
         private InventoryGUI ig;

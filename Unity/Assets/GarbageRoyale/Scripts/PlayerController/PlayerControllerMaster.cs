@@ -34,6 +34,14 @@ namespace GarbageRoyale.Scripts.PlayerController
         private float sensHorizontal = 5.0f;
         private float sensVertical = 5.0f;
 
+        private Texture2D filterWaterTexture;
+        private Texture2D deadTexture;
+
+        private void Start()
+        {
+            initTexture();
+        }
+
         void FixedUpdate()
         {
             bool isMoving = false;
@@ -51,8 +59,18 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             for (var i = 0; i < gc.playersActionsActivated.Length; i++)
             {
-                if(gc.players[i].PlayerStats.getIsDead())
+                if(gc.players[i].PlayerStats.isDead)
                 {
+                    photonView.RPC("UpdateDataRPC", RpcTarget.All,
+                           i,
+                           false,
+                           0f,
+                           0f,
+                           0f,
+                           0f,
+                           false,
+                           true
+                       );
                     continue;
                 }
                 var playerAction = gc.playersActions[i];
@@ -86,7 +104,9 @@ namespace GarbageRoyale.Scripts.PlayerController
                         rotationX,
                         gc.players[i].PlayerStats.currentHp,
                         gc.players[i].PlayerStats.currentStamina,
-                        gc.players[i].PlayerStats.currentBreath
+                        gc.players[i].PlayerStats.currentBreath,
+                        gc.playersActions[i].headIsInWater,
+                        gc.players[i].PlayerStats.isDead
                     );
                 }
             }
@@ -221,7 +241,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         }
 
         [PunRPC]
-        private void UpdateDataRPC(int id, bool isMoving, float rotX, float h, float s, float b)
+        private void UpdateDataRPC(int id, bool isMoving, float rotX, float h, float s, float b, bool headIsInWater, bool isDead)
         {
             Vector3 vec = new Vector3(rotX, 0, 0);
             gc.players[id].SpotLight.transform.localEulerAngles = vec;
@@ -243,11 +263,42 @@ namespace GarbageRoyale.Scripts.PlayerController
             ps.currentStamina = s;
             ps.currentBreath = b;
 
+            ps.isDead = isDead;
+            gc.playersActions[id].headIsInWater = headIsInWater;
+
             if (gc.AvatarToUserId[id] == PhotonNetwork.AuthValues.UserId)
             {
                 gc.players[id].PlayerCamera.transform.localEulerAngles = new Vector3(rotX, 0, 0);
                 gc.inventoryGui.updateBar(ps.currentHp, ps.currentStamina, ps.currentBreath);
             }
+        }
+
+        private void OnGUI()
+        {
+            if(!gc.endOfInit)
+            {
+                return;
+            }
+
+            int id = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
+            Debug.Log(id);
+            bool isDead = gc.players[id].PlayerStats.isDead;
+            bool headIsInWater = gc.playersActions[id].headIsInWater;
+
+            if (isDead)
+            {
+                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), deadTexture);
+            }
+            else if (headIsInWater)
+            {
+                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), filterWaterTexture);
+            }
+        }
+
+        private void initTexture()
+        {
+            filterWaterTexture = gc.MakeTex(Screen.width, Screen.height, new Color(0, 0.5f, 1, 0.5f));
+            deadTexture = gc.MakeTex(Screen.width, Screen.height, new Color(0.7f, 0.7f, 0.7f, 0.7f));
         }
     }
 }
