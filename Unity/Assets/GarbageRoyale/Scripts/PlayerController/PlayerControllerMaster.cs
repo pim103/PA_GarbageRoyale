@@ -53,7 +53,7 @@ namespace GarbageRoyale.Scripts.PlayerController
             {
                 if(gc.players[i].PlayerStats.getIsDead())
                 {
-                    return;
+                    continue;
                 }
                 var playerAction = gc.playersActions[i];
                 var player = gc.players[i];
