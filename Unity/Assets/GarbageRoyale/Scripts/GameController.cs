@@ -300,6 +300,12 @@ namespace GarbageRoyale.Scripts
                 playersActionsActivated[i].wantToGoDown= false;
                 playersActionsActivated[i].isInTransition = false;
                 playersActionsActivated[i].isInWater = false;
+                playersActionsActivated[i].headIsInWater = false;
+                playersActionsActivated[i].feetIsInWater = false;
+                playersActionsActivated[i].isOiled = false;
+                playersActionsActivated[i].isBurning = false;
+                playersActionsActivated[i].timeLeftBurn = 5.0f;
+                playersActionsActivated[i].timeLeftOiled = 15.0f;
             }
             if (PhotonNetwork.AuthValues.UserId == AvatarToUserId[id])
             {

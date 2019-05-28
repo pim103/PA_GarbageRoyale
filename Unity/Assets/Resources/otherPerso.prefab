@@ -81,7 +81,7 @@ CharacterController:
   m_Radius: 1.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.4
+  m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &763
@@ -2250,6 +2250,51 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347534574577755573, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347534574577755573, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347534574577755573, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.2974141
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347534574577755573, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347534574577755573, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347534574577755573, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9547486
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347534574577755573, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0000039736424
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347534574577755573, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -34.605003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1293912325146310385, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1217727887800166160, guid: dde2fbe1b24020242bba4da8d397796b, type: 3}
