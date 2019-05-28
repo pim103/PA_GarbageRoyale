@@ -36,6 +36,8 @@ namespace GarbageRoyale.Scripts.PlayerController
 
         private Texture2D filterWaterTexture;
         private Texture2D deadTexture;
+        private Texture2D oiledTexture;
+        private Texture2D burnedTexture;
 
         private void Start()
         {
@@ -69,7 +71,9 @@ namespace GarbageRoyale.Scripts.PlayerController
                            0f,
                            0f,
                            false,
-                           true
+                           true,
+                           false,
+                           false
                        );
                     continue;
                 }
@@ -106,7 +110,9 @@ namespace GarbageRoyale.Scripts.PlayerController
                         gc.players[i].PlayerStats.currentStamina,
                         gc.players[i].PlayerStats.currentBreath,
                         gc.playersActions[i].headIsInWater,
-                        gc.players[i].PlayerStats.isDead
+                        gc.players[i].PlayerStats.isDead,
+                        gc.playersActions[i].isBurning,
+                        gc.playersActions[i].isOiled
                     );
                 }
             }
@@ -211,6 +217,8 @@ namespace GarbageRoyale.Scripts.PlayerController
             
             if (gc.playersActions[id].headIsInWater)
             {
+                gc.playersActions[id].isBurning = false;
+                gc.playersActions[id].isOiled = false;
                 if (ps.currentBreath > 0)
                 {
                     ps.currentBreath -= 0.1f;
@@ -232,6 +240,24 @@ namespace GarbageRoyale.Scripts.PlayerController
             {
                 ps.currentStamina += 0.3f;
             }
+
+            if(gc.playersActions[id].isBurning)
+            {
+                ps.takeDamage(0.1f);
+                gc.playersActions[id].timeLeftBurn -= Time.deltaTime;
+                if(gc.playersActions[id].timeLeftBurn <= 0.0f)
+                {
+                    gc.playersActions[id].isBurning = false;
+                }
+            }
+            if(gc.playersActions[id].isOiled && gc.playersActions[id].timeLeftOiled > 0.0f)
+            {
+                gc.playersActions[id].timeLeftOiled -= Time.deltaTime;
+            }
+            else
+            {
+                gc.playersActions[id].isOiled = false;
+            }
         }
 
         [PunRPC]
@@ -241,7 +267,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         }
 
         [PunRPC]
-        private void UpdateDataRPC(int id, bool isMoving, float rotX, float h, float s, float b, bool headIsInWater, bool isDead)
+        private void UpdateDataRPC(int id, bool isMoving, float rotX, float h, float s, float b, bool headIsInWater, bool isDead, bool isBurning, bool isOiled)
         {
             Vector3 vec = new Vector3(rotX, 0, 0);
             gc.players[id].SpotLight.transform.localEulerAngles = vec;
@@ -266,6 +292,10 @@ namespace GarbageRoyale.Scripts.PlayerController
             ps.isDead = isDead;
             gc.playersActions[id].headIsInWater = headIsInWater;
 
+            gc.playersActions[id].isBurning = isBurning;
+
+            gc.playersActions[id].isOiled = isOiled;
+
             if (gc.AvatarToUserId[id] == PhotonNetwork.AuthValues.UserId)
             {
                 gc.players[id].PlayerCamera.transform.localEulerAngles = new Vector3(rotX, 0, 0);
@@ -283,6 +313,8 @@ namespace GarbageRoyale.Scripts.PlayerController
             int id = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
             bool isDead = gc.players[id].PlayerStats.isDead;
             bool headIsInWater = gc.playersActions[id].headIsInWater;
+            bool isBurning = gc.playersActions[id].isBurning;
+            bool isOiled = gc.playersActions[id].isOiled;
 
             if (isDead)
             {
@@ -292,12 +324,22 @@ namespace GarbageRoyale.Scripts.PlayerController
             {
                 GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), filterWaterTexture);
             }
+            else if (isBurning)
+            {
+                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), burnedTexture);
+            }
+            else if (isOiled)
+            {
+                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), oiledTexture);
+            }
         }
 
         private void initTexture()
         {
             filterWaterTexture = gc.MakeTex(Screen.width, Screen.height, new Color(0, 0.5f, 1, 0.5f));
             deadTexture = gc.MakeTex(Screen.width, Screen.height, new Color(0.7f, 0.7f, 0.7f, 0.7f));
+            oiledTexture = gc.MakeTex(Screen.width, Screen.height, new Color(1.0f, 0.9f, 1.0f, 0.7f));
+            burnedTexture = gc.MakeTex(Screen.width, Screen.height, new Color(0.7f, 0.3f, 0.0f, 0.7f));
         }
     }
 }

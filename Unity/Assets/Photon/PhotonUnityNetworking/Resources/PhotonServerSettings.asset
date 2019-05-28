@@ -118,4 +118,6 @@ MonoBehaviour:
   - AnswerSwapInventoryItems
   - AskSwapInventoryItems
   - testrpc
+  - DisperseOil
+  - DisperseSpecificOil
   DisableAutoOpenWizard: 1

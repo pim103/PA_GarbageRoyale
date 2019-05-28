@@ -21,8 +21,6 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public bool isDead;
         private bool isRotatePlayer;
 
-        private InventoryGUI ig;
-
         // Start is called before the first frame update
         void Start()
         {
@@ -38,8 +36,6 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
 
             isDead = false;
             isRotatePlayer = false;
-
-            ig = GameObject.Find("Controller").GetComponent<InventoryGUI>();
         }
 
         private void rotateDeadPlayer()

@@ -272,10 +272,19 @@ namespace GarbageRoyale.Scripts
             Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
             int itemId = inventoryData.getItemInventory()[placeInHand];
 
-            if (gc.items[itemId].GetComponent<Item>().type == 6)
+            if (gc.items[itemId].GetComponent<Item>().type == 6 && gc.players[playerIndex].PlayerJerrican.transform.childCount > 0)
             {
-                Debug.Log("Oiiiiiil");
+                photonView.RPC("DisperseSpecificOil", RpcTarget.All, playerIndex);
             }
+        }
+
+        [PunRPC]
+        private void DisperseSpecificOil(int playerIndex)
+        {
+            var oil = gc.players[playerIndex].PlayerJerrican.transform.GetChild(0);
+            oil.parent = null;
+            oil.localScale = new Vector3(1f, 1f, 1f);
+            oil.gameObject.SetActive(true);
         }
     }
 }

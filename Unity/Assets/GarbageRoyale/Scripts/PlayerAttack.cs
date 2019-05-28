@@ -39,10 +39,20 @@ namespace GarbageRoyale.Scripts
             float damage = ps.getBasickAttack();
             int indexItem = gc.players[playerIdSrc].PlayerInventory.itemInventory[inventorySlot];
 
+            bool canBurn = false;
+
             if (indexItem != -1)
             {
                 Item item = gc.items[gc.players[playerIdSrc].PlayerInventory.itemInventory[inventorySlot]].GetComponent<Item>();
                 damage += item.getDamage();
+                
+                if(item.type == 4)
+                {
+                    if(gc.players[playerIdSrc].PlayerTorch.transform.GetChild(0).gameObject.activeSelf)
+                    {
+                        canBurn = true;
+                    }
+                }
             }
 
             if (ps.getStamina() >= ps.getAttackCostStamina())
@@ -51,6 +61,12 @@ namespace GarbageRoyale.Scripts
                 if (target.transform.position.x == x && target.transform.position.y == y && target.transform.position.z == z)
                 {
                     gc.players[playerId].PlayerStats.takeDamage(damage);
+                    if(canBurn && gc.playersActions[playerId].isOiled)
+                    {
+                        gc.playersActions[playerId].isOiled = false;
+                        gc.playersActions[playerId].isBurning = true;
+                        gc.playersActions[playerId].timeLeftBurn = 5.0f;
+                    }
                 }
             }
         }
