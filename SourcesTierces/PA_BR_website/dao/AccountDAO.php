@@ -42,19 +42,25 @@ class AccountDAO
     }
 
     private static function createUserId(){
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
         $charactersLength = strlen($characters);
         $userid = '';
         for ($i = 0; $i < 8; $i++) {
             $userid .= $characters[rand(0, $charactersLength - 1)];
         }
         $userid .= "-";
-        for ($i = 0; $i < 3; $i++) {
-            for ($i = 0; $i < 4; $i++) {
-                $userid .= $characters[rand(0, $charactersLength - 1)];
-            }
-            $userid .= "-";
+        for ($j = 0; $j < 4; $j++) {
+            $userid .= $characters[rand(0, $charactersLength - 1)];
         }
+        $userid .= "-";
+        for ($j = 0; $j < 4; $j++) {
+            $userid .= $characters[rand(0, $charactersLength - 1)];
+        }
+        $userid .= "-";
+        for ($j = 0; $j < 4; $j++) {
+            $userid .= $characters[rand(0, $charactersLength - 1)];
+        }
+        $userid .= "-";
         for ($i = 0; $i < 12; $i++) {
             $userid .= $characters[rand(0, $charactersLength - 1)];
         }
@@ -65,8 +71,32 @@ class AccountDAO
     public static function createAccount($name, $email, $password){
         $db = DatabaseManager::getSharedInstance();
         $userid = AccountDAO::createUserId();
-        $query = $db->exec('INSERT INTO account (account_email, account_nickname, account_password, account_token, account_userid) VALUES (?, ?, ?, ?, ?)', [$email, $name, $password, null, $userid]);
-
+        $query = $db->exec('INSERT INTO account (email, name, password, userid) VALUES (?, ?, ?, ?)', [$email, $name, $password, $userid]);
         return $query != 0;
+    }
+
+    public static function updatePassword($id, $password){
+        $db = DatabaseManager::getSharedInstance();
+        $sql = 'UPDATE account SET password=? WHERE id=?';
+        $query = $db->getPDO()->prepare($sql);
+        $updated = $query->execute([$password, $id]);
+
+        return $updated != 0;
+    }
+
+    public static function disableAccount($id){
+        $db = DatabaseManager::getSharedInstance();
+        $sql = 'UPDATE account SET isActive=0 WHERE id=?';
+        $query = $db->getPDO()->prepare($sql);
+        $disabled = $query->execute([$id]);
+
+        return $disabled != 0;
+    }
+
+    public static function listPlayerScores(){
+        $db = DatabaseManager::getSharedInstance();
+        $result = $db->getAll("SELECT name, score FROM account ORDER BY score DESC");
+
+        return $result;
     }
 }
