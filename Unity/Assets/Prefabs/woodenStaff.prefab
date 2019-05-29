@@ -112,9 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c39cd4afd64358ad9cd78dc50a3b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   itemText: {fileID: 0}
-  initOnStart: 0
+  initOnStart: 1
   isOnline: 0
 --- !u!64 &5911716980773490038
 MeshCollider:

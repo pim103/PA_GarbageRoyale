@@ -5,7 +5,7 @@ namespace GarbageRoyale.Scripts
 {
     public class Skill : MonoBehaviour
     {
-        private int id;
+        /*private int id;
         private string name;
         private float cooldown;
         private float effectCount;
@@ -73,6 +73,6 @@ namespace GarbageRoyale.Scripts
         {
             get => effectCount;
             set => effectCount = value;
-        }
+        }*/
     }
 }

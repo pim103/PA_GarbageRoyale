@@ -60,7 +60,26 @@ namespace GarbageRoyale.Scripts
         public void AnswerCraftItem(int itemtype, int playerIndex)
         {
             Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
-            playerInventory.itemInventory[25] = itemtype;
+            GameObject item;
+            int poolID = 0;
+            int itemID = gc.items.Count;
+            switch (itemtype)
+            {
+                case 2:
+                    poolID = 1;
+                    break;
+            }
+            item = ObjectPooler.SharedInstance.GetPooledObject(poolID);
+            item.GetComponent<Item>().setId(itemID);
+            item.GetComponent<Item>().setType(2);
+            gc.items.Add(itemID,item);
+            playerInventory.itemInventory[25] = itemID;
+            if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            {
+                gc.items[itemID].transform.SetParent(gc.players[playerIndex].PlayerTorch.transform.parent);
+                gc.items[itemID].transform.localPosition = new Vector3(0, 0, 0);
+                gc.items[itemID].transform.localRotation = gc.items[itemID].transform.parent.transform.localRotation;
+            }
         }
         
         [PunRPC]
