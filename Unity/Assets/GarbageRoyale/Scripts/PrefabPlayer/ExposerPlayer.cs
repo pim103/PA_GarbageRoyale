@@ -21,6 +21,7 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public GameObject PlayerStaff;
         public GameObject PlayerToiletPaper;
         public GameObject PlayerJerrican;
+        public GameObject PlayerBottle;
 
         public AudioSource PlayerMovement;
         public AudioSource PlayerAction;

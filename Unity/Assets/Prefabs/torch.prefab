@@ -4933,10 +4933,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c39cd4afd64358ad9cd78dc50a3b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Torch
+  damage: 5
   type: 4
-  itemText: {fileID: 0}
+  itemImg: {fileID: 5833977737841398870, guid: 7fa254dcddedd94428d6748609bc2dfd, type: 3}
   initOnStart: 0
   isOnline: 0
+  scale: {x: 0, y: 0, z: 0}
 --- !u!54 &2802319221098556591
 Rigidbody:
   m_ObjectHideFlags: 0

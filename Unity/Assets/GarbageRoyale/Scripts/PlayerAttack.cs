@@ -46,7 +46,7 @@ namespace GarbageRoyale.Scripts
                 Item item = gc.items[gc.players[playerIdSrc].PlayerInventory.itemInventory[inventorySlot]].GetComponent<Item>();
                 damage += item.getDamage();
                 
-                if(item.type == 4)
+                if(item.name == "Torch")
                 {
                     if(gc.players[playerIdSrc].PlayerTorch.transform.GetChild(0).gameObject.activeSelf)
                     {

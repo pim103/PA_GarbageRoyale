@@ -85,10 +85,6 @@ namespace GarbageRoyale.Scripts.Items
                     gc.playersActions[id].timeLeftBurn = 5.0f;
                 }
             }
-
-            if (other.name == "Water")
-            {
-            }
         }
 
         private void OnTriggerExit(Collider other)

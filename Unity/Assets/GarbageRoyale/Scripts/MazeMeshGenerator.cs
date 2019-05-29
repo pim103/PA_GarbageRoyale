@@ -25,7 +25,7 @@ namespace GarbageRoyale.Scripts
             height = 4f;
         }
 
-        public Mesh FromData(int[,] data, int ypos, GameObject [] Prefabs, int[,] rooms, GameObject floorTransition, Dictionary<string, int> idTrap)
+        public Mesh FromData(int[,] data, int ypos, GameObject [] Prefabs, int[,] rooms, GameObject floorTransition, Dictionary<string, int> idTrap, Dictionary<string, int> itemRoom)
         {
             Mesh maze = new Mesh();
     
@@ -48,7 +48,7 @@ namespace GarbageRoyale.Scripts
                 {
                     if(i == 40 && j == 40)
                     {
-                        var newDoor = Instantiate(Prefabs[10], new Vector3(j * width + ypos, ypos, i * width + ypos),
+                        var newDoor = Instantiate(Prefabs[9], new Vector3(j * width + ypos, ypos, i * width + ypos),
                                         Quaternion.identity);
                         newDoor.GetComponent<OpenDoorScript>().doorId = nbDoors;
                         doors.Add(nbDoors, newDoor);
@@ -59,12 +59,11 @@ namespace GarbageRoyale.Scripts
 
                     if (data[i, j] == 0)
                     {
-                        if (rooms[i, j] != 9999 && rooms[i, j] != 10)
+                        if (rooms[i, j] != 9999 && rooms[i, j] != 9)
                         {
                             if(rooms[i, j] == 3)
                             {
                                 // Add door
-                                
                                 var newTrap = Instantiate(Prefabs[rooms[i,j]], new Vector3(j * width+ypos, ypos, i * width+ypos), Quaternion.identity);
                                 Debug.Log(idTrap[i + ";" + j]);
                                 trap.Add(idTrap[i+";"+j], newTrap);
@@ -76,11 +75,23 @@ namespace GarbageRoyale.Scripts
                                 Debug.Log(idTrap[i + ";" + j]);
                                 buttonsTrap.Add(newButton, idTrap[i + ";" + j]);
                                 buttonsTrapReversed.Add(idTrap[i + ";" + j], newButton);
-                            } else
+                            }
+                            //TODO Instantiate Random ItemRoom
+                            else if(rooms[i, j] == 12)
+                            {
+                                GameObject ItemRoom = Instantiate(Prefabs[12], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
+                                ItemSpawner itemSpawn = ItemRoom.GetComponent<ItemSpawner>();
+
+                                Debug.Log(itemRoom[i + ";" + j]);
+
+                                itemSpawn.itemType = itemRoom[i+";"+j];
+                                itemSpawn.initItems();
+                            }
+                            else
                             {
                                 Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
                             }
-                        } else if (rooms[i, j] == 10)
+                        } else if (rooms[i, j] == 9)
                         {
                             int rand = Random.Range(0, 2);
                             if (rooms[i, j-1] == 9999 && rooms[i, j+1] == 9999)

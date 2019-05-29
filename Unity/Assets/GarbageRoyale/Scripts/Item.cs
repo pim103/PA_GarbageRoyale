@@ -6,19 +6,20 @@ namespace GarbageRoyale.Scripts
     public class Item : MonoBehaviour
     {
         private int id;
-        private string name;
-        private float damage;
+        public string name;
+        public float damage;
         public int type; // Weapon, Utils, Trap
-        public RawImage itemText;
+
+        [SerializeField]
+        public RawImage itemImg;
+
         public bool initOnStart;
         public bool isOnline;
+
+        public Vector3 scale;
         
         private void Start()
         {
-            if (initOnStart)
-            {
-                initItem(type);
-            }
         }
 
         public Item()
@@ -31,6 +32,7 @@ namespace GarbageRoyale.Scripts
 
         public void initItem(int type)
         {
+            /*
             setType(type);
             switch (type)
             {
@@ -56,7 +58,7 @@ namespace GarbageRoyale.Scripts
                 case 4:
                     //Debug.Log("Init Steel Staff");
                     //setId(4);
-                    setName("Lit Torch");
+                    setName("Torch");
                     setDamage(7f);
                     break;
                 case 5:
@@ -66,8 +68,12 @@ namespace GarbageRoyale.Scripts
                     setDamage(-10f);
                     break;
                 case 6:
-                    setName("Oil Container");
+                    setName("Jerrican");
                     setDamage(0f);
+                    break;
+                case 7:
+                    setName("Bottle");
+                    setDamage(7f);
                     break;
                 default:
                     //setId(0);
@@ -75,10 +81,13 @@ namespace GarbageRoyale.Scripts
                     setDamage(0f);
                     break;
             }
+            */
         }
 
         public void resetScale()
         {
+            gameObject.transform.localScale = scale;
+            /*
             switch (type)
             {
                 case 1:
@@ -98,9 +107,12 @@ namespace GarbageRoyale.Scripts
                 case 6:
                     gameObject.transform.localScale = new Vector3(0.075f, 0.075f, 0.6f);
                     break;
+                case 7:
+                    gameObject.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+                    break;
                 default:
                     break;
-            }
+            }*/
         }
         
         public int getId()
@@ -137,15 +149,6 @@ namespace GarbageRoyale.Scripts
         public void setType(int ty)
         {
             this.type = ty;
-        }
-        
-        public RawImage getTexture()
-        {
-            return this.itemText;
-        }
-        public void setTexture(RawImage it)
-        {
-            this.itemText = it;
         }
     }
 }

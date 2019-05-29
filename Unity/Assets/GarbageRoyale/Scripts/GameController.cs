@@ -105,6 +105,9 @@ namespace GarbageRoyale.Scripts
         [SerializeField]
         public GameObject playerGUI;
 
+        [SerializeField]
+        public GameObject[] itemList;
+
         private void Awake()
         {
             nbItems = 0;
@@ -142,7 +145,7 @@ namespace GarbageRoyale.Scripts
             mapTexture = MakeTex(4, 4, new Color(1f, 1f, 1f, 0.5f));
             playerTexture = MakeTex(4, 4, new Color(0.5f, 0.5f, 0.5f, 0.5f));
             generator = GetComponent<MazeConstructor>();      // 2
-            generator.GenerateNewMaze(81, 81);
+            generator.GenerateNewMaze(81, 81, itemList.Length);
 
             moveDirection = new Vector3[10];
             rotationPlayer = new Vector3[10];
