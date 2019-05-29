@@ -26,13 +26,18 @@ namespace GarbageRoyale.Scripts.Menu
         // Start is called before the first frame update
         void Start()
         {
-            
+            registerButton.onClick.AddListener(AskForRegistration);
         }
 
         // Update is called once per frame
         void Update()
         {
         
+        }
+
+        public void AskForRegistration()
+        {
+            controller.launchRegisterMenu();
         }
     }
 }

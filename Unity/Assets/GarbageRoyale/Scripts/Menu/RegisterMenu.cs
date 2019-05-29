@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using System.Collections;
+using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,7 +27,7 @@ namespace GarbageRoyale.Scripts.Menu
 
         void Start()
         {
-            submitButton.onClick.AddListerner(CallRegister)
+            submitButton.onClick.AddListener(CallRegister);
         }
 
         public void CallRegister()
