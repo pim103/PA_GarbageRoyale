@@ -52,6 +52,7 @@ if( count($_POST) >= 4 &&
 
     if($success){
         http_response_code(201);
+        echo "0";
     }
     else{
         http_response_code(500);
