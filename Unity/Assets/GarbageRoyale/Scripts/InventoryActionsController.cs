@@ -108,6 +108,7 @@ namespace GarbageRoyale.Scripts
             if(idItem > -1)
             {
                 typeItem = gc.items[idItem].GetComponent<Item>().type;
+                Debug.Log(typeItem);
             }
 
             photonView.RPC("AnswerChangePlayerHandItem", RpcTarget.All, typeItem, playerIndex);
@@ -182,6 +183,7 @@ namespace GarbageRoyale.Scripts
             gc.players[playerIndex].GetComponent<Inventory>().itemInventory[inventoryPlace] = -1;
             int handChild = -1;
 
+            Debug.Log("type : "+gc.items[idItem].GetComponent<Item>().type);
             gc.items[idItem].transform.parent = null;
             gc.items[idItem].SetActive(true);
             gc.items[idItem].GetComponent<Item>().resetScale();

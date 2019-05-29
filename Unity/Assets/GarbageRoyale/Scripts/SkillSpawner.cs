@@ -36,11 +36,11 @@ namespace GarbageRoyale.Scripts
         public void initSkills()
         {
 
-            skillGob = Instantiate(skillPrefab, new Vector3(_spawnerSkills.transform.position.x, _spawnerSkills.transform.position.y + 0.7f, _spawnerSkills.transform.position.z), Quaternion.identity);
+            /*skillGob = Instantiate(skillPrefab, new Vector3(_spawnerSkills.transform.position.x, _spawnerSkills.transform.position.y + 0.7f, _spawnerSkills.transform.position.z), Quaternion.identity);
             skillGob.name = "Staff_" + _spawnerSkills.transform.position.x + "_" + ((int)_spawnerSkills.transform.position.y + 1) + "_" + _spawnerSkills.transform.position.z;
 
             skillSelf = skillGob.GetComponent<Skill>();
-            skillSelf.initSkill(skillType);
+            skillSelf.initSkill(skillType);*/
 
         }
     }
