@@ -2,6 +2,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -27,6 +28,8 @@ namespace GarbageRoyale.Scripts.Menu
 
         void Start()
         {
+            accountPassword.inputType = InputField.InputType.Password;
+            accountPasswordConfirmation.inputType = InputField.InputType.Password;
             submitButton.onClick.AddListener(CallRegister);
         }
 
@@ -42,11 +45,11 @@ namespace GarbageRoyale.Scripts.Menu
             form.AddField("accountMail", accountMail.text);
             form.AddField("accountPassword", accountPassword.text);
             form.AddField("accountPasswordConfirmation", accountPasswordConfirmation.text);
-            WWW www = new WWW("http://garbagebr.lan/services/account/insert.php");
-            yield return www;
-            if (www.text == "0")
+            var www = UnityWebRequest.Post("http://garbagebr.lan/services/account/insert.php", form);
+            yield return www.SendWebRequest();
+            if (www.isNetworkError || www.isHttpError)
             {
-                Debug.Log("Account created!");
+                Debug.Log(www.error);
             }
             else
             {
