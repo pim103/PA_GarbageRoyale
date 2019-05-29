@@ -112,7 +112,8 @@ namespace GarbageRoyale.Scripts.PlayerController
                         gc.playersActions[i].headIsInWater,
                         gc.players[i].PlayerStats.isDead,
                         gc.playersActions[i].isBurning,
-                        gc.playersActions[i].isOiled
+                        gc.playersActions[i].isOiled,
+                        gc.playersActions[i].isQuiet
                     );
                 }
             }
@@ -267,7 +268,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         }
 
         [PunRPC]
-        private void UpdateDataRPC(int id, bool isMoving, float rotX, float h, float s, float b, bool headIsInWater, bool isDead, bool isBurning, bool isOiled)
+        private void UpdateDataRPC(int id, bool isMoving, float rotX, float h, float s, float b, bool headIsInWater, bool isDead, bool isBurning, bool isOiled, bool isQuiet)
         {
             Vector3 vec = new Vector3(rotX, 0, 0);
             gc.players[id].SpotLight.transform.localEulerAngles = vec;
@@ -282,7 +283,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                 soundNeeded = SoundManager.Sound.FeetOnWater;
             }
 
-            gc.soundManager.playWalkSound(id, isMoving, soundNeeded);
+            gc.soundManager.playWalkSound(id, isMoving, soundNeeded,isQuiet);
 
             PlayerStats ps = gc.players[id].PlayerStats;
             ps.currentHp = h;

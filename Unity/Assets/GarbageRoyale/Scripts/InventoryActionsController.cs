@@ -13,7 +13,7 @@ namespace GarbageRoyale.Scripts
         public Dictionary <int, GameObject> characterList = new Dictionary<int, GameObject>();
         private Inventory playerInventory;
         private GameObject gtest;
-        public int itemInHand;
+        public string itemInHand;
         public int placeInHand = -1;
         public List<GameObject> thrownItems;
         public List<int> thrownItemsCount;
@@ -67,8 +67,13 @@ namespace GarbageRoyale.Scripts
 
             if(Input.GetKeyDown(KeyCode.Mouse1))
             {
-                if(itemInHand == 4) photonView.RPC("LightOnTorchRPC", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                if(itemInHand == 6) photonView.RPC("DisperseOil", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                if(itemInHand == "Torch") photonView.RPC("LightOnTorchRPC", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                if(itemInHand == "Jerrican") photonView.RPC("DisperseOil", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+            }
+            
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                gc.playersActions[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].isQuiet = true;
             }
 
             if (PhotonNetwork.IsMasterClient)
@@ -103,20 +108,19 @@ namespace GarbageRoyale.Scripts
         {
             Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
             var idItem = inventoryData.getItemInventory()[inventoryPlace];
-            var typeItem = 0;
+            var itemName = "";
 
             if(idItem > -1)
             {
-                typeItem = gc.items[idItem].GetComponent<Item>().type;
-                Debug.Log(typeItem);
+                itemName = gc.items[idItem].GetComponent<Item>().name;
             }
 
-            photonView.RPC("AnswerChangePlayerHandItem", RpcTarget.All, typeItem, playerIndex);
-            photonView.RPC("setItemInHand", info.Sender, typeItem);
+            photonView.RPC("AnswerChangePlayerHandItem", RpcTarget.All, itemName, playerIndex);
+            photonView.RPC("setItemInHand", info.Sender, itemName);
         }
     
         [PunRPC]
-        public void AnswerChangePlayerHandItem(int item, int playerIndex)
+        public void AnswerChangePlayerHandItem(string item, int playerIndex)
         {
             int handChild = -1;
             //Desactivate unused items
@@ -124,27 +128,31 @@ namespace GarbageRoyale.Scripts
             gc.players[playerIndex].PlayerTorch.SetActive(false);
             gc.players[playerIndex].PlayerToiletPaper.SetActive(false);
             gc.players[playerIndex].PlayerJerrican.SetActive(false);
+            gc.players[playerIndex].PlayerBottle.SetActive(false);
 
             switch (item)
             {
-                case 1:
+                case "Wooden Staff":
                     handChild = 1;
                     gc.players[playerIndex].PlayerStaff.SetActive(true);
                     break;
-                case 2:
+                case "Steel Staff":
                     handChild = 1;
                     gc.players[playerIndex].PlayerStaff.SetActive(true);
                     break;
-                case 4:
+                case "Torch":
                     handChild = 0;
                     gc.players[playerIndex].PlayerTorch.SetActive(true);
                     break;
-                case 5:
+                case "Toilet Paper":
                     handChild = 2;
                     gc.players[playerIndex].PlayerToiletPaper.SetActive(true);
                     break;
-                case 6:
+                case "Jerrican":
                     gc.players[playerIndex].PlayerJerrican.SetActive(true);
+                    break;
+                case "Bottle":
+                    gc.players[playerIndex].PlayerBottle.SetActive(true);
                     break;
                 default:
                     Debug.Log("Error, wrong item");
@@ -153,7 +161,7 @@ namespace GarbageRoyale.Scripts
         }
 
         [PunRPC]
-        public void setItemInHand(int newItemInHand)
+        public void setItemInHand(string newItemInHand)
         {
             itemInHand = newItemInHand;
         }
@@ -173,12 +181,13 @@ namespace GarbageRoyale.Scripts
             }
             
             int typeItem = gc.items[idItem].GetComponent<Item>().type;
+            string typeName = gc.items[idItem].GetComponent<Item>().name;
 
-            photonView.RPC("AnswerDropItem", RpcTarget.All, typeItem, idItem, playerIndex, throwItem, inventoryPlace);
+            photonView.RPC("AnswerDropItem", RpcTarget.All, typeItem, idItem, playerIndex, throwItem, inventoryPlace, typeName);
         }
     
         [PunRPC]
-        public void AnswerDropItem(int typeItem, int idItem, int playerIndex, bool throwItem, int inventoryPlace)
+        public void AnswerDropItem(int typeItem, int idItem, int playerIndex, bool throwItem, int inventoryPlace, string typeName)
         {
             gc.players[playerIndex].GetComponent<Inventory>().itemInventory[inventoryPlace] = -1;
             int handChild = -1;
@@ -193,17 +202,17 @@ namespace GarbageRoyale.Scripts
                 gc.items[idItem].GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 2, 10), ForceMode.Impulse);
             }
 
-            switch (typeItem)
+            switch (typeName)
             {
-                case 1:
+                case "Wooden Staff":
                     handChild = 1;
                     gc.players[playerIndex].PlayerStaff.SetActive(false);
                     break;
-                case 2:
+                case "Steel Staff":
                     handChild = 1;
                     gc.players[playerIndex].PlayerStaff.SetActive(false);
                     break;
-                case 4:
+                case "Torch":
                     handChild = 0;
                     gc.players[playerIndex].PlayerTorch.SetActive(false);
                     if(gc.players[playerIndex].PlayerTorch.transform.GetChild(0).gameObject.activeSelf)
@@ -214,12 +223,15 @@ namespace GarbageRoyale.Scripts
                         gc.items[idItem].transform.GetChild(0).gameObject.SetActive(false);
                     }
                     break;
-                case 5:
+                case "Toilet Paper":
                     handChild = 2;
                     gc.players[playerIndex].PlayerToiletPaper.SetActive(false);
                     break;
-                case 6:
+                case "Jerrican":
                     gc.players[playerIndex].PlayerJerrican.SetActive(false);
+                    break;
+                case "Bottle":
+                    gc.players[playerIndex].PlayerBottle.SetActive(false);
                     break;
                 default:
                     Debug.Log("Error, wrong item");
@@ -229,7 +241,7 @@ namespace GarbageRoyale.Scripts
             if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
                 gc.GetComponent<InventoryGUI>().deleteSprite(placeInHand);
-                itemInHand = 0;
+                itemInHand = "";
                 placeInHand = -1;
             }
         }
@@ -250,7 +262,7 @@ namespace GarbageRoyale.Scripts
                 return;
             }
 
-            if (gc.players[playerIndex].PlayerTorch.activeSelf && gc.items[itemId].GetComponent<Item>().type == 4)
+            if (gc.players[playerIndex].PlayerTorch.activeSelf && gc.items[itemId].GetComponent<Item>().name == "Torch")
             {
                 bool toggle = !gc.players[playerIndex].PlayerTorch.transform.GetChild(0).gameObject.activeSelf;
                 photonView.RPC("LightOnSpecificTorch", RpcTarget.All, playerIndex, toggle);
@@ -274,7 +286,7 @@ namespace GarbageRoyale.Scripts
             Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
             int itemId = inventoryData.getItemInventory()[placeInHand];
 
-            if (gc.items[itemId].GetComponent<Item>().type == 6 && gc.players[playerIndex].PlayerJerrican.transform.childCount > 0)
+            if (gc.items[itemId].GetComponent<Item>().name == "Jerrican" && gc.players[playerIndex].PlayerJerrican.transform.childCount > 0)
             {
                 photonView.RPC("DisperseSpecificOil", RpcTarget.All, playerIndex);
             }

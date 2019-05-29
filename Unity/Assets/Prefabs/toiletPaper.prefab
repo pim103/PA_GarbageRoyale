@@ -126,10 +126,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c39cd4afd64358ad9cd78dc50a3b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Toilet Paper
+  damage: 0
   type: 5
-  itemText: {fileID: 0}
+  itemImg: {fileID: 5833977737841398870, guid: 14257fc03756d5e40ad7e71c68a168be, type: 3}
   initOnStart: 0
   isOnline: 0
+  scale: {x: 0, y: 0, z: 0}
 --- !u!54 &3129653236317011173
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ namespace GarbageRoyale.Scripts
         
         public Dictionary<string,string>[] roomLinksList = new Dictionary<string, string>[8];
         public Dictionary<string, int>[] roomTrap = new Dictionary<string, int>[8];
+        public Dictionary<string, int>[] itemRoom = new Dictionary<string, int>[8];
 
         private int nbTrap;
 
@@ -29,6 +30,8 @@ namespace GarbageRoyale.Scripts
             {
                 roomLinksList[k] = new Dictionary<string, string>();
                 roomTrap[k] = new Dictionary<string, int>();
+                itemRoom[k] = new Dictionary<string, int>();
+
                 sizeCols = 8 * (10 - k) + 1;
                 sizeRows = 8 * (10 - k) + 1;
                 maze = new int[sizeRows, sizeCols];
@@ -76,7 +79,7 @@ namespace GarbageRoyale.Scripts
             return floors;
         }
 
-        public int[][,] RoomData(int sizeRows, int sizeCols, int[][,] maze)
+        public int[][,] RoomData(int sizeRows, int sizeCols, int[][,] maze, int nbItems)
         {
             int[][,] floorRooms = new int[8][,];
             int[,] rooms;
@@ -118,7 +121,13 @@ namespace GarbageRoyale.Scripts
                             
                         } else if (maze[k][i, j] == 0 && rooms[i,j] != 3 && rooms[i,j] != 2)
                         {
-                            rooms[i, j] = Random.Range(5, 17);
+                            int rand = Random.Range(5, 13);
+                            if(rand == 12)
+                            {
+                                int randItem = Random.Range(0, nbItems);
+                                itemRoom[k].Add( i + ";" + j, randItem);
+                            }
+                            rooms[i, j] = rand;
                             //rooms[i, j] = 3;
                         }
                     }
@@ -207,7 +216,16 @@ namespace GarbageRoyale.Scripts
                                         }
                                     }
                                 }
-                                else rooms[i, j] = Random.Range(5, 17);
+                                else
+                                {
+                                    int rand = Random.Range(5, 13);
+                                    if (rand == 12 && !itemRoom[k].ContainsKey(i+";"+j))
+                                    {
+                                        int randItem = Random.Range(0, nbItems);
+                                        itemRoom[k].Add(i + ";" + j, randItem);
+                                    }
+                                    rooms[i, j] = rand;
+                                }
                             }
                         }
                     }

@@ -12129,6 +12129,8 @@ GameObject:
   - component: {fileID: 666817500}
   - component: {fileID: 666817499}
   - component: {fileID: 666817503}
+  - component: {fileID: 666817505}
+  - component: {fileID: 666817504}
   m_Layer: 5
   m_Name: DetailedInventory
   m_TagString: Untagged
@@ -12256,6 +12258,40 @@ MonoBehaviour:
   - {fileID: 131821241}
   - {fileID: 315195659}
   CraftingResult: {fileID: 1762754466}
+--- !u!114 &666817504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666817498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17371ee0c7991fc40889821c103e5aad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &666817505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666817498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 36
+  InstantiationId: 36
+  isRuntimeInstantiated: 0
 --- !u!1001 &669335996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23522,14 +23558,15 @@ MonoBehaviour:
   - {fileID: 4449432576064577553, guid: 0689db0e62733f34381d05548c4f71cd, type: 3}
   - {fileID: 2008090796647901747, guid: 443d6fae659f6d44baaa09efd4c1a828, type: 3}
   - {fileID: 4449432576064577553, guid: a1fd8cbca2f1b784ca383feb0daf6291, type: 3}
-  - {fileID: 4449432576064577553, guid: a4ecdf22c5717d7429e4a9f29d31c4cf, type: 3}
   - {fileID: 4449432576064577553, guid: e3c7774464e7fe04aad4718ab99fea29, type: 3}
-  - {fileID: 4449432576064577553, guid: 8707b6970f3821d409e9587057f031ca, type: 3}
-  - {fileID: 4449432576064577553, guid: 114d2cf3190fda242820f7724b2b5969, type: 3}
-  - {fileID: 4449432576064577553, guid: 40bf83f1f5e9c104ba64ee3587bd730b, type: 3}
-  - {fileID: 4449432576064577553, guid: b78af0028a570964cacde0be665b3db0, type: 3}
   - {fileID: 765828400005556183, guid: 1ccd3b25d3e123d4fa9353bdd8a0b37b, type: 3}
+  - {fileID: 4449432576064577553, guid: 40bf83f1f5e9c104ba64ee3587bd730b, type: 3}
+  - {fileID: 4449432576064577553, guid: a4ecdf22c5717d7429e4a9f29d31c4cf, type: 3}
+  - {fileID: 4449432576064577553, guid: 8707b6970f3821d409e9587057f031ca, type: 3}
+  - {fileID: 4449432576064577553, guid: b78af0028a570964cacde0be665b3db0, type: 3}
+  - {fileID: 4449432576064577553, guid: 114d2cf3190fda242820f7724b2b5969, type: 3}
   - {fileID: 4449432576064577553, guid: 6a4df48ac1ee2ef4687f74ddaf88cbc4, type: 3}
+  - {fileID: 4449432576064577553, guid: a080868dd6f02274ea7c0a61ea3e3783, type: 3}
   floorTransition: {fileID: 4449432576064577553, guid: 503958394bf416442aa3518a8fdcdf19,
     type: 3}
   mazeMat1: {fileID: 2100000, guid: 2019d743bc0984ba1b81150901d44455, type: 2}
@@ -23589,6 +23626,13 @@ MonoBehaviour:
   nbItems: 0
   invHUD: {fileID: 666817498}
   playerGUI: {fileID: 568080247}
+  itemList:
+  - {fileID: 9212573172730634276, guid: d6004d073389f734e860e202fe8fe23b, type: 3}
+  - {fileID: 9212573172730634276, guid: d6004d073389f734e860e202fe8fe23b, type: 3}
+  - {fileID: 520855234544257083, guid: 79998b8b9a19e684eb8d5252ff930b7a, type: 3}
+  - {fileID: 4583224748811352036, guid: 05be5c53f20f9964e8ab9bcfe54397fc, type: 3}
+  - {fileID: 2021632103173086074, guid: dde2fbe1b24020242bba4da8d397796b, type: 3}
+  - {fileID: 2426832509835850237, guid: ef2f753e950177242b3b9ed95c596894, type: 3}
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0
@@ -23736,35 +23780,9 @@ MonoBehaviour:
       type: 3}
     amountToPool: 50
     shouldExpand: 1
-  - objectToPool: {fileID: 7771420425518142378, guid: 7c96079aa878020479bbd2e9093f1d29,
+  - objectToPool: {fileID: 9212573172730634276, guid: d6004d073389f734e860e202fe8fe23b,
       type: 3}
     amountToPool: 50
-    shouldExpand: 1
-  - objectToPool: {fileID: 98, guid: 7f38b25077dc64241933283385be2ae5, type: 3}
-    amountToPool: 100
-    shouldExpand: 0
-  - objectToPool: {fileID: 50948832, guid: c86b252b8dffae84092b8c1a0e6dd6c8, type: 3}
-    amountToPool: 50
-    shouldExpand: 1
-  - objectToPool: {fileID: 2340599181496208596, guid: 4b07d8887588dfb408d48ce21fe2f8ce,
-      type: 3}
-    amountToPool: 20
-    shouldExpand: 1
-  - objectToPool: {fileID: 4583224748811352036, guid: 05be5c53f20f9964e8ab9bcfe54397fc,
-      type: 3}
-    amountToPool: 20
-    shouldExpand: 1
-  - objectToPool: {fileID: 7001543911256280994, guid: b82a50dc242df944e94274d4a40dbf42,
-      type: 3}
-    amountToPool: 20
-    shouldExpand: 1
-  - objectToPool: {fileID: 520855234544257083, guid: 79998b8b9a19e684eb8d5252ff930b7a,
-      type: 3}
-    amountToPool: 20
-    shouldExpand: 1
-  - objectToPool: {fileID: 6751829863801708212, guid: 1bd8313a6e628824183f7970d4cd11bb,
-      type: 3}
-    amountToPool: 20
     shouldExpand: 1
   pooledObjects:
   - {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117, type: 3}
@@ -23808,7 +23826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 1103656770}
-  itemInHand: 0
+  itemInHand: 
   placeInHand: 0
   thrownItems: []
   thrownItemsCount: 
@@ -23825,19 +23843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56cccb19fbbd04c42a73e20b9f920ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsToPool:
-  - objectToPool: woodenStaffOnline
-    amountToPool: 10
-    shouldExpand: 1
-  - objectToPool: torchOnline
-    amountToPool: 10
-    shouldExpand: 1
-  - objectToPool: implantOnline
-    amountToPool: 10
-    shouldExpand: 1
-  - objectToPool: toiletPaperOnline
-    amountToPool: 10
-    shouldExpand: 1
+  itemsToPool: []
   pooledObjects: []
 --- !u!114 &1103656785
 MonoBehaviour:
@@ -23858,6 +23864,7 @@ MonoBehaviour:
   - {fileID: 5833977737841398870, guid: 7fa254dcddedd94428d6748609bc2dfd, type: 3}
   - {fileID: 5833977737841398870, guid: 14257fc03756d5e40ad7e71c68a168be, type: 3}
   - {fileID: 5833977737841398870, guid: 958b20c1d58b5ad4897855919e7c5713, type: 3}
+  - {fileID: 5833977737841398870, guid: e218f15e510a09c4087eb399b5a934f3, type: 3}
   healthBar: {fileID: 669336003}
   staminaBar: {fileID: 669336002}
   breathBar: {fileID: 669336001}
@@ -36359,7 +36366,8 @@ PrefabInstance:
       propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2291714554260049613, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
 --- !u!4 &1944728898 stripped
 Transform:

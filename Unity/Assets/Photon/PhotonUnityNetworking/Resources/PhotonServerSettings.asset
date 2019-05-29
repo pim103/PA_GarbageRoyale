@@ -120,4 +120,8 @@ MonoBehaviour:
   - testrpc
   - DisperseOil
   - DisperseSpecificOil
+  - AnswerCraftItem
+  - AnswerDeleteCraftItem
+  - AskCraftItem
+  - AskDeleteCraftItem
   DisableAutoOpenWizard: 1

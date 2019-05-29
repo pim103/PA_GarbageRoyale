@@ -28,7 +28,8 @@ namespace GarbageRoyale.Scripts.Menu
         // Start is called before the first frame update
         void Start()
         {
-            launchLoginMenu();
+            //launchLoginMenu();
+            launchMainMenu();
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

@@ -30,6 +30,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         public bool isOiled { get; set; }
         public float timeLeftOiled;
         public bool isBurning { get; set; }
+        public bool isQuiet { get; set; }
         public float timeLeftBurn;
     }
 }
