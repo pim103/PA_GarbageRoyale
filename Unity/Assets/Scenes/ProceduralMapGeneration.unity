@@ -12289,13 +12289,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-<<<<<<< HEAD
   viewIdField: 36
   InstantiationId: 36
-=======
-  viewIdField: 9
-  InstantiationId: 9
->>>>>>> Crafting update
   isRuntimeInstantiated: 0
 --- !u!1001 &669335996
 PrefabInstance:
