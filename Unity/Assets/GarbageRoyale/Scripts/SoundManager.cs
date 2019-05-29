@@ -178,47 +178,50 @@ namespace GarbageRoyale.Scripts
             //photonView.RPC("playAmbientSound", info.Sender, playerMov.getHeadIsOnWater());
         }
 
-        public void playWalkSound(int idPlayer, bool playSong, Sound soundNeeded)
+        public void playWalkSound(int idPlayer, bool playSong, Sound soundNeeded, bool isQuiet)
         {
-            AudioSource audio = gc.players[idPlayer].PlayerMovement;
+            if (!isQuiet)
+            {
+                AudioSource audio = gc.players[idPlayer].PlayerMovement;
 
-            if (gc.AvatarToUserId[idPlayer] == PhotonNetwork.AuthValues.UserId)
-            {
-                if (soundNeeded == Sound.Swim && lastAmbientSoundPlayed == Sound.Cave)
+                if (gc.AvatarToUserId[idPlayer] == PhotonNetwork.AuthValues.UserId)
                 {
-                    initWaterSound();
-                }
-                else if(soundNeeded != Sound.Swim && lastAmbientSoundPlayed == Sound.Water)
-                {
-                    initAmbientSound();
-                }
-            }
-
-            if(lastSoundPlayed[idPlayer] != soundNeeded)
-            {
-                audio.Stop();
-                lastSoundPlayed[idPlayer] = soundNeeded;
-            }
-
-            if (!playSong)
-            {
-                audio.Stop();
-            }
-            else
-            {
-                if (!audio.isPlaying)
-                {
-                    switch(soundNeeded)
+                    if (soundNeeded == Sound.Swim && lastAmbientSoundPlayed == Sound.Cave)
                     {
-                        case Sound.Walk:
-                            audio.PlayOneShot(walkSound);
-                            break;
-                        case Sound.FeetOnWater:
-                            audio.PlayOneShot(walkWaterSound);
-                            break;
-                        case Sound.Swim:
-                            audio.PlayOneShot(swimmingSound);
-                            break;
+                        initWaterSound();
+                    }
+                    else if (soundNeeded != Sound.Swim && lastAmbientSoundPlayed == Sound.Water)
+                    {
+                        initAmbientSound();
+                    }
+                }
+
+                if (lastSoundPlayed[idPlayer] != soundNeeded)
+                {
+                    audio.Stop();
+                    lastSoundPlayed[idPlayer] = soundNeeded;
+                }
+
+                if (!playSong)
+                {
+                    audio.Stop();
+                }
+                else
+                {
+                    if (!audio.isPlaying)
+                    {
+                        switch (soundNeeded)
+                        {
+                            case Sound.Walk:
+                                audio.PlayOneShot(walkSound);
+                                break;
+                            case Sound.FeetOnWater:
+                                audio.PlayOneShot(walkWaterSound);
+                                break;
+                            case Sound.Swim:
+                                audio.PlayOneShot(swimmingSound);
+                                break;
+                        }
                     }
                 }
             }

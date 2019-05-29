@@ -70,6 +70,11 @@ namespace GarbageRoyale.Scripts
                 if(itemInHand == "Torch") photonView.RPC("LightOnTorchRPC", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 if(itemInHand == "Jerrican") photonView.RPC("DisperseOil", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
             }
+            
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                gc.playersActions[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].isQuiet = true;
+            }
 
             if (PhotonNetwork.IsMasterClient)
             {

@@ -309,6 +309,7 @@ namespace GarbageRoyale.Scripts
                 playersActionsActivated[i].isBurning = false;
                 playersActionsActivated[i].timeLeftBurn = 5.0f;
                 playersActionsActivated[i].timeLeftOiled = 15.0f;
+                playersActionsActivated[i].isQuiet = false;
             }
             if (PhotonNetwork.AuthValues.UserId == AvatarToUserId[id])
             {

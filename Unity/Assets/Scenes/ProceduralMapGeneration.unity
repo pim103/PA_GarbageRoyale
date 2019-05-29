@@ -12289,8 +12289,13 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
+<<<<<<< HEAD
   viewIdField: 36
   InstantiationId: 36
+=======
+  viewIdField: 9
+  InstantiationId: 9
+>>>>>>> Crafting update
   isRuntimeInstantiated: 0
 --- !u!1001 &669335996
 PrefabInstance:
@@ -23780,35 +23785,9 @@ MonoBehaviour:
       type: 3}
     amountToPool: 50
     shouldExpand: 1
-  - objectToPool: {fileID: 7771420425518142378, guid: 7c96079aa878020479bbd2e9093f1d29,
+  - objectToPool: {fileID: 9212573172730634276, guid: d6004d073389f734e860e202fe8fe23b,
       type: 3}
     amountToPool: 50
-    shouldExpand: 1
-  - objectToPool: {fileID: 98, guid: 7f38b25077dc64241933283385be2ae5, type: 3}
-    amountToPool: 100
-    shouldExpand: 0
-  - objectToPool: {fileID: 50948832, guid: c86b252b8dffae84092b8c1a0e6dd6c8, type: 3}
-    amountToPool: 50
-    shouldExpand: 1
-  - objectToPool: {fileID: 2340599181496208596, guid: 4b07d8887588dfb408d48ce21fe2f8ce,
-      type: 3}
-    amountToPool: 20
-    shouldExpand: 1
-  - objectToPool: {fileID: 4583224748811352036, guid: 05be5c53f20f9964e8ab9bcfe54397fc,
-      type: 3}
-    amountToPool: 20
-    shouldExpand: 1
-  - objectToPool: {fileID: 7001543911256280994, guid: b82a50dc242df944e94274d4a40dbf42,
-      type: 3}
-    amountToPool: 20
-    shouldExpand: 1
-  - objectToPool: {fileID: 520855234544257083, guid: 79998b8b9a19e684eb8d5252ff930b7a,
-      type: 3}
-    amountToPool: 20
-    shouldExpand: 1
-  - objectToPool: {fileID: 6751829863801708212, guid: 1bd8313a6e628824183f7970d4cd11bb,
-      type: 3}
-    amountToPool: 20
     shouldExpand: 1
   pooledObjects:
   - {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117, type: 3}
@@ -23869,19 +23848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56cccb19fbbd04c42a73e20b9f920ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsToPool:
-  - objectToPool: woodenStaffOnline
-    amountToPool: 10
-    shouldExpand: 1
-  - objectToPool: torchOnline
-    amountToPool: 10
-    shouldExpand: 1
-  - objectToPool: implantOnline
-    amountToPool: 10
-    shouldExpand: 1
-  - objectToPool: toiletPaperOnline
-    amountToPool: 10
-    shouldExpand: 1
+  itemsToPool: []
   pooledObjects: []
 --- !u!114 &1103656785
 MonoBehaviour:
