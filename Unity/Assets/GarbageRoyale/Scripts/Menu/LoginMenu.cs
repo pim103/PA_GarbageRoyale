@@ -1,6 +1,10 @@
-﻿using Photon.Pun;
+﻿using System;
+using System.Collections;
+using Photon.Pun;
+using Photon.Pun.Demo.Cockpit;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -22,20 +26,46 @@ namespace GarbageRoyale.Scripts.Menu
 
         [SerializeField]
         private StartGame controller;
+        
 
         // Start is called before the first frame update
         void Start()
         {
-            registerButton.onClick.AddListener(AskForRegistration);
+            accountPassword.inputType = InputField.InputType.Password;
+            submitButton.onClick.AddListener(CallLogin);
+            registerButton.onClick.AddListener(GoToRegistrationScreen);
         }
 
-        // Update is called once per frame
-        void Update()
+        public void CallLogin()
         {
-        
+            StartCoroutine(Login());
         }
 
-        public void AskForRegistration()
+        IEnumerator Login()
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("accountEmail", accountMail.text);
+            form.AddField("accountPassword", accountPassword.text);
+            var www = UnityWebRequest.Post("http://garbage-royale.heolia.eu/services/account/logging.php", form);
+            yield return www.SendWebRequest();
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log(www.responseCode);
+                Debug.Log(www.downloadHandler.text);
+                if (www.responseCode == 202)
+                {
+                    PhotonNetwork.ConnectUsingSettings();
+                    PhotonNetwork.AuthValues = new AuthenticationValues(www.downloadHandler.text);
+                    controller.launchMainMenu();
+                }
+            }
+        }
+
+        public void GoToRegistrationScreen()
         {
             controller.launchRegisterMenu();
         }

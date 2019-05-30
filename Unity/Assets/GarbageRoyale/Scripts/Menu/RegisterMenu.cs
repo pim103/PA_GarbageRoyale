@@ -31,11 +31,17 @@ namespace GarbageRoyale.Scripts.Menu
             accountPassword.inputType = InputField.InputType.Password;
             accountPasswordConfirmation.inputType = InputField.InputType.Password;
             submitButton.onClick.AddListener(CallRegister);
+            exitButton.onClick.AddListener(ReturnToLoginScreen);
         }
 
         public void CallRegister()
         {
             StartCoroutine(Register());
+        }
+
+        public void ReturnToLoginScreen()
+        {
+            controller.launchLoginMenu();
         }
 
         IEnumerator Register()
@@ -45,7 +51,7 @@ namespace GarbageRoyale.Scripts.Menu
             form.AddField("accountMail", accountMail.text);
             form.AddField("accountPassword", accountPassword.text);
             form.AddField("accountPasswordConfirmation", accountPasswordConfirmation.text);
-            var www = UnityWebRequest.Post("http://garbagebr.lan/services/account/insert.php", form);
+            var www = UnityWebRequest.Post("http://garbage-royale.heolia.eu/services/account/insert.php", form);
             yield return www.SendWebRequest();
             if (www.isNetworkError || www.isHttpError)
             {
@@ -53,7 +59,12 @@ namespace GarbageRoyale.Scripts.Menu
             }
             else
             {
-                Debug.Log(www);
+                Debug.Log(www.responseCode);
+                Debug.Log(www.downloadHandler.text);
+                if (www.responseCode == 201)
+                {
+                    ReturnToLoginScreen();
+                }
             }
         }
     }

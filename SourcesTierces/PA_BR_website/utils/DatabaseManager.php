@@ -19,7 +19,7 @@ class DatabaseManager {
         $options = array(
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
         );
-        $this->pdo = new PDO('mysql:host=heolia.eu;
+        $this->pdo = new PDO('mysql:host=localhost;
        dbname=gr_prod', 'garbage_r', 'oLq1JZe9rcJZo8if', $options);
     }
 

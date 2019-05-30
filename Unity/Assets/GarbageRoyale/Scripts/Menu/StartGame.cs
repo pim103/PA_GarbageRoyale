@@ -29,7 +29,7 @@ namespace GarbageRoyale.Scripts.Menu
         void Start()
         {
             //launchLoginMenu();
-            launchMainMenu();
+            launchLoginMenu();
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
