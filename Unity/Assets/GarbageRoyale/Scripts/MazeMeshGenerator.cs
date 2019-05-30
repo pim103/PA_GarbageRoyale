@@ -65,14 +65,14 @@ namespace GarbageRoyale.Scripts
                             {
                                 // Add door
                                 var newTrap = Instantiate(Prefabs[rooms[i,j]], new Vector3(j * width+ypos, ypos, i * width+ypos), Quaternion.identity);
-                                Debug.Log(idTrap[i + ";" + j]);
+                                //Debug.Log(idTrap[i + ";" + j]);
                                 trap.Add(idTrap[i+";"+j], newTrap);
                             }
                             else if (rooms[i, j] == 2)
                             {
                                 // Add button
                                 var newButton = Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
-                                Debug.Log(idTrap[i + ";" + j]);
+                                //Debug.Log(idTrap[i + ";" + j]);
                                 buttonsTrap.Add(newButton, idTrap[i + ";" + j]);
                                 buttonsTrapReversed.Add(idTrap[i + ";" + j], newButton);
                             }
@@ -82,7 +82,7 @@ namespace GarbageRoyale.Scripts
                                 GameObject ItemRoom = Instantiate(Prefabs[12], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
                                 ItemSpawner itemSpawn = ItemRoom.GetComponent<ItemSpawner>();
 
-                                Debug.Log(itemRoom[i + ";" + j]);
+                                //Debug.Log(itemRoom[i + ";" + j]);
 
                                 itemSpawn.itemType = itemRoom[i+";"+j];
                                 itemSpawn.initItems();

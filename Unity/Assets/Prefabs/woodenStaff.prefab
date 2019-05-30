@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Wooden Staff
   damage: 15
-  type: 0
+  type: 1
   itemImg: {fileID: 5833977737841398870, guid: ad67ab737c4b5a94f9a74e0fed20b690, type: 3}
   initOnStart: 0
   isOnline: 0

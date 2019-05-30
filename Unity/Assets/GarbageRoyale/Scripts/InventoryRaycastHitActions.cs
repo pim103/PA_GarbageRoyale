@@ -132,7 +132,7 @@ namespace GarbageRoyale.Scripts
             }
 
             //Si c'est une bouteille
-            if(gc.items[itemId].GetComponent<Item>().type == 7)
+            if(gc.items[itemId].GetComponent<Item>().name == "Bottle")
             {
                 if (gc.items[itemId].GetComponent<BottleScript>().isBroken)
                 {

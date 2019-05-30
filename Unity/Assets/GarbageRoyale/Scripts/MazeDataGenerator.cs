@@ -132,7 +132,7 @@ namespace GarbageRoyale.Scripts
                         }
                     }
                 }
-
+                
                 while (trapDoorCount < frequency)
                 {
                     //if (k == 7) break;
@@ -202,7 +202,10 @@ namespace GarbageRoyale.Scripts
                                                                   " bouton : " + n * 4 + " " + p * 4);
                                                         roomLinksList[k].Add(i + ";" + j, n + ";" + p);
                                                         roomTrap[k].Add(i + ";" + j, nbTrap);
-                                                        roomTrap[k].Add(n + ";" + p, nbTrap);
+                                                        if(!roomTrap[k].ContainsKey(n+";"+p))
+                                                        {
+                                                            roomTrap[k].Add(n + ";" + p, nbTrap);
+                                                        }
                                                         nbTrap++;
                                                         rooms[n, p] = 2;
                                                         breaker = true;

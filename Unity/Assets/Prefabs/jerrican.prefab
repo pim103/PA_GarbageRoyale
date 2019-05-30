@@ -4827,7 +4827,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Jerrican
   damage: 5
-  type: 0
+  type: 6
   itemImg: {fileID: 5833977737841398870, guid: 958b20c1d58b5ad4897855919e7c5713, type: 3}
   initOnStart: 0
   isOnline: 0
