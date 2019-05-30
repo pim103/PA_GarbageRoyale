@@ -18,6 +18,11 @@ namespace GarbageRoyale.Scripts
         // Start is called before the first frame update
         private void LateUpdate()
         {
+            if(!gc.endOfInit)
+            {
+                return;
+            }
+
             if(Input.GetMouseButtonDown(0))
             {
                 photonView.RPC("PunchRPC", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId);

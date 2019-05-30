@@ -38,10 +38,6 @@ namespace GarbageRoyale.Scripts
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             //Debug.Log(info);
             //itemType = 1; //Random.Range(1, 4);
-            for (var i = 0; i < gc.itemList.Length; i++)
-            {
-                Debug.Log(gc.itemList[i].name);
-            }
 
             itemGob = Instantiate(
                 gc.itemList[itemType], 
@@ -55,7 +51,7 @@ namespace GarbageRoyale.Scripts
             gc.nbItems++;
             //itemGob.AddComponent<Item>();
             itemSelf = itemGob.GetComponent<Item>();
-            itemSelf.type = itemType;
+            //itemSelf.type = itemType;
             itemSelf.scale = itemGob.transform.localScale;
             /*if (itemType == 2)
             {
