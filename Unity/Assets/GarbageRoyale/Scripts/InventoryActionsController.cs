@@ -129,6 +129,9 @@ namespace GarbageRoyale.Scripts
             gc.players[playerIndex].PlayerToiletPaper.SetActive(false);
             gc.players[playerIndex].PlayerJerrican.SetActive(false);
             gc.players[playerIndex].PlayerBottle.SetActive(false);
+            gc.players[playerIndex].PlayerBrokenBottle.SetActive(false);
+            gc.players[playerIndex].PlayerBottleOil.SetActive(false);
+            gc.players[playerIndex].PlayerMolotov.SetActive(false);
 
             switch (item)
             {
@@ -153,6 +156,15 @@ namespace GarbageRoyale.Scripts
                     break;
                 case "Bottle":
                     gc.players[playerIndex].PlayerBottle.SetActive(true);
+                    break;
+                case "Broken Bottle":
+                    gc.players[playerIndex].PlayerBrokenBottle.SetActive(true);
+                    break;
+                case "Bottle Oil":
+                    gc.players[playerIndex].PlayerBottleOil.SetActive(true);
+                    break;
+                case "Molotov":
+                    gc.players[playerIndex].PlayerMolotov.SetActive(true);
                     break;
                 default:
                     Debug.Log("Error, wrong item");
@@ -192,10 +204,18 @@ namespace GarbageRoyale.Scripts
             gc.players[playerIndex].GetComponent<Inventory>().itemInventory[inventoryPlace] = -1;
             int handChild = -1;
 
-            Debug.Log("type : "+gc.items[idItem].GetComponent<Item>().type);
             gc.items[idItem].transform.parent = null;
             gc.items[idItem].SetActive(true);
             gc.items[idItem].GetComponent<Item>().resetScale();
+
+            gc.players[playerIndex].PlayerStaff.SetActive(false);
+            gc.players[playerIndex].PlayerTorch.SetActive(false);
+            gc.players[playerIndex].PlayerToiletPaper.SetActive(false);
+            gc.players[playerIndex].PlayerJerrican.SetActive(false);
+            gc.players[playerIndex].PlayerBottle.SetActive(false);
+            gc.players[playerIndex].PlayerBrokenBottle.SetActive(false);
+            gc.players[playerIndex].PlayerBottleOil.SetActive(false);
+            gc.players[playerIndex].PlayerMolotov.SetActive(false);
 
             if (throwItem)
             {
@@ -204,14 +224,6 @@ namespace GarbageRoyale.Scripts
 
             switch (typeName)
             {
-                case "Wooden Staff":
-                    handChild = 1;
-                    gc.players[playerIndex].PlayerStaff.SetActive(false);
-                    break;
-                case "Steel Staff":
-                    handChild = 1;
-                    gc.players[playerIndex].PlayerStaff.SetActive(false);
-                    break;
                 case "Torch":
                     handChild = 0;
                     gc.players[playerIndex].PlayerTorch.SetActive(false);
@@ -223,18 +235,7 @@ namespace GarbageRoyale.Scripts
                         gc.items[idItem].transform.GetChild(0).gameObject.SetActive(false);
                     }
                     break;
-                case "Toilet Paper":
-                    handChild = 2;
-                    gc.players[playerIndex].PlayerToiletPaper.SetActive(false);
-                    break;
-                case "Jerrican":
-                    gc.players[playerIndex].PlayerJerrican.SetActive(false);
-                    break;
-                case "Bottle":
-                    gc.players[playerIndex].PlayerBottle.SetActive(false);
-                    break;
                 default:
-                    Debug.Log("Error, wrong item");
                     break;
             }
             

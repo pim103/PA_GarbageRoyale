@@ -23638,7 +23638,7 @@ MonoBehaviour:
   - {fileID: 520855234544257083, guid: 79998b8b9a19e684eb8d5252ff930b7a, type: 3}
   - {fileID: 4583224748811352036, guid: 05be5c53f20f9964e8ab9bcfe54397fc, type: 3}
   - {fileID: 2021632103173086074, guid: dde2fbe1b24020242bba4da8d397796b, type: 3}
-  - {fileID: 2426832509835850237, guid: ef2f753e950177242b3b9ed95c596894, type: 3}
+  - {fileID: 5374713846175401429, guid: 2cec4c6330833bb48829e1b6a03b1200, type: 3}
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0
@@ -23790,6 +23790,16 @@ MonoBehaviour:
       type: 3}
     amountToPool: 50
     shouldExpand: 1
+  - objectToPool: {fileID: 1657766645, guid: 2b160a63a0248b54f83dec888052867d, type: 3}
+    amountToPool: 50
+    shouldExpand: 1
+  - objectToPool: {fileID: 312816138, guid: ea604da19b898d84291dc6e40ff291ab, type: 3}
+    amountToPool: 50
+    shouldExpand: 1
+  - objectToPool: {fileID: 8924575159257347316, guid: a71caef89e4c3e54cb7675be94b1eb8f,
+      type: 3}
+    amountToPool: 50
+    shouldExpand: 1
   pooledObjects:
   - {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117, type: 3}
 --- !u!114 &1103656781
@@ -23811,7 +23821,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1103656768}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89402caab2fee7e409f30c7c34decfba, type: 3}
   m_Name: 
@@ -23871,6 +23881,8 @@ MonoBehaviour:
   - {fileID: 5833977737841398870, guid: 14257fc03756d5e40ad7e71c68a168be, type: 3}
   - {fileID: 5833977737841398870, guid: 958b20c1d58b5ad4897855919e7c5713, type: 3}
   - {fileID: 5833977737841398870, guid: e218f15e510a09c4087eb399b5a934f3, type: 3}
+  - {fileID: 5833977737841398870, guid: 25ef27347d9ab2f4f9a91af739ee6a99, type: 3}
+  - {fileID: 5833977737841398870, guid: cee90852b1232ad4196833231c7a1b85, type: 3}
   healthBar: {fileID: 669336003}
   staminaBar: {fileID: 669336002}
   breathBar: {fileID: 669336001}
@@ -36440,7 +36452,7 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 2291714554260049613, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
 --- !u!4 &1944728898 stripped
 Transform:

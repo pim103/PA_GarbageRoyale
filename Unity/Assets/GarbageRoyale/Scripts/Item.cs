@@ -5,7 +5,7 @@ namespace GarbageRoyale.Scripts
 {
     public class Item : MonoBehaviour
     {
-        private int id;
+        public int id;
         public string name;
         public float damage;
         public int type; // Weapon, Utils, Trap

@@ -6,12 +6,6 @@ namespace GarbageRoyale.Scripts.Items
 {
     public class BottleScript : MonoBehaviour
     {
-        [SerializeField]
-        public GameObject bottle;
-
-        [SerializeField]
-        public GameObject brokenBottle;
-
         private int countChoc;
         public bool isBroken;
 
@@ -36,9 +30,16 @@ namespace GarbageRoyale.Scripts.Items
 
         private void broke()
         {
+            GameController gc = GameObject.Find("Controller").GetComponent<GameController>();
             isBroken = true;
-            bottle.SetActive(false);
+            gameObject.SetActive(false);
+            GameObject brokenBottle = ObjectPooler.SharedInstance.GetPooledObject(4);
+            brokenBottle.transform.position = transform.position;
+            brokenBottle.transform.rotation = transform.rotation;
             brokenBottle.SetActive(true);
+            brokenBottle.GetComponent<Item>().id = gc.items.Count;
+
+            gc.items.Add(gc.items.Count, brokenBottle);
         }
     }
 }

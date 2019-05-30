@@ -63,13 +63,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c39cd4afd64358ad9cd78dc50a3b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: -1
   name: Bottle
-  damage: 10
+  damage: 8
   type: 7
   itemImg: {fileID: 5833977737841398870, guid: e218f15e510a09c4087eb399b5a934f3, type: 3}
   initOnStart: 0
   isOnline: 0
-  scale: {x: 0, y: 0, z: 0}
+  scale: {x: 1, y: 1, z: 1}
 --- !u!114 &192885894954926845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,16 +107,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2426832509835850236}
     m_Modifications:
-    - target: {fileID: 5374713846175401429, guid: 2cec4c6330833bb48829e1b6a03b1200,
-        type: 3}
-      propertyPath: m_Name
-      value: bottle
-      objectReference: {fileID: 0}
-    - target: {fileID: 5374713846175401429, guid: 2cec4c6330833bb48829e1b6a03b1200,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7853382125135620232, guid: 2cec4c6330833bb48829e1b6a03b1200,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -171,6 +162,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 89.99999
       objectReference: {fileID: 0}
+    - target: {fileID: 5374713846175401429, guid: 2cec4c6330833bb48829e1b6a03b1200,
+        type: 3}
+      propertyPath: m_Name
+      value: bottle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5374713846175401429, guid: 2cec4c6330833bb48829e1b6a03b1200,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6450192023192726326, guid: 2cec4c6330833bb48829e1b6a03b1200, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2cec4c6330833bb48829e1b6a03b1200, type: 3}
@@ -193,16 +194,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2426832509835850236}
     m_Modifications:
-    - target: {fileID: 8924575159257347316, guid: a71caef89e4c3e54cb7675be94b1eb8f,
-        type: 3}
-      propertyPath: m_Name
-      value: brokenBottle
-      objectReference: {fileID: 0}
-    - target: {fileID: 8924575159257347316, guid: a71caef89e4c3e54cb7675be94b1eb8f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9219139762115829391, guid: a71caef89e4c3e54cb7675be94b1eb8f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -256,6 +247,16 @@ PrefabInstance:
     - target: {fileID: 9219139762115829391, guid: a71caef89e4c3e54cb7675be94b1eb8f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8924575159257347316, guid: a71caef89e4c3e54cb7675be94b1eb8f,
+        type: 3}
+      propertyPath: m_Name
+      value: brokenBottle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8924575159257347316, guid: a71caef89e4c3e54cb7675be94b1eb8f,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

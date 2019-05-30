@@ -130,21 +130,6 @@ namespace GarbageRoyale.Scripts
                 gc.items[itemId].transform.localRotation = gc.items[itemId].transform.parent.transform.localRotation;
                 gc.items[itemId].SetActive(false);
             }
-
-            //Si c'est une bouteille
-            if(gc.items[itemId].GetComponent<Item>().name == "Bottle")
-            {
-                if (gc.items[itemId].GetComponent<BottleScript>().isBroken)
-                {
-                    gc.players[playerIndex].PlayerBottle.GetComponent<BottleScript>().bottle.SetActive(false);
-                    gc.players[playerIndex].PlayerBottle.GetComponent<BottleScript>().brokenBottle.SetActive(true);
-                }
-                else
-                {
-                    gc.players[playerIndex].PlayerBottle.GetComponent<BottleScript>().bottle.SetActive(true);
-                    gc.players[playerIndex].PlayerBottle.GetComponent<BottleScript>().brokenBottle.SetActive(false);
-                }
-            }
         }
 
         public void takeDroppedItem(int itemId, GameObject player)

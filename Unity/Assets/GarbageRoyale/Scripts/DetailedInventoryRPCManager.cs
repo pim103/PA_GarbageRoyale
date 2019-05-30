@@ -68,12 +68,21 @@ namespace GarbageRoyale.Scripts
                 case 2:
                     poolID = 1;
                     break;
+                case 9:
+                    poolID = 2;
+                    break;
+                case 10:
+                    poolID = 3;
+                    break;
+                default:
+                    Debug.Log("Wrong Item");
+                    break;
             }
             item = ObjectPooler.SharedInstance.GetPooledObject(poolID);
             item.GetComponent<Item>().setId(itemID);
-            item.GetComponent<Item>().setType(2);
             gc.items.Add(itemID,item);
             playerInventory.itemInventory[25] = itemID;
+
             if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
                 gc.items[itemID].transform.SetParent(gc.players[playerIndex].PlayerTorch.transform.parent);

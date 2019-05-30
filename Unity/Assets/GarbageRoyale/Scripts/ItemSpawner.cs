@@ -52,7 +52,6 @@ namespace GarbageRoyale.Scripts
             //itemGob.AddComponent<Item>();
             itemSelf = itemGob.GetComponent<Item>();
             //itemSelf.type = itemType;
-            itemSelf.scale = itemGob.transform.localScale;
             /*if (itemType == 2)
             {
                 itemGob.GetComponent<Material>().CopyPropertiesFromMaterial(itemMaterial);

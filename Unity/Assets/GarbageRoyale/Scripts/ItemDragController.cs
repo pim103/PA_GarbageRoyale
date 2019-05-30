@@ -135,14 +135,48 @@ namespace GarbageRoyale.Scripts
                     
                 }
             }
-            if (craftingList.Contains(1) && craftingList.Contains(5) && craftingList.Count == 2)
+
+            bool isCrafting = true;
+            if(craftingList.Count == 2)
             {
-                RpcManager.photonView.RPC("AskCraftItem",RpcTarget.All,2,System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                CraftingResultSlot.texture = gc.inventoryGui.rawSprites[1].texture;
-                //playerInventory.itemInventory[25] = 2;
-                //Debug.Log("yees");
+                if (craftingList.Contains(1) && craftingList.Contains(5))
+                {
+                    RpcManager.photonView.RPC("AskCraftItem", RpcTarget.All, 2, Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                    CraftingResultSlot.texture = gc.inventoryGui.rawSprites[1].texture;
+                }
+                else if (craftingList.Contains(7) && craftingList.Contains(6))
+                {
+                    RpcManager.photonView.RPC("AskCraftItem", RpcTarget.All, 9, Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                    CraftingResultSlot.texture = gc.inventoryGui.rawSprites[7].texture;
+                }
+                else if (craftingList.Contains(9) && craftingList.Contains(5))
+                {
+                    RpcManager.photonView.RPC("AskCraftItem", RpcTarget.All, 10, Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                    CraftingResultSlot.texture = gc.inventoryGui.rawSprites[8].texture;
+                }
+                else
+                {
+                    isCrafting = false;
+                }
+            }
+            else if(craftingList.Count == 3)
+            {
+                if (craftingList.Contains(7) && craftingList.Contains(5) && craftingList.Contains(6))
+                {
+                    RpcManager.photonView.RPC("AskCraftItem", RpcTarget.All, 10, Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                    CraftingResultSlot.texture = gc.inventoryGui.rawSprites[8].texture;
+                }
+                else
+                {
+                    isCrafting = false;
+                }
             }
             else
+            {
+                isCrafting = false;
+            }
+            
+            if(!isCrafting)
             {
                 CraftingResultSlot.texture = null;
                 //playerInventory.itemInventory[25] = -1;
