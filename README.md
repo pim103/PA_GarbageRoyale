@@ -1,6 +1,9 @@
 ﻿# PA_GarbageRoyale
 Un jeu où les riches se marrent.   
 # Commandes :
+
+![alt text](http://garbage-royale.heolia.eu/files/img/MapKeyboard.png)
+
 ZQSD - Déplacement   
 F - Prendre un item    
 V - Allumer/Eteindre la torche en main    
