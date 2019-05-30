@@ -20,7 +20,7 @@ if (count( $_POST ) == 2 && ! empty( $_POST["accountEmail"] ) && ! empty( $_POST
         echo $userId[0];
         http_response_code(202);
     } else {
-        http_response_code(500);
+        http_response_code(406);
     }
 } else {
     http_response_code(500);

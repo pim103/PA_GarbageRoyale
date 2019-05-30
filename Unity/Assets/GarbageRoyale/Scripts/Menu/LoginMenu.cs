@@ -23,6 +23,18 @@ namespace GarbageRoyale.Scripts.Menu
         private Button exitButton;
         [SerializeField]
         private Button registerButton;
+        
+        [SerializeField]
+        private GameObject dialogWindow;
+        [SerializeField]
+        private Text dialogText;
+        [SerializeField]
+        private GameObject dialogButton;
+        [SerializeField]
+        private Button dialogButtonBtn;
+        
+        [SerializeField]
+        private Button offlineRoomButton;
 
         [SerializeField]
         private StartGame controller;
@@ -34,10 +46,16 @@ namespace GarbageRoyale.Scripts.Menu
             accountPassword.inputType = InputField.InputType.Password;
             submitButton.onClick.AddListener(CallLogin);
             registerButton.onClick.AddListener(GoToRegistrationScreen);
+            exitButton.onClick.AddListener(AskForExit);
+            dialogButtonBtn.onClick.AddListener(ConfirmationDialogBox);
+            offlineRoomButton.onClick.AddListener(AskForOffline);
         }
 
         public void CallLogin()
         {
+            dialogWindow.SetActive(true);
+            //dialogText.enabled = true;
+            dialogText.text = "Connexion en cours";
             StartCoroutine(Login());
         }
 
@@ -48,26 +66,54 @@ namespace GarbageRoyale.Scripts.Menu
             form.AddField("accountPassword", accountPassword.text);
             var www = UnityWebRequest.Post("http://garbage-royale.heolia.eu/services/account/logging.php", form);
             yield return www.SendWebRequest();
-            if (www.isNetworkError || www.isHttpError)
+            dialogText.text = "Authentification en cours";
+            yield return new WaitForSeconds(0.5f);
+            if (www.responseCode == 202)
             {
-                Debug.Log(www.error);
+                dialogText.text = "Connexion réussi";
+                yield return new WaitForSeconds(0.5f);
+                PhotonNetwork.ConnectUsingSettings();
+                PhotonNetwork.AuthValues = new AuthenticationValues(www.downloadHandler.text);
+                dialogWindow.SetActive(false);
+                controller.launchMainMenu();
+            }
+            else if (www.responseCode == 406)
+            {
+                dialogButton.SetActive(true);
+                dialogText.text = "Votre email ou/et votre mot de passe n'est pas valide.";
+                //Debug.Log("Serveur d'authentification indisponible.");
             }
             else
             {
-                Debug.Log(www.responseCode);
-                Debug.Log(www.downloadHandler.text);
-                if (www.responseCode == 202)
-                {
-                    PhotonNetwork.ConnectUsingSettings();
-                    PhotonNetwork.AuthValues = new AuthenticationValues(www.downloadHandler.text);
-                    controller.launchMainMenu();
-                }
+                dialogButton.SetActive(true);
+                dialogText.text = "Une erreur est survenue. Veuillez réessayer à nouveau. Si cela ne fonctionnne toujours pas, veuillez contacter le support.";
+                //Debug.Log("Une erreur est survenue. Veuillez réessayer à nouveau. Si cela ne fonctionnne toujours pas, veuillez contacter le support.");
             }
         }
 
         public void GoToRegistrationScreen()
         {
             controller.launchRegisterMenu();
+        }
+
+        public void ConfirmationDialogBox()
+        {
+            dialogWindow.SetActive(false);
+            dialogButton.SetActive(false);
+        }
+        
+        public void AskForOffline()
+        {
+            if(PhotonNetwork.IsConnected)
+            {
+                PhotonNetwork.Disconnect();
+            }
+            PhotonNetwork.OfflineMode = true;
+            PhotonNetwork.CreateRoom("offlineRoom");
+        }
+        public void AskForExit()
+        {
+            Application.Quit();
         }
     }
 }
