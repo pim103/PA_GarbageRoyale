@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace GarbageRoyale.Scripts.Menu
 {
-    public class LoginMenu : MonoBehaviour
+    public class LoginMenu : MonoBehaviourPunCallbacks
     {
         
         [SerializeField]
@@ -46,6 +46,7 @@ namespace GarbageRoyale.Scripts.Menu
             accountPassword.inputType = InputField.InputType.Password;
             submitButton.onClick.AddListener(CallLogin);
             registerButton.onClick.AddListener(GoToRegistrationScreen);
+            PhotonNetwork.ConnectUsingSettings();
             exitButton.onClick.AddListener(AskForExit);
             dialogButtonBtn.onClick.AddListener(ConfirmationDialogBox);
             offlineRoomButton.onClick.AddListener(AskForOffline);
@@ -72,7 +73,6 @@ namespace GarbageRoyale.Scripts.Menu
             {
                 dialogText.text = "Connexion réussi";
                 yield return new WaitForSeconds(0.5f);
-                PhotonNetwork.ConnectUsingSettings();
                 PhotonNetwork.AuthValues = new AuthenticationValues(www.downloadHandler.text);
                 dialogWindow.SetActive(false);
                 controller.launchMainMenu();
@@ -110,6 +110,17 @@ namespace GarbageRoyale.Scripts.Menu
             }
             PhotonNetwork.OfflineMode = true;
             PhotonNetwork.CreateRoom("offlineRoom");
+        }
+        
+        public override void OnJoinedRoom()
+        {
+            controller.gameController.SetActive(true);
+            controller.mainCamera.enabled = false;
+            controller.mainMenu.SetActive(false);
+            controller.subMenu.SetActive(false);
+            controller.loginMenu.SetActive(false);
+        
+            offlineRoomButton.interactable = false;
         }
         public void AskForExit()
         {
