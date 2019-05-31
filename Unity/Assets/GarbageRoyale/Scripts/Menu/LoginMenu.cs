@@ -46,7 +46,7 @@ namespace GarbageRoyale.Scripts.Menu
             accountPassword.inputType = InputField.InputType.Password;
             submitButton.onClick.AddListener(CallLogin);
             registerButton.onClick.AddListener(GoToRegistrationScreen);
-            PhotonNetwork.ConnectUsingSettings();
+            PhotonNetwork.AuthValues = new AuthenticationValues("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
             exitButton.onClick.AddListener(AskForExit);
             dialogButtonBtn.onClick.AddListener(ConfirmationDialogBox);
             offlineRoomButton.onClick.AddListener(AskForOffline);
@@ -73,6 +73,7 @@ namespace GarbageRoyale.Scripts.Menu
             {
                 dialogText.text = "Connexion réussi";
                 yield return new WaitForSeconds(0.5f);
+                PhotonNetwork.ConnectUsingSettings();
                 PhotonNetwork.AuthValues = new AuthenticationValues(www.downloadHandler.text);
                 dialogWindow.SetActive(false);
                 controller.launchMainMenu();

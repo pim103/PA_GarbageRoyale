@@ -55,8 +55,8 @@ if( count($_POST) >= 4 &&
         echo "0";
     }
     else{
-        //echo "1 - " . $_POST["accountName"];
         http_response_code(500);
+        foreach ($listOfErrors as $error)
     }
 
 
