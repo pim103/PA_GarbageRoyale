@@ -25,6 +25,15 @@ namespace GarbageRoyale.Scripts.Menu
 
         [SerializeField]
         private StartGame controller;
+        
+        [SerializeField]
+        private GameObject nameError;
+        [SerializeField]
+        private GameObject emailError;
+        [SerializeField]
+        private GameObject passError;
+        [SerializeField]
+        private GameObject confError;
 
         void Start()
         {
@@ -56,6 +65,8 @@ namespace GarbageRoyale.Scripts.Menu
             if (www.isNetworkError || www.isHttpError)
             {
                 Debug.Log(www.error);
+                Debug.Log(www.downloadHandler.text);
+                DisplayErrors(www.downloadHandler.text);
             }
             else
             {
@@ -65,6 +76,29 @@ namespace GarbageRoyale.Scripts.Menu
                 {
                     ReturnToLoginScreen();
                 }
+            }
+        }
+        public void DisplayErrors(string errors)
+        {
+            nameError.SetActive(false);
+            emailError.SetActive(false);
+            passError.SetActive(false);
+            confError.SetActive(false);
+            if (errors.IndexOf("1") != -1)
+            {
+                nameError.SetActive(true);
+            }
+            if (errors.IndexOf("2") != -1)
+            {
+                emailError.SetActive(true);
+            }
+            if (errors.IndexOf("3") != -1)
+            {
+                passError.SetActive(true);
+            }
+            if (errors.IndexOf("4") != -1)
+            {
+                confError.SetActive(true);
             }
         }
     }

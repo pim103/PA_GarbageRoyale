@@ -56,7 +56,10 @@ if( count($_POST) >= 4 &&
     }
     else{
         http_response_code(500);
-        foreach ($listOfErrors as $error)
+        //print_r($listOfErrors);
+        for($i = 0; $i < count($listOfErrors); $i++){
+            echo $listOfErrors[$i];
+        }
     }
 
 
