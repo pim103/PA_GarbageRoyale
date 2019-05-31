@@ -23534,6 +23534,7 @@ GameObject:
   - component: {fileID: 1103656783}
   - component: {fileID: 1103656784}
   - component: {fileID: 1103656785}
+  - component: {fileID: 1103656777}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -23740,6 +23741,19 @@ MonoBehaviour:
   gazSound: {fileID: 8300000, guid: b04667ce79be39a44b9c1549f2612227, type: 3}
   explosionSound: {fileID: 8300000, guid: 37dbf3a192c693d478b175b4debeb4d0, type: 3}
   torchLightSound: {fileID: 8300000, guid: 841e491a0a1e60041af4e325aa0dcab5, type: 3}
+--- !u!114 &1103656777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103656768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de40c0b3d150cc469bd70357c2e6274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gc: {fileID: 1103656770}
 --- !u!114 &1103656778
 MonoBehaviour:
   m_ObjectHideFlags: 0

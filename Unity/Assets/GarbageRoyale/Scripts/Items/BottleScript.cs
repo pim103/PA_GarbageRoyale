@@ -8,38 +8,27 @@ namespace GarbageRoyale.Scripts.Items
     {
         private int countChoc;
         public bool isBroken;
+        private ItemController ic;
 
         // Start is called before the first frame update
         void Start()
         {
             countChoc = 0;
             isBroken = false;
+            ic = GameObject.Find("Controller").GetComponent<ItemController>();
         }
 
         private void OnCollisionEnter(Collision collision)
         {
             if(!isBroken && countChoc > 3)
             {
-                broke();
+                ic.brokeBottle(transform.GetComponent<Item>().getId());
+                isBroken = true;
             }
             else
             {
                 countChoc++;
             }
-        }
-
-        private void broke()
-        {
-            GameController gc = GameObject.Find("Controller").GetComponent<GameController>();
-            isBroken = true;
-            gameObject.SetActive(false);
-            GameObject brokenBottle = ObjectPooler.SharedInstance.GetPooledObject(4);
-            brokenBottle.transform.position = transform.position;
-            brokenBottle.transform.rotation = transform.rotation;
-            brokenBottle.SetActive(true);
-            brokenBottle.GetComponent<Item>().id = gc.items.Count;
-
-            gc.items.Add(gc.items.Count, brokenBottle);
         }
     }
 }

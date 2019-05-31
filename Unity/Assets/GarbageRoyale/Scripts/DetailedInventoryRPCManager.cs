@@ -53,16 +53,16 @@ namespace GarbageRoyale.Scripts
             {
                 return;
             }
-            photonView.RPC("AnswerCraftItem", RpcTarget.All, itemtype,playerIndex);
+            photonView.RPC("AnswerCraftItem", RpcTarget.All, itemtype,playerIndex, gc.items.Count);
         }
         
         [PunRPC]
-        public void AnswerCraftItem(int itemtype, int playerIndex)
+        public void AnswerCraftItem(int itemtype, int playerIndex, int itemID)
         {
             Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
             GameObject item;
             int poolID = 0;
-            int itemID = gc.items.Count;
+
             switch (itemtype)
             {
                 case 2:
@@ -78,6 +78,7 @@ namespace GarbageRoyale.Scripts
                     Debug.Log("Wrong Item");
                     break;
             }
+
             item = ObjectPooler.SharedInstance.GetPooledObject(poolID);
             item.GetComponent<Item>().setId(itemID);
             gc.items.Add(itemID,item);
