@@ -124,4 +124,6 @@ MonoBehaviour:
   - AnswerDeleteCraftItem
   - AskCraftItem
   - AskDeleteCraftItem
+  - brokeBottleRpc
+  - addSpecificBrokenBottle
   DisableAutoOpenWizard: 1
