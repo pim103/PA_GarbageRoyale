@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GarbageRoyale.Scripts.HUD;
+using GarbageRoyale.Scripts.Items;
 using Photon.Pun;
 using UnityEngine;
 
@@ -220,6 +221,7 @@ namespace GarbageRoyale.Scripts
             if (throwItem)
             {
                 gc.items[idItem].GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 2, 10), ForceMode.Impulse);
+                gc.items[idItem].GetComponent<Item>().isThrow = true;
             }
 
             switch (typeName)
@@ -287,19 +289,34 @@ namespace GarbageRoyale.Scripts
             Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
             int itemId = inventoryData.getItemInventory()[placeInHand];
 
-            if (gc.items[itemId].GetComponent<Item>().name == "Jerrican" && gc.players[playerIndex].PlayerJerrican.transform.childCount > 0)
+            Vector3 pos = Vector3.forward;
+            RaycastHit info;
+            if (Physics.Raycast(gc.players[playerIndex].PlayerFeet.transform.position, transform.TransformDirection(Vector3.down), out info))
             {
-                photonView.RPC("DisperseSpecificOil", RpcTarget.All, playerIndex);
+                Debug.Log(info.transform.name);
+                pos = new Vector3(info.point.x, info.point.y + 0.1f, info.point.z);
+            }
+
+            if (gc.items[itemId].GetComponent<Item>().name == "Jerrican" && gc.items[itemId].GetComponent<OilScript>().nbOil > 0)
+            {
+                gc.items[itemId].GetComponent<OilScript>().nbOil--;
+                photonView.RPC("DisperseSpecificOil", RpcTarget.All, playerIndex, pos);
             }
         }
 
         [PunRPC]
-        private void DisperseSpecificOil(int playerIndex)
+        private void DisperseSpecificOil(int playerIndex, Vector3 position)
         {
-            var oil = gc.players[playerIndex].PlayerJerrican.transform.GetChild(0);
-            oil.parent = null;
-            oil.localScale = new Vector3(1f, 1f, 1f);
-            oil.gameObject.SetActive(true);
+            ParticleSystem ps = gc.players[playerIndex].PlayerJerrican.transform.GetChild(0).GetComponent<ParticleSystem>();
+
+            if(!ps.isPlaying)
+            {
+                ps.Play();
+
+                GameObject oil = ObjectPooler.SharedInstance.GetPooledObject(0);
+                oil.transform.position = position;
+                oil.SetActive(true);
+            }
         }
     }
 }

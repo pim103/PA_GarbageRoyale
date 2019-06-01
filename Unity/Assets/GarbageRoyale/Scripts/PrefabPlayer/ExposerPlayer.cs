@@ -16,6 +16,7 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public GameObject PlayerGameObject;
         public Camera PlayerCamera;
         public AudioListener PlayerAudioListener;
+        public GameObject PlayerFeet;
 
         public GameObject PlayerTorch;
         public GameObject PlayerStaff;

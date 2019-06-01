@@ -87,5 +87,16 @@ namespace GarbageRoyale.Scripts
             if (ps.getAttackCostStamina() > ps.getStamina()) return;
             ps.useStamina();
         }
+
+        public void HitByThrowItem(int idPlayer, int idItem)
+        {
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            float damage = gc.items[idItem].GetComponent<Item>().damage;
+            gc.players[idPlayer].PlayerStats.takeDamage(damage);
+        }
     }
 }

@@ -12,12 +12,6 @@ namespace GarbageRoyale.Scripts.Items
 
         public void brokeBottle(int id)
         {
-            photonView.RPC("brokeBottleRpc", RpcTarget.MasterClient, id);
-        }
-
-        [PunRPC]
-        private void brokeBottleRpc(int id)
-        {
             if(!PhotonNetwork.IsMasterClient)
             {
                 return;
@@ -35,7 +29,7 @@ namespace GarbageRoyale.Scripts.Items
             brokenBottle.transform.position = bottle.transform.position;
             brokenBottle.transform.rotation = bottle.transform.rotation;
             brokenBottle.SetActive(true);
-            brokenBottle.GetComponent<Item>().id = idItem;
+            brokenBottle.GetComponent<Item>().setId(idItem);
 
             gc.items.Add(idItem, brokenBottle);
         }

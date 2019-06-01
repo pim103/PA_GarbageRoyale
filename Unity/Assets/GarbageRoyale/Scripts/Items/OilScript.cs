@@ -12,6 +12,7 @@ namespace GarbageRoyale.Scripts.Items
 
         bool isTrigger;
         private GameController gc;
+        public int nbOil;
 
         List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
 
@@ -19,12 +20,14 @@ namespace GarbageRoyale.Scripts.Items
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             isTrigger = false;
+            nbOil = 3;
         }
 
         private void OnParticleCollision(GameObject other)
         {
             ParticlePhysicsExtensions.GetCollisionEvents(particles, other, collisionEvents);
 
+            /*
             if(!isTrigger)
             {
                 if(other.name.StartsWith("Player"))
@@ -48,6 +51,7 @@ namespace GarbageRoyale.Scripts.Items
                     isTrigger = true;
                 }
             }
+            */
         }
     }
 }

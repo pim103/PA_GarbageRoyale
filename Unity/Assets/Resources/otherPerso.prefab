@@ -141,6 +141,7 @@ MonoBehaviour:
   PlayerGameObject: {fileID: 121}
   PlayerCamera: {fileID: 2648690059791943830}
   PlayerAudioListener: {fileID: 1498989561753477764}
+  PlayerFeet: {fileID: 129}
   PlayerTorch: {fileID: 3211036284248254947}
   PlayerStaff: {fileID: 3388176275252089652}
   PlayerToiletPaper: {fileID: 3607046788642707925}
@@ -491,7 +492,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.5, z: 0}
+  m_LocalPosition: {x: 0, y: -2.75, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 365}
@@ -2607,6 +2608,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071011615325136731, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 18.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071011615325136731, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071011615325136731, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.9063079
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071011615325136731, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -130
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071011615325136731, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.42261827
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071011615325136727, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071011615325136730, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071011615325136730, guid: dde2fbe1b24020242bba4da8d397796b,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1217727887800166160, guid: dde2fbe1b24020242bba4da8d397796b, type: 3}

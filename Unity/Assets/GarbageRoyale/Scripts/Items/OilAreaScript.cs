@@ -71,6 +71,7 @@ namespace GarbageRoyale.Scripts.Items
                 bx.enabled = false;
                 flame.SetActive(true);
                 isBurning = true;
+                bx.size += Vector3.forward;
                 bx.enabled = true;
             }
             else if (isBurning && other.name.StartsWith("Player"))
