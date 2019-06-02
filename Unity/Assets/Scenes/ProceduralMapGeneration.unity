@@ -4864,6 +4864,7 @@ MonoBehaviour:
   soundManager: {fileID: 1103656776}
   inventoryGui: {fileID: 1103656785}
   water: {fileID: 1103656773}
+  Mob: {fileID: 5808846029801638683, guid: 262e61a97cc11c649ac8a9648e44896d, type: 3}
   isGameStart: 0
   players:
   - {fileID: 1944728899}
@@ -5070,6 +5071,14 @@ MonoBehaviour:
     amountToPool: 50
     shouldExpand: 1
   - objectToPool: {fileID: 8924575159257347316, guid: a71caef89e4c3e54cb7675be94b1eb8f,
+      type: 3}
+    amountToPool: 50
+    shouldExpand: 1
+  - objectToPool: {fileID: 8924575159257347316, guid: a71caef89e4c3e54cb7675be94b1eb8f,
+      type: 3}
+    amountToPool: 50
+    shouldExpand: 1
+  - objectToPool: {fileID: 4913412858139446104, guid: f72de79c5f1f85c4fb6ca888e5ad5c9d,
       type: 3}
     amountToPool: 50
     shouldExpand: 1
