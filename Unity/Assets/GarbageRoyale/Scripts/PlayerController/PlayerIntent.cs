@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using System;
+using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,7 +20,8 @@ namespace GarbageRoyale.Scripts.PlayerController {
         private ScriptExposer scripts;
 
         private bool isInInventory = false;
-        
+
+        private SkillsController skillsController;
 
         private void Start()
         {
@@ -28,6 +30,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
                 return;
             }
 
+            skillsController = GameObject.Find("SkillsController").GetComponent<SkillsController>();
             scripts.cr.cameraIndex = PlayerIndex;
         }
 
@@ -114,6 +117,11 @@ namespace GarbageRoyale.Scripts.PlayerController {
             if (Input.GetKeyDown(KeyCode.V))
             {
                 photonView.RPC("WantToUseTorch", RpcTarget.MasterClient);
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                //scripts.gc.playersActions[PlayerIndex].isQuiet = true;
+                skillsController.photonView.RPC("AskSkillActivation",RpcTarget.MasterClient,0,Array.IndexOf(scripts.gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId));
             }
         }
 

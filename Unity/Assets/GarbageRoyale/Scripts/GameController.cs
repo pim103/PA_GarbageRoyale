@@ -105,6 +105,8 @@ namespace GarbageRoyale.Scripts
         public GameObject invHUD;
         [SerializeField]
         public GameObject playerGUI;
+        [SerializeField]
+        public GameObject skillsController;
 
         [SerializeField]
         public GameObject[] itemList;
@@ -272,6 +274,7 @@ namespace GarbageRoyale.Scripts
                 soundManager.initAmbientSound();
                 invHUD.SetActive(true);
                 playerGUI.SetActive(true);
+                skillsController.SetActive(true);
             }
 
             moveDirection[id] = Vector3.zero;

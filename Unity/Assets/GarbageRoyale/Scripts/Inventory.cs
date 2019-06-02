@@ -10,7 +10,7 @@ namespace GarbageRoyale.Scripts
         private int lastCounterItem;
     
         private static int skillSlots = 2;
-        private int[] skillInventory; // = new int[skillSlots];
+        public int[] skillInventory; // = new int[skillSlots];
         private int lastCounterSkill;
 
         public Inventory()

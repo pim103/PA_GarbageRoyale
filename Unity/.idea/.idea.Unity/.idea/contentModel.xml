@@ -9,6 +9,7 @@
       <e p="Assets" t="Include">
         <e p="GarbageRoyale" t="Include">
           <e p="Scripts" t="Include">
+            <e p="ActiveSkillManager.cs" t="Include" />
             <e p="CameraControl.cs" t="Include" />
             <e p="CameraRaycast.cs" t="Include" />
             <e p="CameraRaycastHitActions.cs" t="Include" />
@@ -29,12 +30,20 @@
             <e p="InventorySpritesExposer.cs" t="Include" />
             <e p="Item.cs" t="Include" />
             <e p="ItemDragController.cs" t="Include" />
+            <e p="Items" t="Include">
+              <e p="BottleScript.cs" t="Include" />
+              <e p="ItemController.cs" t="Include" />
+              <e p="OilAreaScript.cs" t="Include" />
+              <e p="OilScript.cs" t="Include" />
+            </e>
             <e p="ItemSpawner.cs" t="Include" />
             <e p="MazeConstructor.cs" t="Include" />
             <e p="MazeDataGenerator.cs" t="Include" />
             <e p="MazeMeshGenerator.cs" t="Include" />
             <e p="Menu" t="Include">
+              <e p="LoginMenu.cs" t="Include" />
               <e p="MainMenu.cs" t="Include" />
+              <e p="RegisterMenu.cs" t="Include" />
               <e p="StartGame.cs" t="Include" />
               <e p="SubMenu.cs" t="Include" />
             </e>
@@ -63,6 +72,7 @@
             </e>
             <e p="ScriptExposer.cs" t="Include" />
             <e p="Skill.cs" t="Include" />
+            <e p="SkillsController.cs" t="Include" />
             <e p="SkillSpawner.cs" t="Include" />
             <e p="SoundManager.cs" t="Include" />
             <e p="SpawnMob.cs" t="Include" />
@@ -70,6 +80,7 @@
             <e p="TrapDoorCheckButton.cs" t="Include" />
             <e p="Water.cs" t="Include" />
           </e>
+          <e p="testSceneScript.cs" t="Include" />
         </e>
         <e p="Photon" t="Include">
           <e p="PhotonChat" t="Include">
