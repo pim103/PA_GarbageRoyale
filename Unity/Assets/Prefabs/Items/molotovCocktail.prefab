@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3195463101440034259}
   - component: {fileID: 8866209302409876835}
   - component: {fileID: 312816140}
+  - component: {fileID: 1651587101603514949}
   - component: {fileID: 312816139}
   - component: {fileID: 3074684788666706412}
   m_Layer: 0
@@ -70,6 +71,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1651587101603514949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312816138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e70111be55758d4cb79da76a72433ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBroken: 0
+  item: {fileID: 312816139}
+  isOiled: 0
+  isBurn: 1
 --- !u!114 &312816139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,7 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c39cd4afd64358ad9cd78dc50a3b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: -1
   name: Molotov
   damage: 5
   type: 10
@@ -90,6 +106,7 @@ MonoBehaviour:
   initOnStart: 0
   isOnline: 0
   scale: {x: 0.1, y: 0.1, z: 0.1}
+  isThrow: 0
 --- !u!64 &3074684788666706412
 MeshCollider:
   m_ObjectHideFlags: 0

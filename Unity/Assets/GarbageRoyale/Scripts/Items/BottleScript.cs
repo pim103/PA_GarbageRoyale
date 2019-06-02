@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using GarbageRoyale.Scripts.PrefabPlayer;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,15 @@ namespace GarbageRoyale.Scripts.Items
         public bool isBroken;
         private ItemController ic;
 
+        [SerializeField]
+        private Item item;
+
+        [SerializeField]
+        public bool isOiled;
+
+        [SerializeField]
+        public bool isBurn;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -20,14 +30,27 @@ namespace GarbageRoyale.Scripts.Items
 
         private void OnCollisionEnter(Collision collision)
         {
-            if(!isBroken && countChoc > 3)
+            if(item.isThrow)
             {
-                ic.brokeBottle(transform.GetComponent<Item>().getId());
-                isBroken = true;
-            }
-            else
-            {
-                countChoc++;
+                if (collision.transform.name.StartsWith("Player") && isOiled)
+                {
+                    ic.OiledPlayer(item.getId(), collision.transform.GetComponent<ExposerPlayer>().PlayerIndex);
+                    isBroken = true;
+                }
+                else if(isBurn)
+                {
+                    ic.BurnSurface(item.getId());
+                    isBroken = true;
+                }
+                else if (!isBroken && countChoc > 3)
+                {
+                    ic.brokeBottle(item.getId(), false, 0, 0);
+                    isBroken = true;
+                }
+                else
+                {
+                    countChoc++;
+                }
             }
         }
     }
