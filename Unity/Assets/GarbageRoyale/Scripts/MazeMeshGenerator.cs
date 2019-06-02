@@ -48,6 +48,7 @@ namespace GarbageRoyale.Scripts
                 {
                     if(i == 40 && j == 40)
                     {
+                        /*
                         var newDoor = Instantiate(Prefabs[9], new Vector3(j * width + ypos, ypos, i * width + ypos),
                                         Quaternion.identity);
                         newDoor.GetComponent<OpenDoorScript>().doorId = nbDoors;
@@ -55,6 +56,14 @@ namespace GarbageRoyale.Scripts
                         nbDoors++;
 
                         continue;
+                        */
+                        GameObject ItemRoom = Instantiate(Prefabs[12], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
+                        ItemSpawner itemSpawn = ItemRoom.GetComponent<ItemSpawner>();
+
+                        //Debug.Log(itemRoom[i + ";" + j]);
+
+                        itemSpawn.itemType = 7;
+                        itemSpawn.initItems();
                     }
 
                     if (data[i, j] == 0)

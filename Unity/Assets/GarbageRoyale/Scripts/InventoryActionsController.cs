@@ -69,7 +69,16 @@ namespace GarbageRoyale.Scripts
             if(Input.GetKeyDown(KeyCode.Mouse1))
             {
                 if(itemInHand == "Torch") photonView.RPC("LightOnTorchRPC", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                if(itemInHand == "Jerrican") photonView.RPC("DisperseOil", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                else if(itemInHand == "Jerrican") photonView.RPC("DisperseOil", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                else if (itemInHand == "Rope")
+                {
+                    int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
+                    int idItem = gc.players[idPlayer].GetComponent<Inventory>().getItemInventory()[placeInHand];
+                    //RopeScript rs = gc.itemList[idItem].GetComponent<RopeScript>();
+                    RopeScript rs = gc.players[idPlayer].PlayerRope.GetComponent<RopeScript>();
+                    rs.inEditMode = !rs.inEditMode;
+                    rs.idItem = idItem;
+                }
             }
             
             /*if (Input.GetKeyDown(KeyCode.A))
@@ -133,6 +142,7 @@ namespace GarbageRoyale.Scripts
             gc.players[playerIndex].PlayerBrokenBottle.SetActive(false);
             gc.players[playerIndex].PlayerBottleOil.SetActive(false);
             gc.players[playerIndex].PlayerMolotov.SetActive(false);
+            gc.players[playerIndex].PlayerRope.SetActive(false);
 
             switch (item)
             {
@@ -166,6 +176,9 @@ namespace GarbageRoyale.Scripts
                     break;
                 case "Molotov":
                     gc.players[playerIndex].PlayerMolotov.SetActive(true);
+                    break;
+                case "Rope":
+                    gc.players[playerIndex].PlayerRope.SetActive(true);
                     break;
                 default:
                     Debug.Log("Error, wrong item");
@@ -218,6 +231,7 @@ namespace GarbageRoyale.Scripts
             gc.players[playerIndex].PlayerBrokenBottle.SetActive(false);
             gc.players[playerIndex].PlayerBottleOil.SetActive(false);
             gc.players[playerIndex].PlayerMolotov.SetActive(false);
+            gc.players[playerIndex].PlayerRope.SetActive(false);
 
             if (throwItem)
             {
