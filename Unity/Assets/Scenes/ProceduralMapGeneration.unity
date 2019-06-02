@@ -4900,6 +4900,7 @@ MonoBehaviour:
   - {fileID: 4583224748811352036, guid: 05be5c53f20f9964e8ab9bcfe54397fc, type: 3}
   - {fileID: 2021632103173086074, guid: dde2fbe1b24020242bba4da8d397796b, type: 3}
   - {fileID: 5374713846175401429, guid: 2cec4c6330833bb48829e1b6a03b1200, type: 3}
+  - {fileID: 312816138, guid: ea604da19b898d84291dc6e40ff291ab, type: 3}
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0
@@ -5028,6 +5029,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gc: {fileID: 1103656770}
   iac: {fileID: 1103656783}
+  ic: {fileID: 0}
 --- !u!114 &1103656779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5074,7 +5076,7 @@ MonoBehaviour:
       type: 3}
     amountToPool: 50
     shouldExpand: 1
-  - objectToPool: {fileID: 8924575159257347316, guid: a71caef89e4c3e54cb7675be94b1eb8f,
+  - objectToPool: {fileID: 3502190064073798231, guid: 2bcfeaad4738155468135c6824b81e87,
       type: 3}
     amountToPool: 50
     shouldExpand: 1
