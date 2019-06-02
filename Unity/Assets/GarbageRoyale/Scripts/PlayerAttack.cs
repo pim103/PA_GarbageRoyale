@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using GarbageRoyale.Scripts.PrefabPlayer;
 using System;
+using GarbageRoyale.Scripts.Items;
 
 namespace GarbageRoyale.Scripts
 {
@@ -14,6 +15,9 @@ namespace GarbageRoyale.Scripts
 
         [SerializeField]
         private InventoryActionsController iac;
+
+        [SerializeField]
+        private ItemController ic;
 
         // Start is called before the first frame update
         private void LateUpdate()
@@ -45,6 +49,9 @@ namespace GarbageRoyale.Scripts
             int indexItem = gc.players[playerIdSrc].PlayerInventory.itemInventory[inventorySlot];
 
             bool canBurn = false;
+            bool canOiled = false;
+            bool isBottle = false;
+            BottleScript bottleScript;
 
             if (indexItem != -1)
             {
@@ -57,6 +64,15 @@ namespace GarbageRoyale.Scripts
                     {
                         canBurn = true;
                     }
+                }
+                else if(bottleScript = item.transform.GetComponent<BottleScript>())
+                {
+                    if(bottleScript.isOiled || bottleScript.isBurn)
+                    {
+                        canOiled = true;
+                    }
+
+                    ic.brokeBottle(item.getId(), true, playerIdSrc, inventorySlot);
                 }
             }
 
@@ -71,6 +87,18 @@ namespace GarbageRoyale.Scripts
                         gc.playersActions[playerId].isOiled = false;
                         gc.playersActions[playerId].isBurning = true;
                         gc.playersActions[playerId].timeLeftBurn = 5.0f;
+                    }
+                    else if(canOiled)
+                    {
+                        if(gc.playersActions[playerId].isBurning)
+                        {
+                            gc.playersActions[playerId].timeLeftBurn = 5.0f;
+                        }
+                        else
+                        {
+                            gc.playersActions[playerId].isOiled = true;
+                            gc.playersActions[playerId].timeLeftOiled = 10.0f;
+                        }
                     }
                 }
             }

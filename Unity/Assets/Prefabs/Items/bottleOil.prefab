@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4889400235651157876}
   - component: {fileID: 2335830602254660912}
   - component: {fileID: 1657766647}
+  - component: {fileID: 7196656100936885429}
   - component: {fileID: 1657766646}
   - component: {fileID: 1107289619551619248}
   m_Layer: 0
@@ -70,6 +71,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7196656100936885429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657766645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e70111be55758d4cb79da76a72433ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBroken: 0
+  item: {fileID: 1657766646}
+  isOiled: 1
+  isBurn: 0
 --- !u!114 &1657766646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,7 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c39cd4afd64358ad9cd78dc50a3b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: -1
   name: Bottle Oil
   damage: 5
   type: 9
@@ -90,6 +106,7 @@ MonoBehaviour:
   initOnStart: 0
   isOnline: 0
   scale: {x: 0.1, y: 0.1, z: 0.1}
+  isThrow: 0
 --- !u!64 &1107289619551619248
 MeshCollider:
   m_ObjectHideFlags: 0

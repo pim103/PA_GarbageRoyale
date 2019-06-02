@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 9116963021974964960}
   - component: {fileID: 2737365625765506067}
   - component: {fileID: 1769106077304476147}
-  - component: {fileID: 7464176333056474953}
   - component: {fileID: 791463094799067103}
+  - component: {fileID: 7464176333056474953}
   - component: {fileID: 2574446210250004002}
   m_Layer: 0
   m_Name: bottle
@@ -115,26 +115,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 24940623fdd1a45408c8be35a2bdab8f, type: 3}
---- !u!114 &7464176333056474953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5374713846175401429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8c39cd4afd64358ad9cd78dc50a3b1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: -1
-  name: Bottle
-  damage: 5
-  type: 7
-  itemImg: {fileID: 5833977737841398870, guid: e218f15e510a09c4087eb399b5a934f3, type: 3}
-  initOnStart: 0
-  isOnline: 0
-  scale: {x: 0.1, y: 0.1, z: 0.1}
 --- !u!114 &791463094799067103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +128,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBroken: 0
+  item: {fileID: 7464176333056474953}
+  isOiled: 0
+  isBurn: 0
+--- !u!114 &7464176333056474953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374713846175401429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c39cd4afd64358ad9cd78dc50a3b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Bottle
+  damage: 5
+  type: 7
+  itemImg: {fileID: 5833977737841398870, guid: e218f15e510a09c4087eb399b5a934f3, type: 3}
+  initOnStart: 0
+  isOnline: 0
+  scale: {x: 0.1, y: 0.1, z: 0.1}
+  isThrow: 0
 --- !u!54 &2574446210250004002
 Rigidbody:
   m_ObjectHideFlags: 0

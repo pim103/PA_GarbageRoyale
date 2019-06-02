@@ -208,6 +208,7 @@ namespace GarbageRoyale.Scripts
             gc.items[idItem].transform.parent = null;
             gc.items[idItem].SetActive(true);
             gc.items[idItem].GetComponent<Item>().resetScale();
+            gc.items[idItem].GetComponent<Item>().transform.position = gc.players[playerIndex].PlayerTorch.transform.position + Vector3.forward;
 
             gc.players[playerIndex].PlayerStaff.SetActive(false);
             gc.players[playerIndex].PlayerTorch.SetActive(false);
