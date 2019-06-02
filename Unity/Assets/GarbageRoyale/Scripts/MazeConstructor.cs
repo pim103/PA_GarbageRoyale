@@ -17,8 +17,8 @@ namespace GarbageRoyale.Scripts
     {
         //1
         public bool showDebug;
-        [SerializeField] private GameObject [] Prefabs;
-        [SerializeField] private GameObject floorTransition;
+        [SerializeField] public GameObject [] Prefabs;
+        [SerializeField] public GameObject floorTransition;
         [SerializeField] private Material mazeMat1;
         [SerializeField] private Material mazeMat2;
         [SerializeField] private Material startMat;
@@ -116,7 +116,7 @@ namespace GarbageRoyale.Scripts
             go.name = "Procedural Maze";
 
             MeshFilter mf = go.AddComponent<MeshFilter>();
-            mf.mesh = meshGenerator.FromData(maze,ypos,Prefabs, rooms, floorTransition, trapId[level], itemRoom[level]);
+            mf.mesh = meshGenerator.FromData(maze,ypos,Prefabs, rooms, floorTransition, trapId[level], itemRoom[level], false);
     
             MeshCollider mc = go.AddComponent<MeshCollider>();
             mc.sharedMesh = mf.mesh;

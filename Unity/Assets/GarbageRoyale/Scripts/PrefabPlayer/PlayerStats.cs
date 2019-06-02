@@ -21,6 +21,8 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public bool isDead;
         private bool isRotatePlayer;
 
+        public bool isAlreadyTrigger;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -36,6 +38,7 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
 
             isDead = false;
             isRotatePlayer = false;
+            isAlreadyTrigger = false;
         }
 
         private void rotateDeadPlayer()

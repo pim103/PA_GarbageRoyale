@@ -10,6 +10,7 @@ using GarbageRoyale.Scripts.PlayerController;
 
 using System.Linq;
 using GarbageRoyale.Scripts.HUD;
+using GarbageRoyale.Scriptable;
 
 namespace GarbageRoyale.Scripts
 {
@@ -166,6 +167,16 @@ namespace GarbageRoyale.Scripts
             buttonsTrap = generator.meshGenerator.buttonsTrap;
             doors = generator.meshGenerator.doors;
             buttonsTrapReversed = generator.meshGenerator.buttonsTrapReversed;
+
+            DataCollector.instance.InitMap(
+                generator.dataGenerator.roomLinksList, 
+                generator.dataGenerator.roomTrap, 
+                generator.dataGenerator.itemRoom,
+                generator.Prefabs,
+                generator.floorTransition,
+                generator.floors,
+                generator.floorsRooms
+            );
         }
 
         [PunRPC]

@@ -1,3 +1,4 @@
+using GarbageRoyale.Scriptable;
 using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
@@ -61,8 +62,11 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             for (var i = 0; i < gc.playersActionsActivated.Length; i++)
             {
-                if(gc.players[i].PlayerStats.isDead)
+                if(gc.players[i].PlayerStats.isDead && !gc.players[i].PlayerStats.isAlreadyTrigger)
                 {
+                    gc.players[i].PlayerStats.isAlreadyTrigger = true;
+                    DataCollector.instance.AddKillPoint(gc.players[i].PlayerGameObject, i, Time.time);
+
                     photonView.RPC("UpdateDataRPC", RpcTarget.All,
                            i,
                            false,
@@ -72,6 +76,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                            0f,
                            false,
                            true,
+                           false,
                            false,
                            false
                        );

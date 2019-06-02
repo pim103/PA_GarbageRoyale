@@ -26,7 +26,7 @@ namespace GarbageRoyale.Scripts
             if(isThrow && collision.transform.name.StartsWith("Player"))
             {
                 PlayerAttack pa = GameObject.Find("Controller").GetComponent<PlayerAttack>();
-                pa.HitByThrowItem(id, collision.transform.GetComponent<ExposerPlayer>().PlayerIndex);
+                pa.HitByThrowItem(collision.transform.GetComponent<ExposerPlayer>().PlayerIndex, id);
             }
             isThrow = false;
         }

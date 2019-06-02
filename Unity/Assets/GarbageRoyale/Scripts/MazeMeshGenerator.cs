@@ -25,7 +25,7 @@ namespace GarbageRoyale.Scripts
             height = 4f;
         }
 
-        public Mesh FromData(int[,] data, int ypos, GameObject [] Prefabs, int[,] rooms, GameObject floorTransition, Dictionary<string, int> idTrap, Dictionary<string, int> itemRoom)
+        public Mesh FromData(int[,] data, int ypos, GameObject [] Prefabs, int[,] rooms, GameObject floorTransition, Dictionary<string, int> idTrap, Dictionary<string, int> itemRoom, bool isReplay)
         {
             Mesh maze = new Mesh();
     
@@ -79,13 +79,20 @@ namespace GarbageRoyale.Scripts
                             //TODO Instantiate Random ItemRoom
                             else if(rooms[i, j] == 12)
                             {
-                                GameObject ItemRoom = Instantiate(Prefabs[12], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
-                                ItemSpawner itemSpawn = ItemRoom.GetComponent<ItemSpawner>();
+                                if(!isReplay)
+                                {
+                                    GameObject ItemRoom = Instantiate(Prefabs[12], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
+                                    ItemSpawner itemSpawn = ItemRoom.GetComponent<ItemSpawner>();
 
-                                //Debug.Log(itemRoom[i + ";" + j]);
+                                    //Debug.Log(itemRoom[i + ";" + j]);
 
-                                itemSpawn.itemType = itemRoom[i+";"+j];
-                                itemSpawn.initItems();
+                                    itemSpawn.itemType = itemRoom[i + ";" + j];
+                                    itemSpawn.initItems();
+                                }
+                                else
+                                {
+                                    Instantiate(Prefabs[8], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
+                                }
                             }
                             else
                             {

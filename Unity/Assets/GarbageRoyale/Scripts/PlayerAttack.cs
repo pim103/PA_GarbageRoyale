@@ -96,6 +96,7 @@ namespace GarbageRoyale.Scripts
             }
 
             float damage = gc.items[idItem].GetComponent<Item>().damage;
+            Debug.Log(idPlayer);
             gc.players[idPlayer].PlayerStats.takeDamage(damage);
         }
     }
