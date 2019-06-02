@@ -43,6 +43,9 @@ namespace GarbageRoyale.Scripts
 
         [SerializeField]
         public Water water;
+        
+        [SerializeField] 
+        public GameObject Mob;
 
         private GameObject playerCamera;
 
@@ -51,7 +54,7 @@ namespace GarbageRoyale.Scripts
         private bool canMove = false;
         //public List<GameObject> characterList = new List<GameObject>();
         public Dictionary<int, GameObject> characterList = new Dictionary<int, GameObject>();
-        //public Dictionary <int, GameObject> mobList = new Dictionary<int, GameObject>();
+        public Dictionary <int, GameObject> mobList = new Dictionary<int, GameObject>();
         private int [][,] exploredRooms = new int[8][,];
 
         private GUIStyle currentStyle = null;

@@ -123,6 +123,11 @@ namespace GarbageRoyale.Scripts.PlayerController {
                 //scripts.gc.playersActions[PlayerIndex].isQuiet = true;
                 skillsController.photonView.RPC("AskSkillActivation",RpcTarget.MasterClient,0,Array.IndexOf(scripts.gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId));
             }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                //scripts.gc.playersActions[PlayerIndex].isQuiet = true;
+                skillsController.photonView.RPC("AskSkillActivation",RpcTarget.MasterClient,1,Array.IndexOf(scripts.gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId));
+            }
         }
 
         void FixedUpdate()

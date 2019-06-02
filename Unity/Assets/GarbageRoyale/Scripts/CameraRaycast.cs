@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using GarbageRoyale.Scripts.PlayerController;
 using GarbageRoyale.Scripts.PrefabPlayer;
@@ -107,7 +108,8 @@ namespace GarbageRoyale.Scripts
                     }
                     else if (hitInfo.transform.name == "Mob(Clone)")
                     {
-                        hitInfo.transform.GetComponent<MobStats>().takeDamage(10);
+                        //hitInfo.transform.GetComponent<MobStats>().takeDamage(Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                        photonView.RPC("HitMobRPC",RpcTarget.MasterClient,hitInfo.transform.GetComponent<MobStats>().id,Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                     }
                     else if (hitInfo.transform.name.StartsWith("Player"))
                     {
@@ -195,6 +197,29 @@ namespace GarbageRoyale.Scripts
             else
             {
                 ods.StopOpenSound();
+            }
+        }
+
+        [PunRPC]
+        private void HitMobRPC(int mobID, int playerIndex)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+            gc.mobList[mobID].GetComponent<MobStats>().takeDamage(playerIndex);
+        }
+
+        [PunRPC]
+        private void MobDeath(int mobID)
+        {
+            MobStats stats = gc.mobList[mobID].GetComponent<MobStats>();
+            stats.isDead = true;
+            if (!stats.isRotateMob)
+            {
+                stats.rotateDeadMob();
+                stats.lootSkill();
+                stats.gameObject.SetActive(false);
             }
         }
     }

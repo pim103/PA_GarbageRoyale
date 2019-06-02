@@ -126,4 +126,9 @@ MonoBehaviour:
   - AskDeleteCraftItem
   - brokeBottleRpc
   - addSpecificBrokenBottle
+  - ActivateQuietSkill
+  - AskSkillActivation
+  - DeactivateQuietSkill
+  - HitMobRPC
+  - MobDeath
   DisableAutoOpenWizard: 1

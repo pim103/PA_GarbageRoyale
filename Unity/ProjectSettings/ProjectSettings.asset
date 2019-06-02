@@ -625,10 +625,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 7b35cdf1-418f-456c-bc9a-fe8bb791aa4a
+  cloudProjectId: 0807c519-1efa-4946-ab4d-397dac3e45c9
   framebufferDepthMemorylessMode: 0
-  projectName: Garbage Royale (4)
-  organizationId: pim103
+  projectName: Garbage Royale (6)
+  organizationId: lastuck
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

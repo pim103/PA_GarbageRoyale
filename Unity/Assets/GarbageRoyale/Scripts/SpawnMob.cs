@@ -5,13 +5,17 @@ namespace GarbageRoyale.Scripts
 {
     public class SpawnMob : MonoBehaviour
     {
+        
+        private GameController gc;
+
+        private GameObject Mob;
         // Start is called before the first frame update
         void Start()
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                //GameObject.Find("Controller").GetComponent<GameController>().mobList.Add((int)transform.position.x+(int)transform.position.y+(int)transform.position.z,PhotonNetwork.Instantiate("Mob", transform.position, Quaternion.identity));
-            }
+            gc = GameObject.Find("Controller").GetComponent<GameController>();
+            Mob = Instantiate(gc.Mob, transform.position, Quaternion.identity);
+            Mob.GetComponent<MobStats>().id = gc.mobList.Count;
+            gc.mobList.Add(gc.mobList.Count,Mob);
         }
     }
 }

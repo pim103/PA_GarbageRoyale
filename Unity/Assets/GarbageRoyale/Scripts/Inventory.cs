@@ -44,7 +44,7 @@ namespace GarbageRoyale.Scripts
 
         public int findPlaceInventory()
         {
-            for (int i = 0; i < itemSlots; i++)
+            for (int i = 0; i < itemSlots-6; i++)
             {
                 if (itemInventory[i] == -1)
                 {

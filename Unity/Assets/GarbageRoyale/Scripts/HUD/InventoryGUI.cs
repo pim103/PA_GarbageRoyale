@@ -31,7 +31,16 @@ namespace GarbageRoyale.Scripts.HUD
         
         public void printSprite(int idx, int id, RawImage ri)
         {
-            RawImage rawImg = GameObject.Find("ItemImg_" + idx).GetComponent<RawImage>();
+            string name;
+            if (id != 12)
+            {
+                name = "ItemImg_";
+            }
+            else
+            {
+                name = "SkillImg_";
+            }
+            RawImage rawImg = GameObject.Find(name + idx).GetComponent<RawImage>();
             rawImg.texture = ri.texture;
             rawImg.color = Color.white;
         }

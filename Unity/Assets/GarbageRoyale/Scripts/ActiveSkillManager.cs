@@ -12,6 +12,7 @@ namespace GarbageRoyale.Scripts
         public int coolDown = 0;
         public int bufftime = 0;
         public int playerID = 0;
+        public bool isActive = true;
         
         // Start is called before the first frame update
         void Start()
@@ -28,9 +29,19 @@ namespace GarbageRoyale.Scripts
         
         private IEnumerator DecreaseTimers()
         {
-            yield return new WaitForSeconds(1f);
-            bufftime--;
-            coolDown--;
+            while (true)
+            {
+                yield return new WaitForSeconds(1f);
+                if (bufftime > 0)
+                {
+                    bufftime--;
+                }
+
+                if (coolDown>0)
+                {
+                    coolDown--;
+                }
+            }
         }
     }
 }

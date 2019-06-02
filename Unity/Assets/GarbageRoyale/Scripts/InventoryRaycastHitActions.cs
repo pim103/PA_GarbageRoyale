@@ -7,6 +7,7 @@ using GarbageRoyale.Scripts.Items;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 
 namespace GarbageRoyale.Scripts
@@ -22,6 +23,8 @@ namespace GarbageRoyale.Scripts
         private GameObject controller;
 
         private bool wantUse = false;
+
+        private int place;
         
         // Start is called before the first frame update
         
@@ -107,9 +110,17 @@ namespace GarbageRoyale.Scripts
             }
 
             Debug.Log(gc.items[itemId].GetComponent<Item>().type);
-            
-            photonView.RPC("ChangeGUIClient", info.Sender,
-                gc.players[playerIndex].GetComponent<Inventory>().findPlaceInventory(),
+            Item itemData = gc.items[itemId].GetComponent<Item>();
+            if (itemData.getType() != 12)
+            {
+                place = gc.players[playerIndex].GetComponent<Inventory>().findPlaceInventory();
+            }
+            else
+            {
+                place = gc.players[playerIndex].GetComponent<Inventory>().findPlaceSkills();
+            }
+
+            photonView.RPC("ChangeGUIClient", info.Sender,place,
                 gc.items[itemId].GetComponent<Item>().getId()
             );
 
@@ -122,17 +133,33 @@ namespace GarbageRoyale.Scripts
         {
             Item itemData = gc.items[itemId].GetComponent<Item>();
             Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
+            bool isInInventory = false;
+            if (itemData.getType()!= 12)
+            {
+                if (inventoryData.setItemInventory(itemData.getId()))
+                {
+                    isInInventory = true;
+                }
+            }
+            else
+            {
+                if (inventoryData.setSkillInventory(itemData.getId()))
+                {
+                    isInInventory = true;
+                }
+            }
 
-            if (inventoryData.setItemInventory(itemData.getId()))
+            if (isInInventory)
             {
                 gc.items[itemId].transform.SetParent(gc.players[playerIndex].PlayerTorch.transform.parent);
                 gc.items[itemId].transform.localPosition = new Vector3(0, 0, 0);
-                gc.items[itemId].transform.localRotation = gc.items[itemId].transform.parent.transform.localRotation;
+                gc.items[itemId].transform.localRotation =
+                    gc.items[itemId].transform.parent.transform.localRotation;
                 gc.items[itemId].SetActive(false);
             }
         }
 
-        public void takeDroppedItem(int itemId, GameObject player)
+        /*public void takeDroppedItem(int itemId, GameObject player)
         {
             Inventory inventoryData = player.GetComponent<Inventory>();
             Debug.Log("well "+inventoryData.findPlaceInventory());
@@ -142,13 +169,13 @@ namespace GarbageRoyale.Scripts
             }
             inventoryData.setItemInventory(itemId);
             Debug.Log(string.Format("Inventory : \n ID : {0} {1} {2} {3} {4} - Joueur : {5}", inventoryData.getItemInventory()[0], inventoryData.getItemInventory()[1], inventoryData.getItemInventory()[2], inventoryData.getItemInventory()[3], inventoryData.getItemInventory()[4], player));
-        }
+        }*/
 
         [PunRPC]
         public void ChangeGUIClient(int place, int id, PhotonMessageInfo info)
         {
             Item item = gc.items[id].GetComponent<Item>();
-            Debug.Log(item.name);
+            //Debug.Log(item.name);
             gc.GetComponent<InventoryGUI>().printSprite(place, item.type, item.itemImg);
         }
         /*
