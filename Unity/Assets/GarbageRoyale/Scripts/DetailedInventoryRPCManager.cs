@@ -108,5 +108,26 @@ namespace GarbageRoyale.Scripts
             Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
             playerInventory.itemInventory[25] = -1;
         }
+        
+        [PunRPC]
+        public void AskSwapInventorySkills(int playerIndex, int oldPlace, int newPlace)
+        {
+            Debug.Log("yes");
+            Debug.Log(" sent playerindex "+playerIndex+" oldplace "+oldPlace+" newplace "+newPlace);
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+            photonView.RPC("AnswerSwapInventorySkills", RpcTarget.All,playerIndex, oldPlace, newPlace);
+        }
+
+        [PunRPC]
+        public void AnswerSwapInventorySkills(int playerIndex, int oldPlace, int newPlace)
+        {
+           Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
+            int idMem = playerInventory.skillInventory[newPlace];
+            playerInventory.skillInventory[newPlace] = playerInventory.skillInventory[oldPlace];
+            playerInventory.skillInventory[oldPlace] = idMem;
+        }
     }
 }

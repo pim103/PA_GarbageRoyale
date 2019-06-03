@@ -12,6 +12,7 @@ namespace GarbageRoyale.Scripts
         public int coolDown = 0;
         public int bufftime = 0;
         public int playerID = 0;
+        public int skillPlace = 0;
         public bool isActive = true;
         
         // Start is called before the first frame update

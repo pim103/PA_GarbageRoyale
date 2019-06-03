@@ -11,6 +11,8 @@ namespace GarbageRoyale.Scripts
         public RawImage[] CraftingSlots;
         [SerializeField] 
         public RawImage CraftingResult;
+        [SerializeField] 
+        public RawImage[] skillSlots;
         // Start is called before the first frame update
         void Start()
         {

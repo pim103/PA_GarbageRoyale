@@ -38,8 +38,12 @@
             <e p="Items" t="Include">
               <e p="BottleScript.cs" t="Include" />
               <e p="ItemController.cs" t="Include" />
+              <e p="MetalSheetScript.cs" t="Include" />
+              <e p="NailAreaScript.cs" t="Include" />
               <e p="OilAreaScript.cs" t="Include" />
               <e p="OilScript.cs" t="Include" />
+              <e p="RopeScript.cs" t="Include" />
+              <e p="SurfaceFlameScript.cs" t="Include" />
             </e>
             <e p="ItemSpawner.cs" t="Include" />
             <e p="MazeConstructor.cs" t="Include" />

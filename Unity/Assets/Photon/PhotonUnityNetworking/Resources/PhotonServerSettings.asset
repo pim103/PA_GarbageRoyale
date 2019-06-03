@@ -139,4 +139,6 @@ MonoBehaviour:
   - DisperseSpecificNail
   - AskPlaceMetalSheet
   - PlaceMetalSheetRPC
+  - AnswerSwapInventorySkills
+  - AskSwapInventorySkills
   DisableAutoOpenWizard: 1
