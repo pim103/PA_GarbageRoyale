@@ -1,19 +1,22 @@
-﻿using GarbageRoyale.Scripts.PrefabPlayer;
-using Photon.Pun;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GarbageRoyale.Scripts.Items
 {
-
-    public class MetalSheetScript : MonoBehaviour
+    public class WolfTrapScript : MonoBehaviour
     {
         [SerializeField]
-        public BoxCollider bc;
+        private GameObject leftPanel;
 
         [SerializeField]
-        private AudioSource sound;
+        private GameObject rightPanel;
+
+        [SerializeField]
+        private GameObject rope;
+
+        [SerializeField]
+        private GameObject centerRotation;
 
         [SerializeField]
         private PreviewItemScript scriptPreview;
@@ -24,16 +27,17 @@ namespace GarbageRoyale.Scripts.Items
         public bool inEditMode;
         private bool toggleEditMode;
 
-        private void Start()
+        // Start is called before the first frame update
+        void Start()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             ic = GameObject.Find("Controller").GetComponent<ItemController>();
-
             inEditMode = false;
             toggleEditMode = false;
         }
 
-        private void Update()
+        // Update is called once per frame
+        void Update()
         {
             if (inEditMode)
             {
@@ -42,7 +46,7 @@ namespace GarbageRoyale.Scripts.Items
 
                 if (canPose && Input.GetKeyDown(KeyCode.Mouse0))
                 {
-                    ic.PlaceMetalSheet(scriptPreview.savePos);
+                    //ic.PlaceMetalSheet(scriptPreview.savePos);
                     inEditMode = false;
                     scriptPreview.DesactivePreview();
                 }
@@ -55,34 +59,6 @@ namespace GarbageRoyale.Scripts.Items
             {
                 scriptPreview.DesactivePreview();
                 toggleEditMode = false;
-            }
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if(!PhotonNetwork.IsMasterClient)
-            {
-                return;
-            }
-
-            if (other.name.StartsWith("Player"))
-            {
-                int idPlayer = other.GetComponent<ExposerPlayer>().PlayerIndex;
-                gc.playersActions[idPlayer].isOnMetalSheet = true;
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                return;
-            }
-
-            if (other.name.StartsWith("Player"))
-            {
-                int idPlayer = other.GetComponent<ExposerPlayer>().PlayerIndex;
-                gc.playersActions[idPlayer].isOnMetalSheet = false;
             }
         }
     }

@@ -30,6 +30,8 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public GameObject PlayerMetalSheet;
         public GameObject PlayerBoxNail;
 
+        public GameObject PlayerWolfTrap;
+
         public AudioSource PlayerMovement;
         public AudioSource PlayerAction;
 

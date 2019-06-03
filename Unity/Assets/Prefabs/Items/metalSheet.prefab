@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7757934206241622891}
   - component: {fileID: 8406796572551740386}
   - component: {fileID: 3145020629903209621}
+  - component: {fileID: 3143394205961126564}
   - component: {fileID: 3160123226451191988}
   - component: {fileID: 8861673272424080865}
   - component: {fileID: 8008948162355218687}
@@ -103,6 +104,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3143394205961126564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4123475609780375399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa0ffb595adb434e98d19b36ff435f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nbPreview: 1
+  idPlayer: 0
+  previewCube: {fileID: 7317705782935411732}
+  rotation: {x: 90, y: 0, z: 0}
+  canPose: 0
+  savePos: {x: 0, y: 0, z: 0}
 --- !u!114 &3160123226451191988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,8 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bc: {fileID: 2927706523230511472}
   sound: {fileID: 189137234886397770}
-  previewCube: {fileID: 7317705782935411732}
-  idItem: 0
+  scriptPreview: {fileID: 3143394205961126564}
   inEditMode: 0
 --- !u!114 &8861673272424080865
 MonoBehaviour:
