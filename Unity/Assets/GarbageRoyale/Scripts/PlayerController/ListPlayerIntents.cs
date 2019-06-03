@@ -25,6 +25,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         public bool headIsInWater { get; set; }
         public bool feetIsInWater { get; set; }
         public bool isInTransition { get; set; }
+        public bool isOnMetalSheet { get; set; }
 
         //STATUS
         public bool isOiled { get; set; }

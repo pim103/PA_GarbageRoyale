@@ -19,6 +19,8 @@ namespace GarbageRoyale.Scripts
         private AudioClip walkWaterSound;
         [SerializeField]
         private AudioClip swimmingSound;
+        [SerializeField]
+        private AudioClip walkMetalSheetSound;
 
         [SerializeField]
         private AudioClip caveAmbientSound;
@@ -63,7 +65,8 @@ namespace GarbageRoyale.Scripts
             EndOpeningDoor,
             Cave,
             Water,
-            Menu
+            Menu,
+            MetalSheet
         }
 
         // Start is called before the first frame update
@@ -220,6 +223,9 @@ namespace GarbageRoyale.Scripts
                                 break;
                             case Sound.Swim:
                                 audio.PlayOneShot(swimmingSound);
+                                break;
+                            case Sound.MetalSheet:
+                                audio.PlayOneShot(walkMetalSheetSound);
                                 break;
                         }
                     }

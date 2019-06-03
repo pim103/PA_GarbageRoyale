@@ -148,5 +148,56 @@ namespace GarbageRoyale.Scripts.Items
                 gc.GetComponent<InventoryGUI>().deleteSprite(iac.placeInHand);
             }
         }
+
+        public void PlaceMetalSheet(Vector3 pos1)
+        {
+            photonView.RPC("AskPlaceMetalSheet", RpcTarget.MasterClient, pos1, PhotonNetwork.AuthValues.UserId, iac.placeInHand);
+        }
+
+        [PunRPC]
+        private void AskPlaceMetalSheet(Vector3 pos1, string userId, int placeInHand)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, userId);
+            int idItem = gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand];
+
+            //TODO verify coord rope with player
+            if (gc.items[idItem].GetComponent<Item>().name == "Metal Sheet")
+            {
+                photonView.RPC("PlaceMetalSheetRPC", RpcTarget.All, pos1, idPlayer, idItem);
+            }
+
+            gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand] = -1;
+        }
+
+        [PunRPC]
+        private void PlaceMetalSheetRPC(Vector3 pos1, int idPlayer, int idItem)
+        {
+            GameObject metalSheet = gc.items[idItem];
+
+            metalSheet.transform.parent = null;
+            metalSheet.GetComponent<Rigidbody>().isKinematic = true;
+            metalSheet.SetActive(true);
+
+            metalSheet.transform.localScale = new Vector3(3, 3, 0.04f);
+            metalSheet.transform.localEulerAngles = new Vector3(90.0f, 0f, 0f);
+            metalSheet.transform.position = pos1;
+
+            MetalSheetScript mss = metalSheet.GetComponent<MetalSheetScript>();
+            mss.bc.isTrigger = true;
+            mss.bc.size += Vector3.forward * 15;
+
+            gc.players[idPlayer].PlayerMetalSheet.SetActive(false);
+
+            if (idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            {
+                gc.players[idPlayer].PlayerInventory.itemInventory[iac.placeInHand] = -1;
+                gc.GetComponent<InventoryGUI>().deleteSprite(iac.placeInHand);
+            }
+        }
     }
 }

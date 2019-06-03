@@ -74,7 +74,6 @@ namespace GarbageRoyale.Scripts
                 {
                     int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
                     int idItem = gc.players[idPlayer].GetComponent<Inventory>().getItemInventory()[placeInHand];
-                    //RopeScript rs = gc.itemList[idItem].GetComponent<RopeScript>();
                     RopeScript rs = gc.players[idPlayer].PlayerRope.GetComponent<RopeScript>();
                     rs.inEditMode = !rs.inEditMode;
                     rs.idItem = idItem;
@@ -82,6 +81,14 @@ namespace GarbageRoyale.Scripts
                 else if (itemInHand == "Nail Box")
                 {
                     photonView.RPC("ThrowNail", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                }
+                else if (itemInHand == "Metal Sheet")
+                {
+                    int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
+                    int idItem = gc.players[idPlayer].GetComponent<Inventory>().getItemInventory()[placeInHand];
+                    MetalSheetScript mss = gc.players[idPlayer].PlayerMetalSheet.GetComponent<MetalSheetScript>();
+                    mss.inEditMode = !mss.inEditMode;
+                    mss.idItem = idItem;
                 }
             }
             

@@ -4998,6 +4998,7 @@ MonoBehaviour:
   walkSound: {fileID: 8300000, guid: 77e16f40c5a497d4c8ade305122eefa9, type: 3}
   walkWaterSound: {fileID: 8300000, guid: df50386bc91304c418125784465294c9, type: 3}
   swimmingSound: {fileID: 8300000, guid: af96c06273886084aadfe13fd5a9399d, type: 3}
+  walkMetalSheetSound: {fileID: 8300000, guid: 6233ee2d079190a479fef604950120d6, type: 3}
   caveAmbientSound: {fileID: 8300000, guid: 2fecaff4c2ac93949ae86aa10614b5a6, type: 3}
   underwaterAmbientSound: {fileID: 8300000, guid: 033edb420f2c7db4cb3462b082783c88,
     type: 3}

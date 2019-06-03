@@ -320,6 +320,7 @@ namespace GarbageRoyale.Scripts
                 playersActionsActivated[i].wantToGoDown= false;
                 playersActionsActivated[i].isInTransition = false;
                 playersActionsActivated[i].isInWater = false;
+                playersActionsActivated[i].isOnMetalSheet = false;
                 playersActionsActivated[i].headIsInWater = false;
                 playersActionsActivated[i].feetIsInWater = false;
                 playersActionsActivated[i].isOiled = false;

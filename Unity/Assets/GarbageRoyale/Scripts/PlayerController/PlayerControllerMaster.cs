@@ -309,6 +309,10 @@ namespace GarbageRoyale.Scripts.PlayerController
             {
                 soundNeeded = SoundManager.Sound.FeetOnWater;
             }
+            else if(gc.playersActions[id].isOnMetalSheet)
+            {
+                soundNeeded = SoundManager.Sound.MetalSheet;
+            }
 
             gc.soundManager.playWalkSound(id, isMoving, soundNeeded,isQuiet);
 

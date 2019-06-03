@@ -137,4 +137,6 @@ MonoBehaviour:
   - PlaceRopeRPC
   - ThrowNail
   - DisperseSpecificNail
+  - AskPlaceMetalSheet
+  - PlaceMetalSheetRPC
   DisableAutoOpenWizard: 1
