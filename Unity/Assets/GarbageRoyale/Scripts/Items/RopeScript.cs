@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using GarbageRoyale.Scripts.PrefabPlayer;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,6 +66,9 @@ namespace GarbageRoyale.Scripts.Items
                 if (savePos1 != Vector3.zero && savePos2 != Vector3.zero && !isDeployed)
                 {
                     ic.PlaceRope(savePos1, savePos2);
+                    resetPreviewBlock();
+
+                    inEditMode = false;
 
                     isDeployed = true;
                 }
@@ -138,17 +142,25 @@ namespace GarbageRoyale.Scripts.Items
         {
             if (toggleEditMode != inEditMode)
             {
-                previewCube.SetActive(false);
-                previewCube2.SetActive(false);
-
-                previewCube.transform.parent = transform;
-                previewCube2.transform.parent = transform;
-
-                previewCube.transform.localScale = scalePreview;
-                previewCube2.transform.localScale = scalePreview;
+                resetPreviewBlock();
 
                 resetValue();
             }
+        }
+
+        private void resetPreviewBlock()
+        {
+            previewCube.SetActive(false);
+            previewCube2.SetActive(false);
+
+            previewCube.transform.parent = transform;
+            previewCube2.transform.parent = transform;
+
+            previewCube.transform.localScale = scalePreview;
+            previewCube2.transform.localScale = scalePreview;
+
+            previewCube.transform.localEulerAngles = new Vector3(90, 0, -90);
+            previewCube2.transform.localEulerAngles = new Vector3(90, 0, -90);
         }
 
         private void resetValue()
@@ -173,9 +185,17 @@ namespace GarbageRoyale.Scripts.Items
 
         private void OnTriggerEnter(Collider other)
         {
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
             if(other.name.StartsWith("Player"))
             {
-                Debug.Log("TU TOMBES");
+                ExposerPlayer ep = other.GetComponent<ExposerPlayer>();
+                ep.PlayerGameObject.transform.Rotate(new Vector3(90.0f, 0.0f, 0.0f));
+                gc.playersActions[ep.PlayerIndex].isFallen = true;
+                gc.playersActions[ep.PlayerIndex].timeLeftFallen = 2.0f;
             }
         }
     }

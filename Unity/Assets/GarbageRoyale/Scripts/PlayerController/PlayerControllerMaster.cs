@@ -90,7 +90,11 @@ namespace GarbageRoyale.Scripts.PlayerController
                     return;
                 }
 
-                isMoving = PlayerMovement(i);
+                if (!gc.playersActions[i].isFallen)
+                {
+                    isMoving = PlayerMovement(i);
+                }
+
                 rotationX = PlayerRotation(i);
                 PlayerUpdateStats(i);
 
@@ -256,6 +260,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                     gc.playersActions[id].isBurning = false;
                 }
             }
+
             if(gc.playersActions[id].isOiled && gc.playersActions[id].timeLeftOiled > 0.0f)
             {
                 gc.playersActions[id].timeLeftOiled -= Time.deltaTime;
@@ -263,6 +268,16 @@ namespace GarbageRoyale.Scripts.PlayerController
             else
             {
                 gc.playersActions[id].isOiled = false;
+            }
+
+            if(gc.playersActions[id].isFallen && gc.playersActions[id].timeLeftFallen > 0.0f)
+            {
+                gc.playersActions[id].timeLeftFallen -= Time.deltaTime;
+            }
+            else if(gc.playersActions[id].isFallen)
+            {
+                gc.playersActions[id].isFallen = false;
+                gc.players[id].PlayerGameObject.transform.Rotate(new Vector3(-90, 0, 0));
             }
         }
 

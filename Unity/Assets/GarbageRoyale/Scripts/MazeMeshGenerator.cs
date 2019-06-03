@@ -46,7 +46,7 @@ namespace GarbageRoyale.Scripts
             {
                 for (int j = 0; j <= cMax; j++)
                 {
-                    if(i == 40 && j == 40)
+                    if((i == 40 && j == 40) || (i == 44 && j == 44))
                     {
                         /*
                         var newDoor = Instantiate(Prefabs[9], new Vector3(j * width + ypos, ypos, i * width + ypos),
