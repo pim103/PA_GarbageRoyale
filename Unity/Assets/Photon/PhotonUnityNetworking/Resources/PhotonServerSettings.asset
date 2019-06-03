@@ -131,4 +131,8 @@ MonoBehaviour:
   - DeactivateQuietSkill
   - HitMobRPC
   - MobDeath
+  - addSpecificBrokenBottleInHand
+  - BurnSurfaceRPC
+  - AskPlaceRope
+  - PlaceRopeRPC
   DisableAutoOpenWizard: 1

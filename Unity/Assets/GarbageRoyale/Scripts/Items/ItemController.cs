@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using GarbageRoyale.Scripts.HUD;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,9 @@ namespace GarbageRoyale.Scripts.Items
     {
         [SerializeField]
         private GameController gc;
+
+        [SerializeField]
+        private InventoryActionsController iac;
 
         public void brokeBottle(int id, bool keepInHand, int idPlayer, int placeInHand)
         {
@@ -92,6 +96,57 @@ namespace GarbageRoyale.Scripts.Items
             GameObject burningSurface = ObjectPooler.SharedInstance.GetPooledObject(5);
             burningSurface.transform.position = position;
             burningSurface.SetActive(true);
+        }
+
+        public void PlaceRope(Vector3 pos1, Vector3 pos2)
+        {
+            photonView.RPC("AskPlaceRope", RpcTarget.MasterClient, pos1, pos2, PhotonNetwork.AuthValues.UserId, iac.placeInHand);
+        }
+
+        [PunRPC]
+        private void AskPlaceRope(Vector3 pos1, Vector3 pos2, string userId, int placeInHand)
+        {
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, userId);
+            int idItem = gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand];
+
+            //TODO verify coord rope with player
+            if (Vector3.Distance(pos1, pos2) <= 8.0f && gc.items[idItem].GetComponent<Item>().name == "Rope")
+            {
+                photonView.RPC("PlaceRopeRPC", RpcTarget.All, pos1, pos2, idPlayer, idItem);
+            }
+
+            gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand] = -1;
+        }
+
+        [PunRPC]
+        private void PlaceRopeRPC(Vector3 pos1, Vector3 pos2, int idPlayer, int idItem)
+        {
+            GameObject rope = gc.items[idItem];
+
+            rope.transform.parent = null;
+            rope.GetComponent<Item>().resetScale();
+            rope.GetComponent<Rigidbody>().isKinematic = true;
+            rope.SetActive(true);
+
+            Vector3 temp = rope.transform.localScale;
+            temp.z = Vector3.Distance(pos1, pos2);
+            rope.transform.localScale = temp;
+            rope.transform.position = pos1;
+            rope.transform.LookAt(pos2);
+            rope.GetComponent<RopeScript>().mc.isTrigger = true;
+
+            gc.players[idPlayer].PlayerRope.SetActive(false);
+
+            if(idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            {
+                gc.players[idPlayer].PlayerInventory.itemInventory[iac.placeInHand] = -1;
+                gc.GetComponent<InventoryGUI>().deleteSprite(iac.placeInHand);
+            }
         }
     }
 }

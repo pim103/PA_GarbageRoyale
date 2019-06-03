@@ -18,9 +18,10 @@ namespace GarbageRoyale.Scripts.Items
         private Renderer material;
 
         [SerializeField]
-        private MeshCollider mc;
+        public MeshCollider mc;
 
         private GameController gc;
+        private ItemController ic;
 
         public int idItem;
 
@@ -46,6 +47,7 @@ namespace GarbageRoyale.Scripts.Items
         void Start()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
+            ic = GameObject.Find("Controller").GetComponent<ItemController>();
 
             resetValue();
         }
@@ -62,19 +64,7 @@ namespace GarbageRoyale.Scripts.Items
 
                 if (savePos1 != Vector3.zero && savePos2 != Vector3.zero && !isDeployed)
                 {
-                    GameObject rope = gc.items[idItem];
-
-                    rope.transform.parent = null;
-                    rope.GetComponent<Item>().resetScale();
-                    rope.GetComponent<Rigidbody>().isKinematic = true;
-                    rope.SetActive(true);
-
-                    Vector3 temp = rope.transform.localScale;
-                    temp.z = Vector3.Distance(savePos1, savePos2);
-                    rope.transform.localScale = temp;
-                    rope.transform.position = savePos1;
-                    rope.transform.LookAt(savePos2);
-                    rope.GetComponent<RopeScript>().mc.isTrigger = true;
+                    ic.PlaceRope(savePos1, savePos2);
 
                     isDeployed = true;
                 }
@@ -111,6 +101,20 @@ namespace GarbageRoyale.Scripts.Items
                             canSetPos2 = false;
                         }
                     }
+
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        if (savePos1 == Vector3.zero)
+                        {
+                            savePos1 = hitInfo.point;
+                            previewCube.transform.parent = null;
+                        }
+                        else if (savePos2 == Vector3.zero && canSetPos2)
+                        {
+                            savePos2 = hitInfo.point;
+                            previewCube2.transform.parent = null;
+                        }
+                    }
                 }
                 else
                 {
@@ -125,20 +129,6 @@ namespace GarbageRoyale.Scripts.Items
                             previewCube2.SetActive(false);
                         }
                         toggleCube = false;
-                    }
-                }
-
-                if(Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    if(savePos1 == Vector3.zero)
-                    {
-                        savePos1 = hitInfo.point;
-                        previewCube.transform.parent = null;
-                    }
-                    else if(savePos2 == Vector3.zero && canSetPos2)
-                    {
-                        savePos2 = hitInfo.point;
-                        previewCube2.transform.parent = null;
                     }
                 }
             }
