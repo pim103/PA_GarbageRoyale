@@ -132,10 +132,17 @@ namespace GarbageRoyale.Scripts.PlayerController
         {
             var playerAction = gc.playersActions[id];
 
+            var actualSpeed = speed;
+
+            if(playerAction.isSlow)
+            {
+                actualSpeed /= 2;
+            }
+
             if (gc.players[id].PlayerChar.isGrounded)
             {
                 gc.moveDirection[id] = new Vector3(playerAction.horizontalAxe, 0.0f, playerAction.verticalAxe);
-                gc.moveDirection[id] *= speed;
+                gc.moveDirection[id] *= actualSpeed;
 
                 gc.moveDirection[id] = gc.players[id].PlayerGameObject.transform.TransformDirection(gc.moveDirection[id]);
 
@@ -148,7 +155,7 @@ namespace GarbageRoyale.Scripts.PlayerController
             {
                 float tempY = gc.moveDirection[id].y;
                 gc.moveDirection[id] = new Vector3(playerAction.horizontalAxe, 0.0f, playerAction.verticalAxe);
-                gc.moveDirection[id] *= speed;
+                gc.moveDirection[id] *= actualSpeed;
 
                 gc.moveDirection[id] = gc.players[id].PlayerGameObject.transform.TransformDirection(gc.moveDirection[id]);
                 gc.moveDirection[id].y = tempY;
@@ -156,7 +163,7 @@ namespace GarbageRoyale.Scripts.PlayerController
             else
             {
                 gc.moveDirection[id] = new Vector3(playerAction.horizontalAxe, 0.0f, playerAction.verticalAxe);
-                gc.moveDirection[id] *= speed;
+                gc.moveDirection[id] *= actualSpeed;
 
                 gc.moveDirection[id] = gc.players[id].PlayerGameObject.transform.TransformDirection(gc.moveDirection[id]);
             }

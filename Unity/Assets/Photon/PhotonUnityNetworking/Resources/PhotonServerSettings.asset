@@ -135,4 +135,6 @@ MonoBehaviour:
   - BurnSurfaceRPC
   - AskPlaceRope
   - PlaceRopeRPC
+  - ThrowNail
+  - DisperseSpecificNail
   DisableAutoOpenWizard: 1

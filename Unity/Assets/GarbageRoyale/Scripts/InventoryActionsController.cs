@@ -79,6 +79,10 @@ namespace GarbageRoyale.Scripts
                     rs.inEditMode = !rs.inEditMode;
                     rs.idItem = idItem;
                 }
+                else if (itemInHand == "Nail Box")
+                {
+                    photonView.RPC("ThrowNail", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                }
             }
             
             /*if (Input.GetKeyDown(KeyCode.A))
@@ -318,7 +322,6 @@ namespace GarbageRoyale.Scripts
             RaycastHit info;
             if (Physics.Raycast(gc.players[playerIndex].PlayerFeet.transform.position, transform.TransformDirection(Vector3.down), out info))
             {
-                Debug.Log(info.transform.name);
                 pos = new Vector3(info.point.x, info.point.y + 0.1f, info.point.z);
             }
 
@@ -342,6 +345,39 @@ namespace GarbageRoyale.Scripts
                 oil.transform.position = position;
                 oil.SetActive(true);
             }
+        }
+
+        [PunRPC]
+        private void ThrowNail(int placeInHand, int playerIndex)
+        {
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
+            int itemId = inventoryData.getItemInventory()[placeInHand];
+
+            Vector3 pos = Vector3.forward;
+            RaycastHit info;
+            if (Physics.Raycast(gc.players[playerIndex].PlayerFeet.transform.position, transform.TransformDirection(Vector3.down), out info))
+            {
+                pos = new Vector3(info.point.x, info.point.y + 0.1f, info.point.z + 2.0f);
+            }
+
+            if (gc.items[itemId].GetComponent<Item>().name == "Nail Box" && !gc.items[itemId].GetComponent<NailAreaScript>().isEmpty)
+            {
+                gc.items[itemId].GetComponent<NailAreaScript>().isEmpty = true;
+                photonView.RPC("DisperseSpecificNail", RpcTarget.All, pos);
+            }
+        }
+
+        [PunRPC]
+        private void DisperseSpecificNail(Vector3 position)
+        {
+            GameObject nailArea = ObjectPooler.SharedInstance.GetPooledObject(7);
+            nailArea.transform.position = position;
+            nailArea.SetActive(true);
         }
     }
 }

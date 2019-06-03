@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2173877282301500819}
   - component: {fileID: 8426511688400917000}
   - component: {fileID: 2964728110557829474}
+  - component: {fileID: 3158234681766751200}
   m_Layer: 0
   m_Name: boxNail
   m_TagString: Untagged
@@ -175,3 +176,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3158234681766751200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066649638503490098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cdb570a107c9e44c9329d4827cce0bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEmpty: 0

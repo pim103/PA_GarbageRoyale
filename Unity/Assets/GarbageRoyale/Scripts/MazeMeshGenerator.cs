@@ -62,7 +62,7 @@ namespace GarbageRoyale.Scripts
 
                         //Debug.Log(itemRoom[i + ";" + j]);
 
-                        itemSpawn.itemType = 7;
+                        itemSpawn.itemType = 8;
                         itemSpawn.initItems();
                     }
 
