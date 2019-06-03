@@ -324,6 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeLeftOiled: 0
   timeLeftBurn: 0
+  timeLeftFallen: 0
   PlayerIndex: 2
   photonView: {fileID: 53284246}
   scripts: {fileID: 274310797}
@@ -1389,6 +1390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeLeftOiled: 0
   timeLeftBurn: 0
+  timeLeftFallen: 0
   PlayerIndex: 4
   photonView: {fileID: 289716585}
   scripts: {fileID: 274310797}
@@ -1938,6 +1940,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeLeftOiled: 0
   timeLeftBurn: 0
+  timeLeftFallen: 0
   PlayerIndex: 0
   photonView: {fileID: 412184089}
   scripts: {fileID: 274310797}
@@ -2586,6 +2589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeLeftOiled: 0
   timeLeftBurn: 0
+  timeLeftFallen: 0
   PlayerIndex: 3
   photonView: {fileID: 603259537}
   scripts: {fileID: 274310797}
@@ -2657,6 +2661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeLeftOiled: 0
   timeLeftBurn: 0
+  timeLeftFallen: 0
   PlayerIndex: 7
   photonView: {fileID: 616407921}
   scripts: {fileID: 274310797}
@@ -4900,7 +4905,7 @@ MonoBehaviour:
   - {fileID: 4583224748811352036, guid: 05be5c53f20f9964e8ab9bcfe54397fc, type: 3}
   - {fileID: 2021632103173086074, guid: dde2fbe1b24020242bba4da8d397796b, type: 3}
   - {fileID: 5374713846175401429, guid: 2cec4c6330833bb48829e1b6a03b1200, type: 3}
-  - {fileID: 312816138, guid: ea604da19b898d84291dc6e40ff291ab, type: 3}
+  - {fileID: 4123475609780375399, guid: 1e616990ba986324e9e87d2902e4c24e, type: 3}
   - {fileID: 3174871754370938083, guid: ad8421afe1aedde479999b2c0a0c1b64, type: 3}
 --- !u!4 &1103656771
 Transform:
@@ -5866,6 +5871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeLeftOiled: 0
   timeLeftBurn: 0
+  timeLeftFallen: 0
   PlayerIndex: 5
   photonView: {fileID: 1209141750}
   scripts: {fileID: 274310797}
@@ -5981,26 +5987,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6360ef31750594ea05a09412c82d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1234684766 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8919846846413254900, guid: b88fe910c5709a04d97508e2aa5446c1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1944728897}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1234684767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1234684766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b8248cc636aed04d82738b186b30293, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particles: {fileID: 1673859632}
-  nbOil: 3
 --- !u!1 &1251326645
 GameObject:
   m_ObjectHideFlags: 0
@@ -7813,12 +7799,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1651955593}
   m_CullTransparentMesh: 0
---- !u!198 &1673859632 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2420743000882957524, guid: b88fe910c5709a04d97508e2aa5446c1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1944728897}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1705087942
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8539,6 +8519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeLeftOiled: 0
   timeLeftBurn: 0
+  timeLeftFallen: 0
   PlayerIndex: 1
   photonView: {fileID: 1946594782}
   scripts: {fileID: 274310797}
@@ -9025,6 +9006,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeLeftOiled: 0
   timeLeftBurn: 0
+  timeLeftFallen: 0
   PlayerIndex: 6
   photonView: {fileID: 2041371790}
   scripts: {fileID: 274310797}

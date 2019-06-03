@@ -143,6 +143,8 @@ namespace GarbageRoyale.Scripts
             gc.players[playerIndex].PlayerBottleOil.SetActive(false);
             gc.players[playerIndex].PlayerMolotov.SetActive(false);
             gc.players[playerIndex].PlayerRope.SetActive(false);
+            gc.players[playerIndex].PlayerMetalSheet.SetActive(false);
+            gc.players[playerIndex].PlayerBoxNail.SetActive(false);
 
             switch (item)
             {
@@ -179,6 +181,12 @@ namespace GarbageRoyale.Scripts
                     break;
                 case "Rope":
                     gc.players[playerIndex].PlayerRope.SetActive(true);
+                    break;
+                case "Metal Sheet":
+                    gc.players[playerIndex].PlayerMetalSheet.SetActive(true);
+                    break;
+                case "Nail Box":
+                    gc.players[playerIndex].PlayerBoxNail.SetActive(true);
                     break;
                 default:
                     Debug.Log("Error, wrong item");
@@ -232,6 +240,8 @@ namespace GarbageRoyale.Scripts
             gc.players[playerIndex].PlayerBottleOil.SetActive(false);
             gc.players[playerIndex].PlayerMolotov.SetActive(false);
             gc.players[playerIndex].PlayerRope.SetActive(false);
+            gc.players[playerIndex].PlayerMetalSheet.SetActive(false);
+            gc.players[playerIndex].PlayerBoxNail.SetActive(false);
 
             if (throwItem)
             {

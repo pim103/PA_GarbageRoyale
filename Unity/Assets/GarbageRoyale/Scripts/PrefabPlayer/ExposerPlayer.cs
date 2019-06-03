@@ -27,6 +27,8 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public GameObject PlayerBottleOil;
         public GameObject PlayerMolotov;
         public GameObject PlayerRope;
+        public GameObject PlayerMetalSheet;
+        public GameObject PlayerBoxNail;
 
         public AudioSource PlayerMovement;
         public AudioSource PlayerAction;
