@@ -141,4 +141,6 @@ MonoBehaviour:
   - PlaceMetalSheetRPC
   - AnswerSwapInventorySkills
   - AskSwapInventorySkills
+  - AskPlaceWolfTrap
+  - PlaceWolfTrapRPC
   DisableAutoOpenWizard: 1

@@ -16,12 +16,12 @@ namespace GarbageRoyale.Scripts.Items
 
         public void brokeBottle(int id, bool keepInHand, int idPlayer, int placeInHand)
         {
-            if(!PhotonNetwork.IsMasterClient)
+            if (!PhotonNetwork.IsMasterClient)
             {
                 return;
             }
 
-            if(!keepInHand)
+            if (!keepInHand)
             {
                 photonView.RPC("addSpecificBrokenBottle", RpcTarget.All, id, gc.items.Count);
             }
@@ -106,7 +106,7 @@ namespace GarbageRoyale.Scripts.Items
         [PunRPC]
         private void AskPlaceRope(Vector3 pos1, Vector3 pos2, string userId, int placeInHand)
         {
-            if(!PhotonNetwork.IsMasterClient)
+            if (!PhotonNetwork.IsMasterClient)
             {
                 return;
             }
@@ -142,7 +142,7 @@ namespace GarbageRoyale.Scripts.Items
 
             gc.players[idPlayer].PlayerRope.SetActive(false);
 
-            if(idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            if (idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
                 gc.players[idPlayer].PlayerInventory.itemInventory[iac.placeInHand] = -1;
                 gc.GetComponent<InventoryGUI>().deleteSprite(iac.placeInHand);
@@ -192,6 +192,56 @@ namespace GarbageRoyale.Scripts.Items
             mss.bc.size += Vector3.forward * 15;
 
             gc.players[idPlayer].PlayerMetalSheet.SetActive(false);
+
+            if (idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            {
+                gc.players[idPlayer].PlayerInventory.itemInventory[iac.placeInHand] = -1;
+                gc.GetComponent<InventoryGUI>().deleteSprite(iac.placeInHand);
+            }
+        }
+
+        public void PlaceWolfTrap(Vector3 pos1)
+        {
+            photonView.RPC("AskPlaceWolfTrap", RpcTarget.MasterClient, pos1, PhotonNetwork.AuthValues.UserId, iac.placeInHand);
+        }
+
+        [PunRPC]
+        private void AskPlaceWolfTrap(Vector3 pos1, string userId, int placeInHand)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, userId);
+            int idItem = gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand];
+
+            //TODO verify coord rope with player
+            if (gc.items[idItem].GetComponent<Item>().name == "Wolf Trap")
+            {
+                photonView.RPC("PlaceWolfTrapRPC", RpcTarget.All, pos1, idPlayer, idItem);
+            }
+
+            gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand] = -1;
+        }
+
+        [PunRPC]
+        private void PlaceWolfTrapRPC(Vector3 pos1, int idPlayer, int idItem)
+        {
+            GameObject wolfTrap = gc.items[idItem];
+
+            wolfTrap.transform.parent = null;
+            wolfTrap.GetComponent<Rigidbody>().isKinematic = true;
+            wolfTrap.SetActive(true);
+
+            wolfTrap.transform.localScale = new Vector3(1, 1, 1);
+            wolfTrap.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
+            wolfTrap.transform.position = pos1;
+
+            WolfTrapScript mss = wolfTrap.GetComponent<WolfTrapScript>();
+            mss.bc.isTrigger = true;
+
+            gc.players[idPlayer].PlayerWolfTrap.SetActive(false);
 
             if (idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {

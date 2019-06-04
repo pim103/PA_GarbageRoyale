@@ -330,6 +330,7 @@ namespace GarbageRoyale.Scripts
                 playersActionsActivated[i].isQuiet = false;
                 playersActionsActivated[i].isFallen = false;
                 playersActionsActivated[i].timeLeftFallen = 2.0f;
+                playersActionsActivated[i].isTrap = false;
             }
             if (PhotonNetwork.AuthValues.UserId == AvatarToUserId[id])
             {

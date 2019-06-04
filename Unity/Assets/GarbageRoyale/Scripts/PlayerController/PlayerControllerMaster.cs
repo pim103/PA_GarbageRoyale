@@ -62,7 +62,7 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             for (var i = 0; i < gc.playersActionsActivated.Length; i++)
             {
-                if(gc.players[i].PlayerStats.isDead && !gc.players[i].PlayerStats.isAlreadyTrigger)
+                if (gc.players[i].PlayerStats.isDead && !gc.players[i].PlayerStats.isAlreadyTrigger)
                 {
                     gc.players[i].PlayerStats.isAlreadyTrigger = true;
                     DataCollector.instance.AddKillPoint(gc.players[i].PlayerGameObject, i, Time.time);
@@ -90,7 +90,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                     return;
                 }
 
-                if (!gc.playersActions[i].isFallen)
+                if (!gc.playersActions[i].isFallen && !gc.playersActions[i].isTrap)
                 {
                     isMoving = PlayerMovement(i);
                 }

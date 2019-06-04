@@ -38,5 +38,6 @@ namespace GarbageRoyale.Scripts.PlayerController
         public float timeLeftFallen;
 
         public bool isSlow { get; set; }
+        public bool isTrap { get; set; }
     }
 }
