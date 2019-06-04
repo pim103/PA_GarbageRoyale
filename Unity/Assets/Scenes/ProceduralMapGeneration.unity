@@ -4958,7 +4958,6 @@ MonoBehaviour:
   - {fileID: 4123475609780375399, guid: 1e616990ba986324e9e87d2902e4c24e, type: 3}
   - {fileID: 3174871754370938083, guid: ad8421afe1aedde479999b2c0a0c1b64, type: 3}
   - {fileID: 1066649638503490098, guid: 79ac27bf71b2f5c47895455dd8e04f9a, type: 3}
-  - {fileID: 2438556329541622484, guid: 35cb5a05620a0c74ea8430cad01f7828, type: 3}
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0
@@ -5144,6 +5143,10 @@ MonoBehaviour:
       type: 3}
     amountToPool: 50
     shouldExpand: 1
+  - objectToPool: {fileID: 2438556329541622484, guid: 35cb5a05620a0c74ea8430cad01f7828,
+      type: 3}
+    amountToPool: 50
+    shouldExpand: 1
   - objectToPool: {fileID: 3146713037004720411, guid: 12738a3d99c942647bcec467bc89b7c2,
       type: 3}
     amountToPool: 50
@@ -5231,6 +5234,7 @@ MonoBehaviour:
   - {fileID: 5833977737841398870, guid: e218f15e510a09c4087eb399b5a934f3, type: 3}
   - {fileID: 5833977737841398870, guid: 25ef27347d9ab2f4f9a91af739ee6a99, type: 3}
   - {fileID: 5833977737841398870, guid: cee90852b1232ad4196833231c7a1b85, type: 3}
+  - {fileID: 5833977737841398870, guid: da6fc3b0ea69280449c6d59b0e370458, type: 3}
   healthBar: {fileID: 669336003}
   staminaBar: {fileID: 669336002}
   breathBar: {fileID: 669336001}

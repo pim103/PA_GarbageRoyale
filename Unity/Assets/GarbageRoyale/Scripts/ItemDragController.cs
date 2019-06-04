@@ -187,6 +187,12 @@ namespace GarbageRoyale.Scripts
                             Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                         CraftingResultSlot.texture = gc.inventoryGui.rawSprites[8].texture;
                     }
+                    else if (craftingList.Contains(13) && craftingList.Contains(11) && craftingList.Contains(14))
+                    {
+                        RpcManager.photonView.RPC("AskCraftItem", RpcTarget.All, 15,
+                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                        CraftingResultSlot.texture = gc.inventoryGui.rawSprites[9].texture;
+                    }
                     else
                     {
                         isCrafting = false;

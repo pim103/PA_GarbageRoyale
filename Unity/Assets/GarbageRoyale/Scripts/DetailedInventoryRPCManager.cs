@@ -74,6 +74,9 @@ namespace GarbageRoyale.Scripts
                 case 10:
                     poolID = 3;
                     break;
+                case 15:
+                    poolID = 7;
+                    break;
                 default:
                     Debug.Log("Wrong Item");
                     break;
