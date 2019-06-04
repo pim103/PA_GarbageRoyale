@@ -4,6 +4,7 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GarbageRoyale.Scripts.PlayerController
@@ -24,6 +25,8 @@ namespace GarbageRoyale.Scripts.PlayerController
 
         public Vector3[] moveDirection;
 
+        private bool[] coroutineIsStart;
+
         //Movement
         private float speed = 6.0f;
         private float jumpSpeed = 8.0f;
@@ -43,6 +46,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         private void Start()
         {
             initTexture();
+            coroutineIsStart = Enumerable.Repeat(false, 10).ToArray();
         }
 
         void FixedUpdate()
@@ -96,7 +100,12 @@ namespace GarbageRoyale.Scripts.PlayerController
                 }
 
                 rotationX = PlayerRotation(i);
-                PlayerUpdateStats(i);
+                if(!coroutineIsStart[i])
+                {
+                    coroutineIsStart[i] = true;
+                    StartCoroutine(PlayerUpdateStats(i));
+                }
+                //PlayerUpdateStats(i);
 
                 if (playerAction.wantToLightUp && !player.SpotLight.gameObject.activeSelf)
                 {
@@ -228,6 +237,77 @@ namespace GarbageRoyale.Scripts.PlayerController
             return rotationX;
         }
 
+        private IEnumerator PlayerUpdateStats(int id)
+        {
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                yield return null;
+            }
+
+            PlayerStats ps = gc.players[id].PlayerStats;
+
+            while(true)
+            {
+                if (gc.playersActions[id].headIsInWater)
+                {
+                    gc.playersActions[id].isBurning = false;
+                    gc.playersActions[id].isOiled = false;
+                    if (ps.currentBreath > 0)
+                    {
+                        ps.currentBreath -= 0.5f;
+                    }
+                    else if (ps.currentHp > 0)
+                    {
+                        ps.takeDamage(0.5f);
+                    }
+                }
+                else
+                {
+                    if (ps.currentBreath < ps.defaultBreath)
+                    {
+                        ps.currentBreath += 0.5f;
+                    }
+                }
+
+                if (ps.currentStamina < ps.defaultStamina)
+                {
+                    ps.currentStamina += 0.7f;
+                }
+
+                if (gc.playersActions[id].isBurning)
+                {
+                    ps.takeDamage(2f);
+                    gc.playersActions[id].timeLeftBurn -= 0.1f;
+                    if (gc.playersActions[id].timeLeftBurn <= 0.0f)
+                    {
+                        gc.playersActions[id].isBurning = false;
+                    }
+                }
+
+                if (gc.playersActions[id].isOiled && gc.playersActions[id].timeLeftOiled > 0.0f)
+                {
+                    gc.playersActions[id].timeLeftOiled -= 0.1f;
+                }
+                else
+                {
+                    gc.playersActions[id].isOiled = false;
+                }
+
+                if (gc.playersActions[id].isFallen && gc.playersActions[id].timeLeftFallen > 0.0f)
+                {
+                    gc.playersActions[id].timeLeftFallen -= 0.1f;
+                }
+                else if (gc.playersActions[id].isFallen)
+                {
+                    gc.playersActions[id].isFallen = false;
+                    gc.players[id].PlayerGameObject.transform.Rotate(new Vector3(-90, 0, 0));
+                }
+
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+
+        /*
         //Replace with Coroutine ?
         private void PlayerUpdateStats(int id)
         {
@@ -288,7 +368,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                 gc.players[id].PlayerGameObject.transform.Rotate(new Vector3(-90, 0, 0));
             }
         }
-
+        */
         [PunRPC]
         private void LightUpRPC(int id, bool action)
         {
