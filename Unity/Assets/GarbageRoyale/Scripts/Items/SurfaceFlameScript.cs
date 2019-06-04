@@ -1,4 +1,5 @@
 ﻿using GarbageRoyale.Scripts.PrefabPlayer;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace GarbageRoyale.Scripts.Items
         private GameController gc;
 
         private bool[] isInZone;
+        private IEnumerator[] coroutine;
 
         // Start is called before the first frame update
         void Awake()
@@ -20,6 +22,7 @@ namespace GarbageRoyale.Scripts.Items
             isInZone = Enumerable.Repeat(false, 10).ToArray();
             timeLeftBurning = 10.0f;
             gc = GameObject.Find("Controller").GetComponent<GameController>();
+            coroutine = new IEnumerator[10];
         }
 
         private void Update()
@@ -32,7 +35,7 @@ namespace GarbageRoyale.Scripts.Items
             {
                 gameObject.SetActive(false);
             }
-
+            /*
             for (var i = 0; i < isInZone.Length; i++)
             {
                 if (isInZone[i])
@@ -40,7 +43,7 @@ namespace GarbageRoyale.Scripts.Items
                     gc.players[i].PlayerStats.takeDamage(0.05f);
                 }
             }
-
+            */
             if (gc.water.waterObject.transform.position.y > transform.position.y)
             {
                 gameObject.SetActive(false);
@@ -53,6 +56,9 @@ namespace GarbageRoyale.Scripts.Items
             {
                 int id = other.GetComponent<ExposerPlayer>().PlayerIndex;
                 isInZone[id] = true;
+
+                coroutine[id] = DealDamage(id);
+                StartCoroutine(coroutine[id]);
 
                 if (gc.playersActions[id].isOiled)
                 {
@@ -69,6 +75,23 @@ namespace GarbageRoyale.Scripts.Items
             {
                 int id = other.GetComponent<ExposerPlayer>().PlayerIndex;
                 isInZone[id] = false;
+                
+                StopCoroutine(coroutine[id]);
+            }
+        }
+
+        private IEnumerator DealDamage(int id)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                yield return null;
+            }
+
+            while (true)
+            {
+                gc.players[id].PlayerStats.takeDamage(1f);
+                gc.playersActions[id].isSlow = true;
+                yield return new WaitForSeconds(0.5f);
             }
         }
     }

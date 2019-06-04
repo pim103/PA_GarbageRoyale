@@ -1,4 +1,5 @@
 ﻿using GarbageRoyale.Scripts.PrefabPlayer;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace GarbageRoyale.Scripts.Items
         private GameController gc;
 
         private bool[] isInZone;
+        private IEnumerator[] coroutine;
 
         private void Start()
         {
@@ -30,6 +32,7 @@ namespace GarbageRoyale.Scripts.Items
             isBurning = false;
             timeToBurn = 50.0f;
             gc = GameObject.Find("Controller").GetComponent<GameController>();
+            coroutine = new IEnumerator[10];
         }
 
         private void Update()
@@ -46,7 +49,7 @@ namespace GarbageRoyale.Scripts.Items
                     flame.SetActive(false);
                     oil.SetActive(false);
                 }
-
+                /*
                 for(var i = 0; i < isInZone.Length; i++)
                 {
                     if(isInZone[i])
@@ -54,6 +57,7 @@ namespace GarbageRoyale.Scripts.Items
                         gc.players[i].PlayerStats.takeDamage(0.1f);
                     }
                 }
+                */
             }
 
             if(gc.water.waterObject.transform.position.y > transform.position.y)
@@ -79,7 +83,10 @@ namespace GarbageRoyale.Scripts.Items
                 int id = other.GetComponent<ExposerPlayer>().PlayerIndex;
                 isInZone[id] = true;
 
-                if(gc.playersActions[id].isOiled)
+                coroutine[id] = DealDamage(id);
+                StartCoroutine(coroutine[id]);
+
+                if (gc.playersActions[id].isOiled)
                 {
                     gc.playersActions[id].isOiled = false;
                     gc.playersActions[id].isBurning = true;
@@ -94,6 +101,21 @@ namespace GarbageRoyale.Scripts.Items
             {
                 int id = other.GetComponent<ExposerPlayer>().PlayerIndex;
                 isInZone[id] = false;
+            }
+        }
+
+        private IEnumerator DealDamage(int id)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                yield return null;
+            }
+
+            while (true)
+            {
+                gc.players[id].PlayerStats.takeDamage(1f);
+                gc.playersActions[id].isSlow = true;
+                yield return new WaitForSeconds(0.5f);
             }
         }
     }

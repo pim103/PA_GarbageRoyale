@@ -228,6 +228,7 @@ namespace GarbageRoyale.Scripts.PlayerController
             return rotationX;
         }
 
+        //Replace with Coroutine ?
         private void PlayerUpdateStats(int id)
         {
             PlayerStats ps = gc.players[id].PlayerStats;
