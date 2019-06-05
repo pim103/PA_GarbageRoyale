@@ -29,6 +29,7 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public GameObject PlayerRope;
         public GameObject PlayerMetalSheet;
         public GameObject PlayerBoxNail;
+        public GameObject PlayerBattery;
 
         public GameObject PlayerWolfTrap;
 

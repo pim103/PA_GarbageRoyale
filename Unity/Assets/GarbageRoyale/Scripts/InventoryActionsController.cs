@@ -162,6 +162,7 @@ namespace GarbageRoyale.Scripts
             gc.players[playerIndex].PlayerMetalSheet.SetActive(false);
             gc.players[playerIndex].PlayerBoxNail.SetActive(false);
             gc.players[playerIndex].PlayerWolfTrap.SetActive(false);
+            gc.players[playerIndex].PlayerBattery.SetActive(false);
 
             switch (item)
             {
@@ -207,6 +208,9 @@ namespace GarbageRoyale.Scripts
                     break;
                 case "Wolf Trap":
                     gc.players[playerIndex].PlayerWolfTrap.SetActive(true);
+                    break;
+                case "Battery":
+                    gc.players[playerIndex].PlayerBattery.SetActive(true);
                     break;
                 default:
                     Debug.Log("Error, wrong item");
@@ -263,6 +267,7 @@ namespace GarbageRoyale.Scripts
             gc.players[playerIndex].PlayerMetalSheet.SetActive(false);
             gc.players[playerIndex].PlayerBoxNail.SetActive(false);
             gc.players[playerIndex].PlayerWolfTrap.SetActive(false);
+            gc.players[playerIndex].PlayerBattery.SetActive(false);
 
             if (throwItem)
             {
