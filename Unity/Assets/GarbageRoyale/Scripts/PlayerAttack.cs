@@ -2,73 +2,130 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using GarbageRoyale.Scripts.PrefabPlayer;
+using System;
+using GarbageRoyale.Scripts.Items;
+
 namespace GarbageRoyale.Scripts
 {
     public class PlayerAttack : MonoBehaviourPunCallbacks
     {
+        [SerializeField]
         private GameController gc;
-        public Dictionary<int, GameObject> characterList = new Dictionary<int, GameObject>();
+
+        [SerializeField]
+        private InventoryActionsController iac;
+
+        [SerializeField]
+        private ItemController ic;
 
         // Start is called before the first frame update
-        void Start()
-        {
-            gc = GameObject.Find("Controller").GetComponent<GameController>();
-            characterList = gc.characterList;
-        }
-
         private void LateUpdate()
         {
+            if(!gc.endOfInit)
+            {
+                return;
+            }
+
             if(Input.GetMouseButtonDown(0))
             {
-                photonView.RPC("punch", RpcTarget.MasterClient, null);
+                photonView.RPC("PunchRPC", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId);
             }
         }
 
-        public void hitPlayer(RaycastHit info)
+        public void hitPlayer(RaycastHit info, int id)
         {
-            photonView.RPC("findPlayer", RpcTarget.MasterClient, info.transform.position.x, info.transform.position.y, info.transform.position.z);
+            photonView.RPC("findPlayer", RpcTarget.MasterClient, id, info.transform.position.x, info.transform.position.y, info.transform.position.z, iac.placeInHand, PhotonNetwork.AuthValues.UserId);
         }
 
         [PunRPC]
-        private void findPlayer(float x, float y, float z, PhotonMessageInfo info)
+        private void findPlayer(int playerId, float x, float y, float z, int inventorySlot, string userId, PhotonMessageInfo info)
         {
             if (!PhotonNetwork.IsMasterClient) return;
 
-            GameObject sourceDamage = characterList[info.Sender.ActorNumber];
-            PlayerStats ps = sourceDamage.GetComponent<PlayerStats>();
+            int playerIdSrc = Array.IndexOf(gc.AvatarToUserId, userId);
+            PlayerStats ps = gc.players[playerIdSrc].PlayerStats;
             float damage = ps.getBasickAttack();
-            int objectInHand = sourceDamage.GetComponent<InventoryController>().itemInHand;
+            int indexItem = gc.players[playerIdSrc].PlayerInventory.itemInventory[inventorySlot];
 
-            Item item = new Item();
-            item.initItem(objectInHand);
+            bool canBurn = false;
+            bool canOiled = false;
+            bool isBottle = false;
+            BottleScript bottleScript;
 
-            damage += item.getDamage();
+            if (indexItem != -1)
+            {
+                Item item = gc.items[gc.players[playerIdSrc].PlayerInventory.itemInventory[inventorySlot]].GetComponent<Item>();
+                damage += item.getDamage();
+                
+                if(item.name == "Torch")
+                {
+                    if(gc.players[playerIdSrc].PlayerTorch.transform.GetChild(0).gameObject.activeSelf)
+                    {
+                        canBurn = true;
+                    }
+                }
+                else if(bottleScript = item.transform.GetComponent<BottleScript>())
+                {
+                    if(bottleScript.isOiled || bottleScript.isBurn)
+                    {
+                        canOiled = true;
+                    }
+
+                    ic.brokeBottle(item.getId(), true, playerIdSrc, inventorySlot);
+                }
+            }
 
             if (ps.getStamina() >= ps.getAttackCostStamina())
             {
-                foreach (var player in characterList)
+                GameObject target = gc.players[playerId].PlayerGameObject;
+                if (target.transform.position.x == x && target.transform.position.y == y && target.transform.position.z == z)
                 {
-                    if(player.Value == sourceDamage)
+                    gc.players[playerId].PlayerStats.takeDamage(damage);
+                    if(canBurn && gc.playersActions[playerId].isOiled)
                     {
-                        continue;
+                        gc.playersActions[playerId].isOiled = false;
+                        gc.playersActions[playerId].isBurning = true;
+                        gc.playersActions[playerId].timeLeftBurn = 5.0f;
                     }
-                    if(player.Value.transform.position.x == x && player.Value.transform.position.y == y && player.Value.transform.position.z == z)
+                    else if(canOiled)
                     {
-                        ps = player.Value.GetComponent<PlayerStats>();
-                        ps.takeDamage(damage);
-                        break;
+                        if(gc.playersActions[playerId].isBurning)
+                        {
+                            gc.playersActions[playerId].timeLeftBurn = 5.0f;
+                        }
+                        else
+                        {
+                            gc.playersActions[playerId].isOiled = true;
+                            gc.playersActions[playerId].timeLeftOiled = 10.0f;
+                        }
                     }
                 }
             }
         }
 
         [PunRPC]
-        private void punch(PhotonMessageInfo info)
+        private void PunchRPC(string userId, PhotonMessageInfo info)
         {
-            PlayerStats ps = characterList[info.Sender.ActorNumber].GetComponent<PlayerStats>();
+            if (!PhotonNetwork.IsMasterClient) return;
+
+            int playerIdSrc = Array.IndexOf(gc.AvatarToUserId, userId);
+            PlayerStats ps = gc.players[playerIdSrc].PlayerStats;
 
             if (ps.getAttackCostStamina() > ps.getStamina()) return;
             ps.useStamina();
+        }
+
+        public void HitByThrowItem(int idPlayer, int idItem)
+        {
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            float damage = gc.items[idItem].GetComponent<Item>().damage;
+            Debug.Log(idPlayer);
+            gc.players[idPlayer].PlayerStats.takeDamage(damage);
         }
     }
 }

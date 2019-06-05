@@ -7,22 +7,29 @@ namespace GarbageRoyale.Scripts.Menu
     public class StartGame : MonoBehaviour
     {
         [SerializeField]
-        private Canvas mainMenu;
+        public GameObject mainMenu;
         [SerializeField]
-        private Canvas subMenu;
+        public GameObject registerMenu;
+        [SerializeField]
+        public GameObject loginMenu;
+        [SerializeField]
+        public GameObject subMenu;
 
-        private Canvas main;
-        private Canvas sub;
+        [SerializeField]
+        public Camera mainCamera;
+
+        [SerializeField]
+        public GameObject gameController;
+        [SerializeField]
+        public GameObject invHUD;
+        [SerializeField]
+        public GameObject playerGUI;
 
         // Start is called before the first frame update
         void Start()
         {
-            main = Instantiate(mainMenu);
-            main.enabled = false;
-            sub = Instantiate(subMenu);
-            sub.enabled = false;
-
-            launchMainMenu();
+            //launchLoginMenu();
+            launchLoginMenu();
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -36,14 +43,34 @@ namespace GarbageRoyale.Scripts.Menu
 
         public void launchMainMenu()
         {
-            main.enabled = true;
-            sub.enabled = false;
+            loginMenu.SetActive(false);
+            mainMenu.SetActive(true);
+            registerMenu.SetActive(false);
+            subMenu.SetActive(false);
         }
 
         public void launchSubMenu()
         {
-            main.enabled = false;
-            sub.enabled = true;
+            loginMenu.SetActive(false);
+            mainMenu.SetActive(false);
+            registerMenu.SetActive(false);
+            subMenu.SetActive(true);
+        }
+        
+        public void launchRegisterMenu()
+        {
+            loginMenu.SetActive(false);
+            mainMenu.SetActive(false);
+            registerMenu.SetActive(true);
+            subMenu.SetActive(false);
+        }
+        
+        public void launchLoginMenu()
+        {
+            loginMenu.SetActive(true);
+            mainMenu.SetActive(false);
+            registerMenu.SetActive(false);
+            subMenu.SetActive(false);
         }
     }
 }

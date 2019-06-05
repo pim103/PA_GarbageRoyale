@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿/*using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
@@ -45,7 +45,7 @@ namespace GarbageRoyale.Scripts
                 child.gameObject.SetActive(false);
                 child.parent = null;
                 Debug.Log(child.gameObject.name);
-            }*/
+            }
                 int count = transform.GetChild(0).childCount;
                 for(int i = 0; i < count; i++)
                 {
@@ -55,7 +55,7 @@ namespace GarbageRoyale.Scripts
                 
                 }
                 /*transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-            transform.GetChild(0).GetChild(0).parent = null;*/
+            transform.GetChild(0).GetChild(0).parent = null;
                 crateSound = null;
                 oldItem = currentItem;
             }
@@ -146,4 +146,4 @@ namespace GarbageRoyale.Scripts
 
     
     }
-}
+}*/

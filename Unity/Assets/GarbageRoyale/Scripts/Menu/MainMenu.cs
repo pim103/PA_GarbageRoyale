@@ -17,30 +17,26 @@ namespace GarbageRoyale.Scripts.Menu
         [SerializeField]
         private Button exitRoomButton;
 
+        [SerializeField]
         private StartGame controller;
     
         // Start is called before the first frame update
         void Start()
         {
-            controller = GameObject.Find("Scripts").GetComponent<StartGame>();
-
             createRoomButton.interactable = false;
             joinRoomButton.interactable = false;
-            PhotonNetwork.ConnectUsingSettings();
-
+            
+            //PhotonNetwork.ConnectUsingSettings();
+            
             offlineRoomButton.onClick.AddListener(AskForOffline);
             exitRoomButton.onClick.AddListener(AskForExit);
-        }
-
-        private void Update()
-        {
-            
         }
 
         public override void OnConnectedToMaster()
         {
             if(!PhotonNetwork.OfflineMode)
             {
+                Debug.Log(PhotonNetwork.AuthValues);
                 createRoomButton.interactable = true;
                 joinRoomButton.interactable = true;
 
@@ -56,7 +52,22 @@ namespace GarbageRoyale.Scripts.Menu
     
         public void AskForRoomJoin()
         {
-            PhotonNetwork.LoadLevel("ProceduralMapGeneration");
+            PhotonNetwork.JoinRandomRoom();
+        }
+
+        public override void OnJoinedRoom()
+        {
+            controller.gameController.SetActive(true);
+            controller.mainCamera.enabled = false;
+            controller.mainMenu.SetActive(false);
+            controller.subMenu.SetActive(false);
+            /*controller.invHUD.SetActive(true);
+            controller.playerGUI.SetActive(true);*/
+
+            createRoomButton.interactable = false;
+            joinRoomButton.interactable = false;
+            offlineRoomButton.interactable = false;
+            exitRoomButton.interactable = false;
         }
 
         public void AskForOffline()

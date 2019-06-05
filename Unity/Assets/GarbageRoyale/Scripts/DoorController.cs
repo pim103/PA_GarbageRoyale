@@ -1,6 +1,6 @@
 ﻿using Photon.Pun;
 using UnityEngine;
-
+//UNUSED
 namespace GarbageRoyale.Scripts
 {
     public class DoorController : MonoBehaviourPunCallbacks

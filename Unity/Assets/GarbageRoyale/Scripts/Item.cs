@@ -1,3 +1,4 @@
+using GarbageRoyale.Scripts.PrefabPlayer;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,70 +7,42 @@ namespace GarbageRoyale.Scripts
     public class Item : MonoBehaviour
     {
         private int id;
-        private string name;
-        private float damage;
+        public string name;
+        public float damage;
         public int type; // Weapon, Utils, Trap
-        public RawImage itemText;
-        public bool initOnStart;
 
-        private void Start()
+        [SerializeField]
+        public RawImage itemImg;
+
+        public bool initOnStart;
+        public bool isOnline;
+
+        public Vector3 scale;
+
+        public bool isThrow;
+
+        private void OnCollisionEnter(Collision collision)
         {
-            if (initOnStart)
+            if(isThrow && collision.transform.name.StartsWith("Player"))
             {
-                initItem(type);
+                PlayerAttack pa = GameObject.Find("Controller").GetComponent<PlayerAttack>();
+                pa.HitByThrowItem(collision.transform.GetComponent<ExposerPlayer>().PlayerIndex, id);
             }
+            isThrow = false;
         }
 
         public Item()
         {
             id = -1;
+            isThrow = false;
             name = "Null";
             damage = 0f;
             type = 0;
         }
 
-        public void initItem(int type)
+        public void resetScale()
         {
-            setType(type);
-            switch (type)
-            {
-                case 1:
-                    //Debug.Log("Init Wooden Staff");
-                    setId(1);
-                    setName("Wooden Staff");
-                    setDamage(15f);
-                    //setTexture();
-                    break;
-                case 2:
-                    //Debug.Log("Init Steel Staff");
-                    setId(2);
-                    setName("Steel Staff");
-                    setDamage(20f);
-                    break;
-                case 3:
-                    //Debug.Log("Init Steel Staff");
-                    setId(3);
-                    setName("Extinct Torch");
-                    setDamage(7f);
-                    break;
-                case 4:
-                    //Debug.Log("Init Steel Staff");
-                    setId(4);
-                    setName("Lit Torch");
-                    setDamage(7f);
-                    break;
-                case 5:
-                    //Debug.Log("Init Steel Staff");
-                    setId(5);
-                    setName("Toilet Paper");
-                    setDamage(-10f);
-                    break;
-                default:
-                    setId(0);
-                    setName("Void");
-                    setDamage(0f);
-                    break;
-            }
+            gameObject.transform.localScale = scale;
         }
         
         public int getId()
@@ -106,15 +79,6 @@ namespace GarbageRoyale.Scripts
         public void setType(int ty)
         {
             this.type = ty;
-        }
-        
-        public RawImage getTexture()
-        {
-            return this.itemText;
-        }
-        public void setTexture(RawImage it)
-        {
-            this.itemText = it;
         }
     }
 }

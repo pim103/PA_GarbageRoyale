@@ -18,8 +18,8 @@ namespace GarbageRoyale.Scripts
         // Start is called before the first frame update
         void Start()
         {
-            playerInventory = playerPrefab.AddComponent<Inventory>();
-            playerInventory.initInventory();
+            //playerInventory = playerPrefab.AddComponent<Inventory>();
+            //playerInventory.initInventory();
             //playerPrefab.AddComponent<InventoryGUI>();
             //playerInventoryGUI = playerPrefab.GetComponent<InventoryGUI>();
             //playerInventoryGUI.initInventoryGUI(inventoryPrefab, rawSprites);

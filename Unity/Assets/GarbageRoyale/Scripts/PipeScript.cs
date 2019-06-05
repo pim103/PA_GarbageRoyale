@@ -1,54 +1,138 @@
-﻿using System.Collections;
+﻿using GarbageRoyale.Scripts.PrefabPlayer;
+using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace GarbageRoyale.Scripts
 {
     public class PipeScript : MonoBehaviour
     {
-        private CameraRaycastHitActions ray;
-        private AudioClip gazSound;
+        public int pipeIndex;
+
         bool isBroken;
+        bool isExplode;
+        bool canTakeDamage;
+
+        private float explosionTimer = 1.5f;
+
+        [SerializeField]
+        private GameObject pipe;
+
+        [SerializeField]
+        private GameObject brokenPipe;
+
+        [SerializeField]
+        private GameObject Explosion;
+
+        [SerializeField]
+        private BoxCollider bx;
 
         // Start is called before the first frame update
         void Start()
         {
-            ray = GameObject.Find("Controller").GetComponent<CameraRaycastHitActions>();
-            gazSound = GameObject.Find("Controller").GetComponent<SoundManager>().getGazSound();
             isBroken = false;
+            isExplode = false;
+            canTakeDamage = false;
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (!isBroken && ray.xTrap == (int)transform.position.x && ray.yTrap == (int)transform.position.y && ray.zTrap == (int)transform.position.z)
+            if(isExplode)
             {
-                GameObject BrokenPipe;
-                GameObject Particle;
-                isBroken = true;
-
-                gameObject.SetActive(false);
-
-                BrokenPipe = ObjectPooler.SharedInstance.GetPooledObject(1);
-                BrokenPipe.SetActive(true);
-                BrokenPipe.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                BrokenPipe.transform.localEulerAngles = transform.localEulerAngles;
-
-                Particle = ObjectPooler.SharedInstance.GetPooledObject(3);
-                Particle.SetActive(true);
-                Particle.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-
-                GameObject crateSound;
-                crateSound = ObjectPooler.SharedInstance.GetPooledObject(2);
-                crateSound.SetActive(true);
-                crateSound.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                AudioSource audioSource = crateSound.GetComponent<AudioSource>();
-                audioSource.clip = gazSound;
-                audioSource.loop = true;
-                audioSource.Play();
-
-                Particle.transform.GetChild(0).gameObject.GetComponent<Gaz>().audioSource = crateSound;
+                if(explosionTimer > 0)
+                {
+                    explosionTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    Explosion.SetActive(false);
+                    canTakeDamage = false;
+                }
             }
+        }
+
+        public void brokePipe()
+        {
+            if (!isBroken)
+            {
+                bx.enabled = true;
+                pipe.SetActive(false);
+                brokenPipe.SetActive(true);
+                isBroken = true;
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (isExplode && other.name.StartsWith("Player"))
+            {
+                if(PhotonNetwork.IsMasterClient)
+                {
+                    GameController gc = GameObject.Find("Controller").GetComponent<GameController>();
+                    int id = other.GetComponent<ExposerPlayer>().PlayerIndex;
+                    gc.players[id].PlayerStats.takeDamage(30.0f);
+                }
+            }
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            bool isPlayer = false;
+            bool isTorch = false;
+
+            if(other.name.StartsWith("Player"))
+            {
+                isPlayer = true;
+            }
+            else if(other.name.StartsWith("torch"))
+            {
+                isTorch = true;
+            } else
+            {
+                return;
+            }
+
+            if(isBroken && !isExplode)
+            {
+                if(isPlayer)
+                {
+
+                    if (other.GetComponent<ExposerPlayer>().PlayerTorch.transform.GetChild(0).gameObject.activeSelf && other.GetComponent<ExposerPlayer>().PlayerTorch.activeSelf)
+                    {
+                        bx.enabled = false;
+                        explosion();
+                        StartCoroutine("DesactivateBx");
+                    }
+                }
+                else if(isTorch)
+                {
+                    if(other.transform.GetChild(0).gameObject.activeSelf)
+                    {
+                        bx.enabled = false;
+                        explosion();
+                        StartCoroutine("DesactivateBx");
+                    }
+                }
+            }
+        }
+        
+        private void explosion()
+        {
+            bx.enabled = true;
+            brokenPipe.transform.GetChild(0).gameObject.SetActive(false);
+            Explosion.SetActive(true);
+            isExplode = true;
+            canTakeDamage = true;
+        }
+
+        private IEnumerator DesactivateBx()
+        {
+            yield return new WaitForSeconds(1.5f);
+
+            bx.enabled = false;
         }
     }
 }

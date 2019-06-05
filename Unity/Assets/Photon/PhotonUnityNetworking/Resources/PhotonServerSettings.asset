@@ -18,7 +18,7 @@ MonoBehaviour:
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
-    FixedRegion: 
+    FixedRegion: eu
     Server: 
     Port: 0
     Protocol: 0
@@ -86,4 +86,61 @@ MonoBehaviour:
   - moveTorch
   - sendTriggerTorch
   - triggerTorchForAll
+  - ActivateAvatarRPC
+  - WantToJumpRPC
+  - WantToLightUpRPC
+  - WantToMoveHorizontalRPC
+  - WantToMoveVerticalRPC
+  - WantToRotateXRPC
+  - WantToRotateYRPC
+  - WantToUseTorcj
+  - WantToUseTorch
+  - RotateLampRPC
+  - LightUpRPC
+  - SendUserId
+  - initAvatarUserIdRPC
+  - PutItemInInventory
+  - brokePipeRPC
+  - brokeSpecificPipeRPC
+  - openDoorRPC
+  - openSpecificDoorRPC
+  - openSpecificTrapRPC
+  - openTrapRPC
+  - LightOnTorchRPC
+  - setItemInHand
+  - LightOnSpecificTorch
+  - PlayWalkSoundRPC
+  - endOfInitRPC
+  - UpdateDataRPC
+  - PunchRPC
+  - soundOpenDoorRPC
+  - soundOpenSpecificDoorRPC
+  - AnswerSwapInventoryItems
+  - AskSwapInventoryItems
+  - testrpc
+  - DisperseOil
+  - DisperseSpecificOil
+  - AnswerCraftItem
+  - AnswerDeleteCraftItem
+  - AskCraftItem
+  - AskDeleteCraftItem
+  - brokeBottleRpc
+  - addSpecificBrokenBottle
+  - ActivateQuietSkill
+  - AskSkillActivation
+  - DeactivateQuietSkill
+  - HitMobRPC
+  - MobDeath
+  - addSpecificBrokenBottleInHand
+  - BurnSurfaceRPC
+  - AskPlaceRope
+  - PlaceRopeRPC
+  - ThrowNail
+  - DisperseSpecificNail
+  - AskPlaceMetalSheet
+  - PlaceMetalSheetRPC
+  - AnswerSwapInventorySkills
+  - AskSwapInventorySkills
+  - AskPlaceWolfTrap
+  - PlaceWolfTrapRPC
   DisableAutoOpenWizard: 1

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
-
+//UNUSED
 namespace GarbageRoyale.Scripts
 {
     public class CameraRaycastHitActions : MonoBehaviourPunCallbacks

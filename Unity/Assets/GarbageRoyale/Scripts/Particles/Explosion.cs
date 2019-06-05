@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using GarbageRoyale.Scripts.PrefabPlayer;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

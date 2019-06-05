@@ -16,25 +16,18 @@ namespace GarbageRoyale.Scripts.Menu
         [SerializeField]
         private Text nbPlayers;
 
+        [SerializeField]
         private StartGame controller;
 
         // Start is called before the first frame update
         void Start()
         {
-            controller = GameObject.Find("Scripts").GetComponent<StartGame>();
-
             createRoomButton.onClick.AddListener(AskForCreate);
             backButton.onClick.AddListener(AskForBack);
 
             choosePlayers.onValueChanged.AddListener(delegate { changeText(); });
             
             nbPlayers.text = choosePlayers.value.ToString();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
         }
 
         void changeText()
@@ -55,7 +48,14 @@ namespace GarbageRoyale.Scripts.Menu
 
         public override void OnJoinedRoom()
         {
-            PhotonNetwork.LoadLevel("ProceduralMapGeneration");
+            controller.gameController.SetActive(true);
+            /*controller.invHUD.SetActive(true);
+            controller.playerGUI.SetActive(true);*/
+
+            controller.mainCamera.enabled = false;
+            controller.mainMenu.SetActive(false);
+            controller.subMenu.SetActive(false);
+            //PhotonNetwork.LoadLevel("ProceduralMapGeneration");
         }
     }
 }

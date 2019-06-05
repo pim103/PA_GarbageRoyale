@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -16,18 +17,20 @@ namespace GarbageRoyale.Scripts
     {
         //1
         public bool showDebug;
-        [SerializeField] private GameObject [] Prefabs;
-        [SerializeField] private GameObject floorTransition;
+        [SerializeField] public GameObject [] Prefabs;
+        [SerializeField] public GameObject floorTransition;
         [SerializeField] private Material mazeMat1;
         [SerializeField] private Material mazeMat2;
         [SerializeField] private Material startMat;
         [SerializeField] private Material treasureMat;
 
         public MazeDataGenerator dataGenerator;
-        private MazeMeshGenerator meshGenerator;
+        public MazeMeshGenerator meshGenerator;
 
         public int[][,] floors;
         public int[][,] floorsRooms;
+        public Dictionary<string, int>[] trapId = new Dictionary<string, int>[8];
+        public Dictionary<string, int>[] itemRoom = new Dictionary<string, int>[8];
 
         //2
         public int[,] data
@@ -46,42 +49,29 @@ namespace GarbageRoyale.Scripts
             data = new int[81,81];
             floors = new int[8][,];
             floorsRooms = new int[8][,];
-
         }
     
-        public void GenerateNewMaze(int sizeRows, int sizeCols)
+        public void GenerateNewMaze(int sizeRows, int sizeCols, int nbItems)
         {
             if (PhotonNetwork.IsMasterClient)
             {
                 floors = dataGenerator.FromDimensions(sizeRows, sizeCols);
-                floorsRooms = dataGenerator.RoomData(sizeRows, sizeCols, floors);
+                floorsRooms = dataGenerator.RoomData(sizeRows, sizeCols, floors, nbItems);
+                trapId = dataGenerator.roomTrap;
+                itemRoom = dataGenerator.itemRoom;
+
                 for (int i = 0; i < 8; i++)
                 {
-                    DisplayMaze(i * 16,floors[i], floorsRooms[i]);
+                    DisplayMaze(i * 16,floors[i], floorsRooms[i], i);
                 }
                 
             }
             else
             {
-                PhotonNetwork.JoinRandomRoom();
-            }
-            
-        }
-        
-        public override void OnJoinedRoom()
-        {
-                
-            if (photonView != null)
-            {
                 photonView.RPC("SendData", RpcTarget.MasterClient);
+                //PhotonNetwork.JoinRandomRoom();
             }
-            
         }
-        /*+-public override void OnPlayerEnteredRoom(Player player)
-        {
-            if (!PhotonNetwork.IsMasterClient) return;
-            photonView.RPC("SendData", RpcTarget.Others,data);
-        }*/
 
         void OnGUI()
         {
@@ -119,14 +109,14 @@ namespace GarbageRoyale.Scripts
             GUI.Label(new Rect(20, 20, 500, 500), msg);
         }
     
-        private void DisplayMaze(int ypos, int[,] maze, int[,] rooms)
+        private void DisplayMaze(int ypos, int[,] maze, int[,] rooms, int level)
         {
             GameObject go = new GameObject();
             go.transform.position = Vector3.zero;
             go.name = "Procedural Maze";
 
             MeshFilter mf = go.AddComponent<MeshFilter>();
-            mf.mesh = meshGenerator.FromData(maze,ypos,Prefabs, rooms, floorTransition);
+            mf.mesh = meshGenerator.FromData(maze,ypos,Prefabs, rooms, floorTransition, trapId[level], itemRoom[level], false);
     
             MeshCollider mc = go.AddComponent<MeshCollider>();
             mc.sharedMesh = mf.mesh;
@@ -158,6 +148,9 @@ namespace GarbageRoyale.Scripts
             
             var strFloors = "";
             var strRooms = "";
+            var strTrap = "";
+            var strItemRoom = "";
+
             BinaryFormatter bf = new BinaryFormatter();
             MemoryStream ms = new MemoryStream();
             bf.Serialize(ms, floors);
@@ -168,30 +161,28 @@ namespace GarbageRoyale.Scripts
             MemoryStream ms2 = new MemoryStream();
             bf2.Serialize(ms2, floorsRooms);
             strRooms = Convert.ToBase64String(ms2.ToArray());
-            
-            /*for (var i = 0; i < 8; i++)
-            {
-                BinaryFormatter bf = new BinaryFormatter();
-                MemoryStream ms = new MemoryStream();
-                bf.Serialize(ms, floors[i]);
-        
-                strarray[i] = Convert.ToBase64String(ms.ToArray());
-            }
-                BinaryFormatter ba = new BinaryFormatter();
-                MemoryStream ma = new MemoryStream();
-                ba.Serialize(ma, strarray);
-            
-                str = Convert.ToBase64String(ma.ToArray());*/
-            photonView.RPC("GenerateClientMaze", info.Sender, strFloors, strRooms);
+
+            BinaryFormatter bf3 = new BinaryFormatter();
+            MemoryStream ms3 = new MemoryStream();
+            bf3.Serialize(ms3, trapId);
+            strTrap = Convert.ToBase64String(ms3.ToArray());
+
+            BinaryFormatter bf4 = new BinaryFormatter();
+            MemoryStream ms4 = new MemoryStream();
+            bf4.Serialize(ms4, itemRoom);
+            strItemRoom = Convert.ToBase64String(ms4.ToArray());
+
+            photonView.RPC("GenerateClientMaze", info.Sender, strFloors, strRooms, strTrap, strItemRoom);
         }
         
         [PunRPC]
-        public void GenerateClientMaze(string strFloors, string strRooms)
+        public void GenerateClientMaze(string strFloors, string strRooms, string strTrap, string strItemRoom)
         {
             int[][,] maze = floors;
             int[][,] rooms = floorsRooms;
-            //Debug.Log(strRooms);
+            
             if (PhotonNetwork.IsMasterClient) return;
+
             BinaryFormatter bf = new BinaryFormatter();
             Byte[] by = Convert.FromBase64String(strFloors);
             MemoryStream sr = new MemoryStream(by);
@@ -201,26 +192,22 @@ namespace GarbageRoyale.Scripts
             Byte[] by2 = Convert.FromBase64String(strRooms);
             MemoryStream sr2 = new MemoryStream(by2);
             rooms = (int[][,])bf2.Deserialize(sr2);
-            
-            /*BinaryFormatter bf = new BinaryFormatter();
-            Byte[] by = Convert.FromBase64String(str);
-            MemoryStream sr = new MemoryStream(by);
 
-            strarray = (string[])bf.Deserialize(sr);
-            
-            for (int i = 0; i < 8; i++)
-            {
-                BinaryFormatter ba = new BinaryFormatter();
-                Byte[] bb = Convert.FromBase64String(strarray[i]);
-                MemoryStream sa = new MemoryStream(bb);
+            BinaryFormatter bf3 = new BinaryFormatter();
+            Byte[] by3 = Convert.FromBase64String(strTrap);
+            MemoryStream sr3 = new MemoryStream(by3);
+            trapId = (Dictionary<string, int>[])bf3.Deserialize(sr3);
 
-                maze[] = (int[,])ba.Deserialize(sa);
-            }*/
+            BinaryFormatter bf4 = new BinaryFormatter();
+            Byte[] by4 = Convert.FromBase64String(strItemRoom);
+            MemoryStream sr4 = new MemoryStream(by4);
+            itemRoom = (Dictionary<string, int>[])bf4.Deserialize(sr4);
+
             floors = maze;
             floorsRooms = rooms;
             for (int i = 0; i < 8; i++)
             {
-                DisplayMaze(i*16,maze[i], rooms[i]);
+                DisplayMaze(i*16,maze[i], rooms[i], i);
             }
         }
 

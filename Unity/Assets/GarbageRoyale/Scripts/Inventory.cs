@@ -5,16 +5,13 @@ namespace GarbageRoyale.Scripts
 {
     public class Inventory : MonoBehaviour
     {
-        private static int itemSlots = 5;
-        private int[] itemInventory; //= new int[itemSlots];
+        private static int itemSlots = 26;
+        public int[] itemInventory; //= new int[itemSlots];
         private int lastCounterItem;
     
         private static int skillSlots = 2;
-        private int[] skillInventory; // = new int[skillSlots];
+        public int[] skillInventory; // = new int[skillSlots];
         private int lastCounterSkill;
-
-    
-
 
         public Inventory()
         {
@@ -32,24 +29,24 @@ namespace GarbageRoyale.Scripts
             Debug.Log("touched");
         }
 
-        public void initInventory()
+        public void Start()
         {
             for (int i = 0; i < itemSlots; i++)
             {
-                itemInventory[i] = 0;
+                itemInventory[i] = -1;
             }
             for (int i = 0; i < skillSlots; i++)
             {
-                skillInventory[i] = 0;;
+                skillInventory[i] = -1;
             }
             
         }
 
         public int findPlaceInventory()
         {
-            for (int i = 0; i < itemSlots; i++)
+            for (int i = 0; i < itemSlots-6; i++)
             {
-                if (itemInventory[i] == 0)
+                if (itemInventory[i] == -1)
                 {
                     return i;
                 }
@@ -61,7 +58,7 @@ namespace GarbageRoyale.Scripts
         {
             for (int i = 0; i < itemSlots; i++)
             {
-                if (skillInventory[i] == 0)
+                if (skillInventory[i] == -1)
                 {
                     return i;
                 }
@@ -94,7 +91,7 @@ namespace GarbageRoyale.Scripts
             int voidIndex = findPlaceSkills();
             if (voidIndex != -1)
             {
-                this.skillInventory[voidIndex] = itemId;
+                skillInventory[voidIndex] = itemId;
             
                 return true;
             }
@@ -106,7 +103,7 @@ namespace GarbageRoyale.Scripts
         }
         public int getLastCounterItem()
         {
-            return this.lastCounterItem;
+            return lastCounterItem;
         }
     
         public void setLastCounterItem(int lastCounterItem)
@@ -116,7 +113,7 @@ namespace GarbageRoyale.Scripts
     
         public int getLastCounterSkill()
         {
-            return this.lastCounterSkill;
+            return lastCounterSkill;
         }
     
         public void setLastCounterSkill(int lastCounterSkill)

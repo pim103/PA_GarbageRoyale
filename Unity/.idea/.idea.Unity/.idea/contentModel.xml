@@ -8,11 +8,18 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="GarbageRoyale" t="Include">
+          <e p="Scriptable" t="Include">
+            <e p="DataCollector.cs" t="Include" />
+            <e p="DataDisplay.cs" t="Include" />
+            <e p="NewScriptableObject.cs" t="Include" />
+          </e>
           <e p="Scripts" t="Include">
+            <e p="ActiveSkillManager.cs" t="Include" />
             <e p="CameraControl.cs" t="Include" />
             <e p="CameraRaycast.cs" t="Include" />
             <e p="CameraRaycastHitActions.cs" t="Include" />
             <e p="DesactivateCameraControl.cs" t="Include" />
+            <e p="DetailedInventoryRPCManager.cs" t="Include" />
             <e p="DoorController.cs" t="Include" />
             <e p="EnvironmentEvent.cs" t="Include" />
             <e p="GameController.cs" t="Include" />
@@ -23,14 +30,29 @@
             <e p="Inventory.cs" t="Include" />
             <e p="InventoryActionsController.cs" t="Include" />
             <e p="InventoryController.cs" t="Include" />
+            <e p="InventoryHUDController.cs" t="Include" />
             <e p="InventoryRaycastHitActions.cs" t="Include" />
+            <e p="InventorySpritesExposer.cs" t="Include" />
             <e p="Item.cs" t="Include" />
+            <e p="ItemDragController.cs" t="Include" />
+            <e p="Items" t="Include">
+              <e p="BottleScript.cs" t="Include" />
+              <e p="ItemController.cs" t="Include" />
+              <e p="MetalSheetScript.cs" t="Include" />
+              <e p="NailAreaScript.cs" t="Include" />
+              <e p="OilAreaScript.cs" t="Include" />
+              <e p="OilScript.cs" t="Include" />
+              <e p="RopeScript.cs" t="Include" />
+              <e p="SurfaceFlameScript.cs" t="Include" />
+            </e>
             <e p="ItemSpawner.cs" t="Include" />
             <e p="MazeConstructor.cs" t="Include" />
             <e p="MazeDataGenerator.cs" t="Include" />
             <e p="MazeMeshGenerator.cs" t="Include" />
             <e p="Menu" t="Include">
+              <e p="LoginMenu.cs" t="Include" />
               <e p="MainMenu.cs" t="Include" />
+              <e p="RegisterMenu.cs" t="Include" />
               <e p="StartGame.cs" t="Include" />
               <e p="SubMenu.cs" t="Include" />
             </e>
@@ -46,15 +68,28 @@
             </e>
             <e p="PipeScript.cs" t="Include" />
             <e p="PlayerAttack.cs" t="Include" />
-            <e p="PlayerDisplay.cs" t="Include" />
+            <e p="PlayerController" t="Include">
+              <e p="ListPlayerIntents.cs" t="Include" />
+              <e p="PlayerControllerMaster.cs" t="Include" />
+              <e p="PlayerIntent.cs" t="Include" />
+              <e p="PlayerStatsDisplay.cs" t="Include" />
+            </e>
             <e p="PlayerMovement.cs" t="Include" />
-            <e p="PlayerStats.cs" t="Include" />
+            <e p="PrefabPlayer" t="Include">
+              <e p="ExposerPlayer.cs" t="Include" />
+              <e p="PlayerStats.cs" t="Include" />
+            </e>
+            <e p="ScriptExposer.cs" t="Include" />
+            <e p="Skill.cs" t="Include" />
+            <e p="SkillsController.cs" t="Include" />
+            <e p="SkillSpawner.cs" t="Include" />
             <e p="SoundManager.cs" t="Include" />
             <e p="SpawnMob.cs" t="Include" />
             <e p="StaticSwitchScene.cs" t="Include" />
             <e p="TrapDoorCheckButton.cs" t="Include" />
             <e p="Water.cs" t="Include" />
           </e>
+          <e p="testSceneScript.cs" t="Include" />
         </e>
         <e p="Photon" t="Include">
           <e p="PhotonChat" t="Include">
@@ -386,6 +421,7 @@
             </e>
           </e>
         </e>
+        <e p="Skill.cs" t="Include" />
       </e>
       <e p="Library" t="ExcludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
