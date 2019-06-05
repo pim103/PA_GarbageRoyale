@@ -114,6 +114,12 @@ namespace GarbageRoyale.Scripts.Items
             int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, userId);
             int idItem = gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand];
 
+            Item item = gc.items[idItem].GetComponent<Item>();
+            if (item.type == 17)
+            {
+                idItem = gc.items[idItem].GetComponent<PreviewItemScript>().ropeScript.idItem;
+            }
+
             //TODO verify coord rope with player
             if (Vector3.Distance(pos1, pos2) <= 8.0f && gc.items[idItem].GetComponent<Item>().name == "Rope")
             {

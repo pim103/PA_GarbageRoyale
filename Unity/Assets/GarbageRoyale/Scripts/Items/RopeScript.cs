@@ -31,7 +31,7 @@ namespace GarbageRoyale.Scripts.Items
         private bool toggleEditMode;
 
         private bool canSetPos2;
-        private bool isDeployed;
+        public bool isDeployed;
 
         private float ropeDistance;
 

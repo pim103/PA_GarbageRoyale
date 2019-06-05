@@ -24,6 +24,15 @@ namespace GarbageRoyale.Scripts.Items
         [SerializeField]
         public Item item;
 
+        [SerializeField]
+        public bool withRope;
+        [SerializeField]
+        public RopeScript ropeScript;
+        [SerializeField]
+        public GameObject rope;
+
+        private bool ropeIsPlaced;
+
         private ItemController ic;
         private GameController gc;
 
@@ -60,6 +69,22 @@ namespace GarbageRoyale.Scripts.Items
 
             if (inEditMode)
             {
+                if(withRope && !ropeIsPlaced)
+                {
+                    Debug.Log("Again");
+                    rope.SetActive(true);
+                    ropeScript.inEditMode = true;
+                    ropeIsPlaced = ropeScript.isDeployed;
+                    return;
+                }
+                else if(ropeIsPlaced && withRope)
+                {
+                    Debug.Log("End ?");
+                    withRope = false;
+                    ropeScript.inEditMode = false;
+                    rope.SetActive(false);
+                }
+
                 toggleEditMode = true;
 
                 if (touch)
@@ -114,6 +139,12 @@ namespace GarbageRoyale.Scripts.Items
             previewCube.transform.localScale = scalePreview;
             previewCube.transform.localEulerAngles = Vector3.zero;
             previewCube.SetActive(false);
+
+            if(withRope)
+            {
+                rope.SetActive(false);
+                ropeScript.inEditMode = false;
+            }
         }
     }
 }
