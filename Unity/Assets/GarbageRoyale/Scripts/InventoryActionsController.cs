@@ -82,7 +82,7 @@ namespace GarbageRoyale.Scripts
                 {
                     photonView.RPC("ThrowNail", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 }
-                else if (itemInHand == "Metal Sheet" || itemInHand == "Wolf Trap")
+                else if (itemInHand == "Metal Sheet" || itemInHand == "Wolf Trap" || itemInHand == "Trap Manif")
                 {
                     photonView.RPC("WantToPlaceObject", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId, placeInHand);
                 }
@@ -139,8 +139,11 @@ namespace GarbageRoyale.Scripts
                 case 15:
                     pis = gc.players[idPlayer].PlayerWolfTrap.GetComponent<PreviewItemScript>();
                     break;
+                case 17:
+                    pis = gc.players[idPlayer].PlayerTrapManif.GetComponent<PreviewItemScript>();
+                    break;
             }
-
+            
             if(pis != null)
             {
                 pis.inEditMode = !pis.inEditMode;
@@ -189,6 +192,7 @@ namespace GarbageRoyale.Scripts
             gc.players[playerIndex].PlayerBoxNail.SetActive(false);
             gc.players[playerIndex].PlayerWolfTrap.SetActive(false);
             gc.players[playerIndex].PlayerBattery.SetActive(false);
+            gc.players[playerIndex].PlayerTrapManif.SetActive(false);
 
             switch (item)
             {
@@ -237,6 +241,9 @@ namespace GarbageRoyale.Scripts
                     break;
                 case "Battery":
                     gc.players[playerIndex].PlayerBattery.SetActive(true);
+                    break;
+                case "Trap Manif":
+                    gc.players[playerIndex].PlayerTrapManif.SetActive(true);
                     break;
                 default:
                     Debug.Log("Error, wrong item");
@@ -294,6 +301,7 @@ namespace GarbageRoyale.Scripts
             gc.players[playerIndex].PlayerBoxNail.SetActive(false);
             gc.players[playerIndex].PlayerWolfTrap.SetActive(false);
             gc.players[playerIndex].PlayerBattery.SetActive(false);
+            gc.players[playerIndex].PlayerTrapManif.SetActive(false);
 
             if (throwItem)
             {

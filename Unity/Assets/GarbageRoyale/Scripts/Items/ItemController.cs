@@ -199,6 +199,9 @@ namespace GarbageRoyale.Scripts.Items
                 case 15:
                     gc.players[idPlayer].PlayerWolfTrap.SetActive(false);
                     break;
+                case 17:
+                    gc.players[idPlayer].PlayerTrapManif.SetActive(false);
+                    break;
             }
 
             if (idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
