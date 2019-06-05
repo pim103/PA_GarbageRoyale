@@ -10,52 +10,16 @@ namespace GarbageRoyale.Scripts.Items
     public class MetalSheetScript : MonoBehaviour
     {
         [SerializeField]
-        public BoxCollider bc;
-
-        [SerializeField]
         private AudioSource sound;
 
         [SerializeField]
         private PreviewItemScript scriptPreview;
 
         private GameController gc;
-        private ItemController ic;
-
-        public bool inEditMode;
-        private bool toggleEditMode;
 
         private void Start()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
-            ic = GameObject.Find("Controller").GetComponent<ItemController>();
-
-            inEditMode = false;
-            toggleEditMode = false;
-        }
-
-        private void Update()
-        {
-            if (inEditMode)
-            {
-                toggleEditMode = true;
-                bool canPose = scriptPreview.SeePreview();
-
-                if (canPose && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    ic.PlaceMetalSheet(scriptPreview.savePos);
-                    inEditMode = false;
-                    scriptPreview.DesactivePreview();
-                }
-            }
-        }
-
-        private void FixedUpdate()
-        {
-            if (toggleEditMode != inEditMode)
-            {
-                scriptPreview.DesactivePreview();
-                toggleEditMode = false;
-            }
         }
 
         private void OnTriggerEnter(Collider other)

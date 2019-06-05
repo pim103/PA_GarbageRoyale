@@ -240,7 +240,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3695679, y: 0.43149018, z: 1.6369324}
+  m_Size: {x: 1.4, y: 0.5, z: 1.7}
   m_Center: {x: 0, y: 0.34521568, z: 0}
 --- !u!114 &80176819843983267
 MonoBehaviour:
@@ -254,12 +254,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa0ffb595adb434e98d19b36ff435f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbPreview: 1
   idPlayer: 0
+  bc: {fileID: 3342995776521317872}
   previewCube: {fileID: 471732311835908989}
   rotation: {x: 0, y: 0, z: 0}
+  bonusColliderSize: {x: 0, y: 0, z: 0}
+  item: {fileID: 8307768273861380063}
   canPose: 0
+  scalePreview: {x: 0, y: 0, z: 0}
   savePos: {x: 0, y: 0, z: 0}
+  inEditMode: 0
 --- !u!114 &7652131566245161281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,9 +281,7 @@ MonoBehaviour:
   rope: {fileID: 5866114123411511532}
   centerRotation: {fileID: 2241647100194367038}
   rigid: {fileID: 4097259327586983953}
-  bc: {fileID: 3342995776521317872}
   scriptPreview: {fileID: 80176819843983267}
-  inEditMode: 0
 --- !u!114 &8307768273861380063
 MonoBehaviour:
   m_ObjectHideFlags: 0

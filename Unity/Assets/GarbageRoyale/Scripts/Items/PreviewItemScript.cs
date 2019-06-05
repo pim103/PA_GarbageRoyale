@@ -7,45 +7,61 @@ namespace GarbageRoyale.Scripts.Items
 {
     public class PreviewItemScript : MonoBehaviour
     {
-        public int nbPreview;
-
         public int idPlayer;
+        
+        [SerializeField]
+        public BoxCollider bc;
 
         [SerializeField]
         public GameObject previewCube;
 
         [SerializeField]
         public Vector3 rotation;
+        
+        [SerializeField]
+        public Vector3 bonusColliderSize;
 
+        [SerializeField]
+        public Item item;
+
+        private ItemController ic;
         private GameController gc;
 
         private bool toggleCube;
 
         public bool canPose;
-        private Vector3 scalePreview;
+        public Vector3 scalePreview;
 
         public Vector3 savePos;
+        
+        public bool inEditMode;
+        private bool toggleEditMode;
 
         // Start is called before the first frame update
         void Start()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
+            ic = GameObject.Find("Controller").GetComponent<ItemController>();
             int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
 
-            canPose = true;
+            inEditMode = false;
+            canPose = false;
             toggleCube = false;
+            toggleEditMode = false;
             scalePreview = previewCube.transform.localScale;
         }
 
-        // Update is called once per frame
-        public bool SeePreview()
+        private void Update()
         {
             var ray = gc.players[idPlayer].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
             RaycastHit hitInfo;
             bool touch = Physics.Raycast(ray, out hitInfo, 3f);
+            canPose = false;
 
-            if(nbPreview == 1)
+            if (inEditMode)
             {
+                toggleEditMode = true;
+
                 if (touch)
                 {
                     canPose = true;
@@ -72,9 +88,24 @@ namespace GarbageRoyale.Scripts.Items
                         toggleCube = false;
                     }
                 }
-            }
 
-            return canPose;
+                if (canPose && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    ic.PlaceObject(savePos, item.type);
+                    inEditMode = false;
+                    DesactivePreview();
+                    Debug.Log("On le pose");
+                }
+            }
+        }
+        
+        private void FixedUpdate()
+        {
+            if (toggleEditMode != inEditMode)
+            {
+                DesactivePreview();
+                toggleEditMode = false;
+            }
         }
 
         public void DesactivePreview()

@@ -82,18 +82,9 @@ namespace GarbageRoyale.Scripts
                 {
                     photonView.RPC("ThrowNail", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 }
-                else if (itemInHand == "Metal Sheet")
+                else if (itemInHand == "Metal Sheet" || itemInHand == "Wolf Trap")
                 {
-                    int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
-                    MetalSheetScript mss = gc.players[idPlayer].PlayerMetalSheet.GetComponent<MetalSheetScript>();
-                    mss.inEditMode = !mss.inEditMode;
-                }
-
-                else if (itemInHand == "Wolf Trap")
-                {
-                    int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
-                    WolfTrapScript wts = gc.players[idPlayer].PlayerWolfTrap.GetComponent<WolfTrapScript>();
-                    wts.inEditMode = !wts.inEditMode;
+                    photonView.RPC("WantToPlaceObject", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId, placeInHand);
                 }
             }
             
@@ -118,6 +109,41 @@ namespace GarbageRoyale.Scripts
                         thrownItemsCount[thrownItems.IndexOf(item)] = -1;
                     }
                 }
+            }
+        }
+
+        [PunRPC]
+        private void WantToPlaceObject(string userId, int inventoryPlace, PhotonMessageInfo info)
+        {
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, userId);
+            int idItem = gc.players[idPlayer].GetComponent<Inventory>().getItemInventory()[inventoryPlace];
+
+            photonView.RPC("ActiveSpecificPreview", info.Sender, gc.items[idItem].GetComponent<Item>().type, idPlayer);
+        }
+
+        [PunRPC]
+        private void ActiveSpecificPreview(int type, int idPlayer)
+        {
+            PreviewItemScript pis = null;
+
+            switch(type)
+            {
+                case 13:
+                    pis = pis = gc.players[idPlayer].PlayerMetalSheet.GetComponent<PreviewItemScript>();
+                    break;
+                case 15:
+                    pis = gc.players[idPlayer].PlayerWolfTrap.GetComponent<PreviewItemScript>();
+                    break;
+            }
+
+            if(pis != null)
+            {
+                pis.inEditMode = !pis.inEditMode;
             }
         }
 

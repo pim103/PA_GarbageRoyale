@@ -24,16 +24,9 @@ namespace GarbageRoyale.Scripts.Items
         private Rigidbody rigid;
 
         [SerializeField]
-        public BoxCollider bc;
-
-        [SerializeField]
         private PreviewItemScript scriptPreview;
 
         private GameController gc;
-        private ItemController ic;
-
-        public bool inEditMode;
-        private bool toggleEditMode;
 
         private bool isTrigger;
 
@@ -41,38 +34,7 @@ namespace GarbageRoyale.Scripts.Items
         void Start()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
-            ic = GameObject.Find("Controller").GetComponent<ItemController>();
-            inEditMode = false;
-            toggleEditMode = false;
             isTrigger = false;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (inEditMode)
-            {
-                toggleEditMode = true;
-                bool canPose = scriptPreview.SeePreview();
-
-                if (canPose && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    ic.PlaceWolfTrap(scriptPreview.savePos);
-                    inEditMode = false;
-                    rigid.useGravity = false;
-                    rigid.isKinematic = true;
-                    scriptPreview.DesactivePreview();
-                }
-            }
-        }
-
-        private void FixedUpdate()
-        {
-            if (toggleEditMode != inEditMode)
-            {
-                scriptPreview.DesactivePreview();
-                toggleEditMode = false;
-            }
         }
 
         private void OnTriggerEnter(Collider other)

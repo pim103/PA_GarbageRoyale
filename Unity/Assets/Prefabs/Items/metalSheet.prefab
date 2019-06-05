@@ -116,12 +116,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa0ffb595adb434e98d19b36ff435f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbPreview: 1
   idPlayer: 0
+  bc: {fileID: 2927706523230511472}
   previewCube: {fileID: 7317705782935411732}
   rotation: {x: 90, y: 0, z: 0}
+  bonusColliderSize: {x: 0, y: 0, z: 13}
+  item: {fileID: 8861673272424080865}
   canPose: 0
+  scalePreview: {x: 0, y: 0, z: 0}
   savePos: {x: 0, y: 0, z: 0}
+  inEditMode: 0
 --- !u!114 &3160123226451191988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,10 +138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c757bcba9475ae54993d6bc7f9935e35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bc: {fileID: 2927706523230511472}
   sound: {fileID: 189137234886397770}
   scriptPreview: {fileID: 3143394205961126564}
-  inEditMode: 0
 --- !u!114 &8861673272424080865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,7 +299,7 @@ GameObject:
   - component: {fileID: 2845293160253767541}
   - component: {fileID: 4094985750739754058}
   m_Layer: 0
-  m_Name: metalSheet
+  m_Name: preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,7 +314,7 @@ Transform:
   m_GameObject: {fileID: 7317705782935411732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.02, z: -0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 3, z: 0.04}
   m_Children: []
   m_Father: {fileID: 1371860235431242938}
   m_RootOrder: 0

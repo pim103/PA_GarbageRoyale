@@ -143,4 +143,8 @@ MonoBehaviour:
   - AskSwapInventorySkills
   - AskPlaceWolfTrap
   - PlaceWolfTrapRPC
+  - AskPlaceObject
+  - PlaceObjectRPC
+  - ActiveSpecificPreview
+  - WantToPlaceObject
   DisableAutoOpenWizard: 1

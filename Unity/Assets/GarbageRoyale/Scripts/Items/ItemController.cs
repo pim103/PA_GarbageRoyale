@@ -149,13 +149,13 @@ namespace GarbageRoyale.Scripts.Items
             }
         }
 
-        public void PlaceMetalSheet(Vector3 pos1)
+        public void PlaceObject(Vector3 pos1, int typeItem)
         {
-            photonView.RPC("AskPlaceMetalSheet", RpcTarget.MasterClient, pos1, PhotonNetwork.AuthValues.UserId, iac.placeInHand);
+            photonView.RPC("AskPlaceObject", RpcTarget.MasterClient, pos1, PhotonNetwork.AuthValues.UserId, iac.placeInHand, typeItem);
         }
 
         [PunRPC]
-        private void AskPlaceMetalSheet(Vector3 pos1, string userId, int placeInHand)
+        private void AskPlaceObject(Vector3 pos1, string userId, int placeInHand, int typeItem)
         {
             if (!PhotonNetwork.IsMasterClient)
             {
@@ -166,82 +166,40 @@ namespace GarbageRoyale.Scripts.Items
             int idItem = gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand];
 
             //TODO verify coord rope with player
-            if (gc.items[idItem].GetComponent<Item>().name == "Metal Sheet")
+            if (gc.items[idItem].GetComponent<Item>().type == typeItem)
             {
-                photonView.RPC("PlaceMetalSheetRPC", RpcTarget.All, pos1, idPlayer, idItem);
+                photonView.RPC("PlaceObjectRPC", RpcTarget.All, pos1, idPlayer, idItem, typeItem);
             }
 
             gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand] = -1;
         }
 
         [PunRPC]
-        private void PlaceMetalSheetRPC(Vector3 pos1, int idPlayer, int idItem)
+        private void PlaceObjectRPC(Vector3 pos1, int idPlayer, int idItem, int type)
         {
-            GameObject metalSheet = gc.items[idItem];
+            GameObject newObject = gc.items[idItem];
+            PreviewItemScript pis = newObject.GetComponent<PreviewItemScript>();
 
-            metalSheet.transform.parent = null;
-            metalSheet.GetComponent<Rigidbody>().isKinematic = true;
-            metalSheet.SetActive(true);
+            newObject.transform.parent = null;
+            newObject.GetComponent<Rigidbody>().isKinematic = true;
+            newObject.SetActive(true);
+            
+            newObject.transform.localScale = pis.scalePreview;
+            newObject.transform.localEulerAngles = pis.rotation;
+            newObject.transform.position = pos1;
 
-            metalSheet.transform.localScale = new Vector3(3, 3, 0.04f);
-            metalSheet.transform.localEulerAngles = new Vector3(90.0f, 0f, 0f);
-            metalSheet.transform.position = pos1;
-
-            MetalSheetScript mss = metalSheet.GetComponent<MetalSheetScript>();
-            mss.bc.isTrigger = true;
-            mss.bc.size += Vector3.forward * 15;
-
-            gc.players[idPlayer].PlayerMetalSheet.SetActive(false);
-
-            if (idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            pis.bc.isTrigger = true;
+            pis.bc.size += pis.bonusColliderSize;
+            
+            switch(type)
             {
-                gc.players[idPlayer].PlayerInventory.itemInventory[iac.placeInHand] = -1;
-                gc.GetComponent<InventoryGUI>().deleteSprite(iac.placeInHand);
+                case 13:
+                    gc.players[idPlayer].PlayerMetalSheet.SetActive(false);
+                    break;
+                case 15:
+                    gc.players[idPlayer].PlayerWolfTrap.SetActive(false);
+                    break;
             }
-        }
-
-        public void PlaceWolfTrap(Vector3 pos1)
-        {
-            photonView.RPC("AskPlaceWolfTrap", RpcTarget.MasterClient, pos1, PhotonNetwork.AuthValues.UserId, iac.placeInHand);
-        }
-
-        [PunRPC]
-        private void AskPlaceWolfTrap(Vector3 pos1, string userId, int placeInHand)
-        {
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                return;
-            }
-
-            int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, userId);
-            int idItem = gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand];
-
-            //TODO verify coord rope with player
-            if (gc.items[idItem].GetComponent<Item>().name == "Wolf Trap")
-            {
-                photonView.RPC("PlaceWolfTrapRPC", RpcTarget.All, pos1, idPlayer, idItem);
-            }
-
-            gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand] = -1;
-        }
-
-        [PunRPC]
-        private void PlaceWolfTrapRPC(Vector3 pos1, int idPlayer, int idItem)
-        {
-            GameObject wolfTrap = gc.items[idItem];
-
-            wolfTrap.transform.parent = null;
-            wolfTrap.GetComponent<Rigidbody>().isKinematic = true;
-            wolfTrap.SetActive(true);
-
-            wolfTrap.transform.localScale = new Vector3(1, 1, 1);
-            wolfTrap.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
-            wolfTrap.transform.position = pos1;
-
-            WolfTrapScript mss = wolfTrap.GetComponent<WolfTrapScript>();
-            mss.bc.isTrigger = true;
-
-            gc.players[idPlayer].PlayerWolfTrap.SetActive(false);
 
             if (idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
