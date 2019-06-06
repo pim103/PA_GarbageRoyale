@@ -70,19 +70,11 @@ namespace GarbageRoyale.Scripts
             {
                 if(itemInHand == "Torch") photonView.RPC("LightOnTorchRPC", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 else if(itemInHand == "Jerrican") photonView.RPC("DisperseOil", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                else if (itemInHand == "Rope")
-                {
-                    int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
-                    int idItem = gc.players[idPlayer].GetComponent<Inventory>().getItemInventory()[placeInHand];
-                    RopeScript rs = gc.players[idPlayer].PlayerRope.GetComponent<RopeScript>();
-                    rs.inEditMode = !rs.inEditMode;
-                    rs.idItem = idItem;
-                }
                 else if (itemInHand == "Nail Box")
                 {
                     photonView.RPC("ThrowNail", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 }
-                else if (itemInHand == "Metal Sheet" || itemInHand == "Wolf Trap" || itemInHand == "Trap Manif")
+                else if (itemInHand == "Metal Sheet" || itemInHand == "Wolf Trap" || itemInHand == "Trap Manif" || itemInHand == "Rope")
                 {
                     photonView.RPC("WantToPlaceObject", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId, placeInHand);
                 }
@@ -133,6 +125,9 @@ namespace GarbageRoyale.Scripts
 
             switch(type)
             {
+                case 11:
+                    pis = pis = gc.players[idPlayer].PlayerRope.GetComponent<PreviewItemScript>();
+                    break;
                 case 13:
                     pis = pis = gc.players[idPlayer].PlayerMetalSheet.GetComponent<PreviewItemScript>();
                     break;

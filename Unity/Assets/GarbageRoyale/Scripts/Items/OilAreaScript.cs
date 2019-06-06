@@ -70,7 +70,7 @@ namespace GarbageRoyale.Scripts.Items
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!isBurning && other.name.StartsWith("torch") && other.transform.GetChild(0).gameObject.activeSelf)
+            if (!isBurning && (other.name.StartsWith("torch") || other.name.StartsWith("toiletPaper")) && other.transform.GetChild(0).gameObject.activeSelf)
             {
                 bx.enabled = false;
                 flame.SetActive(true);

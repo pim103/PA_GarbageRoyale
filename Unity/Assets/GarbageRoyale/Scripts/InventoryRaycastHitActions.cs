@@ -111,7 +111,7 @@ namespace GarbageRoyale.Scripts
 
             Debug.Log(gc.items[itemId].GetComponent<Item>().type);
             Item itemData = gc.items[itemId].GetComponent<Item>();
-            if (itemData.getType() != 12)
+            if (itemData.getType() != (int)ItemController.TypeItem.Implant)
             {
                 place = gc.players[playerIndex].GetComponent<Inventory>().findPlaceInventory();
             }
@@ -134,7 +134,7 @@ namespace GarbageRoyale.Scripts
             Item itemData = gc.items[itemId].GetComponent<Item>();
             Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
             bool isInInventory = false;
-            if (itemData.getType()!= 12)
+            if (itemData.getType()!= (int)ItemController.TypeItem.Implant)
             {
                 if (inventoryData.setItemInventory(itemData.getId()))
                 {

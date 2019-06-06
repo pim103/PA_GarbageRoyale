@@ -13,6 +13,28 @@ namespace GarbageRoyale.Scripts.Items
 
         [SerializeField]
         private InventoryActionsController iac;
+        
+        public enum TypeItem
+        {
+            None,
+            WoodenStaff,
+            SteelStaff,
+            Unknown,
+            Torch,
+            ToiletPaper,
+            Jerrican,
+            Bottle,
+            BrokenBottle,
+            OilBottle,
+            Molotov,
+            Rope,
+            Implant,
+            MetalSheet,
+            NailBox,
+            WolfTrap,
+            Battery,
+            ManifTrap
+        }
 
         public void brokeBottle(int id, bool keepInHand, int idPlayer, int placeInHand)
         {
@@ -98,13 +120,13 @@ namespace GarbageRoyale.Scripts.Items
             burningSurface.SetActive(true);
         }
 
-        public void PlaceRope(Vector3 pos1, Vector3 pos2)
+        public void PlaceRope(Vector3 pos1, Vector3 pos2, bool initNewRope)
         {
-            photonView.RPC("AskPlaceRope", RpcTarget.MasterClient, pos1, pos2, PhotonNetwork.AuthValues.UserId, iac.placeInHand);
+            photonView.RPC("AskPlaceRope", RpcTarget.MasterClient, pos1, pos2, PhotonNetwork.AuthValues.UserId, iac.placeInHand, initNewRope);
         }
 
         [PunRPC]
-        private void AskPlaceRope(Vector3 pos1, Vector3 pos2, string userId, int placeInHand)
+        private void AskPlaceRope(Vector3 pos1, Vector3 pos2, string userId, int placeInHand, bool initNewRope)
         {
             if (!PhotonNetwork.IsMasterClient)
             {
@@ -113,27 +135,34 @@ namespace GarbageRoyale.Scripts.Items
 
             int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, userId);
             int idItem = gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand];
-
-            Item item = gc.items[idItem].GetComponent<Item>();
-            if (item.type == 17)
+            
+            if(!initNewRope)
             {
-                idItem = gc.items[idItem].GetComponent<PreviewItemScript>().ropeScript.idItem;
+                gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand] = -1;
             }
 
             //TODO verify coord rope with player
-            if (Vector3.Distance(pos1, pos2) <= 8.0f && gc.items[idItem].GetComponent<Item>().name == "Rope")
+            if (Vector3.Distance(pos1, pos2) <= 8.0f)
             {
-                photonView.RPC("PlaceRopeRPC", RpcTarget.All, pos1, pos2, idPlayer, idItem);
+                photonView.RPC("PlaceRopeRPC", RpcTarget.All, pos1, pos2, idPlayer, idItem, initNewRope, gc.items.Count);
             }
-
-            gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand] = -1;
         }
 
         [PunRPC]
-        private void PlaceRopeRPC(Vector3 pos1, Vector3 pos2, int idPlayer, int idItem)
+        private void PlaceRopeRPC(Vector3 pos1, Vector3 pos2, int idPlayer, int idItem, bool initNewRope, int idNewRope)
         {
-            GameObject rope = gc.items[idItem];
+            GameObject rope;
 
+            if (initNewRope)
+            {
+                rope = ObjectPooler.SharedInstance.GetPooledObject(10);
+                gc.items.Add(idNewRope, rope);
+            }
+            else
+            {
+                rope = gc.items[idItem];
+            }
+            
             rope.transform.parent = null;
             rope.GetComponent<Item>().resetScale();
             rope.GetComponent<Rigidbody>().isKinematic = true;
@@ -144,24 +173,30 @@ namespace GarbageRoyale.Scripts.Items
             rope.transform.localScale = temp;
             rope.transform.position = pos1;
             rope.transform.LookAt(pos2);
-            rope.GetComponent<RopeScript>().mc.isTrigger = true;
+            RopeScript rs = rope.GetComponent<RopeScript>();
+
+            if (initNewRope)
+            {
+                rs.mc.isTrigger = true;
+                rs.idTrap = idItem;
+            }
 
             gc.players[idPlayer].PlayerRope.SetActive(false);
 
-            if (idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            if (!initNewRope && idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
                 gc.players[idPlayer].PlayerInventory.itemInventory[iac.placeInHand] = -1;
                 gc.GetComponent<InventoryGUI>().deleteSprite(iac.placeInHand);
             }
         }
 
-        public void PlaceObject(Vector3 pos1, int typeItem)
+        public void PlaceObject(Vector3 pos1, Vector3 rot, int typeItem)
         {
-            photonView.RPC("AskPlaceObject", RpcTarget.MasterClient, pos1, PhotonNetwork.AuthValues.UserId, iac.placeInHand, typeItem);
+            photonView.RPC("AskPlaceObject", RpcTarget.MasterClient, pos1, rot, PhotonNetwork.AuthValues.UserId, iac.placeInHand, typeItem);
         }
 
         [PunRPC]
-        private void AskPlaceObject(Vector3 pos1, string userId, int placeInHand, int typeItem)
+        private void AskPlaceObject(Vector3 pos1, Vector3 rot, string userId, int placeInHand, int typeItem)
         {
             if (!PhotonNetwork.IsMasterClient)
             {
@@ -174,14 +209,14 @@ namespace GarbageRoyale.Scripts.Items
             //TODO verify coord rope with player
             if (gc.items[idItem].GetComponent<Item>().type == typeItem)
             {
-                photonView.RPC("PlaceObjectRPC", RpcTarget.All, pos1, idPlayer, idItem, typeItem);
+                photonView.RPC("PlaceObjectRPC", RpcTarget.All, pos1, rot, idPlayer, idItem, typeItem);
             }
 
             gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand] = -1;
         }
 
         [PunRPC]
-        private void PlaceObjectRPC(Vector3 pos1, int idPlayer, int idItem, int type)
+        private void PlaceObjectRPC(Vector3 pos1, Vector3 rot, int idPlayer, int idItem, int type)
         {
             GameObject newObject = gc.items[idItem];
             PreviewItemScript pis = newObject.GetComponent<PreviewItemScript>();
@@ -191,7 +226,7 @@ namespace GarbageRoyale.Scripts.Items
             newObject.SetActive(true);
             
             newObject.transform.localScale = pis.scalePreview;
-            newObject.transform.localEulerAngles = pis.rotation;
+            newObject.transform.localEulerAngles = rot;
             newObject.transform.position = pos1;
 
             pis.bc.isTrigger = true;

@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using GarbageRoyale.Scripts.Items;
+using Photon.Pun;
 using UnityEngine;
 
 namespace GarbageRoyale.Scripts
@@ -65,17 +66,20 @@ namespace GarbageRoyale.Scripts
 
             switch (itemtype)
             {
-                case 2:
+                case (int)ItemController.TypeItem.SteelStaff:
                     poolID = 1;
                     break;
-                case 9:
+                case (int)ItemController.TypeItem.OilBottle:
                     poolID = 2;
                     break;
-                case 10:
+                case (int)ItemController.TypeItem.Molotov:
                     poolID = 3;
                     break;
-                case 15:
+                case (int)ItemController.TypeItem.WolfTrap:
                     poolID = 7;
+                    break;
+                case (int)ItemController.TypeItem.ManifTrap:
+                    poolID = 9;
                     break;
                 default:
                     Debug.Log("Wrong Item");

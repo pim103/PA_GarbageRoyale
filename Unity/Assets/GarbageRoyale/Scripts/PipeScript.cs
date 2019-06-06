@@ -87,7 +87,7 @@ namespace GarbageRoyale.Scripts
             {
                 isPlayer = true;
             }
-            else if(other.name.StartsWith("torch"))
+            else if(other.name.StartsWith("torch") || other.name.StartsWith("toiletPaper"))
             {
                 isTorch = true;
             } else

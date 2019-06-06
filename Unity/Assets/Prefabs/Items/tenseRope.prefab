@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 806850494355882243}
   m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: -0.5}
   m_LocalPosition: {x: 0, y: 0, z: -1.125}
-  m_LocalScale: {x: 0.5, y: 4, z: 4}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 5600766848206421022}
   m_RootOrder: 0
@@ -119,7 +119,7 @@ Transform:
   m_GameObject: {fileID: 927298910217355868}
   m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: -0.5}
   m_LocalPosition: {x: 0, y: 0, z: -1.125}
-  m_LocalScale: {x: 0.5, y: 3.9999993, z: 3.9999993}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 5600766848206421022}
   m_RootOrder: 1
@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 7976091584182198352}
   - component: {fileID: 7011137225101410387}
   - component: {fileID: 3837082694899274681}
+  - component: {fileID: 7316541676885929669}
   - component: {fileID: 6939589783739643374}
   - component: {fileID: 344793204718557029}
   - component: {fileID: 3967982780095254497}
@@ -285,6 +286,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7316541676885929669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3174871754370938083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa0ffb595adb434e98d19b36ff435f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idPlayer: 0
+  bc: {fileID: 0}
+  bonusColliderSize: {x: 0, y: 0, z: 0}
+  item: {fileID: 344793204718557029}
+  inEditMode: 0
+  previewCube: {fileID: 0}
+  rotation: {x: 0, y: 0, z: 0}
+  scalePreview: {x: 0, y: 0, z: 0}
+  savePos: {x: 0, y: 0, z: 0}
+  canPose: 0
+  uniqueRope: 1
+  withRope: 1
+  initNewRope: 0
+  savePosRope: {x: 0, y: 0, z: 0}
+  savePosRope2: {x: 0, y: 0, z: 0}
+  previewRope1: {fileID: 806850494355882243}
+  previewRope2: {fileID: 927298910217355868}
 --- !u!114 &6939589783739643374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,6 +333,7 @@ MonoBehaviour:
   mc: {fileID: 8359154658291113587}
   idItem: 0
   inEditMode: 0
+  isDeployed: 0
 --- !u!114 &344793204718557029
 MonoBehaviour:
   m_ObjectHideFlags: 0
