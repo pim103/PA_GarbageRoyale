@@ -85,6 +85,7 @@ namespace GarbageRoyale.Scripts
                 gc.playersActions[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].isQuiet = true;
             }*/
 
+            /*
             if (PhotonNetwork.IsMasterClient)
             {
                 foreach (var item in thrownItems)
@@ -101,7 +102,7 @@ namespace GarbageRoyale.Scripts
                         thrownItemsCount[thrownItems.IndexOf(item)] = -1;
                     }
                 }
-            }
+            }*/
         }
 
         [PunRPC]
@@ -126,10 +127,10 @@ namespace GarbageRoyale.Scripts
             switch(type)
             {
                 case 11:
-                    pis = pis = gc.players[idPlayer].PlayerRope.GetComponent<PreviewItemScript>();
+                    pis = gc.players[idPlayer].PlayerRope.GetComponent<PreviewItemScript>();
                     break;
                 case 13:
-                    pis = pis = gc.players[idPlayer].PlayerMetalSheet.GetComponent<PreviewItemScript>();
+                    pis = gc.players[idPlayer].PlayerMetalSheet.GetComponent<PreviewItemScript>();
                     break;
                 case 15:
                     pis = gc.players[idPlayer].PlayerWolfTrap.GetComponent<PreviewItemScript>();
@@ -141,7 +142,9 @@ namespace GarbageRoyale.Scripts
             
             if(pis != null)
             {
+                Debug.Log("Find script");
                 pis.inEditMode = !pis.inEditMode;
+                pis.idPlayer = idPlayer;
             }
         }
 

@@ -6,14 +6,14 @@ namespace GarbageRoyale.Scripts.Items
 {
     public class TrapManifScript : MonoBehaviour, TrapInterface
     {
-        private GameController gc;
+        private ItemController ic;
 
         private int nbProj;
 
         private void Start()
         {
             nbProj = 5;
-            gc = GameObject.Find("Controller").GetComponent<GameController>();
+            ic = GameObject.Find("Controller").GetComponent<ItemController>();
         }
         
         public void TriggerTrap(int idPlayer)
@@ -23,15 +23,7 @@ namespace GarbageRoyale.Scripts.Items
                 return;
             }
 
-            GameObject toiletPaper = ObjectPooler.SharedInstance.GetPooledObject(11);
-            toiletPaper.SetActive(true);
-            toiletPaper.transform.GetChild(0).gameObject.SetActive(true);
-            toiletPaper.transform.position = transform.position + Vector3.up;
-            toiletPaper.transform.localScale = toiletPaper.transform.localScale / 2;
-            toiletPaper.transform.localEulerAngles = transform.localEulerAngles;
-
-            toiletPaper.GetComponent<Item>().isPickable = false;
-            toiletPaper.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, -10, 2), ForceMode.Impulse);
+            ic.LaunchProjectile(transform.GetComponent<Item>().getId());
             nbProj--;
         }
     }

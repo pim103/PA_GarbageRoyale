@@ -48,22 +48,23 @@ namespace GarbageRoyale.Scripts
                 {
                     if((i == 40 && j == 40) || (i == 44 && j == 44))
                     {
-                        /*
-                        var newDoor = Instantiate(Prefabs[9], new Vector3(j * width + ypos, ypos, i * width + ypos),
-                                        Quaternion.identity);
-                        newDoor.GetComponent<OpenDoorScript>().doorId = nbDoors;
-                        doors.Add(nbDoors, newDoor);
-                        nbDoors++;
+                        if(i == 40)
+                        {
+                            GameObject ItemRoom = Instantiate(Prefabs[12], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
+                            ItemSpawner itemSpawn = ItemRoom.GetComponent<ItemSpawner>();
 
-                        continue;
-                        */
-                        GameObject ItemRoom = Instantiate(Prefabs[12], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
-                        ItemSpawner itemSpawn = ItemRoom.GetComponent<ItemSpawner>();
+                            itemSpawn.itemType = 10;
+                            itemSpawn.initItems();
+                        }
+                        else
+                        {
 
-                        //Debug.Log(itemRoom[i + ";" + j]);
+                            GameObject ItemRoom = Instantiate(Prefabs[12], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
+                            ItemSpawner itemSpawn = ItemRoom.GetComponent<ItemSpawner>();
 
-                        itemSpawn.itemType = 10;
-                        itemSpawn.initItems();
+                            itemSpawn.itemType = 11;
+                            itemSpawn.initItems();
+                        }
                     }
 
                     if (data[i, j] == 0)

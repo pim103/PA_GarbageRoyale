@@ -147,4 +147,6 @@ MonoBehaviour:
   - PlaceObjectRPC
   - ActiveSpecificPreview
   - WantToPlaceObject
+  - LaunchProjectileRPC
+  - ActiveWolfTrapRPC
   DisableAutoOpenWizard: 1

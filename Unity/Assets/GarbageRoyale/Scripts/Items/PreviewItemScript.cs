@@ -92,21 +92,22 @@ namespace GarbageRoyale.Scripts.Items
 
         private void Update()
         {
-            var ray = gc.players[idPlayer].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
-            RaycastHit hitInfo;
-            bool touch = Physics.Raycast(ray, out hitInfo, 3f);
-            canPose = false;
 
             if (inEditMode)
             {
                 toggleEditMode = true;
+                var ray = gc.players[idPlayer].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+                RaycastHit hitInfo;
+                bool touch = Physics.Raycast(ray, out hitInfo, 3f);
+                canPose = false;
 
                 if (withRope && !ropeIsPlaced)
                 {
                     PreviewRope(touch, hitInfo);
                 }
-                else if(ropeIsPlaced && !uniqueRope)
+                else if((withRope && ropeIsPlaced && !uniqueRope) || !withRope)
                 {
+                    Debug.Log("Placer objet");
                     PreviewTrap(touch, hitInfo);
                 }
 
@@ -177,6 +178,7 @@ namespace GarbageRoyale.Scripts.Items
                 canPose = true;
                 if (!toggleCube)
                 {
+                    Debug.Log("Active toi ?");
                     previewCube.transform.parent = null;
                     previewCube.transform.localScale = scalePreview;
                     previewCube.SetActive(true);

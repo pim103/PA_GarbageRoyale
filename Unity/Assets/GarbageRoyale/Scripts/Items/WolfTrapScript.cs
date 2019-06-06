@@ -9,10 +9,10 @@ namespace GarbageRoyale.Scripts.Items
     public class WolfTrapScript : MonoBehaviour
     {
         [SerializeField]
-        private GameObject leftPanel;
+        public GameObject leftPanel;
 
         [SerializeField]
-        private GameObject rightPanel;
+        public GameObject rightPanel;
 
         [SerializeField]
         private GameObject rope;
@@ -23,10 +23,8 @@ namespace GarbageRoyale.Scripts.Items
         [SerializeField]
         private Rigidbody rigid;
 
-        [SerializeField]
-        private PreviewItemScript scriptPreview;
-
         private GameController gc;
+        private ItemController ic;
 
         private bool isTrigger;
 
@@ -34,6 +32,7 @@ namespace GarbageRoyale.Scripts.Items
         void Start()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
+            ic = GameObject.Find("Controller").GetComponent<ItemController>();
             isTrigger = false;
         }
 
@@ -44,14 +43,12 @@ namespace GarbageRoyale.Scripts.Items
                 return;
             }
 
-            Debug.Log("Enter : " + other.name);
             if (!isTrigger && other.name.StartsWith("Player"))
             {
                 int idPlayer = other.GetComponent<ExposerPlayer>().PlayerIndex;
-
                 isTrigger = true;
-                leftPanel.transform.localEulerAngles = new Vector3(-15, 90, -90);
-                rightPanel.transform.localEulerAngles = new Vector3(-165, 90, -90);
+
+                ic.ActiveWolfTrap(transform.GetComponent<Item>().getId(), isTrigger);
                 StartCoroutine(trapPlayer(idPlayer));
             }
         }
@@ -62,11 +59,10 @@ namespace GarbageRoyale.Scripts.Items
             gc.players[id].PlayerStats.takeDamage(10.0f);
 
             yield return new WaitForSeconds(3.0f);
+            isTrigger = false;
             gc.playersActions[id].isTrap = false;
 
-            leftPanel.transform.localEulerAngles = new Vector3(-90, 90, -90);
-            rightPanel.transform.localEulerAngles = new Vector3(-90, 90, -90);
-            isTrigger = false;
+            ic.ActiveWolfTrap(transform.GetComponent<Item>().getId(), isTrigger);
         }
     }
 }

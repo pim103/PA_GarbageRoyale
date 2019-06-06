@@ -256,5 +256,56 @@ namespace GarbageRoyale.Scripts.Items
                 gc.GetComponent<InventoryGUI>().deleteSprite(iac.placeInHand);
             }
         }
+
+        public void LaunchProjectile(int idItem)
+        {
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            photonView.RPC("LaunchProjectileRPC", RpcTarget.All, idItem);
+        }
+
+        [PunRPC]
+        private void LaunchProjectileRPC(int idItem)
+        {
+            GameObject toiletPaper = ObjectPooler.SharedInstance.GetPooledObject(11);
+            toiletPaper.SetActive(true);
+            toiletPaper.transform.GetChild(0).gameObject.SetActive(true);
+            toiletPaper.transform.position = gc.items[idItem].transform.position + Vector3.up;
+            toiletPaper.transform.localScale = toiletPaper.transform.localScale / 2;
+            toiletPaper.transform.localEulerAngles = gc.items[idItem].transform.localEulerAngles;
+
+            toiletPaper.GetComponent<Item>().isPickable = false;
+            toiletPaper.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, -10, 2), ForceMode.Impulse);
+        }
+
+        public void ActiveWolfTrap(int idItem, bool isTrigger)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            photonView.RPC("ActiveWolfTrapRPC", RpcTarget.All, idItem, isTrigger);      
+        }
+
+        [PunRPC]
+        private void ActiveWolfTrapRPC(int idItem, bool isTrigger)
+        {
+            WolfTrapScript wts = gc.items[idItem].GetComponent<WolfTrapScript>();
+
+            if(isTrigger)
+            {
+                wts.leftPanel.transform.localEulerAngles = new Vector3(-15, 90, -90);
+                wts.rightPanel.transform.localEulerAngles = new Vector3(-165, 90, -90);
+            }
+            else
+            {
+                wts.leftPanel.transform.localEulerAngles = new Vector3(-90, 90, -90);
+                wts.rightPanel.transform.localEulerAngles = new Vector3(-90, 90, -90);
+            }
+        }
     }
 }
