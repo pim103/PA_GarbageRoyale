@@ -107,7 +107,6 @@ namespace GarbageRoyale.Scripts.Items
                 }
                 else if((withRope && ropeIsPlaced && !uniqueRope) || !withRope)
                 {
-                    Debug.Log("Placer objet");
                     PreviewTrap(touch, hitInfo);
                 }
 
@@ -178,7 +177,6 @@ namespace GarbageRoyale.Scripts.Items
                 canPose = true;
                 if (!toggleCube)
                 {
-                    Debug.Log("Active toi ?");
                     previewCube.transform.parent = null;
                     previewCube.transform.localScale = scalePreview;
                     previewCube.SetActive(true);

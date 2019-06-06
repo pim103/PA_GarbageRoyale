@@ -142,7 +142,6 @@ namespace GarbageRoyale.Scripts
             
             if(pis != null)
             {
-                Debug.Log("Find script");
                 pis.inEditMode = !pis.inEditMode;
                 pis.idPlayer = idPlayer;
             }
