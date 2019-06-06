@@ -62,7 +62,7 @@ namespace GarbageRoyale.Scripts
                         GameObject itemGob = hitInfo.transform.gameObject;
                         Item itemScript = itemGob.GetComponent<Item>();
 
-                        if (itemScript)
+                        if (itemScript && itemScript.isPickable)
                         {
                             staffName = "Staff_" + itemGob.transform.position.x + "_" +
                                         ((int) itemGob.transform.position.y + 1) + "_" +
@@ -111,6 +111,12 @@ namespace GarbageRoyale.Scripts
 
             Debug.Log(gc.items[itemId].GetComponent<Item>().type);
             Item itemData = gc.items[itemId].GetComponent<Item>();
+            
+            if(!itemData.isPickable)
+            {
+                return;
+            }
+
             if (itemData.getType() != (int)ItemController.TypeItem.Implant)
             {
                 place = gc.players[playerIndex].GetComponent<Inventory>().findPlaceInventory();

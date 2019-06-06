@@ -28,7 +28,9 @@ namespace GarbageRoyale.Scripts.Items
             toiletPaper.transform.GetChild(0).gameObject.SetActive(true);
             toiletPaper.transform.position = transform.position + Vector3.up;
             toiletPaper.transform.localScale = toiletPaper.transform.localScale / 2;
-            toiletPaper.GetComponent<Item>().enabled = false;
+            toiletPaper.transform.localEulerAngles = transform.localEulerAngles;
+
+            toiletPaper.GetComponent<Item>().isPickable = false;
             toiletPaper.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, -10, 2), ForceMode.Impulse);
             nbProj--;
         }

@@ -162,9 +162,12 @@ namespace GarbageRoyale.Scripts.Items
             {
                 rope = gc.items[idItem];
             }
-            
+
+            Item ropeItem = rope.GetComponent<Item>();
+
             rope.transform.parent = null;
-            rope.GetComponent<Item>().resetScale();
+            ropeItem.resetScale();
+            ropeItem.isPickable = false;
             rope.GetComponent<Rigidbody>().isKinematic = true;
             rope.SetActive(true);
 
@@ -224,6 +227,8 @@ namespace GarbageRoyale.Scripts.Items
             newObject.transform.parent = null;
             newObject.GetComponent<Rigidbody>().isKinematic = true;
             newObject.SetActive(true);
+
+            newObject.GetComponent<Item>().isPickable = false;
             
             newObject.transform.localScale = pis.scalePreview;
             newObject.transform.localEulerAngles = rot;

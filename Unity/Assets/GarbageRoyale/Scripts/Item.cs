@@ -14,6 +14,8 @@ namespace GarbageRoyale.Scripts
         [SerializeField]
         public RawImage itemImg;
 
+        public bool isPickable;
+
         public bool initOnStart;
         public bool isOnline;
 
@@ -38,6 +40,7 @@ namespace GarbageRoyale.Scripts
             name = "Null";
             damage = 0f;
             type = 0;
+            isPickable = true;
         }
 
         public void resetScale()
