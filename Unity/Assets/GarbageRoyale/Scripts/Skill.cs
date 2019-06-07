@@ -12,7 +12,7 @@ namespace GarbageRoyale.Scripts
         void Start()
         {
             id = 0;
-            type = 0;
+            type = 3;
             bufftime = 10;
             cooldown = 20;
         }

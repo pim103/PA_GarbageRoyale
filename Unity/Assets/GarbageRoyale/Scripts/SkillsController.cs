@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GarbageRoyale.Scripts.HUD;
+using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
@@ -59,38 +60,36 @@ namespace GarbageRoyale.Scripts
                     if (skillManager.bufftime <= 0)
                     {
                         //Debug.Log("hai " + skillManager.bufftime);
-                        switch (skillManager.skillType)
+                        
+                        if (PhotonNetwork.IsMasterClient)
                         {
-                            case 0:
-                                if (PhotonNetwork.IsMasterClient)
+                            foreach (var otherSkillManager in CurrentSkills)
+                            {
+                                if (otherSkillManager.skillType == skillManager.skillType &&
+                                    otherSkillManager.skillID != skillManager.skillID)
                                 {
-                                    foreach (var otherSkillManager in CurrentSkills)
+                                    isDouble = true;
+                                    if (otherSkillManager.bufftime <= 0)
                                     {
-                                        if (otherSkillManager.skillType == skillManager.skillType &&
-                                            otherSkillManager.skillID != skillManager.skillID)
-                                        {
-                                            isDouble = true;
-                                            if (otherSkillManager.bufftime <= 0)
-                                            {
-                                                Debug.Log("deact");
-                                                photonView.RPC("DeactivateQuietSkill", RpcTarget.All,skillManager.playerID);
-                                                skillManager.isActive = false;
-                                                break;
-                                            }
-                                        }
-                                    }
-
-                                    if (!isDouble)
-                                    {
-                                        Debug.Log("deact2");
-                                        photonView.RPC("DeactivateQuietSkill", RpcTarget.All, skillManager.playerID);
+                                        Debug.Log("deact");
+                                        photonView.RPC("DeactivateSkill", RpcTarget.All,skillManager.playerID, skillManager.skillType);
                                         skillManager.isActive = false;
+                                        break;
                                     }
                                 }
-                                /*Debug.Log(skillManager.playerID + " " + Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));*/
-                                //CurrentSkills.Remove(skillManager);
-                                break;
+                            }
+
+                            if (!isDouble)
+                            {
+                                Debug.Log("deact2");
+                                photonView.RPC("DeactivateSkill", RpcTarget.All, skillManager.playerID, skillManager.skillType);
+                                skillManager.isActive = false;
+                            }
                         }
+                        /*Debug.Log(skillManager.playerID + " " + Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));*/
+                        //CurrentSkills.Remove(skillManager);
+                        
+                        
                     }
                 }
                 if (skillManager.playerID ==
@@ -142,7 +141,7 @@ namespace GarbageRoyale.Scripts
         }
 
         [PunRPC]
-        public void AskSkillActivation(int skillPlace, int playerIndex)
+        public void AskSkillActivation(int skillPlace, int playerIndex, int targetID)
         {
             Debug.Log("hoi");
             ActiveSkillManager newSkill;
@@ -154,54 +153,92 @@ namespace GarbageRoyale.Scripts
             skillID = gc.players[playerIndex].GetComponent<Inventory>().skillInventory[skillPlace];
             Skill skillInfos = gc.items[skillID].GetComponent<Skill>();
             skillType = skillInfos.type;
-            foreach (var skillManager in CurrentSkills)
-            {
-                if (skillManager.skillType ==  skillType && skillManager.skillID == skillID &&
-                    skillManager.playerID == playerIndex)
+            
+                foreach (var skillManager in CurrentSkills)
                 {
-                    if (skillManager.coolDown > 0)
+                    if (skillManager.skillType == skillType && skillManager.skillID == skillID &&
+                        skillManager.playerID == playerIndex)
                     {
-                        return;
-                    }
+                        if (skillManager.coolDown > 0)
+                        {
+                            return;
+                        }
 
-                    foundSkill = skillManager;
+                        foundSkill = skillManager;
+                    }
                 }
-            }
-            Debug.Log(skillID);
-            switch (skillType)
-            {
-                case 0:
-                    if (foundSkill)
-                    {
-                        newSkill = foundSkill;
-                        foundSkill = null;
-                    }
-                    else
-                    {
-                        newSkill = gameObject.AddComponent<ActiveSkillManager>();
-                    }
-                    Debug.Log("yees");
-                    newSkill.playerID = playerIndex;
-                    newSkill.bufftime = skillInfos.bufftime;
-                    newSkill.coolDown = skillInfos.cooldown;
-                    newSkill.skillType = skillInfos.type;
-                    newSkill.skillID = skillID;
-                    newSkill.skillPlace = skillPlace;
-                    newSkill.isActive = true;
-                    CurrentSkills.Add(newSkill);
-                    photonView.RPC("ActivateQuietSkill",RpcTarget.All, playerIndex,skillPlace);
-                    break;
-            }
+
+                Debug.Log(skillID);
+
+                if (foundSkill)
+                {
+                    newSkill = foundSkill;
+                    foundSkill = null;
+                }
+                else
+                {
+                    newSkill = gameObject.AddComponent<ActiveSkillManager>();
+                }
+
+                Debug.Log("yees");
+                newSkill.playerID = playerIndex;
+                newSkill.bufftime = skillInfos.bufftime;
+                newSkill.coolDown = skillInfos.cooldown;
+                newSkill.skillType = skillInfos.type;
+                newSkill.skillID = skillID;
+                newSkill.skillPlace = skillPlace;
+                newSkill.isActive = true;
+                CurrentSkills.Add(newSkill);
+                photonView.RPC("ActivateSkill",RpcTarget.All, playerIndex,skillPlace,skillID,targetID);
             //photonView.RPC("AnswerSkillActivation",RpcTarget.All,skillType, playerIndex);
         }
         
         [PunRPC]
-        public void ActivateQuietSkill(int playerIndex,int skillPlace)
+        public void ActivateSkill(int playerIndex,int skillPlace, int skillID, int targetID)
         {
             Debug.Log("wut1");
-            skillID = gc.players[playerIndex].GetComponent<Inventory>().skillInventory[skillPlace];
+            //skillID = gc.players[playerIndex].GetComponent<Inventory>().skillInventory[skillPlace];
             Skill skillInfos = gc.items[skillID].GetComponent<Skill>();
-            gc.playersActions[playerIndex].isQuiet = true;
+            skillType = skillInfos.type;
+            switch (skillType)
+            {
+                case 0:
+                    gc.playersActions[playerIndex].isQuiet = true;
+                    break;
+                case 1:
+                    gc.playersActions[playerIndex].isDamageBoosted = true;
+                    break;
+                case 2:
+                    gc.players[playerIndex].PlayerRenderer.enabled = false;
+                    break;
+                case 3:
+                    if (targetID != -1)
+                    {
+                        Debug.Log("hoiiiiioi");
+                        gc.playersActions[targetID].isFallen = true;
+                        gc.playersActions[targetID].timeLeftFallen = 2.0f;
+                        if (gc.playersActions[playerIndex].feetIsInWater || gc.playersActions[playerIndex].headIsInWater)
+                        {
+                            RaycastHit info;
+                            if (Physics.Raycast(gc.players[targetID].PlayerFeet.transform.position,
+                                transform.TransformDirection(Vector3.down), out info))
+                            {
+                                Vector3 pos = new Vector3(info.point.x, info.point.y + 0.1f, info.point.z);
+                                GameObject electricity = ObjectPooler.SharedInstance.GetPooledObject(12);
+                                electricity.transform.position = pos;
+                                electricity.SetActive(true);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("eeehhhh");
+                    }
+                    break;
+                default:
+                    break;
+            }
+
             Debug.Log("wut2");
             
             if (playerIndex == Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
@@ -209,10 +246,9 @@ namespace GarbageRoyale.Scripts
                 if (!PhotonNetwork.IsMasterClient)
                 {
                     ActiveSkillManager newSkill;
-                    skillType = gc.players[playerIndex].GetComponent<Inventory>().skillInventory[skillPlace];
                     foreach (var skillManager in CurrentSkills)
                     {
-                        if (skillManager.skillType == skillType && skillManager.skillID == skillPlace &&
+                        if (skillManager.skillType == skillType && skillManager.skillID == skillID &&
                             skillManager.playerID == playerIndex)
                         {
                             if (skillManager.coolDown > 0)
@@ -258,9 +294,21 @@ namespace GarbageRoyale.Scripts
         }
 
         [PunRPC]
-        public void DeactivateQuietSkill(int playerIndex)
+        public void DeactivateSkill(int playerIndex, int type)
         {
-            gc.playersActions[playerIndex].isQuiet = false;
+            switch (type)
+            {
+                case 0:
+                    gc.playersActions[playerIndex].isQuiet = false;
+                    break;
+                case 1:
+                    gc.playersActions[playerIndex].isDamageBoosted = false;
+                    break;
+                case 2:
+                    gc.players[playerIndex].PlayerRenderer.enabled = true;
+                    break;
+            }
+            
         }
     }
 }

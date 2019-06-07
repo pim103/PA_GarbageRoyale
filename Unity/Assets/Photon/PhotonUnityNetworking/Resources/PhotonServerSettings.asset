@@ -149,4 +149,6 @@ MonoBehaviour:
   - WantToPlaceObject
   - LaunchProjectileRPC
   - ActiveWolfTrapRPC
+  - ActivateSkill
+  - DeactivateSkill
   DisableAutoOpenWizard: 1

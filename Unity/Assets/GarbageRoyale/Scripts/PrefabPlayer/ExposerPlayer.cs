@@ -39,5 +39,7 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
 
         public PlayerStats PlayerStats;
         public Inventory PlayerInventory;
+        
+        public SkinnedMeshRenderer PlayerRenderer;
     }
 }

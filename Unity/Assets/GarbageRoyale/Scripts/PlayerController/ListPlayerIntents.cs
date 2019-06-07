@@ -33,7 +33,8 @@ namespace GarbageRoyale.Scripts.PlayerController
         public bool isBurning { get; set; }
         public bool isQuiet { get; set; }
         public float timeLeftBurn;
-
+        public bool isDamageBoosted { get; set; }
+        
         public bool isFallen { get; set; }
         public float timeLeftFallen;
 

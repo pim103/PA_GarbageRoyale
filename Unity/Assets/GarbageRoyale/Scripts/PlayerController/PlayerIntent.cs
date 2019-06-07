@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using System.Collections;
 using System.Collections.Generic;
+using GarbageRoyale.Scripts.PrefabPlayer;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -121,7 +122,20 @@ namespace GarbageRoyale.Scripts.PlayerController {
             if (Input.GetKeyDown(KeyCode.A))
             {
                 //scripts.gc.playersActions[PlayerIndex].isQuiet = true;
-                skillsController.photonView.RPC("AskSkillActivation",RpcTarget.MasterClient,0,Array.IndexOf(scripts.gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId));
+                
+                var ray = scripts.gc.players[Array.IndexOf(scripts.gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+                RaycastHit hitInfo;
+                bool touch = Physics.Raycast(ray, out hitInfo, 2f);
+                int Hitid = -1;
+
+                if (touch)
+                {
+                    if (hitInfo.transform.name.StartsWith("Player")){
+                        Hitid = hitInfo.transform.gameObject.GetComponent<ExposerPlayer>().PlayerIndex;
+                    }
+                }
+                
+                skillsController.photonView.RPC("AskSkillActivation",RpcTarget.MasterClient,0,Array.IndexOf(scripts.gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId),Hitid);
             }
             if (Input.GetKeyDown(KeyCode.E))
             {

@@ -87,7 +87,7 @@ namespace GarbageRoyale.Scripts
             int cMax;
             int roll;
             bool noTrapDoorInArea;
-            int frequency = 12;
+            int frequency = 36;
             int trapDoorCount = 0;
             
             for (int k = 0; k < 8; k++)
@@ -141,9 +141,9 @@ namespace GarbageRoyale.Scripts
                         for (int j = 0; j <= cMax; j++)
                         {
                             noTrapDoorInArea = true;
-                            for (int l = i - (12-k); l < i + (12-k); l++)
+                            for (int l = i - (3-k); l < i + (3-k); l++)
                             {
-                                for (int m = j - (12-k); m < j + (12-k); m++)
+                                for (int m = j - (3-k); m < j + (3-k); m++)
                                 {
                                     if (l > 0 && m > 0 && l < rMax && m < cMax)
                                     {
@@ -159,8 +159,7 @@ namespace GarbageRoyale.Scripts
                             }
                             //if (((k< 7 && maze[k+1][i, j] == 0) || k == 7) && i > 4 && j > 4 && i < rMax - 4 && j < cMax - 4 && frequency > trapDoorCount &&
                             //    noTrapDoorInArea && maze[k][i, j] == 0 && rooms[i,j] != 1 )
-                            if ((i > 5 && j > 5 && i < rMax - 5 && j < cMax - 5 && frequency > trapDoorCount &&
-                                noTrapDoorInArea && maze[k][i, j] == 0 && maze[k%7+1][i-4, j-4] == 0 && rooms[i,j] != 1 && rooms[i,j] != 0) && !(i > (rMax / 2 - 5) && i < (rMax / 2 + 5) && j > cMax / 2 - 5 && j < cMax / 2 + 5 &&                                                                                                                                                k == 0))
+                            if ((i > 5 && j > 5 && i < rMax - 5 && j < cMax - 5 && frequency > trapDoorCount && noTrapDoorInArea && maze[k][i, j] == 0 && maze[k%7+1][i-4, j-4] == 0 && rooms[i,j] != 1 && rooms[i,j] != 0) && !(i > (rMax / 2 - 5) && i < (rMax / 2 + 5) && j > cMax / 2 - 5 && j < cMax / 2 + 5 && k == 0))
                             {
                                 roll = Random.Range(0, cMax * rMax);
                                 if (roll < cMax)
@@ -200,8 +199,12 @@ namespace GarbageRoyale.Scripts
                                                     {
                                                         Debug.Log("étage : " + k + " trappe : " + i * 4 + " " + j * 4 +
                                                                   " bouton : " + n * 4 + " " + p * 4);
-                                                        roomLinksList[k].Add(i + ";" + j, n + ";" + p);
-                                                        roomTrap[k].Add(i + ";" + j, nbTrap);
+                                                        //roomLinksList[k].Add(i + ";" + j, n + ";" + p);
+                                                        if (!roomTrap[k].ContainsKey(i + ";" + j))
+                                                        {
+                                                            roomTrap[k].Add(i + ";" + j, nbTrap);
+                                                        }
+
                                                         if(!roomTrap[k].ContainsKey(n+";"+p))
                                                         {
                                                             roomTrap[k].Add(n + ";" + p, nbTrap);
@@ -235,8 +238,8 @@ namespace GarbageRoyale.Scripts
                 }
 
                 floorRooms[k] = rooms;
-                if (k < 3) frequency -= 2;
-                else frequency--;
+                if (k < 3) frequency -= 6;
+                else frequency-= 4;
             }
                
             return floorRooms;

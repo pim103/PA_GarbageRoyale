@@ -131,7 +131,8 @@ namespace GarbageRoyale.Scripts.PlayerController
                         gc.players[i].PlayerStats.isDead,
                         gc.playersActions[i].isBurning,
                         gc.playersActions[i].isOiled,
-                        gc.playersActions[i].isQuiet
+                        gc.playersActions[i].isQuiet,
+                        gc.playersActions[i].isDamageBoosted
                     );
                 }
             }
@@ -376,7 +377,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         }
 
         [PunRPC]
-        private void UpdateDataRPC(int id, bool isMoving, float rotX, float h, float s, float b, bool headIsInWater, bool isDead, bool isBurning, bool isOiled, bool isQuiet)
+        private void UpdateDataRPC(int id, bool isMoving, float rotX, float h, float s, float b, bool headIsInWater, bool isDead, bool isBurning, bool isOiled, bool isQuiet, bool isDamageBoosted)
         {
             Vector3 vec = new Vector3(rotX, 0, 0);
             gc.players[id].SpotLight.transform.localEulerAngles = vec;
@@ -408,6 +409,8 @@ namespace GarbageRoyale.Scripts.PlayerController
             gc.playersActions[id].isBurning = isBurning;
 
             gc.playersActions[id].isOiled = isOiled;
+            
+            gc.playersActions[id].isDamageBoosted = isDamageBoosted;
 
             if (gc.AvatarToUserId[id] == PhotonNetwork.AuthValues.UserId)
             {

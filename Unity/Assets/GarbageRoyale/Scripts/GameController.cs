@@ -328,6 +328,7 @@ namespace GarbageRoyale.Scripts
                 playersActionsActivated[i].timeLeftBurn = 5.0f;
                 playersActionsActivated[i].timeLeftOiled = 15.0f;
                 playersActionsActivated[i].isQuiet = false;
+                playersActionsActivated[i].isDamageBoosted = false;
                 playersActionsActivated[i].isFallen = false;
                 playersActionsActivated[i].timeLeftFallen = 2.0f;
                 playersActionsActivated[i].isTrap = false;
@@ -504,16 +505,28 @@ namespace GarbageRoyale.Scripts
                 characterSound[id].transform.position = new Vector3(posX, 2.5f, posZ);
                 characterSoundWalk[id].transform.position = new Vector3(posX, 2.5f, posZ);
             }
-        }
+        }*/
 
         private void OnGUI()
         {
-            if (PhotonNetwork.IsMasterClient)
+            /*if (PhotonNetwork.IsMasterClient)
             {
                 currentPosX = characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform.position.x;
                 currentPosY = characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform.position.y;
                 currentPosZ = characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform.position.z;
+            }*/
+            if (!endOfInit)
+            {
+                return;
             }
+            int playerIndex = Array.IndexOf(AvatarToUserId, PhotonNetwork.AuthValues.UserId);
+            currentPosX = players[playerIndex].transform.position.x;
+            currentPosY = players[playerIndex].transform.position.y;
+            currentPosZ = players[playerIndex].transform.position.z;
+            int size = 20;
+            float posX = players[playerIndex].PlayerCamera.pixelWidth / 2 - size / 4;
+            float posY = players[playerIndex].PlayerCamera.pixelHeight / 2 - size / 2;
+            GUI.Label(new Rect(posX, posY, size, size), "+");
             int k = 0;
             int l = 0;
             int currentFloor = (int) currentPosY / 16;
@@ -560,7 +573,7 @@ namespace GarbageRoyale.Scripts
                 }
                 k++;
             }
-        }*/
+        }
 
         public Texture2D MakeTex( int width, int height, Color col )
         {
