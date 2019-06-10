@@ -36,6 +36,9 @@ namespace GarbageRoyale.Scripts
         [SerializeField] 
         private RawImage[] buffTextures;
         
+        [SerializeField] 
+        private GameObject Water;
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -219,20 +222,40 @@ namespace GarbageRoyale.Scripts
                         gc.playersActions[targetID].timeLeftFallen = 2.0f;
                         if (gc.playersActions[playerIndex].feetIsInWater || gc.playersActions[playerIndex].headIsInWater)
                         {
-                            RaycastHit info;
-                            if (Physics.Raycast(gc.players[targetID].PlayerFeet.transform.position,
-                                transform.TransformDirection(Vector3.down), out info))
-                            {
-                                Vector3 pos = new Vector3(info.point.x, info.point.y + 0.1f, info.point.z);
-                                GameObject electricity = ObjectPooler.SharedInstance.GetPooledObject(12);
-                                electricity.transform.position = pos;
-                                electricity.SetActive(true);
-                            }
+                            GameObject electricity = ObjectPooler.SharedInstance.GetPooledObject(12);
+                            electricity.transform.position = gc.players[targetID].PlayerFeet.transform.position;
+                            electricity.SetActive(true);
+                            electricity.transform.parent = Water.transform;
+                            electricity.transform.localPosition =  new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
                         }
                     }
                     else
                     {
                         Debug.Log("eeehhhh");
+                    }
+                    break;
+                case 4:
+                    gc.playersActions[playerIndex].isAmphibian = true;
+                    break;
+                case 5:
+                    Debug.Log("dash");
+                    var forward = gc.players[playerIndex].PlayerCamera.transform.forward;
+ 
+                    forward.y = 0f;
+                    forward.Normalize();
+                    
+                    gc.moveDirection[playerIndex] = forward;
+                    gc.moveDirection[playerIndex] *= 5;
+                    Debug.Log(gc.moveDirection[playerIndex]);
+                    gc.players[playerIndex].PlayerChar.Move(gc.moveDirection[playerIndex]);
+                    if (gc.playersActions[playerIndex].isInWater || gc.playersActions[playerIndex].headIsInWater || gc.playersActions[playerIndex].isInWater)
+                    {
+                        Debug.Log("hououou");
+                        GameObject electricity = ObjectPooler.SharedInstance.GetPooledObject(12);
+                        electricity.transform.position = gc.players[playerIndex].PlayerFeet.transform.position;
+                        electricity.SetActive(true);
+                        electricity.transform.parent = Water.transform;
+                        //electricity.transform.localPosition = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
                     }
                     break;
                 default:
@@ -306,6 +329,9 @@ namespace GarbageRoyale.Scripts
                     break;
                 case 2:
                     gc.players[playerIndex].PlayerRenderer.enabled = true;
+                    break;
+                case 4:
+                    gc.playersActions[playerIndex].isAmphibian = false;
                     break;
             }
             

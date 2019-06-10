@@ -125,8 +125,7 @@ namespace GarbageRoyale.Scripts
                 {
                     if (RectTransformUtility.RectangleContainsScreenPoint(CraftingRects[i], Input.mousePosition))
                     {
-                        Debug.Log("playerindex " +
-                                  System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId) +
+                        Debug.Log("playerindex " + System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId) +
                                   " oldplace " + invIndex + " newplace " + i);
                         RpcManager.photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,
                             System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), invIndex, 20 + i);

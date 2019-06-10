@@ -21,6 +21,7 @@
             <e p="DesactivateCameraControl.cs" t="Include" />
             <e p="DetailedInventoryRPCManager.cs" t="Include" />
             <e p="DoorController.cs" t="Include" />
+            <e p="Electricity.cs" t="Include" />
             <e p="EnvironmentEvent.cs" t="Include" />
             <e p="GameController.cs" t="Include" />
             <e p="HandScript.cs" t="Include" />

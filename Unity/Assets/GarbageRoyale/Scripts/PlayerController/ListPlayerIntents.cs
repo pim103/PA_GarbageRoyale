@@ -40,5 +40,7 @@ namespace GarbageRoyale.Scripts.PlayerController
 
         public bool isSlow { get; set; }
         public bool isTrap { get; set; }
+        
+        public bool isAmphibian { get; set; }
     }
 }

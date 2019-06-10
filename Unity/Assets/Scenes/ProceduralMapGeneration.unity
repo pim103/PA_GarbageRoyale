@@ -4366,6 +4366,7 @@ MonoBehaviour:
   SkillBuffTime_1: {fileID: 1893817637}
   buffTextures:
   - {fileID: 5833977737841398870, guid: 14257fc03756d5e40ad7e71c68a168be, type: 3}
+  Water: {fileID: 1147012261}
 --- !u!114 &959770058
 MonoBehaviour:
   m_ObjectHideFlags: 0

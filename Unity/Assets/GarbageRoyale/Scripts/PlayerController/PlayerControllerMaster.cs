@@ -249,7 +249,7 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             while(true)
             {
-                if (gc.playersActions[id].headIsInWater)
+                if (gc.playersActions[id].headIsInWater && !gc.playersActions[id].isAmphibian)
                 {
                     gc.playersActions[id].isBurning = false;
                     gc.playersActions[id].isOiled = false;
