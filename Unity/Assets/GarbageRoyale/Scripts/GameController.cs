@@ -352,6 +352,7 @@ namespace GarbageRoyale.Scripts
                     water.setStartWater(true);
                 }
             }
+
             /*if (canMove)
             {
                 photonView.RPC("SendSoundPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));

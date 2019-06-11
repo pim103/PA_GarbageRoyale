@@ -8,15 +8,28 @@ namespace GarbageRoyale.Scripts.Menu
 {
     public class PauseMenu : MonoBehaviourPunCallbacks
     {
+        [SerializeField] 
+        private GameObject baseMenu;
         [SerializeField]
         private Button settingsButton;
+        [SerializeField]
+        private Button settingsReturn;
         [SerializeField] 
         private Button disconnectButton;
         [SerializeField] 
         private Button exitButton;
-
+        
+        [SerializeField] 
+        private GameObject settingsMenu;
+        [SerializeField] 
+        private Button returnToBase;
         [SerializeField]
-        private StartGame controller;
+        private Button setFullscreen;
+        [SerializeField]
+        private Text textSetFullscreen;
+        
+        [SerializeField]
+        private GameController controller;
     
         // Start is called before the first frame update
         void Start()
@@ -27,14 +40,29 @@ namespace GarbageRoyale.Scripts.Menu
                 Debug.Log(PhotonNetwork.AuthValues);
                 disconnectButton.interactable = true;
             }
+            settingsButton.onClick.AddListener(GoToSettings);
+            exitButton.onClick.AddListener(AskForExit);
         }
 
-        private void Update()
+        public void GoToMainPause()
         {
-            if (controller.isActiveAndEnabled)
-            {
-                
-            }
+            settingsMenu.SetActive(false);
+            baseMenu.SetActive(true);
+            
+            setFullscreen.onClick.AddListener(changeScreenState);
+        }
+
+        public void GoToSettings()
+        {
+            baseMenu.SetActive(false);
+            settingsMenu.SetActive(true);
+            
+            returnToBase.onClick.AddListener(GoToMainPause);
+        }
+
+        public void changeScreenState()
+        {
+            Screen.fullScreen = !Screen.fullScreen;
         }
 
         public void AskForExit()

@@ -25,7 +25,7 @@ namespace GarbageRoyale.Scripts
                     transform.localScale = new Vector3(1f, 1f, 1f);
                     openInventory = true;
                     Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
+                    
                     //gc.players[Array.IndexOf(gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId)].
                 }
                 else

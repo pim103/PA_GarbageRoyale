@@ -88,7 +88,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                            false,
                            false,
                            false
-                       );
+                    );
                     continue;
                 }
                 var playerAction = gc.playersActions[i];
@@ -137,9 +137,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                         gc.playersActions[i].isBurning,
                         gc.playersActions[i].isOiled,
                         gc.playersActions[i].isQuiet,
-                        gc.playersActions[i].isDamageBoosted,
-                        gc.playersActions[i].isRunning,
-                        gc.playersActions[i].isCrouched
+                        gc.playersActions[i].isDamageBoosted
                     );
                 }
             }
@@ -286,6 +284,15 @@ namespace GarbageRoyale.Scripts.PlayerController
                     }
                 }
 
+                if (gc.playersActions[id].isRunning && ps.currentStamina > 0)
+                {
+                    ps.currentStamina -= 2.0f;
+                }
+                else
+                {
+                    gc.playersActions[id].isRunning = false;
+                }
+
                 if (ps.currentStamina < ps.defaultStamina)
                 {
                     ps.currentStamina += 0.7f;
@@ -405,7 +412,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         }
 
         [PunRPC]
-        private void UpdateDataRPC(int id, bool isMoving, float rotX, float h, float s, float b, bool headIsInWater, bool isDead, bool isBurning, bool isOiled, bool isQuiet, bool isDamageBoosted, bool isRunning, bool isCrouched)
+        private void UpdateDataRPC(int id, bool isMoving, float rotX, float h, float s, float b, bool headIsInWater, bool isDead, bool isBurning, bool isOiled, bool isQuiet, bool isDamageBoosted)
         {
             Vector3 vec = new Vector3(rotX, 0, 0);
             gc.players[id].SpotLight.transform.localEulerAngles = vec;

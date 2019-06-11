@@ -21,7 +21,8 @@ namespace GarbageRoyale.Scripts.PlayerController {
         private ScriptExposer scripts;
 
         private bool isInInventory = false;
-
+        private bool isInEscapeMenu = false;
+        
         private SkillsController skillsController;
 
         private void Start()
@@ -148,27 +149,32 @@ namespace GarbageRoyale.Scripts.PlayerController {
                 //scripts.gc.playersActions[PlayerIndex].isQuiet = true;
                 skillsController.photonView.RPC("AskSkillActivation", RpcTarget.MasterClient, 1,
                     Array.IndexOf(scripts.gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                if (Input.GetKeyDown(KeyCode.LeftShift))
-                {
-                    isRunning = true;
-                    photonView.RPC("WantToRunRPC", RpcTarget.MasterClient, true);
-                }
-                else if (Input.GetKeyUp(KeyCode.LeftShift))
-                {
-                    isRunning = false;
-                    photonView.RPC("WantToRunRPC", RpcTarget.MasterClient, false);
-                }
+            }
+            
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                Debug.Log("Running");
+                isRunning = true;
+                photonView.RPC("WantToRunRPC", RpcTarget.MasterClient, true);
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                Debug.Log("End Running");
+                isRunning = false;
+                photonView.RPC("WantToRunRPC", RpcTarget.MasterClient, false);
+            }
 
-                if (Input.GetKeyDown(KeyCode.LeftControl))
-                {
-                    isCrouched = true;
-                    photonView.RPC("WantToCrouch", RpcTarget.MasterClient, true);
-                }
-                else if (Input.GetKeyUp(KeyCode.LeftControl))
-                {
-                    isCrouched = false;
-                    photonView.RPC("WantToCrouch", RpcTarget.MasterClient, false);
-                }
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                Debug.Log("Crouching");
+                isCrouched = true;
+                photonView.RPC("WantToCrouchRPC", RpcTarget.MasterClient, true);
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                Debug.Log("End Crouching");
+                isCrouched = false;
+                photonView.RPC("WantToCrouchRPC", RpcTarget.MasterClient, false);
             }
         }
 
@@ -274,7 +280,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
         }
         
         [PunRPC]
-        void WantToCrouch(bool action)
+        void WantToCrouchRPC(bool action)
         {
             if (PhotonNetwork.IsMasterClient)
             {
