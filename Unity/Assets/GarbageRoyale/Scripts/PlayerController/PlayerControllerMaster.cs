@@ -30,6 +30,8 @@ namespace GarbageRoyale.Scripts.PlayerController
         //Movement
         private float speed = 6.0f;
         private float jumpSpeed = 8.0f;
+        private float runSpeed = 6.0f * 0.4f;
+        private float crouchSpeed = 3.0f;
         private float gravity = 20.0f;
 
         //Camera
@@ -82,6 +84,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                            true,
                            false,
                            false,
+                           false,
                            false
                        );
                     continue;
@@ -132,7 +135,9 @@ namespace GarbageRoyale.Scripts.PlayerController
                         gc.playersActions[i].isBurning,
                         gc.playersActions[i].isOiled,
                         gc.playersActions[i].isQuiet,
-                        gc.playersActions[i].isDamageBoosted
+                        gc.playersActions[i].isDamageBoosted,
+                        gc.playersActions[i].isRunning,
+                        gc.playersActions[i].isCrouched
                     );
                 }
             }
@@ -159,6 +164,15 @@ namespace GarbageRoyale.Scripts.PlayerController
                 if (playerAction.wantToJump && !playerAction.isInWater)
                 {
                     gc.moveDirection[id].y = jumpSpeed;
+                }
+                if(playerAction.isRunning)
+                {
+                    gc.moveDirection[id] *= runSpeed;
+                }
+
+                if (playerAction.isCrouched)
+                {
+                    gc.moveDirection[id] /= crouchSpeed;
                 }
             }
             else if (!playerAction.isInWater)
@@ -335,6 +349,18 @@ namespace GarbageRoyale.Scripts.PlayerController
                 }
             }
 
+            if (gc.playersActions[id].isRunning)
+            {
+                if (ps.currentStamina > 0)
+                {
+                    ps.currentStamina -= 0.1f;
+                }
+                else
+                {
+                    gc.playersActions[id].isRunning = false;
+                }
+            }
+
             if (ps.currentStamina < ps.defaultStamina)
             {
                 ps.currentStamina += 0.3f;
@@ -377,7 +403,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         }
 
         [PunRPC]
-        private void UpdateDataRPC(int id, bool isMoving, float rotX, float h, float s, float b, bool headIsInWater, bool isDead, bool isBurning, bool isOiled, bool isQuiet, bool isDamageBoosted)
+        private void UpdateDataRPC(int id, bool isMoving, float rotX, float h, float s, float b, bool headIsInWater, bool isDead, bool isBurning, bool isOiled, bool isQuiet, bool isDamageBoosted, bool isRunning, bool isCrouched)
         {
             Vector3 vec = new Vector3(rotX, 0, 0);
             gc.players[id].SpotLight.transform.localEulerAngles = vec;

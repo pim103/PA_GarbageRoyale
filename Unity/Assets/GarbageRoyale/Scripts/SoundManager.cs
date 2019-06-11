@@ -217,6 +217,14 @@ namespace GarbageRoyale.Scripts
                         {
                             case Sound.Walk:
                                 audio.PlayOneShot(walkSound);
+                                if (gc.playersActions[idPlayer].isRunning)
+                                {
+                                    audio.volume = audio.volume * 1.5f;
+                                }
+                                if (gc.playersActions[idPlayer].isCrouched)
+                                {
+                                    audio.volume = audio.volume * 0.5f;
+                                }
                                 break;
                             case Sound.FeetOnWater:
                                 audio.PlayOneShot(walkWaterSound);

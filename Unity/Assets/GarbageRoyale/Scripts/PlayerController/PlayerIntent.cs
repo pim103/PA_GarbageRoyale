@@ -141,23 +141,43 @@ namespace GarbageRoyale.Scripts.PlayerController {
             {
                 //scripts.gc.playersActions[PlayerIndex].isQuiet = true;
                 skillsController.photonView.RPC("AskSkillActivation",RpcTarget.MasterClient,1,Array.IndexOf(scripts.gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId));
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                isRunning = true;
+                photonView.RPC("WantToRunRPC", RpcTarget.MasterClient, true);
+            }
+            else if(Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                isRunning = false;
+                photonView.RPC("WantToRunRPC", RpcTarget.MasterClient, false);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                isCrouched = true;
+                photonView.RPC("WantToCrouch", RpcTarget.MasterClient, true);
+            }
+            else if(Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                isCrouched = false;
+                photonView.RPC("WantToCrouch", RpcTarget.MasterClient, false);
             }
         }
 
         void FixedUpdate()
-        {
-            if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
             {
-                return;
+                if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
+                {
+                    return;
+                }
+                /*
+                if (!PhotonNetwork.IsMasterClient)
+                {
+                    scripts.pcm.PlayerMovement(PlayerIndex);
+                    scripts.pcm.PlayerRotation(PlayerIndex);
+                }
+                */
             }
-            /*
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                scripts.pcm.PlayerMovement(PlayerIndex);
-                scripts.pcm.PlayerRotation(PlayerIndex);
-            }
-            */
-        }
 
         [PunRPC]
         void WantToMoveHorizontalRPC(float axe)
@@ -233,6 +253,24 @@ namespace GarbageRoyale.Scripts.PlayerController {
                 {
                     wantToTurnOnTorch = true;
                 }
+            }
+        }
+        
+        [PunRPC]
+        void WantToRunRPC(bool action)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                isRunning = action;
+            }
+        }
+        
+        [PunRPC]
+        void WantToCrouch(bool action)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                isCrouched = action;
             }
         }
     }
