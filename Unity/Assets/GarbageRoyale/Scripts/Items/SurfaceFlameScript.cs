@@ -19,7 +19,6 @@ namespace GarbageRoyale.Scripts.Items
         // Start is called before the first frame update
         void Awake()
         {
-            isInZone = Enumerable.Repeat(false, 10).ToArray();
             timeLeftBurning = 10.0f;
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             coroutine = new IEnumerator[10];
@@ -35,15 +34,7 @@ namespace GarbageRoyale.Scripts.Items
             {
                 gameObject.SetActive(false);
             }
-            /*
-            for (var i = 0; i < isInZone.Length; i++)
-            {
-                if (isInZone[i])
-                {
-                    gc.players[i].PlayerStats.takeDamage(0.05f);
-                }
-            }
-            */
+
             if (gc.water.waterObject.transform.position.y > transform.position.y)
             {
                 gameObject.SetActive(false);
@@ -52,10 +43,14 @@ namespace GarbageRoyale.Scripts.Items
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
             if (other.name.StartsWith("Player"))
             {
                 int id = other.GetComponent<ExposerPlayer>().PlayerIndex;
-                isInZone[id] = true;
 
                 coroutine[id] = DealDamage(id);
                 StartCoroutine(coroutine[id]);
@@ -71,10 +66,14 @@ namespace GarbageRoyale.Scripts.Items
 
         private void OnTriggerExit(Collider other)
         {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
             if (other.name.StartsWith("Player"))
             {
                 int id = other.GetComponent<ExposerPlayer>().PlayerIndex;
-                isInZone[id] = false;
                 
                 StopCoroutine(coroutine[id]);
             }

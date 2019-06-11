@@ -127,9 +127,23 @@ namespace GarbageRoyale.Scripts
                 return;
             }
 
-            float damage = gc.items[idItem].GetComponent<Item>().damage;
-            Debug.Log(idPlayer);
+            Item item = gc.items[idItem].GetComponent<Item>();
+            float damage = item.damage;
             gc.players[idPlayer].PlayerStats.takeDamage(damage);
+
+            if(item.type == (int)ItemController.TypeItem.Torch || item.type == (int)ItemController.TypeItem.ToiletPaper)
+            {
+                if(gc.items[idItem].transform.GetChild(0).gameObject.activeSelf)
+                {
+                    if(gc.playersActions[idPlayer].isOiled)
+                    {
+                        Debug.Log("Brule");
+                        gc.playersActions[idPlayer].isOiled = false;
+                        gc.playersActions[idPlayer].isBurning = true;
+                        gc.playersActions[idPlayer].timeLeftBurn = 5.0f;
+                    }
+                }
+            }
         }
     }
 }

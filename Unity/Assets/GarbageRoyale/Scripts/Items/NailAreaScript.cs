@@ -40,6 +40,11 @@ namespace GarbageRoyale.Scripts.Items
 
         private void OnTriggerExit(Collider other)
         {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
             if (other.name.StartsWith("Player"))
             {
                 int id = other.GetComponent<ExposerPlayer>().PlayerIndex;

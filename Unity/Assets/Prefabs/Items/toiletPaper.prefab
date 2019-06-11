@@ -131,6 +131,7 @@ MonoBehaviour:
   damage: 0
   type: 5
   itemImg: {fileID: 5833977737841398870, guid: 14257fc03756d5e40ad7e71c68a168be, type: 3}
+  isPickable: 1
   initOnStart: 0
   isOnline: 0
   scale: {x: 1, y: 1, z: 1}

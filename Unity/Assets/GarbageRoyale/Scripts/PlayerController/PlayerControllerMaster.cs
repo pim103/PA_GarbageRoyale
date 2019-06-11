@@ -85,6 +85,8 @@ namespace GarbageRoyale.Scripts.PlayerController
                            false,
                            false,
                            false,
+                           false,
+                           false,
                            false
                        );
                     continue;
@@ -291,7 +293,7 @@ namespace GarbageRoyale.Scripts.PlayerController
 
                 if (gc.playersActions[id].isBurning)
                 {
-                    ps.takeDamage(2f);
+                    ps.takeDamage(0.5f);
                     gc.playersActions[id].timeLeftBurn -= 0.1f;
                     if (gc.playersActions[id].timeLeftBurn <= 0.0f)
                     {
