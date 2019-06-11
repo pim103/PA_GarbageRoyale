@@ -183,35 +183,35 @@ namespace GarbageRoyale.Scripts
 
         public void playWalkSound(int idPlayer, bool playSong, Sound soundNeeded, bool isQuiet)
         {
-            if (!isQuiet)
+            AudioSource audio = gc.players[idPlayer].PlayerMovement;
+
+            if (gc.AvatarToUserId[idPlayer] == PhotonNetwork.AuthValues.UserId)
             {
-                AudioSource audio = gc.players[idPlayer].PlayerMovement;
-
-                if (gc.AvatarToUserId[idPlayer] == PhotonNetwork.AuthValues.UserId)
+                if (soundNeeded == Sound.Swim && lastAmbientSoundPlayed == Sound.Cave)
                 {
-                    if (soundNeeded == Sound.Swim && lastAmbientSoundPlayed == Sound.Cave)
-                    {
-                        initWaterSound();
-                    }
-                    else if (soundNeeded != Sound.Swim && lastAmbientSoundPlayed == Sound.Water)
-                    {
-                        initAmbientSound();
-                    }
+                    initWaterSound();
                 }
-
-                if (lastSoundPlayed[idPlayer] != soundNeeded)
+                else if (soundNeeded != Sound.Swim && lastAmbientSoundPlayed == Sound.Water)
                 {
-                    audio.Stop();
-                    lastSoundPlayed[idPlayer] = soundNeeded;
+                    initAmbientSound();
                 }
+            }
 
-                if (!playSong)
+            if (lastSoundPlayed[idPlayer] != soundNeeded)
+            {
+                audio.Stop();
+                lastSoundPlayed[idPlayer] = soundNeeded;
+            }
+
+            if (!playSong)
+            {
+                audio.Stop();
+            }
+            else
+            {
+                if (!audio.isPlaying)
                 {
-                    audio.Stop();
-                }
-                else
-                {
-                    if (!audio.isPlaying)
+                    if (!isQuiet)
                     {
                         switch (soundNeeded)
                         {
@@ -221,10 +221,12 @@ namespace GarbageRoyale.Scripts
                                 {
                                     audio.volume = audio.volume * 1.5f;
                                 }
+
                                 if (gc.playersActions[idPlayer].isCrouched)
                                 {
                                     audio.volume = audio.volume * 0.5f;
                                 }
+
                                 break;
                             case Sound.FeetOnWater:
                                 audio.PlayOneShot(walkWaterSound);

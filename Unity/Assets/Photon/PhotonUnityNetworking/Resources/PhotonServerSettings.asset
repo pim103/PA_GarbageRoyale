@@ -153,4 +153,5 @@ MonoBehaviour:
   - DeactivateSkill
   - WantToCrouch
   - WantToRunRPC
+  - MobDeathAll
   DisableAutoOpenWizard: 1

@@ -1612,10 +1612,10 @@ RectTransform:
   m_Father: {fileID: 590747711}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -13, y: 20}
-  m_SizeDelta: {x: -510, y: -60}
+  m_SizeDelta: {x: 186, y: -60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &385592854
 MonoBehaviour:
@@ -5730,10 +5730,10 @@ RectTransform:
   m_Father: {fileID: 590747711}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -245, y: 20}
-  m_SizeDelta: {x: -510, y: -60}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -245.5, y: 20}
+  m_SizeDelta: {x: 185, y: -60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1181257710
 MonoBehaviour:
@@ -7114,6 +7114,11 @@ PrefabInstance:
       propertyPath: offlineRoomButton
       value: 
       objectReference: {fileID: 1455102559}
+    - target: {fileID: 5131708235090071573, guid: 0f604beba82fe9840b7163543330a373,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f604beba82fe9840b7163543330a373, type: 3}
 --- !u!114 &1455102556 stripped
@@ -7492,7 +7497,7 @@ PrefabInstance:
     - target: {fileID: 1705103857351129188, guid: 86517972f6d841641b1c6368f7b08135,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1705103857351129184, guid: 86517972f6d841641b1c6368f7b08135,
         type: 3}

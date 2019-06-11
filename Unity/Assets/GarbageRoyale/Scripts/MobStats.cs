@@ -78,12 +78,13 @@ public class MobStats : MonoBehaviour
         }
     }
 
-    public void lootSkill()
+    public void lootSkill(int type)
     {
         var lootedSkill = ObjectPooler.SharedInstance.GetPooledObject(6);
         lootedSkill.GetComponent<Item>().setId(gc.items.Count);
         gc.items.Add(gc.items.Count,lootedSkill);
         lootedSkill.SetActive(true);
         lootedSkill.transform.position = transform.position;
+        lootedSkill.GetComponent<GarbageRoyale.Scripts.Skill>().type = type;
     }
 }
