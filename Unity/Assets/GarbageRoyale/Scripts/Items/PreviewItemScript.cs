@@ -232,11 +232,13 @@ namespace GarbageRoyale.Scripts.Items
                     if (savePosRope == Vector3.zero)
                     {
                         previewRope1.transform.position = hitInfo.point;
+                        toggleCube = false;
                     }
                     else if (savePosRope2 == Vector3.zero && Vector3.Distance(savePosRope, hitInfo.point) <= ropeDistance)
                     {
                         canSetRopePos2 = true;
                         previewRope2.transform.position = hitInfo.point;
+                        toggleCube = false;
                     }
                     else
                     {

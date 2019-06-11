@@ -151,4 +151,6 @@ MonoBehaviour:
   - ActiveWolfTrapRPC
   - ActivateSkill
   - DeactivateSkill
+  - WantToCrouch
+  - WantToRunRPC
   DisableAutoOpenWizard: 1

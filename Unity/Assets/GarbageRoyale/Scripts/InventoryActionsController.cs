@@ -428,7 +428,7 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         private void DisperseSpecificNail(Vector3 position)
         {
-            GameObject nailArea = ObjectPooler.SharedInstance.GetPooledObject(7);
+            GameObject nailArea = ObjectPooler.SharedInstance.GetPooledObject(8);
             nailArea.transform.position = position;
             nailArea.SetActive(true);
         }

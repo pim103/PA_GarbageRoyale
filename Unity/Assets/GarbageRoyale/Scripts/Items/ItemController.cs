@@ -2,6 +2,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace GarbageRoyale.Scripts.Items
@@ -172,9 +173,9 @@ namespace GarbageRoyale.Scripts.Items
             rope.SetActive(true);
 
             Vector3 temp = rope.transform.localScale;
-            temp.z = Vector3.Distance(pos1, pos2);
+            temp.z = Vector3.Distance(pos1, pos2)/2;
             rope.transform.localScale = temp;
-            rope.transform.position = pos1;
+            rope.transform.position = (pos1 + pos2)/2;
             rope.transform.LookAt(pos2);
             RopeScript rs = rope.GetComponent<RopeScript>();
 
@@ -271,14 +272,20 @@ namespace GarbageRoyale.Scripts.Items
         private void LaunchProjectileRPC(int idItem)
         {
             GameObject toiletPaper = ObjectPooler.SharedInstance.GetPooledObject(11);
+            GameObject trapOrig = gc.items[idItem];
+
             toiletPaper.SetActive(true);
             toiletPaper.transform.GetChild(0).gameObject.SetActive(true);
-            toiletPaper.transform.position = gc.items[idItem].transform.position + Vector3.up;
+
+            toiletPaper.transform.parent = trapOrig.transform;
+            toiletPaper.transform.position = trapOrig.transform.position + Vector3.up;
             toiletPaper.transform.localScale = toiletPaper.transform.localScale / 2;
-            toiletPaper.transform.localEulerAngles = gc.items[idItem].transform.localEulerAngles;
+            toiletPaper.transform.localRotation = Quaternion.identity;
 
             toiletPaper.GetComponent<Item>().isPickable = false;
-            toiletPaper.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, -10, 2), ForceMode.Impulse);
+            toiletPaper.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(-10, 2, 0), ForceMode.Impulse);
+
+            EditorApplication.isPaused = true;
         }
 
         public void ActiveWolfTrap(int idItem, bool isTrigger)
