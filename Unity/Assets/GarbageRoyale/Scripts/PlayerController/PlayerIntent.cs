@@ -47,18 +47,19 @@ namespace GarbageRoyale.Scripts.PlayerController {
             {
                 isInInventory = !isInInventory;
             }
+
             if (isInInventory)
             {
                 return;
             }
 
-            if(horizontalAxe != Input.GetAxis("Horizontal"))
+            if (horizontalAxe != Input.GetAxis("Horizontal"))
             {
                 horizontalAxe = Input.GetAxis("Horizontal");
                 photonView.RPC("WantToMoveHorizontalRPC", RpcTarget.MasterClient, Input.GetAxis("Horizontal"));
             }
-            
-            if(verticalAxe != Input.GetAxis("Vertical"))
+
+            if (verticalAxe != Input.GetAxis("Vertical"))
             {
                 verticalAxe = Input.GetAxis("Vertical");
                 photonView.RPC("WantToMoveVerticalRPC", RpcTarget.MasterClient, Input.GetAxis("Vertical"));
@@ -93,7 +94,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
                 photonView.RPC("WantToRotateXRPC", RpcTarget.MasterClient, Input.GetAxis("Mouse Y"));
             }
 
-            if(rotationY != Input.GetAxis("Mouse X"))
+            if (rotationY != Input.GetAxis("Mouse X"))
             {
                 rotationY = Input.GetAxis("Mouse X");
                 photonView.RPC("WantToRotateYRPC", RpcTarget.MasterClient, Input.GetAxis("Mouse X"));
@@ -104,7 +105,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
                 wantToJump = true;
                 photonView.RPC("WantToJumpRPC", RpcTarget.MasterClient, true);
             }
-            else if(Input.GetButtonUp("Jump"))
+            else if (Input.GetButtonUp("Jump"))
             {
                 wantToJump = false;
                 photonView.RPC("WantToJumpRPC", RpcTarget.MasterClient, false);
@@ -119,53 +120,60 @@ namespace GarbageRoyale.Scripts.PlayerController {
             {
                 photonView.RPC("WantToUseTorch", RpcTarget.MasterClient);
             }
+
             if (Input.GetKeyDown(KeyCode.A))
             {
                 //scripts.gc.playersActions[PlayerIndex].isQuiet = true;
-                
-                var ray = scripts.gc.players[Array.IndexOf(scripts.gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+
+                var ray = scripts.gc.players[Array.IndexOf(scripts.gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)]
+                    .PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
                 RaycastHit hitInfo;
                 bool touch = Physics.Raycast(ray, out hitInfo, 2f);
                 int Hitid = -1;
 
                 if (touch)
                 {
-                    if (hitInfo.transform.name.StartsWith("Player")){
+                    if (hitInfo.transform.name.StartsWith("Player"))
+                    {
                         Hitid = hitInfo.transform.gameObject.GetComponent<ExposerPlayer>().PlayerIndex;
                     }
                 }
-                
-                skillsController.photonView.RPC("AskSkillActivation",RpcTarget.MasterClient,0,Array.IndexOf(scripts.gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId),Hitid);
+
+                skillsController.photonView.RPC("AskSkillActivation", RpcTarget.MasterClient, 0,
+                    Array.IndexOf(scripts.gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), Hitid);
             }
+
             if (Input.GetKeyDown(KeyCode.E))
             {
                 //scripts.gc.playersActions[PlayerIndex].isQuiet = true;
-                skillsController.photonView.RPC("AskSkillActivation",RpcTarget.MasterClient,1,Array.IndexOf(scripts.gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId));
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                isRunning = true;
-                photonView.RPC("WantToRunRPC", RpcTarget.MasterClient, true);
-            }
-            else if(Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                isRunning = false;
-                photonView.RPC("WantToRunRPC", RpcTarget.MasterClient, false);
-            }
-            
-            if (Input.GetKeyDown(KeyCode.LeftControl))
-            {
-                isCrouched = true;
-                photonView.RPC("WantToCrouch", RpcTarget.MasterClient, true);
-            }
-            else if(Input.GetKeyUp(KeyCode.LeftControl))
-            {
-                isCrouched = false;
-                photonView.RPC("WantToCrouch", RpcTarget.MasterClient, false);
+                skillsController.photonView.RPC("AskSkillActivation", RpcTarget.MasterClient, 1,
+                    Array.IndexOf(scripts.gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    isRunning = true;
+                    photonView.RPC("WantToRunRPC", RpcTarget.MasterClient, true);
+                }
+                else if (Input.GetKeyUp(KeyCode.LeftShift))
+                {
+                    isRunning = false;
+                    photonView.RPC("WantToRunRPC", RpcTarget.MasterClient, false);
+                }
+
+                if (Input.GetKeyDown(KeyCode.LeftControl))
+                {
+                    isCrouched = true;
+                    photonView.RPC("WantToCrouch", RpcTarget.MasterClient, true);
+                }
+                else if (Input.GetKeyUp(KeyCode.LeftControl))
+                {
+                    isCrouched = false;
+                    photonView.RPC("WantToCrouch", RpcTarget.MasterClient, false);
+                }
             }
         }
 
         void FixedUpdate()
-            {
+        {
                 if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
                 {
                     return;
@@ -177,7 +185,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
                     scripts.pcm.PlayerRotation(PlayerIndex);
                 }
                 */
-            }
+        }
 
         [PunRPC]
         void WantToMoveHorizontalRPC(float axe)
