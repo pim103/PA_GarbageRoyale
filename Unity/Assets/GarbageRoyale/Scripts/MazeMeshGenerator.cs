@@ -80,11 +80,18 @@ namespace GarbageRoyale.Scripts
                             }
                             else if (rooms[i, j] == 2)
                             {
-                                // Add button
-                                var newButton = Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
-                                //Debug.Log(idTrap[i + ";" + j]);
-                                buttonsTrap.Add(newButton, idTrap[i + ";" + j]);
-                                buttonsTrapReversed.Add(idTrap[i + ";" + j], newButton);
+                                if(!buttonsTrapReversed.ContainsKey(idTrap[i + ";" + j]))
+                                {
+                                    // Add button
+                                    var newButton = Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
+                                    //Debug.Log(idTrap[i + ";" + j]);
+                                    buttonsTrap.Add(newButton, idTrap[i + ";" + j]);
+                                    buttonsTrapReversed.Add(idTrap[i + ";" + j], newButton);
+                                }
+                                else
+                                {
+                                    Instantiate(Prefabs[8], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
+                                }
                             }
                             //TODO Instantiate Random ItemRoom
                             else if(rooms[i, j] == 12)
