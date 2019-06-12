@@ -120,28 +120,38 @@ namespace GarbageRoyale.Scripts
             ps.useStamina();
         }
 
-        public void HitByThrowItem(int idPlayer, int idItem)
+        public void HitByThrowItem(int idPlayer, int idItem, int type, bool isBurn)
         {
             if(!PhotonNetwork.IsMasterClient)
             {
                 return;
             }
 
-            Item item = gc.items[idItem].GetComponent<Item>();
-            float damage = item.damage;
+            float damage = 0.0f;
+
+            if (idItem != -1)
+            {
+                Item item = gc.items[idItem].GetComponent<Item>();
+                damage = item.damage;
+            }
+            else if(type == (int)ItemController.TypeItem.Torch && isBurn)
+            {
+                damage = 10.0f;
+            }
             gc.players[idPlayer].PlayerStats.takeDamage(damage);
 
-            if(item.type == (int)ItemController.TypeItem.Torch || item.type == (int)ItemController.TypeItem.ToiletPaper)
+            if((type == (int)ItemController.TypeItem.Torch && gc.items[idItem].transform.GetChild(0).gameObject.activeSelf) || (type == (int)ItemController.TypeItem.ToiletPaper && isBurn) )
             {
-                if(gc.items[idItem].transform.GetChild(0).gameObject.activeSelf)
+                if(gc.playersActions[idPlayer].isOiled)
                 {
-                    if(gc.playersActions[idPlayer].isOiled)
-                    {
-                        Debug.Log("Brule");
-                        gc.playersActions[idPlayer].isOiled = false;
-                        gc.playersActions[idPlayer].isBurning = true;
-                        gc.playersActions[idPlayer].timeLeftBurn = 5.0f;
-                    }
+                    gc.playersActions[idPlayer].isOiled = false;
+                    gc.playersActions[idPlayer].isBurning = true;
+                    gc.playersActions[idPlayer].timeLeftBurn = 8.0f;
+                }
+                else if((type == (int)ItemController.TypeItem.ToiletPaper && isBurn))
+                {
+                    gc.playersActions[idPlayer].isBurning = true;
+                    gc.playersActions[idPlayer].timeLeftBurn = 3.0f;
                 }
             }
         }

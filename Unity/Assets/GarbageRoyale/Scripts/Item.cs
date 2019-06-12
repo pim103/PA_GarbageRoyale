@@ -1,4 +1,5 @@
 using GarbageRoyale.Scripts.PrefabPlayer;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,12 +24,19 @@ namespace GarbageRoyale.Scripts
 
         public bool isThrow;
 
+        public bool isBurn;
+
         private void OnCollisionEnter(Collision collision)
         {
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
             if(isThrow && collision.transform.name.StartsWith("Player"))
             {
                 PlayerAttack pa = GameObject.Find("Controller").GetComponent<PlayerAttack>();
-                pa.HitByThrowItem(collision.transform.GetComponent<ExposerPlayer>().PlayerIndex, id);
+                pa.HitByThrowItem(collision.transform.GetComponent<ExposerPlayer>().PlayerIndex, id, type, isBurn);
             }
             isThrow = false;
         }
@@ -41,6 +49,7 @@ namespace GarbageRoyale.Scripts
             damage = 0f;
             type = 0;
             isPickable = true;
+            isBurn = false;
         }
 
         public void resetScale()

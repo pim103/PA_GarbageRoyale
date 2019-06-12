@@ -282,8 +282,13 @@ namespace GarbageRoyale.Scripts.Items
             toiletPaper.transform.localScale = toiletPaper.transform.localScale / 2;
             toiletPaper.transform.localRotation = Quaternion.identity;
 
-            toiletPaper.GetComponent<Item>().isPickable = false;
-            toiletPaper.GetComponent<Rigidbody>().AddRelativeForce((-toiletPaper.transform.right * 10) + (Vector3.up * 2), ForceMode.Impulse);
+            Item itemToiletPaper = toiletPaper.GetComponent<Item>();
+            itemToiletPaper.isPickable = false;
+            itemToiletPaper.isThrow = true;
+            itemToiletPaper.type = (int)TypeItem.ToiletPaper;
+            itemToiletPaper.isBurn = true;
+
+            toiletPaper.GetComponent<Rigidbody>().AddForce((-trapOrig.transform.right * 10) + (Vector3.up * 2), ForceMode.Impulse);
         }
 
         public void ActiveWolfTrap(int idItem, bool isTrigger)
