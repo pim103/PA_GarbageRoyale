@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: e3715e8d-084d-4b17-a2a8-f101ca6c8213
+    AppIdRealtime: 05bc07b4-6e63-453f-8d6f-03be7911a9d3
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
-    FixedRegion: eu
+    FixedRegion: 
     Server: 
     Port: 0
     Protocol: 0
@@ -154,4 +154,5 @@ MonoBehaviour:
   - WantToCrouch
   - WantToRunRPC
   - MobDeathAll
+  - WantToCrouchRPC
   DisableAutoOpenWizard: 1

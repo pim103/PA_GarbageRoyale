@@ -59,6 +59,7 @@
               <e p="MainMenu.cs" t="Include" />
               <e p="PauseMenu.cs" t="Include" />
               <e p="RegisterMenu.cs" t="Include" />
+              <e p="SettingsMenu.cs" t="Include" />
               <e p="StartGame.cs" t="Include" />
               <e p="SubMenu.cs" t="Include" />
             </e>
@@ -72,6 +73,7 @@
               <e p="Explosion.cs" t="Include" />
               <e p="Gaz.cs" t="Include" />
             </e>
+            <e p="PauseController.cs" t="Include" />
             <e p="PipeScript.cs" t="Include" />
             <e p="PlayerAttack.cs" t="Include" />
             <e p="PlayerController" t="Include">
@@ -95,6 +97,7 @@
             <e p="TrapDoorCheckButton.cs" t="Include" />
             <e p="Water.cs" t="Include" />
           </e>
+          <e p="testForce.cs" t="Include" />
           <e p="testSceneScript.cs" t="Include" />
         </e>
         <e p="Photon" t="Include">

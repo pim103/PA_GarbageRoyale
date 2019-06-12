@@ -84,7 +84,6 @@ namespace GarbageRoyale.Scripts
                         {
                             gc.items[playerInventory.itemInventory[j]].SetActive(false);
                             playerInventory.itemInventory[j] = -1;
-                            
                         }
 
                         CraftingSlots[j-20].texture = null;
@@ -107,7 +106,7 @@ namespace GarbageRoyale.Scripts
                         //Debug.Log("playerindex "+System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)+" oldplace "+invIndex+" newplace "+i);
                         //RpcManager.photonView.RPC("testrpc",RpcTarget.MasterClient);
                         RpcManager.photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,
-                            System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), invIndex, i);
+                            System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), invIndex, i, PhotonNetwork.IsMasterClient);
                         //ItemSlots[i].transform.position = ItemRects[i].position;
                         RawImage rawImg = GameObject.Find("ItemImg_" + i).GetComponent<RawImage>();
                         Texture textureMem = rawImg.texture;
@@ -128,7 +127,7 @@ namespace GarbageRoyale.Scripts
                         Debug.Log("playerindex " + System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId) +
                                   " oldplace " + invIndex + " newplace " + i);
                         RpcManager.photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,
-                            System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), invIndex, 20 + i);
+                            System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), invIndex, 20 + i, PhotonNetwork.IsMasterClient);
                         //ItemSlots[i].transform.position = ItemRects[i].position;
                         RawImage rawImg = GameObject.Find("CraftingImg_" + i).GetComponent<RawImage>();
                         Texture textureMem = rawImg.texture;
@@ -142,89 +141,7 @@ namespace GarbageRoyale.Scripts
                     }
                 }
 
-                craftingList.Clear();
-                for (int j = 20; j < 25; j++)
-                {
-                    //Debug.Log("eheh "+playerInventory.itemInventory[j]);
-                    if (playerInventory.itemInventory[j] != -1)
-                    {
-                        //Debug.Log("eh "+gc.items[playerInventory.itemInventory[j]].GetComponent<Item>().type);
-                        craftingList.Add(gc.items[playerInventory.itemInventory[j]].GetComponent<Item>().type);
-
-                    }
-                }
-
-                bool isCrafting = true;
-                if (craftingList.Count == 2)
-                {
-                    if (craftingList.Contains((int)ItemController.TypeItem.WoodenStaff) && craftingList.Contains((int)ItemController.TypeItem.ToiletPaper))
-                    {
-                        RpcManager.photonView.RPC("AskCraftItem", RpcTarget.All, (int)ItemController.TypeItem.SteelStaff,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                        CraftingResultSlot.texture = gc.inventoryGui.rawSprites[1].texture;
-                    }
-                    else if (craftingList.Contains((int)ItemController.TypeItem.Bottle) && craftingList.Contains((int)ItemController.TypeItem.Jerrican))
-                    {
-                        RpcManager.photonView.RPC("AskCraftItem", RpcTarget.All, (int)ItemController.TypeItem.OilBottle,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                        CraftingResultSlot.texture = gc.inventoryGui.rawSprites[7].texture;
-                    }
-                    else if (craftingList.Contains((int)ItemController.TypeItem.OilBottle) && craftingList.Contains((int)ItemController.TypeItem.ToiletPaper))
-                    {
-                        RpcManager.photonView.RPC("AskCraftItem", RpcTarget.All, (int)ItemController.TypeItem.Molotov,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                        CraftingResultSlot.texture = gc.inventoryGui.rawSprites[8].texture;
-                    }
-                    else
-                    {
-                        isCrafting = false;
-                    }
-                }
-                else if (craftingList.Count == 3)
-                {
-                    if (craftingList.Contains((int)ItemController.TypeItem.Bottle) && craftingList.Contains((int)ItemController.TypeItem.ToiletPaper) && craftingList.Contains((int)ItemController.TypeItem.Jerrican))
-                    {
-                        RpcManager.photonView.RPC("AskCraftItem", RpcTarget.All, (int)ItemController.TypeItem.Molotov,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                        CraftingResultSlot.texture = gc.inventoryGui.rawSprites[8].texture;
-                    }
-                    else if (craftingList.Contains((int)ItemController.TypeItem.MetalSheet) && craftingList.Contains((int)ItemController.TypeItem.Rope) && craftingList.Contains((int)ItemController.TypeItem.NailBox))
-                    {
-                        RpcManager.photonView.RPC("AskCraftItem", RpcTarget.All, (int)ItemController.TypeItem.WolfTrap,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                        CraftingResultSlot.texture = gc.inventoryGui.rawSprites[9].texture;
-                    }
-                    else
-                    {
-                        isCrafting = false;
-                    }
-                }
-                else if(craftingList.Count == 5)
-                {
-                    if(craftingList.Contains((int)ItemController.TypeItem.Torch) 
-                        && craftingList.Contains((int)ItemController.TypeItem.MetalSheet) 
-                        && craftingList.Contains((int)ItemController.TypeItem.WoodenStaff)
-                        && craftingList.Contains((int)ItemController.TypeItem.ToiletPaper)
-                        && craftingList.Contains((int)ItemController.TypeItem.Rope)
-                    )
-                    {
-                        RpcManager.photonView.RPC("AskCraftItem", RpcTarget.All, (int)ItemController.TypeItem.ManifTrap,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                        CraftingResultSlot.texture = gc.inventoryGui.rawSprites[10].texture;
-                    }
-                }
-                else
-                {
-                    isCrafting = false;
-                }
-
-                if (!isCrafting)
-                {
-                    CraftingResultSlot.texture = null;
-                    //playerInventory.itemInventory[25] = -1;
-                    RpcManager.photonView.RPC("AskDeleteCraftItem", RpcTarget.All,
-                        System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                }
+                
             }
             else
             {
