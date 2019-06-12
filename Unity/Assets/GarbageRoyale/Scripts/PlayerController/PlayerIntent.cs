@@ -44,12 +44,17 @@ namespace GarbageRoyale.Scripts.PlayerController {
                 return;
             }
 
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                isInEscapeMenu = !isInEscapeMenu;
+            }
+            
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 isInInventory = !isInInventory;
             }
 
-            if (isInInventory)
+            if (isInInventory || isInEscapeMenu)
             {
                 return;
             }

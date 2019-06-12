@@ -1,12 +1,14 @@
-﻿using Photon.Pun;
+﻿using System;
+using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace GarbageRoyale.Scripts.Menu
 {
-    public class PauseMenu : MonoBehaviourPunCallbacks
+    public class PauseMenu : MonoBehaviour
     {
         [SerializeField] 
         private GameObject baseMenu;
@@ -40,7 +42,16 @@ namespace GarbageRoyale.Scripts.Menu
                 Debug.Log(PhotonNetwork.AuthValues);
                 disconnectButton.interactable = true;
             }
+            if (Screen.fullScreen)
+            {
+                textSetFullscreen.text = "Passer en mode fenêtré";
+            }
+            else
+            {
+                textSetFullscreen.text = "Passer en mode Plein écran";
+            }
             settingsButton.onClick.AddListener(GoToSettings);
+            settingsReturn.onClick.AddListener(ResumeGame);
             exitButton.onClick.AddListener(AskForExit);
         }
 
@@ -49,22 +60,42 @@ namespace GarbageRoyale.Scripts.Menu
             settingsMenu.SetActive(false);
             baseMenu.SetActive(true);
             
-            setFullscreen.onClick.AddListener(changeScreenState);
         }
 
         public void GoToSettings()
         {
             baseMenu.SetActive(false);
             settingsMenu.SetActive(true);
-            
+
+            setFullscreen.onClick.AddListener(ChangeScreenState);
             returnToBase.onClick.AddListener(GoToMainPause);
         }
 
-        public void changeScreenState()
+        public void ChangeScreenState()
         {
+            Debug.Log(Screen.fullScreen);
             Screen.fullScreen = !Screen.fullScreen;
+            ChangeButtonScreenStatText();
+            Debug.Log(Screen.fullScreen);
         }
 
+        public void ChangeButtonScreenStatText()
+        {
+            if (!Screen.fullScreen)
+            {
+                textSetFullscreen.text = "Passer en mode fenêtré";
+            }
+            else
+            {
+                textSetFullscreen.text = "Passer en mode Plein écran";
+            }
+        }
+
+        public void ResumeGame()
+        {
+            controller.GetComponent<PauseController>().isInEscapeMenu = false;
+        }
+        
         public void AskForExit()
         {
             Application.Quit();
