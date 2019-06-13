@@ -85,6 +85,7 @@ public class MobStats : MonoBehaviour
         gc.items.Add(gc.items.Count,lootedSkill);
         lootedSkill.SetActive(true);
         lootedSkill.transform.position = transform.position;
-        lootedSkill.GetComponent<GarbageRoyale.Scripts.Skill>().type = type;
+        GarbageRoyale.Scripts.Skill skill = lootedSkill.GetComponent<GarbageRoyale.Scripts.Skill>();
+        skill.type = type;
     }
 }

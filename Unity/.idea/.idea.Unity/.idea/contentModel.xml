@@ -24,6 +24,10 @@
             <e p="Electricity.cs" t="Include" />
             <e p="EnvironmentEvent.cs" t="Include" />
             <e p="GameController.cs" t="Include" />
+            <e p="GameMaster" t="Include">
+              <e p="GameMasterController.cs" t="Include" />
+              <e p="GameMasterGUI.cs" t="Include" />
+            </e>
             <e p="HandScript.cs" t="Include" />
             <e p="HUD" t="Include">
               <e p="InventoryGUI.cs" t="Include" />

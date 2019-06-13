@@ -89,7 +89,7 @@ namespace GarbageRoyale.Scripts
             Debug.Log(string.Format("Item : \n ID : {0} - Name: {1} - Damage : {2} - Type : {3}", itemData.getId(), itemData.getName(), itemData.getDamage(), itemData.getType()));
             if(isMaster)
             {
-                gc.GetComponent<InventoryGUI>().printSprite(inventoryData.findPlaceInventory(), itemData.type, itemData.itemImg);
+                gc.GetComponent<InventoryGUI>().printSprite(inventoryData.findPlaceInventory(), itemData.itemImg);
             }
             if (inventoryData.setItemInventory(itemData.getId()))
             {
@@ -180,9 +180,17 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         public void ChangeGUIClient(int place, int id, PhotonMessageInfo info)
         {
-            Item item = gc.items[id].GetComponent<Item>();
             //Debug.Log(item.name);
-            gc.GetComponent<InventoryGUI>().printSprite(place, item.type, item.itemImg);
+            Item item = gc.items[id].GetComponent<Item>();
+            if(item.type != (int)ItemController.TypeItem.Implant){
+                gc.GetComponent<InventoryGUI>().printSprite(place, item.itemImg);
+            }
+            else
+            {
+                Skill skill = gc.items[id].GetComponent<Skill>();
+                gc.GetComponent<InventoryGUI>().printSkillSprite(place, skill.type);
+            }
+
         }
         /*
         [PunRPC]

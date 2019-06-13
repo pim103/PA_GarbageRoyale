@@ -2860,6 +2860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17371ee0c7991fc40889821c103e5aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  craftingList: 
 --- !u!114 &666817505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4365,7 +4366,12 @@ MonoBehaviour:
   SkillBuffTime_0: {fileID: 1425928765}
   SkillBuffTime_1: {fileID: 1893817637}
   buffTextures:
-  - {fileID: 5833977737841398870, guid: 14257fc03756d5e40ad7e71c68a168be, type: 3}
+  - {fileID: 5833977737841398870, guid: 7f09f46d884795145992b453d28f2b41, type: 3}
+  - {fileID: 5833977737841398870, guid: 055442008036a5a43b4c893ed3608ebb, type: 3}
+  - {fileID: 5833977737841398870, guid: 2e73d7b8d6de5de4a9c474d705fe8742, type: 3}
+  - {fileID: 5833977737841398870, guid: ca1733d3131f82943b400d21df472a02, type: 3}
+  - {fileID: 5833977737841398870, guid: b0f21300896d7ae4eba90661ebc0135a, type: 3}
+  - {fileID: 5833977737841398870, guid: 2cf580fdfbbd7d340a04e18dfdc2e248, type: 3}
   Water: {fileID: 1147012261}
 --- !u!114 &959770058
 MonoBehaviour:
@@ -5260,6 +5266,13 @@ MonoBehaviour:
   healthBar: {fileID: 669336003}
   staminaBar: {fileID: 669336002}
   breathBar: {fileID: 669336001}
+  skillTextures:
+  - {fileID: 5833977737841398870, guid: 7f09f46d884795145992b453d28f2b41, type: 3}
+  - {fileID: 5833977737841398870, guid: 055442008036a5a43b4c893ed3608ebb, type: 3}
+  - {fileID: 5833977737841398870, guid: 2e73d7b8d6de5de4a9c474d705fe8742, type: 3}
+  - {fileID: 5833977737841398870, guid: ca1733d3131f82943b400d21df472a02, type: 3}
+  - {fileID: 5833977737841398870, guid: b0f21300896d7ae4eba90661ebc0135a, type: 3}
+  - {fileID: 5833977737841398870, guid: 2cf580fdfbbd7d340a04e18dfdc2e248, type: 3}
 --- !u!114 &1103656786
 MonoBehaviour:
   m_ObjectHideFlags: 0

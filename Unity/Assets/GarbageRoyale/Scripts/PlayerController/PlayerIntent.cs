@@ -130,30 +130,13 @@ namespace GarbageRoyale.Scripts.PlayerController {
             if (Input.GetKeyDown(KeyCode.A))
             {
                 //scripts.gc.playersActions[PlayerIndex].isQuiet = true;
-
-                var ray = scripts.gc.players[Array.IndexOf(scripts.gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)]
-                    .PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
-                RaycastHit hitInfo;
-                bool touch = Physics.Raycast(ray, out hitInfo, 2f);
-                int Hitid = -1;
-
-                if (touch)
-                {
-                    if (hitInfo.transform.name.StartsWith("Player"))
-                    {
-                        Hitid = hitInfo.transform.gameObject.GetComponent<ExposerPlayer>().PlayerIndex;
-                    }
-                }
-
-                skillsController.photonView.RPC("AskSkillActivation", RpcTarget.MasterClient, 0,
-                    Array.IndexOf(scripts.gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), Hitid);
+                ActivateSkill(0);
+                
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                //scripts.gc.playersActions[PlayerIndex].isQuiet = true;
-                skillsController.photonView.RPC("AskSkillActivation", RpcTarget.MasterClient, 1,
-                    Array.IndexOf(scripts.gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                ActivateSkill(1);
             }
             
             if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -291,6 +274,24 @@ namespace GarbageRoyale.Scripts.PlayerController {
             {
                 isCrouched = action;
             }
+        }
+
+        void ActivateSkill(int place)
+        {
+            var ray = scripts.gc.players[Array.IndexOf(scripts.gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+            RaycastHit hitInfo;
+            bool touch = Physics.Raycast(ray, out hitInfo, 2f);
+            int Hitid = -1;
+
+            if (touch)
+            {
+                if (hitInfo.transform.name.StartsWith("Player"))
+                {
+                    Hitid = hitInfo.transform.gameObject.GetComponent<ExposerPlayer>().PlayerIndex;
+                }
+            }
+
+            skillsController.photonView.RPC("AskSkillActivation", RpcTarget.MasterClient, place, Array.IndexOf(scripts.gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), Hitid);
         }
     }
 }

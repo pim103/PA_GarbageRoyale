@@ -50,7 +50,7 @@ namespace GarbageRoyale.Scripts
 
         private void Update()
         {
-            gameControl = GameObject.Find("Controller").GetComponent<GameController>();
+            //gameControl = GameObject.Find("Controller").GetComponent<GameController>();
             //Animator.SetBool("Grounded", Grounded);
 
             

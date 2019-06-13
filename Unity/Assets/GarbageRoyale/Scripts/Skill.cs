@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace GarbageRoyale.Scripts
 {
@@ -8,11 +9,10 @@ namespace GarbageRoyale.Scripts
         public int type;
         public int bufftime;
         public int cooldown;
+        
         // Start is called before the first frame update
         void Start()
         {
-            id = 0;
-            type = 5;
             bufftime = 10;
             cooldown = 20;
         }

@@ -21,6 +21,9 @@ namespace GarbageRoyale.Scripts.HUD
         [SerializeField]
         private Slider breathBar;
 
+        [SerializeField] 
+        public RawImage[] skillTextures;
+
         public void initInventoryGUI(GameObject invPr, RawImage [] rwSpr)
         {
             rawSprites = rwSpr;
@@ -29,19 +32,21 @@ namespace GarbageRoyale.Scripts.HUD
             //Debug.Log("Oui " + rawSprites[0] + " " + inventoryPrefab.name);
         }
         
-        public void printSprite(int idx, int id, RawImage ri)
+        public void printSprite(int idx, RawImage ri)
         {
-            string name;
-            if (id != 12)
-            {
-                name = "ItemImg_";
-            }
-            else
-            {
-                name = "SkillImg_";
-            }
+            name = "ItemImg_";
             RawImage rawImg = GameObject.Find(name + idx).GetComponent<RawImage>();
             rawImg.texture = ri.texture;
+            
+            //rawImg.color = Color.white;
+        }
+        public void printSkillSprite(int idx, int id)
+        {
+            string name;
+            
+            name = "SkillImg_";
+            RawImage rawImg = GameObject.Find(name + idx).GetComponent<RawImage>();
+            rawImg.texture = skillTextures[id].texture;
             //rawImg.color = Color.white;
         }
 

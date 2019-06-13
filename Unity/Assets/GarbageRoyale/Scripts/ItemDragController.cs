@@ -90,6 +90,14 @@ namespace GarbageRoyale.Scripts
                     }
                 }
             }
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (RectTransformUtility.RectangleContainsScreenPoint(CraftingRects[i], Input.mousePosition))
+                {
+                    CraftingResultSlot.texture = null;
+                }
+            }
         }
 
         public void OnEndDrag(PointerEventData eventData)
@@ -112,7 +120,7 @@ namespace GarbageRoyale.Scripts
                         Texture textureMem = rawImg.texture;
                         rawImg.texture = GetComponent<RawImage>().texture;
                         GetComponent<RawImage>().texture = textureMem;
-
+                        return;
                         /*int idMem = playerInventory.itemInventory[i];
                         playerInventory.itemInventory[i] = playerInventory.itemInventory[invIndex];
                         playerInventory.itemInventory[invIndex] = idMem;
@@ -138,6 +146,11 @@ namespace GarbageRoyale.Scripts
                         playerInventory.itemInventory[20+i] = playerInventory.itemInventory[invIndex];
                         playerInventory.itemInventory[invIndex] = idMem;*/
 
+                    }
+                    else
+                    {
+                        RpcManager.photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,
+                            System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), invIndex, invIndex, PhotonNetwork.IsMasterClient);
                     }
                 }
 
