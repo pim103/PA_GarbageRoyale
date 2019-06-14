@@ -9,7 +9,9 @@ public class Water : MonoBehaviour
 
     private int timerWaterUp;
     private int cooldownWaterUp;
+
     private float speedWaterUp;
+    private float speedWaterUpTransition;
 
     private bool startWater;
 
@@ -18,8 +20,9 @@ public class Water : MonoBehaviour
         startWater = false;
 
         timerWaterUp = 0;
-        speedWaterUp = 0.01f;
+        speedWaterUp = 0.005f;
         cooldownWaterUp = 0;
+        speedWaterUpTransition = 0.02f;
     }
 
     void Update()
@@ -28,7 +31,14 @@ public class Water : MonoBehaviour
         {
             if(waterObject.transform.position.y < (4 + 8) * 4)
             {
-                waterObject.transform.position += Vector3.up * speedWaterUp;
+                if( waterObject.transform.position.y % 16 > 0.5 && waterObject.transform.position.y % 16 < 4)
+                {
+                    waterObject.transform.position += Vector3.up * speedWaterUp;
+                }
+                else
+                {
+                    waterObject.transform.position += Vector3.up * speedWaterUpTransition;
+                }
             }
         }
     }

@@ -6826,6 +6826,11 @@ PrefabInstance:
       propertyPath: InstantiationId
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3710258115805647016, guid: 3691311aefd7c874a9b2b885d075c7d5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 845a80bc1067d9a45ab0c2a5b48269e5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3691311aefd7c874a9b2b885d075c7d5, type: 3}
 --- !u!1 &1432310075
@@ -8523,15 +8528,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1375012805831040674, guid: b88fe910c5709a04d97508e2aa5446c1,
+    - target: {fileID: 240097272504882906, guid: b88fe910c5709a04d97508e2aa5446c1,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1375012805831040652, guid: b88fe910c5709a04d97508e2aa5446c1,
+    - target: {fileID: 1511829150167189599, guid: b88fe910c5709a04d97508e2aa5446c1,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5797197074124910300, guid: b88fe910c5709a04d97508e2aa5446c1,
         type: 3}
@@ -8547,6 +8552,16 @@ PrefabInstance:
         type: 3}
       propertyPath: CollisionModule.m_Bounce.scalar
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375012805831040674, guid: b88fe910c5709a04d97508e2aa5446c1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375012805831040652, guid: b88fe910c5709a04d97508e2aa5446c1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6598447953296117307, guid: b88fe910c5709a04d97508e2aa5446c1,
         type: 3}
@@ -8567,16 +8582,6 @@ PrefabInstance:
         type: 3}
       propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 240097272504882906, guid: b88fe910c5709a04d97508e2aa5446c1,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511829150167189599, guid: b88fe910c5709a04d97508e2aa5446c1,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}

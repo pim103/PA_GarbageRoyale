@@ -161,7 +161,7 @@ namespace GarbageRoyale.Scripts.PlayerController
 
                 gc.moveDirection[id] = gc.players[id].PlayerGameObject.transform.TransformDirection(gc.moveDirection[id]);
 
-                if (playerAction.wantToJump && !playerAction.isInWater)
+                if (playerAction.wantToJump && !playerAction.headIsInWater)
                 {
                     gc.moveDirection[id].y = jumpSpeed;
                 }

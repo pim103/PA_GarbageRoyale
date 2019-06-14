@@ -20,6 +20,8 @@ namespace GarbageRoyale.Scripts.PlayerController {
         [SerializeField]
         private ScriptExposer scripts;
 
+        private GameController gc;
+
         private bool isInInventory = false;
         private bool isInEscapeMenu = false;
         
@@ -32,6 +34,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
                 return;
             }
 
+            gc = GameObject.Find("Controller").GetComponent<GameController>();
             skillsController = GameObject.Find("SkillsController").GetComponent<SkillsController>();
             scripts.cr.cameraIndex = PlayerIndex;
         }
@@ -164,21 +167,6 @@ namespace GarbageRoyale.Scripts.PlayerController {
                 isCrouched = false;
                 photonView.RPC("WantToCrouchRPC", RpcTarget.MasterClient, false);
             }
-        }
-
-        void FixedUpdate()
-        {
-                if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
-                {
-                    return;
-                }
-                /*
-                if (!PhotonNetwork.IsMasterClient)
-                {
-                    scripts.pcm.PlayerMovement(PlayerIndex);
-                    scripts.pcm.PlayerRotation(PlayerIndex);
-                }
-                */
         }
 
         [PunRPC]
