@@ -38,7 +38,10 @@ namespace GarbageRoyale.Scripts.Menu
         void AskForCreate()
         {
             StaticSwitchScene.gameSceneNbPlayers = choosePlayers.value;
-            PhotonNetwork.CreateRoom("Test");
+            RoomOptions roomOptions = new RoomOptions();
+            roomOptions.MaxPlayers = (byte)choosePlayers.value;
+
+            PhotonNetwork.CreateRoom("Test", roomOptions);
         }
 
         void AskForBack()

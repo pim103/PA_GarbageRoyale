@@ -67,7 +67,7 @@ namespace GarbageRoyale.Scripts
         private bool wantToGoDown;
 
         public bool isGameStart;
-        private float timeLeft = 20;
+        private float timeLeft = 40;
         private float waterStartTimeLeft = 9999999999;
         private bool waterStart;
         private bool pressL;
@@ -92,6 +92,7 @@ namespace GarbageRoyale.Scripts
         public Vector3[] moveDirection;
         public string[] AvatarToUserId;
         public bool endOfInit;
+        public bool doorIsOpen;
 
         public Dictionary<int, GameObject> pipes = new Dictionary<int, GameObject>();
         public Dictionary<GameObject, int> buttonsTrap = new Dictionary<GameObject, int>();
@@ -137,6 +138,12 @@ namespace GarbageRoyale.Scripts
             } else
             {
                 StartCoroutine(SearchForActivateAvatar());
+                startDoor = PhotonNetwork.Instantiate("StartDoor", new Vector3(142, 0, 160), Quaternion.identity);
+
+                waterStart = false;
+                doorIsOpen = false;
+                waterStartTimeLeft = 60.0f;
+                timeLeft = 60.0f;
             }
 
             // INIT MAP AND MINIMAP
@@ -351,67 +358,31 @@ namespace GarbageRoyale.Scripts
                     waterStart = true;
                     water.setStartWater(true);
                 }
-            }
 
-            /*if (canMove)
-            {
-                photonView.RPC("SendSoundPosition", RpcTarget.MasterClient, Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-            }
-
-            if (!PhotonNetwork.IsMasterClient && canMove)
-            {
-                if(Input.GetKeyDown(KeyCode.Space))
+                if(endOfInit && PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
                 {
-                    wantToGoUp = true;
-                }
-                else if (Input.GetKeyUp(KeyCode.Space))
-                {
-                    wantToGoUp = false;
-                }
-                if(Input.GetKeyDown(KeyCode.LeftShift))
-                {
-                    wantToGoDown = true;
-                }
-                else if (Input.GetKeyUp(KeyCode.LeftShift))
-                {
-                    wantToGoDown = false;
-                }
-
-                photonView.RPC("MovePlayer", RpcTarget.MasterClient,Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), wantToGoUp, wantToGoDown);
-                photonView.RPC("SendCameraPosition", RpcTarget.MasterClient,Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-            } else
-            {
-                if(playerConnected == StaticSwitchScene.gameSceneNbPlayers && timeLeft > 0)
-                {
-                    timeLeft -= Time.deltaTime;
-                } else if(timeLeft <= 0 && !isGameStart)
-                {
-                    PhotonNetwork.Destroy(startDoor);
-                    isGameStart = true;
-                } else if(isGameStart && waterStartTimeLeft > 0)
-                {
-                    waterStartTimeLeft -= Time.deltaTime;
-                    
-                } else if(waterStartTimeLeft <= 0 && !waterStart)
-                {
-                    Water water = GetComponent<Water>();
-                    waterStart = true;
-                    water.setStartWater(true);
-                }
-
-                if(Input.GetKeyDown(KeyCode.U))
-                {
-                    Water water = GetComponent<Water>();
-                    waterStart = true;
-                    water.setStartWater(true);
+                    if(timeLeft > 0)
+                    {
+                        Debug.Log("Start");
+                        timeLeft -= Time.deltaTime;
+                    }
+                    else if(!doorIsOpen)
+                    {
+                        startDoor.SetActive(false);
+                        doorIsOpen = true;
+                    }
+                    else if(waterStartTimeLeft > 0)
+                    {
+                        Debug.Log("Water Start");
+                        waterStartTimeLeft -= Time.deltaTime;
+                    }
+                    else if(!waterStart)
+                    {
+                        waterStart = true;
+                        water.setStartWater(true);
+                    }
                 }
             }
-
-            if(pressL)
-            {
-                photonView.RPC("TurnLightOff", RpcTarget.MasterClient);
-            }
-            pressL = false;*/
         }
 
         [PunRPC]
@@ -425,99 +396,8 @@ namespace GarbageRoyale.Scripts
             return canMove;
         }
 
-        /*[PunRPC]
-        private void initOwnSound(int idPlayer)
-        {
-            characterSound.Add(idPlayer, Instantiate(soundObject, new Vector3(150, 2.5f, 150), Quaternion.identity));
-            characterSoundWalk.Add(idPlayer, Instantiate(soundObject, new Vector3(150, 2.5f, 150), Quaternion.identity));
-        }
-
-        [PunRPC]
-        private void InstantiateOtherSound(int idPlayer, float x, float y, float z)
-        {
-            characterSound.Add(idPlayer, Instantiate(soundObject, new Vector3(x, y, z), Quaternion.identity));
-            characterSoundWalk.Add(idPlayer, Instantiate(soundObject, new Vector3(x, y, z), Quaternion.identity));
-        }
-
-        [PunRPC]
-        private void MovePlayer(float axeX, float axeZ, bool wantToGoUp, bool wantToGoDown, PhotonMessageInfo info)
-        {
-            PlayerMovement target;
-            PlayerStats targetStats;
-            
-            if (!PhotonNetwork.IsMasterClient) return;
-
-            target = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();
-            targetStats = characterList[info.Sender.ActorNumber].GetComponent<PlayerStats>();
-            if (!targetStats.getIsDead())
-            {
-                target.Movement(axeX, axeZ, wantToGoUp, wantToGoDown, false);
-            }
-        }
-
-        [PunRPC]
-        private void SendSoundPosition(float axeX, float axeY, PhotonMessageInfo info)
-        {
-            if (!PhotonNetwork.IsMasterClient) return;
-            photonView.RPC("MovePlayerSound", RpcTarget.AllBuffered, info.Sender.ActorNumber, characterList[info.Sender.ActorNumber].transform.position.x, characterList[info.Sender.ActorNumber].transform.position.y, characterList[info.Sender.ActorNumber].transform.position.z);
-        }
-
-        [PunRPC]
-        private void SendCameraPosition(float axeX, float axeY,PhotonMessageInfo info)
-        {
-            if (!PhotonNetwork.IsMasterClient) return;
-            characterList[info.Sender.ActorNumber].transform.Rotate(0, axeX * 10.0f, 0);
-            photonView.RPC("RotatePlayerCamera", info.Sender, characterList[info.Sender.ActorNumber].transform.position.x, characterList[info.Sender.ActorNumber].transform.position.y, characterList[info.Sender.ActorNumber].transform.position.z, axeX, axeY);
-        }
-        
-        [PunRPC]
-        private void TurnLightOff(PhotonMessageInfo info)
-        {
-            Light playerLight = characterList[info.Sender.ActorNumber].transform.GetChild(1).GetComponent<Light>();
-            if (playerLight.enabled) playerLight.enabled = false;
-            else playerLight.enabled = true;
-
-        }
-
-        [PunRPC]
-        private void RotatePlayerCamera(float posX, float posY, float posZ, float axeX, float axeY)
-        {
-            currentPosX = posX;
-            currentPosY = posY;
-            currentPosZ = posZ;
-            playerCamera.transform.Rotate(0, axeX * 10.0f, 0);
-            
-            float rotationX = 0;
-            rotationX -= axeY * 10.0f;
-            rotationX =
-                Mathf.Clamp(rotationX, -90.0f,
-                    90.0f);
-
-            float rotationY = playerCamera.transform.localEulerAngles.y;
-
-            playerCamera.transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
-            
-            playerCamera.transform.position = new Vector3(posX,posY+0.8f,posZ);
-        }
-
-        [PunRPC]
-        private void MovePlayerSound(int id, float posX, float posY, float posZ)
-        {
-            if(canMove)
-            {
-                characterSound[id].transform.position = new Vector3(posX, 2.5f, posZ);
-                characterSoundWalk[id].transform.position = new Vector3(posX, 2.5f, posZ);
-            }
-        }*/
-
         private void OnGUI()
         {
-            /*if (PhotonNetwork.IsMasterClient)
-            {
-                currentPosX = characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform.position.x;
-                currentPosY = characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform.position.y;
-                currentPosZ = characterList[PhotonNetwork.LocalPlayer.ActorNumber].transform.position.z;
-            }*/
             if (!endOfInit)
             {
                 return;
