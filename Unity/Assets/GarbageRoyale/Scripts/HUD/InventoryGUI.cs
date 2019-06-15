@@ -34,7 +34,7 @@ namespace GarbageRoyale.Scripts.HUD
         
         public void printSprite(int idx, RawImage ri)
         {
-            name = "ItemImg_";
+            string name = "ItemImg_";
             RawImage rawImg = GameObject.Find(name + idx).GetComponent<RawImage>();
             rawImg.texture = ri.texture;
             
@@ -42,9 +42,7 @@ namespace GarbageRoyale.Scripts.HUD
         }
         public void printSkillSprite(int idx, int id)
         {
-            string name;
-            
-            name = "SkillImg_";
+            string name = "SkillImg_";
             RawImage rawImg = GameObject.Find(name + idx).GetComponent<RawImage>();
             rawImg.texture = skillTextures[id].texture;
             //rawImg.color = Color.white;

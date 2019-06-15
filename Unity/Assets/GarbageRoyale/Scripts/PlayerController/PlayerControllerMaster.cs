@@ -85,8 +85,6 @@ namespace GarbageRoyale.Scripts.PlayerController
                            false,
                            false,
                            false,
-                           false,
-                           false,
                            false
                     );
                     continue;

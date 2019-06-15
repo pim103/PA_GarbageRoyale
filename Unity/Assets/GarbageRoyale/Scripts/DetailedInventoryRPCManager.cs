@@ -82,7 +82,8 @@ namespace GarbageRoyale.Scripts
                         craftingList.Contains((int) ItemController.TypeItem.ToiletPaper))
                     {
                         photonView.RPC("AskCraftItem", RpcTarget.MasterClient, (int) ItemController.TypeItem.SteelStaff,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),isMaster);
+                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),
+                            isMaster);
 
                         //CraftingResultSlot.texture = gc.inventoryGui.rawSprites[1].texture;
 
@@ -91,7 +92,8 @@ namespace GarbageRoyale.Scripts
                              craftingList.Contains((int) ItemController.TypeItem.Jerrican))
                     {
                         photonView.RPC("AskCraftItem", RpcTarget.MasterClient, (int) ItemController.TypeItem.OilBottle,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),isMaster);
+                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),
+                            isMaster);
                         //CraftingResultSlot.texture = gc.inventoryGui.rawSprites[7].texture;
                         
                     }
@@ -99,7 +101,8 @@ namespace GarbageRoyale.Scripts
                              craftingList.Contains((int) ItemController.TypeItem.ToiletPaper))
                     {
                         photonView.RPC("AskCraftItem", RpcTarget.MasterClient, (int) ItemController.TypeItem.Molotov,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),isMaster);
+                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),
+                            isMaster);
                         //CraftingResultSlot.texture = gc.inventoryGui.rawSprites[8].texture;
                     }
                     else
@@ -114,7 +117,8 @@ namespace GarbageRoyale.Scripts
                         craftingList.Contains((int) ItemController.TypeItem.Jerrican))
                     {
                         photonView.RPC("AskCraftItem", RpcTarget.MasterClient, (int) ItemController.TypeItem.Molotov,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),isMaster);
+                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),
+                            isMaster);
                         //CraftingResultSlot.texture = gc.inventoryGui.rawSprites[8].texture;
                     }
                     else if (craftingList.Contains((int) ItemController.TypeItem.MetalSheet) &&
@@ -123,7 +127,8 @@ namespace GarbageRoyale.Scripts
                     {
                         photonView.RPC("AskCraftItem", RpcTarget.MasterClient,
                             (int) ItemController.TypeItem.WolfTrap,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),
+                            isMaster);
 
                             //CraftingResultSlot.texture = gc.inventoryGui.rawSprites[9].texture;
                     }
