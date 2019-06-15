@@ -11,6 +11,7 @@ using GarbageRoyale.Scripts.PlayerController;
 using System.Linq;
 using GarbageRoyale.Scripts.HUD;
 using GarbageRoyale.Scriptable;
+using GarbageRoyale.Scripts.Menu;
 
 namespace GarbageRoyale.Scripts
 {
@@ -37,6 +38,9 @@ namespace GarbageRoyale.Scripts
         public AudioSource menuSound;
         [SerializeField]
         public SoundManager soundManager;
+
+        [SerializeField]
+        public StartGame menuController;
 
         [SerializeField]
         public InventoryGUI inventoryGui;

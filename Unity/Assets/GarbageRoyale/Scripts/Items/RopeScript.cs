@@ -69,7 +69,8 @@ namespace GarbageRoyale.Scripts.Items
                 }
                 else
                 {
-                    ep.PlayerGameObject.transform.Rotate(new Vector3(90.0f, 0.0f, 0.0f));
+                    Debug.Log("Tombe");
+                    ep.PlayerGameObject.transform.localEulerAngles = new Vector3(90.0f, ep.PlayerGameObject.transform.localEulerAngles.y, ep.PlayerGameObject.transform.localEulerAngles.z);
 
                     gc.playersActions[ep.PlayerIndex].isFallen = true;
                     gc.playersActions[ep.PlayerIndex].timeLeftFallen = 2.0f;

@@ -1,4 +1,5 @@
 using GarbageRoyale.Scriptable;
+using GarbageRoyale.Scripts.Menu;
 using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
@@ -45,11 +46,14 @@ namespace GarbageRoyale.Scripts.PlayerController
         private Texture2D oiledTexture;
         private Texture2D burnedTexture;
 
+        private bool IsGameEnd;
+
         private void Start()
         {
             initTexture();
             coroutineIsStart = Enumerable.Repeat(false, 10).ToArray();
-        }
+            IsGameEnd = false;
+        } 
 
         void FixedUpdate()
         {
@@ -66,29 +70,37 @@ namespace GarbageRoyale.Scripts.PlayerController
                 return;
             }
 
-            for (var i = 0; i < gc.playersActionsActivated.Length; i++)
+            int playerAlive = 0;
+            for (var i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
             {
-                if (gc.players[i].PlayerStats.isDead && !gc.players[i].PlayerStats.isAlreadyTrigger)
+                if (gc.players[i].PlayerStats.isDead)
                 {
-                    gc.players[i].PlayerStats.isAlreadyTrigger = true;
-                    DataCollector.instance.AddKillPoint(gc.players[i].PlayerGameObject, i, Time.time);
+                    if(!gc.players[i].PlayerStats.isAlreadyTrigger)
+                    {
+                        gc.players[i].PlayerStats.isAlreadyTrigger = true;
+                        DataCollector.instance.AddKillPoint(gc.players[i].PlayerGameObject, i, Time.time);
 
-                    photonView.RPC("UpdateDataRPC", RpcTarget.All,
-                           i,
-                           false,
-                           0f,
-                           0f,
-                           0f,
-                           0f,
-                           false,
-                           true,
-                           false,
-                           false,
-                           false,
-                           false
-                    );
+                        photonView.RPC("UpdateDataRPC", RpcTarget.All,
+                               i,
+                               false,
+                               0f,
+                               0f,
+                               0f,
+                               0f,
+                               false,
+                               true,
+                               false,
+                               false,
+                               false,
+                               false
+                        );
+                    }
+
                     continue;
                 }
+
+                playerAlive++;
+
                 var playerAction = gc.playersActions[i];
                 var player = gc.players[i];
 
@@ -138,6 +150,19 @@ namespace GarbageRoyale.Scripts.PlayerController
                         gc.playersActions[i].isDamageBoosted
                     );
                 }
+
+                if(gc.players[i].PlayerGameObject.transform.position.y >(8 + 4) * 8 + 11)
+                {
+                    gc.isGameStart = false;
+                    photonView.RPC("EndGameRPC", RpcTarget.All, EndGameMenu.StateEndGame.One_Alive, i);
+                    break;
+                }
+            }
+
+            if(playerAlive <= 0)
+            {
+                gc.isGameStart = false;
+                photonView.RPC("EndGameRPC", RpcTarget.All, EndGameMenu.StateEndGame.All_Dead, -1);
             }
         }
 
@@ -322,87 +347,13 @@ namespace GarbageRoyale.Scripts.PlayerController
                 else if (gc.playersActions[id].isFallen)
                 {
                     gc.playersActions[id].isFallen = false;
-                    gc.players[id].PlayerGameObject.transform.Rotate(new Vector3(-90, 0, 0));
+                    gc.players[id].PlayerGameObject.transform.localEulerAngles = new Vector3(0f, gc.players[id].PlayerGameObject.transform.localEulerAngles.y, gc.players[id].PlayerGameObject.transform.localEulerAngles.z);
                 }
 
                 yield return new WaitForSeconds(0.1f);
             }
         }
 
-        /*
-        //Replace with Coroutine ?
-        private void PlayerUpdateStats(int id)
-        {
-            PlayerStats ps = gc.players[id].PlayerStats;
-            
-            if (gc.playersActions[id].headIsInWater)
-            {
-                gc.playersActions[id].isBurning = false;
-                gc.playersActions[id].isOiled = false;
-                if (ps.currentBreath > 0)
-                {
-                    ps.currentBreath -= 0.1f;
-                }
-                else if (ps.currentHp > 0)
-                {
-                    ps.takeDamage(0.2f);
-                }
-            }
-            else
-            {
-                if (ps.currentBreath < ps.defaultBreath)
-                {
-                    ps.currentBreath += 1;
-                }
-            }
-
-            if (gc.playersActions[id].isRunning)
-            {
-                if (ps.currentStamina > 0)
-                {
-                    ps.currentStamina -= 0.1f;
-                }
-                else
-                {
-                    gc.playersActions[id].isRunning = false;
-                }
-            }
-
-            if (ps.currentStamina < ps.defaultStamina)
-            {
-                ps.currentStamina += 0.3f;
-            }
-
-            if(gc.playersActions[id].isBurning)
-            {
-                ps.takeDamage(0.1f);
-                gc.playersActions[id].timeLeftBurn -= Time.deltaTime;
-                if(gc.playersActions[id].timeLeftBurn <= 0.0f)
-                {
-                    gc.playersActions[id].isBurning = false;
-                }
-            }
-
-            if(gc.playersActions[id].isOiled && gc.playersActions[id].timeLeftOiled > 0.0f)
-            {
-                gc.playersActions[id].timeLeftOiled -= Time.deltaTime;
-            }
-            else
-            {
-                gc.playersActions[id].isOiled = false;
-            }
-
-            if(gc.playersActions[id].isFallen && gc.playersActions[id].timeLeftFallen > 0.0f)
-            {
-                gc.playersActions[id].timeLeftFallen -= Time.deltaTime;
-            }
-            else if(gc.playersActions[id].isFallen)
-            {
-                gc.playersActions[id].isFallen = false;
-                gc.players[id].PlayerGameObject.transform.Rotate(new Vector3(-90, 0, 0));
-            }
-        }
-        */
         [PunRPC]
         private void LightUpRPC(int id, bool action)
         {
@@ -452,9 +403,21 @@ namespace GarbageRoyale.Scripts.PlayerController
             }
         }
 
+        [PunRPC]
+        private void EndGameRPC(EndGameMenu.StateEndGame sg, int idPlayer)
+        {
+            if(idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            {
+                sg = EndGameMenu.StateEndGame.Won;
+            }
+
+            IsGameEnd = true;
+            gc.menuController.launchEndGameMenu(sg, idPlayer);
+        }
+
         private void OnGUI()
         {
-            if(!gc.endOfInit)
+            if (!gc.endOfInit || IsGameEnd)
             {
                 return;
             }

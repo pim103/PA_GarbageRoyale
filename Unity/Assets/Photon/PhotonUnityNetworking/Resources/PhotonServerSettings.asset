@@ -155,4 +155,5 @@ MonoBehaviour:
   - WantToRunRPC
   - MobDeathAll
   - WantToCrouchRPC
+  - EndGameRPC
   DisableAutoOpenWizard: 1

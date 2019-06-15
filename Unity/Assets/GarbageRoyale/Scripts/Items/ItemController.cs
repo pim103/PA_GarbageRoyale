@@ -178,10 +178,10 @@ namespace GarbageRoyale.Scripts.Items
             rope.transform.position = (pos1 + pos2)/2;
             rope.transform.LookAt(pos2);
             RopeScript rs = rope.GetComponent<RopeScript>();
+            rs.mc.isTrigger = true;
 
             if (initNewRope)
             {
-                rs.mc.isTrigger = true;
                 rs.idTrap = idItem;
             }
 

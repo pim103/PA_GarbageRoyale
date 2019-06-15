@@ -8,8 +8,6 @@ namespace GarbageRoyale.Scripts.Menu
 {
     public class MainMenu : MonoBehaviourPunCallbacks
     {
-        [SerializeField]
-        private Button offlineRoomButton;
         [SerializeField] 
         private Button createRoomButton;
         [SerializeField] 
@@ -26,9 +24,6 @@ namespace GarbageRoyale.Scripts.Menu
             createRoomButton.interactable = false;
             joinRoomButton.interactable = false;
             
-            //PhotonNetwork.ConnectUsingSettings();
-            
-            offlineRoomButton.onClick.AddListener(AskForOffline);
             exitRoomButton.onClick.AddListener(AskForExit);
         }
 
@@ -66,23 +61,13 @@ namespace GarbageRoyale.Scripts.Menu
 
             createRoomButton.interactable = false;
             joinRoomButton.interactable = false;
-            offlineRoomButton.interactable = false;
             exitRoomButton.interactable = false;
-        }
-
-        public void AskForOffline()
-        {
-            if(PhotonNetwork.IsConnected)
-            {
-                PhotonNetwork.Disconnect();
-            }
-            PhotonNetwork.OfflineMode = true;
-            PhotonNetwork.CreateRoom("offlineRoom");
         }
 
         public void AskForExit()
         {
-            Application.Quit();
+            PhotonNetwork.Disconnect();
+            controller.launchLoginMenu();
         }
     }
 }

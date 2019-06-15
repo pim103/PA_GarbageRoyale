@@ -14,6 +14,8 @@ namespace GarbageRoyale.Scripts.Menu
         public GameObject loginMenu;
         [SerializeField]
         public GameObject subMenu;
+        [SerializeField]
+        public GameObject EndGameMenu;
 
         [SerializeField]
         public Camera mainCamera;
@@ -35,42 +37,46 @@ namespace GarbageRoyale.Scripts.Menu
             Cursor.visible = true;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         public void launchMainMenu()
         {
-            loginMenu.SetActive(false);
+            ResetAllMenu();
             mainMenu.SetActive(true);
-            registerMenu.SetActive(false);
-            subMenu.SetActive(false);
         }
 
         public void launchSubMenu()
         {
-            loginMenu.SetActive(false);
-            mainMenu.SetActive(false);
-            registerMenu.SetActive(false);
+            ResetAllMenu();
             subMenu.SetActive(true);
         }
         
         public void launchRegisterMenu()
         {
-            loginMenu.SetActive(false);
-            mainMenu.SetActive(false);
+            ResetAllMenu();
             registerMenu.SetActive(true);
-            subMenu.SetActive(false);
         }
         
         public void launchLoginMenu()
         {
+            ResetAllMenu();
             loginMenu.SetActive(true);
+        }
+
+        public void launchEndGameMenu(EndGameMenu.StateEndGame sg, int idPlayer)
+        {
+            ResetAllMenu();
+            gameController.SetActive(false);
+            EndGameMenu.SetActive(true);
+            EndGameMenu egm = EndGameMenu.GetComponent<EndGameMenu>();
+            egm.SetEndMessage(sg, idPlayer);
+        }
+
+        private void ResetAllMenu()
+        {
+            loginMenu.SetActive(false);
             mainMenu.SetActive(false);
             registerMenu.SetActive(false);
             subMenu.SetActive(false);
+            EndGameMenu.SetActive(false);
         }
     }
 }

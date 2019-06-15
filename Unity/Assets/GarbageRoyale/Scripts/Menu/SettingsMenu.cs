@@ -29,14 +29,6 @@ namespace GarbageRoyale.Scripts.Menu
             }
         }
 
-        private void Update()
-        {
-            if (controller.isActiveAndEnabled)
-            {
-                
-            }
-        }
-
         public void AskForExit()
         {
             Application.Quit();

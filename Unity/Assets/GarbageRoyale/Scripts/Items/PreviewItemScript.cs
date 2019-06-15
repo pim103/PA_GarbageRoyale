@@ -55,6 +55,7 @@ namespace GarbageRoyale.Scripts.Items
         private bool canSetRopePos2;
         private bool ropeIsPlaced;
 
+        public Vector3 scaleRopeCube;
         public Vector3 savePosRope;
         public Vector3 savePosRope2;
 
@@ -83,6 +84,10 @@ namespace GarbageRoyale.Scripts.Items
             if(!uniqueRope)
             {
                 scalePreview = previewCube.transform.localScale;
+            }
+            if(withRope)
+            {
+                scaleRopeCube = previewRope1.transform.localScale;
             }
 
             ropeDistance = 8.0f;
@@ -120,6 +125,11 @@ namespace GarbageRoyale.Scripts.Items
                     if(!uniqueRope)
                     {
                         ic.PlaceObject(savePos, saveRot, item.type);
+                        inEditMode = false;
+                        DesactivePreview();
+                    }
+                    else
+                    {
                         inEditMode = false;
                         DesactivePreview();
                     }
@@ -216,11 +226,13 @@ namespace GarbageRoyale.Scripts.Items
                 {
                     if (savePosRope == Vector3.zero)
                     {
+                        previewRope1.transform.localScale = scaleRopeCube;
                         previewRope1.transform.parent = null;
                         previewRope1.SetActive(true);
                     }
                     else if (savePosRope2 == Vector3.zero)
                     {
+                        previewRope2.transform.localScale = scaleRopeCube;
                         previewRope2.transform.parent = null;
                         previewRope2.SetActive(true);
                     }
