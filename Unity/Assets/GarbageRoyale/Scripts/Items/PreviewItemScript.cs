@@ -66,7 +66,7 @@ namespace GarbageRoyale.Scripts.Items
         private GameObject previewRope2;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             ic = GameObject.Find("Controller").GetComponent<ItemController>();
