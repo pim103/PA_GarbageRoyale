@@ -2823,7 +2823,7 @@ RectTransform:
   m_Children:
   - {fileID: 590747711}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4432,7 +4432,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &979067332
 GameObject:
@@ -4951,7 +4951,7 @@ MonoBehaviour:
   mainCamera: {fileID: 1461953439}
   menuSound: {fileID: 901990065}
   soundManager: {fileID: 1103656776}
-  menuController: {fileID: 415303308}
+  menuController: {fileID: 0}
   inventoryGui: {fileID: 1103656785}
   water: {fileID: 1103656773}
   Mob: {fileID: 5808846029801638683, guid: 262e61a97cc11c649ac8a9648e44896d, type: 3}
@@ -5294,13 +5294,7 @@ MonoBehaviour:
   healthBar: {fileID: 669336003}
   staminaBar: {fileID: 669336002}
   breathBar: {fileID: 669336001}
-  skillTextures:
-  - {fileID: 5833977737841398870, guid: 7f09f46d884795145992b453d28f2b41, type: 3}
-  - {fileID: 5833977737841398870, guid: 055442008036a5a43b4c893ed3608ebb, type: 3}
-  - {fileID: 5833977737841398870, guid: 2e73d7b8d6de5de4a9c474d705fe8742, type: 3}
-  - {fileID: 5833977737841398870, guid: ca1733d3131f82943b400d21df472a02, type: 3}
-  - {fileID: 5833977737841398870, guid: b0f21300896d7ae4eba90661ebc0135a, type: 3}
-  - {fileID: 5833977737841398870, guid: 2cf580fdfbbd7d340a04e18dfdc2e248, type: 3}
+  skillTextures: []
 --- !u!114 &1103656786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6359,7 +6353,7 @@ Transform:
   m_Children:
   - {fileID: 979067333}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1296446348
 PrefabInstance:
@@ -8488,6 +8482,26 @@ PrefabInstance:
       propertyPath: m_Text
       value: Devenir invincible
       objectReference: {fileID: 0}
+    - target: {fileID: 2369309547222181357, guid: 285be4bfaa0a8864db54a5c586629bb0,
+        type: 3}
+      propertyPath: invinsibleButton
+      value: 
+      objectReference: {fileID: 162586390}
+    - target: {fileID: 2369309547222181357, guid: 285be4bfaa0a8864db54a5c586629bb0,
+        type: 3}
+      propertyPath: invisibleButton
+      value: 
+      objectReference: {fileID: 214255909}
+    - target: {fileID: 2369309547222181357, guid: 285be4bfaa0a8864db54a5c586629bb0,
+        type: 3}
+      propertyPath: itemTypeField
+      value: 
+      objectReference: {fileID: 1651945157}
+    - target: {fileID: 2369309547222181357, guid: 285be4bfaa0a8864db54a5c586629bb0,
+        type: 3}
+      propertyPath: addItemButton
+      value: 
+      objectReference: {fileID: 1197688532}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 285be4bfaa0a8864db54a5c586629bb0, type: 3}
 --- !u!1 &1781301923 stripped
@@ -8496,22 +8510,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1781301922}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1781301924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1781301923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deb37ad973254b06b74c4ae15829ce27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  invisibleButton: {fileID: 214255909}
-  invinsibleButton: {fileID: 162586390}
-  itemTypeField: {fileID: 1651945157}
-  addItemButton: {fileID: 1197688532}
 --- !u!114 &1781301925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8991,7 +8989,7 @@ PrefabInstance:
     - target: {fileID: 1705103857351129184, guid: 2e9da8a379b487148adbc5cf0215e82e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1705103857351129184, guid: 2e9da8a379b487148adbc5cf0215e82e,
         type: 3}
