@@ -2663,6 +2663,7 @@ GameObject:
   - component: {fileID: 9214057442115180241}
   - component: {fileID: 5735579125306634179}
   - component: {fileID: 8149603303116346026}
+  - component: {fileID: 5280669250511911608}
   m_Layer: 5
   m_Name: InventoryGUI
   m_TagString: Untagged
@@ -2753,6 +2754,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5280669250511911608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8044369997333157998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb37ad973254b06b74c4ae15829ce27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invisibleButton: {fileID: 0}
+  invincibleButton: {fileID: 0}
+  itemTypeField: {fileID: 0}
+  addItemButton: {fileID: 0}
 --- !u!1 &8188522646607016147
 GameObject:
   m_ObjectHideFlags: 0
