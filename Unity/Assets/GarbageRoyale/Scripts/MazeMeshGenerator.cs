@@ -132,50 +132,24 @@ namespace GarbageRoyale.Scripts
                             }
                         } else if (rooms[i, j] == 9)
                         {
-                            int rand = Random.Range(0, 2);
                             if (rooms[i, j-1] == 9999 && rooms[i, j+1] == 9999)
                             {
-                                if (rand == 0)
-                                {
-                                    var newDoor = Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos),
-                                        Quaternion.identity);
-                                    newDoor.GetComponent<OpenDoorScript>().doorId = nbDoors;
-                                    doors.Add(nbDoors, newDoor);
-                                    nbDoors++;
-                                }
-                                else
-                                {
-                                    var newDoor = Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos),
-                                        Quaternion.Euler(new Vector3(0,180,0)));
-                                    newDoor.GetComponent<OpenDoorScript>().doorId = nbDoors;
-                                    doors.Add(nbDoors, newDoor);
-                                    nbDoors++;
-                                }
-                                
+                                var newDoor = Instantiate(Prefabs[rooms[i, j]], new Vector3(j * width + ypos, ypos, i * width + ypos),Quaternion.identity);
+                                newDoor.GetComponent<OpenDoorScript>().doorId = nbDoors;
+                                doors.Add(nbDoors, newDoor);
+                                nbDoors++;
+                               
                             } else if (rooms[i+1, j] == 9999 && rooms[i-1,j] == 9999)
                             {
-                                if (rand == 0)
-                                {
-                                    var newDoor = Instantiate(Prefabs[rooms[i, j]],
-                                        new Vector3(j * width + ypos, ypos, i * width + ypos),
-                                        Quaternion.Euler(new Vector3(0, 90, 0)));
-                                    newDoor.GetComponent<OpenDoorScript>().doorId = nbDoors;
-                                    doors.Add(nbDoors, newDoor);
-                                    nbDoors++;
-                                }
-                                else
-                                {
-                                    var newDoor = Instantiate(Prefabs[rooms[i, j]],
-                                        new Vector3(j * width + ypos, ypos, i * width + ypos),
-                                        Quaternion.Euler(new Vector3(0, -90, 0)));
-                                    newDoor.GetComponent<OpenDoorScript>().doorId = nbDoors;
-                                    doors.Add(nbDoors, newDoor);
-                                    nbDoors++;
-                                }
+                                var newDoor = Instantiate(Prefabs[rooms[i, j]],new Vector3(j * width + ypos, ypos, i * width + ypos),Quaternion.Euler(new Vector3(0, 90, 0)));
+                                newDoor.GetComponent<OpenDoorScript>().doorId = nbDoors;
+                                doors.Add(nbDoors, newDoor);
+                                nbDoors++;
+                                
                             }
                             else
                             {
-                                Instantiate(Instantiate(Prefabs[8], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity));
+                                Instantiate(Prefabs[8], new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
                             }
                         }
                         // floor
