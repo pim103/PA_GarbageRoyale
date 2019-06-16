@@ -74,7 +74,7 @@ namespace GarbageRoyale.Scripts.Items
             if (other.name.StartsWith("Player"))
             {
                 int id = other.GetComponent<ExposerPlayer>().PlayerIndex;
-                
+
                 StopCoroutine(coroutine[id]);
             }
         }
@@ -89,7 +89,6 @@ namespace GarbageRoyale.Scripts.Items
             while (true)
             {
                 gc.players[id].PlayerStats.takeDamage(1f);
-                gc.playersActions[id].isSlow = true;
                 yield return new WaitForSeconds(0.5f);
             }
         }

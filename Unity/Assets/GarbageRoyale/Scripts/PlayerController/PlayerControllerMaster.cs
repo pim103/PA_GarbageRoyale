@@ -347,7 +347,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                 else if (gc.playersActions[id].isFallen)
                 {
                     gc.playersActions[id].isFallen = false;
-                    gc.players[id].PlayerGameObject.transform.localEulerAngles = new Vector3(0f, gc.players[id].PlayerGameObject.transform.localEulerAngles.y, gc.players[id].PlayerGameObject.transform.localEulerAngles.z);
+                    gc.players[id].PlayerGameObject.transform.localEulerAngles = new Vector3(0f, gc.players[id].PlayerGameObject.transform.localEulerAngles.y, 0.0f);
                 }
 
                 yield return new WaitForSeconds(0.1f);

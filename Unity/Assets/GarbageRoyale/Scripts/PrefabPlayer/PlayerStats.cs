@@ -26,7 +26,7 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         // Start is called before the first frame update
         void Start()
         {
-            defaultHp = 1f;
+            defaultHp = 100f;
             defaultStamina = 100f;
             defaultBreath = 100f;
 
