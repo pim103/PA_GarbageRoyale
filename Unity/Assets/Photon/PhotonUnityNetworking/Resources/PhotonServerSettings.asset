@@ -162,4 +162,7 @@ MonoBehaviour:
   - AskGetCraftedItem
   - DesactiveDoorRPC
   - DesactiveStartDoorRPC
+  - AnswerAddItem
+  - AskAddItem
+  - ToggleInvisibilityRPC
   DisableAutoOpenWizard: 1

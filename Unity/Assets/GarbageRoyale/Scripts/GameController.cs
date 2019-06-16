@@ -364,8 +364,15 @@ namespace GarbageRoyale.Scripts
                     water.setStartWater(true);
                 }
 
-                if(endOfInit && PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+                if (Input.GetKeyDown(KeyCode.I))
                 {
+                    photonView.RPC("DesactiveStartDoorRPC", RpcTarget.All);
+                    doorIsOpen = true;
+                }
+
+                if (endOfInit && PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+                {
+                    StartCoroutine(Invincible());
                     if(timeLeft > 0)
                     {
                         Debug.Log("Start");
@@ -373,6 +380,7 @@ namespace GarbageRoyale.Scripts
                     }
                     else if(!doorIsOpen)
                     {
+                        StartCoroutine(Invisibility());
                         photonView.RPC("DesactiveStartDoorRPC", RpcTarget.All);
                         doorIsOpen = true;
                     }
@@ -405,6 +413,36 @@ namespace GarbageRoyale.Scripts
         public void DesactiveStartDoorRPC()
         {
             startDoor.SetActive(false);
+        }
+
+        private IEnumerator Invincible()
+        {
+            while(timeLeft > 0)
+            {
+                for(var i = 0; i < playersActions.Length; i++)
+                {
+                    players[i].GetComponent<PlayerStats>().currentHp = players[i].GetComponent<PlayerStats>().defaultHp;
+                }
+                yield return new WaitForSeconds(1.0f);
+            }
+        }
+
+        private IEnumerator Invisibility()
+        {
+            photonView.RPC("ToggleInvisibilityRPC", RpcTarget.All, false);
+
+            yield return new WaitForSeconds(10.0f);
+
+            photonView.RPC("ToggleInvisibilityRPC", RpcTarget.All, true);
+        }
+
+        [PunRPC]
+        private void ToggleInvisibilityRPC(bool toggle)
+        {
+            for (var i = 0; i < playersActions.Length; i++)
+            {
+                players[i].PlayerRenderer.enabled = toggle;
+            }
         }
 
         private void OnGUI()
