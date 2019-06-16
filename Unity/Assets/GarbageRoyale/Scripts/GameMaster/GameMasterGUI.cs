@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace GarbageRoyale.Scripts.GameMaster
 {
-    public class GameMasterGui : MonoBehaviourPunCallbacks
+    public class GameMasterGUI : MonoBehaviourPunCallbacks
     {
         private GameController gc;
         [SerializeField]
@@ -32,7 +32,7 @@ namespace GarbageRoyale.Scripts.GameMaster
 
         public void SetInvincible()
         {
-            return;
+            gc.players[Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerStats.isInvincible = true;
         }
         
         

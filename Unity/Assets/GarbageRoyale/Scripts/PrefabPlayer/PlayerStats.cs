@@ -24,6 +24,7 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         private bool isRotatePlayer;
 
         public bool isAlreadyTrigger;
+        public bool isInvincible;
 
         // Start is called before the first frame update
         void Start()
@@ -43,6 +44,7 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
             isDead = false;
             isRotatePlayer = false;
             isAlreadyTrigger = false;
+            isInvincible = false;
         }
 
         private void rotateDeadPlayer()
@@ -53,9 +55,12 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
 
         public void takeDamage(float damage)
         {
-            currentHp -= damage;
-
-            if(currentHp <= 0)
+            if (!isInvincible)
+            {
+                currentHp -= damage;
+            }
+            
+            if(currentHp <= 0 )
             {
                 isDead = true;
                 if (!isRotatePlayer)

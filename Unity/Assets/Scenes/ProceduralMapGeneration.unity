@@ -2476,7 +2476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invisibleButton: {fileID: 214255909}
-  invinsibleButton: {fileID: 162586390}
+  invincibleButton: {fileID: 162586390}
   itemTypeField: {fileID: 1651945157}
   addItemButton: {fileID: 1197688532}
 --- !u!114 &568080249
