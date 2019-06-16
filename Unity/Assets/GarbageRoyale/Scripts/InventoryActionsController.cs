@@ -78,6 +78,10 @@ namespace GarbageRoyale.Scripts
                 {
                     photonView.RPC("WantToPlaceObject", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId, placeInHand);
                 }
+                else if(itemInHand == "Toilet Paper")
+                {
+                    photonView.RPC("AskUsePaper", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                }
             }
             
             /*if (Input.GetKeyDown(KeyCode.A))
@@ -431,6 +435,41 @@ namespace GarbageRoyale.Scripts
             GameObject nailArea = ObjectPooler.SharedInstance.GetPooledObject(8);
             nailArea.transform.position = position;
             nailArea.SetActive(true);
+        }
+
+        [PunRPC]
+        private void AskUsePaper(int placeInHand, int playerIndex)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
+            int itemId = inventoryData.getItemInventory()[placeInHand];
+
+            if (gc.items[itemId].GetComponent<Item>().type == (int)ItemController.TypeItem.ToiletPaper)
+            {
+                if(gc.players[playerIndex].PlayerStats.currentHp < gc.players[playerIndex].PlayerStats.defaultHp)
+                {
+                    gc.players[playerIndex].PlayerStats.healPlayer(10.0f);
+                    photonView.RPC("UsePaperRpc", RpcTarget.All, playerIndex, placeInHand);
+                }
+            }
+        }
+
+        [PunRPC]
+        private void UsePaperRpc(int idPlayer, int placeInHand)
+        {
+            gc.players[idPlayer].GetComponent<Inventory>().itemInventory[placeInHand] = -1;
+            gc.players[idPlayer].PlayerToiletPaper.SetActive(false);
+
+            if (idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            {
+                gc.GetComponent<InventoryGUI>().deleteSprite(placeInHand);
+                itemInHand = "";
+                placeInHand = -1;
+            }
         }
     }
 }

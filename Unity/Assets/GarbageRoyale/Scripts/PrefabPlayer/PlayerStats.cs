@@ -61,6 +61,18 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
             }
         }
 
+        public void healPlayer(float hp)
+        {
+            if(currentHp + hp < defaultHp)
+            {
+                currentHp += hp;
+            }
+            else
+            {
+                currentHp = defaultHp;
+            }
+        }
+
         public float getHp()
         {
             return currentHp;

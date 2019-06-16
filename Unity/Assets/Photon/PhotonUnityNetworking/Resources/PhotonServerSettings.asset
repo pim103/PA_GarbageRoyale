@@ -156,4 +156,6 @@ MonoBehaviour:
   - MobDeathAll
   - WantToCrouchRPC
   - EndGameRPC
+  - AskUsePaper
+  - UsePaperRpc
   DisableAutoOpenWizard: 1
