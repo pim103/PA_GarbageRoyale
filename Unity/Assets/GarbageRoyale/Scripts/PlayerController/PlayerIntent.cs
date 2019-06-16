@@ -57,23 +57,34 @@ namespace GarbageRoyale.Scripts.PlayerController {
                 isInInventory = !isInInventory;
             }
 
-            if (isInInventory || isInEscapeMenu)
-            {
-                return;
-            }
-
             if (horizontalAxe != Input.GetAxis("Horizontal"))
             {
-                horizontalAxe = Input.GetAxis("Horizontal");
-                photonView.RPC("WantToMoveHorizontalRPC", RpcTarget.MasterClient, Input.GetAxis("Horizontal"));
+                if (!isInInventory && !isInEscapeMenu)
+                {
+                    horizontalAxe = Input.GetAxis("Horizontal");
+                    photonView.RPC("WantToMoveHorizontalRPC", RpcTarget.MasterClient, Input.GetAxis("Horizontal"));
+                }
+                else
+                {
+                    horizontalAxe = 0;
+                    photonView.RPC("WantToMoveHorizontalRPC", RpcTarget.MasterClient, 0f);
+                }
             }
 
             if (verticalAxe != Input.GetAxis("Vertical"))
             {
-                verticalAxe = Input.GetAxis("Vertical");
-                photonView.RPC("WantToMoveVerticalRPC", RpcTarget.MasterClient, Input.GetAxis("Vertical"));
+                if (!isInInventory && !isInEscapeMenu)
+                {
+                    verticalAxe = Input.GetAxis("Vertical");
+                    photonView.RPC("WantToMoveVerticalRPC", RpcTarget.MasterClient, Input.GetAxis("Vertical"));
+                }
+                else
+                {
+                    verticalAxe = 0;
+                    photonView.RPC("WantToMoveVerticalRPC", RpcTarget.MasterClient, 0f);
+                }
             }
-
+            
             /*
             if(Input.GetKeyDown(KeyCode.Z))
             {
@@ -99,16 +110,35 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
             if (rotationX != Input.GetAxis("Mouse Y"))
             {
-                rotationX = Input.GetAxis("Mouse Y");
-                photonView.RPC("WantToRotateXRPC", RpcTarget.MasterClient, Input.GetAxis("Mouse Y"));
+                if (!isInInventory && !isInEscapeMenu)
+                {
+                    rotationX = Input.GetAxis("Mouse Y");
+                    photonView.RPC("WantToRotateXRPC", RpcTarget.MasterClient, Input.GetAxis("Mouse Y"));
+                }
+                else
+                {
+                    rotationX = 0;
+                    photonView.RPC("WantToRotateXRPC", RpcTarget.MasterClient, 0f);
+                }
             }
 
             if (rotationY != Input.GetAxis("Mouse X"))
             {
-                rotationY = Input.GetAxis("Mouse X");
-                photonView.RPC("WantToRotateYRPC", RpcTarget.MasterClient, Input.GetAxis("Mouse X"));
+                if (!isInInventory && !isInEscapeMenu)
+                {
+                    rotationY = Input.GetAxis("Mouse X");
+                    photonView.RPC("WantToRotateYRPC", RpcTarget.MasterClient, Input.GetAxis("Mouse X"));
+                }
+                else
+                {
+                    rotationY = 0;
+                    photonView.RPC("WantToRotateYRPC", RpcTarget.MasterClient, 0f);
+                }
             }
-
+            if (isInInventory || isInEscapeMenu)
+            {
+                return;
+            }
             if (Input.GetButtonDown("Jump"))
             {
                 wantToJump = true;
