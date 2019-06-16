@@ -37,6 +37,8 @@ namespace GarbageRoyale.Scripts
 
         private DetailedInventoryRPCManager RpcManager;
 
+        private bool isGettingCraftedItem = false;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -87,6 +89,7 @@ namespace GarbageRoyale.Scripts
                         }
 
                         CraftingSlots[j-20].texture = null;
+                        isGettingCraftedItem = true;
                     }
                 }
             }
@@ -111,50 +114,62 @@ namespace GarbageRoyale.Scripts
                 {
                     if (RectTransformUtility.RectangleContainsScreenPoint(ItemRects[i], Input.mousePosition))
                     {
-                        //Debug.Log("playerindex "+System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)+" oldplace "+invIndex+" newplace "+i);
-                        //RpcManager.photonView.RPC("testrpc",RpcTarget.MasterClient);
-                        RpcManager.photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,
-                            System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), invIndex, i, PhotonNetwork.IsMasterClient);
-                        //ItemSlots[i].transform.position = ItemRects[i].position;
+                        if (isGettingCraftedItem)
+                        {
+                            RpcManager.photonView.RPC("AskGetCraftedItem", RpcTarget.MasterClient, gc.items[playerInventory.itemInventory[invIndex]].GetComponent<Item>().type, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),  playerInventory.itemInventory[invIndex],  i,  PhotonNetwork.IsMasterClient);
+                            isGettingCraftedItem = false;
+                        }
+                        else
+                        {
+                            RpcManager.photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,
+                                System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), invIndex, i,
+                                PhotonNetwork.IsMasterClient);
+                        }
+
                         RawImage rawImg = GameObject.Find("ItemImg_" + i).GetComponent<RawImage>();
                         Texture textureMem = rawImg.texture;
                         rawImg.texture = GetComponent<RawImage>().texture;
                         GetComponent<RawImage>().texture = textureMem;
                         return;
-                        /*int idMem = playerInventory.itemInventory[i];
-                        playerInventory.itemInventory[i] = playerInventory.itemInventory[invIndex];
-                        playerInventory.itemInventory[invIndex] = idMem;
-                        Debug.Log("newPlace " + playerInventory.itemInventory[i]+ " oldplace " + idMem);*/
+                        
                     }
                 }
-
-                for (int i = 0; i < 5; i++)
+                if (isGettingCraftedItem)
                 {
-                    if (RectTransformUtility.RectangleContainsScreenPoint(CraftingRects[i], Input.mousePosition))
+                    RpcManager.photonView.RPC("AskGetCraftedItem", RpcTarget.MasterClient, gc.items[playerInventory.itemInventory[invIndex]].GetComponent<Item>().type, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),  playerInventory.itemInventory[invIndex],  -1,  PhotonNetwork.IsMasterClient);
+                    isGettingCraftedItem = false;
+                }
+                else
+                {
+                    for (int i = 0; i < 5; i++)
                     {
-                        Debug.Log("playerindex " + System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId) +
-                                  " oldplace " + invIndex + " newplace " + i);
-                        RpcManager.photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,
-                            System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), invIndex, 20 + i, PhotonNetwork.IsMasterClient);
-                        //ItemSlots[i].transform.position = ItemRects[i].position;
-                        RawImage rawImg = GameObject.Find("CraftingImg_" + i).GetComponent<RawImage>();
-                        Texture textureMem = rawImg.texture;
-                        rawImg.texture = GetComponent<RawImage>().texture;
-                        GetComponent<RawImage>().texture = textureMem;
-                        //Inventory playerInventory = gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerGameObject.GetComponent<Inventory>();
-                        /*int idMem = playerInventory.itemInventory[20+i];
-                        playerInventory.itemInventory[20+i] = playerInventory.itemInventory[invIndex];
-                        playerInventory.itemInventory[invIndex] = idMem;*/
+                        if (RectTransformUtility.RectangleContainsScreenPoint(CraftingRects[i], Input.mousePosition))
+                        {
+                            Debug.Log("playerindex " +
+                                      System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId) +
+                                      " oldplace " + invIndex + " newplace " + i);
+                            RpcManager.photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,
+                                System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), invIndex,
+                                20 + i, PhotonNetwork.IsMasterClient);
+                            //ItemSlots[i].transform.position = ItemRects[i].position;
+                            RawImage rawImg = GameObject.Find("CraftingImg_" + i).GetComponent<RawImage>();
+                            Texture textureMem = rawImg.texture;
+                            rawImg.texture = GetComponent<RawImage>().texture;
+                            GetComponent<RawImage>().texture = textureMem;
+                            //Inventory playerInventory = gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerGameObject.GetComponent<Inventory>();
+                            /*int idMem = playerInventory.itemInventory[20+i];
+                            playerInventory.itemInventory[20+i] = playerInventory.itemInventory[invIndex];
+                            playerInventory.itemInventory[invIndex] = idMem;*/
 
-                    }
-                    else
-                    {
-                        RpcManager.photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,
-                            System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), invIndex, invIndex, PhotonNetwork.IsMasterClient);
+                        }
+                        else
+                        {
+                            RpcManager.photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,
+                                System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), invIndex,
+                                invIndex, PhotonNetwork.IsMasterClient);
+                        }
                     }
                 }
-
-                
             }
             else
             {

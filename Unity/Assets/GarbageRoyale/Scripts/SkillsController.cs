@@ -109,7 +109,7 @@ namespace GarbageRoyale.Scripts
                         {
                             SkillCD_0.GetComponent<Text>().text = "";
                         }
-                        if (skillManager.bufftime > 0)
+                        if (skillManager.bufftime > 0 && skillManager.skillType!=3 && skillManager.skillType !=5)
                         {
                             SkillBuffTime_0.GetComponent<Text>().text = skillManager.bufftime.ToString();
                         }
@@ -212,6 +212,7 @@ namespace GarbageRoyale.Scripts
                     gc.playersActions[playerIndex].isDamageBoosted = true;
                     break;
                 case 2:
+                    Debug.Log("invisible");
                     gc.players[playerIndex].PlayerRenderer.enabled = false;
                     break;
                 case 3:
@@ -303,8 +304,11 @@ namespace GarbageRoyale.Scripts
                 }
                 if (skillPlace == 0)
                 {
-                    SkillBuff_0.GetComponent<RawImage>().texture = buffTextures[skillInfos.type].texture;
-                    SkillBuffTime_0.GetComponent<Text>().text =skillInfos.bufftime.ToString();
+                    if (skillInfos.type != 3 && skillInfos.type != 5)
+                    {
+                        SkillBuff_0.GetComponent<RawImage>().texture = buffTextures[skillInfos.type].texture;
+                        SkillBuffTime_0.GetComponent<Text>().text =skillInfos.bufftime.ToString();
+                    }
                 }
                 else
                 {

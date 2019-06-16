@@ -98,6 +98,7 @@
             <e p="SoundManager.cs" t="Include" />
             <e p="SpawnMob.cs" t="Include" />
             <e p="StaticSwitchScene.cs" t="Include" />
+            <e p="TransitionScript.cs" t="Include" />
             <e p="TrapDoorCheckButton.cs" t="Include" />
             <e p="Water.cs" t="Include" />
           </e>

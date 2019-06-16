@@ -372,7 +372,7 @@ namespace GarbageRoyale.Scripts
                     }
                     else if(!doorIsOpen)
                     {
-                        startDoor.SetActive(false);
+                        Destroy(startDoor);
                         doorIsOpen = true;
                     }
                     else if(waterStartTimeLeft > 0)

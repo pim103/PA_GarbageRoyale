@@ -40,13 +40,14 @@ namespace GarbageRoyale.Scripts
             int rMax = data.GetUpperBound(0);
             int cMax = data.GetUpperBound(1);
             float halfH = height * .5f + ypos;
-    
+
+            int k = 0;
             //4
             for (int i = 0; i <= rMax; i++)
             {
                 for (int j = 0; j <= cMax; j++)
                 {
-                    if((i == 40 && j == 40) || (i == 44 && j == 44))
+                    /*if((i == 40 && j == 40) || (i == 44 && j == 44))
                     {
                         if(i == 40)
                         {
@@ -65,7 +66,21 @@ namespace GarbageRoyale.Scripts
                             itemSpawn.itemType = 11;
                             itemSpawn.initItems();
                         }
-                    }
+                    }*/
+
+                    /*if (i >= 40 && j >= 40 && i < 45 && j < 45 && ypos == 0)
+                    {
+                        if (k < 12)
+                        {
+                            GameObject ItemRoom = Instantiate(Prefabs[12],
+                                new Vector3(j * width + ypos, ypos, i * width + ypos), Quaternion.identity);
+                            ItemSpawner itemSpawn = ItemRoom.GetComponent<ItemSpawner>();
+
+                            itemSpawn.itemType = k;
+                            itemSpawn.initItems();
+                            k++;
+                        }
+                    }*/
 
                     if (data[i, j] == 0)
                     {

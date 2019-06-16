@@ -9,9 +9,9 @@ using UnityEngine;
 
 namespace GarbageRoyale.Scripts
 {
-    public class OnlinePlayerManager : MonoBehaviourPun, IPunObservable
-    {
-        [HideInInspector]
+    public class OnlinePlayerManager : MonoBehaviourPun{
+        
+    /*[HideInInspector]
         public InputStr Input;
         public struct InputStr
         {
@@ -44,7 +44,7 @@ namespace GarbageRoyale.Scripts
                 Destroy(transform.GetChild(0).gameObject);
                 Destroy(GetComponent<PlayerMovement>());
                 Destroy(GetComponent<CameraControl>());
-            }*/
+            }
                 
         }
 
@@ -100,6 +100,6 @@ namespace GarbageRoyale.Scripts
                 Input.LookX = (float)stream.ReceiveNext();
                 Input.LookZ = (float)stream.ReceiveNext();
             }
-        }
+        }*/
     }
 }

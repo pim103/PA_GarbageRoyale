@@ -10,7 +10,7 @@ namespace GarbageRoyale.Scripts
     public class DetailedInventoryRPCManager : MonoBehaviourPunCallbacks
     {
         private GameController gc;
-        
+        private Inventory inv;
         public List<int> craftingList;
         
         private RawImage CraftingResultSlot;
@@ -21,6 +21,7 @@ namespace GarbageRoyale.Scripts
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             spritesExposer = GameObject.Find("DetailedInventory").GetComponent<InventorySpritesExposer>();
+            inv = GameObject.Find("Controller").GetComponent<Inventory>();
             CraftingResultSlot = spritesExposer.CraftingResult;
         }
 
@@ -82,8 +83,7 @@ namespace GarbageRoyale.Scripts
                         craftingList.Contains((int) ItemController.TypeItem.ToiletPaper))
                     {
                         photonView.RPC("AskCraftItem", RpcTarget.MasterClient, (int) ItemController.TypeItem.SteelStaff,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),
-                            isMaster);
+                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),isMaster);
 
                         //CraftingResultSlot.texture = gc.inventoryGui.rawSprites[1].texture;
 
@@ -92,8 +92,7 @@ namespace GarbageRoyale.Scripts
                              craftingList.Contains((int) ItemController.TypeItem.Jerrican))
                     {
                         photonView.RPC("AskCraftItem", RpcTarget.MasterClient, (int) ItemController.TypeItem.OilBottle,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),
-                            isMaster);
+                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),isMaster);
                         //CraftingResultSlot.texture = gc.inventoryGui.rawSprites[7].texture;
                         
                     }
@@ -101,8 +100,7 @@ namespace GarbageRoyale.Scripts
                              craftingList.Contains((int) ItemController.TypeItem.ToiletPaper))
                     {
                         photonView.RPC("AskCraftItem", RpcTarget.MasterClient, (int) ItemController.TypeItem.Molotov,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),
-                            isMaster);
+                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),isMaster);
                         //CraftingResultSlot.texture = gc.inventoryGui.rawSprites[8].texture;
                     }
                     else
@@ -117,8 +115,7 @@ namespace GarbageRoyale.Scripts
                         craftingList.Contains((int) ItemController.TypeItem.Jerrican))
                     {
                         photonView.RPC("AskCraftItem", RpcTarget.MasterClient, (int) ItemController.TypeItem.Molotov,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),
-                            isMaster);
+                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),isMaster);
                         //CraftingResultSlot.texture = gc.inventoryGui.rawSprites[8].texture;
                     }
                     else if (craftingList.Contains((int) ItemController.TypeItem.MetalSheet) &&
@@ -127,8 +124,7 @@ namespace GarbageRoyale.Scripts
                     {
                         photonView.RPC("AskCraftItem", RpcTarget.MasterClient,
                             (int) ItemController.TypeItem.WolfTrap,
-                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),
-                            isMaster);
+                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),isMaster);
 
                             //CraftingResultSlot.texture = gc.inventoryGui.rawSprites[9].texture;
                     }
@@ -161,7 +157,7 @@ namespace GarbageRoyale.Scripts
                 {
                     if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
                     {
-                        Debug.Log("notCrafted");
+                        //Debug.Log("notCrafted");
                         //CraftingResultSlot.texture = null;
                         //playerInventory.itemInventory[25] = -1;
                         //photonView.RPC("AskDeleteCraftItem", RpcTarget.All,System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
@@ -178,11 +174,7 @@ namespace GarbageRoyale.Scripts
                 return;
             }
             
-            AnswerCraftItem(itemtype,playerIndex, gc.items.Count);
-            if (!isMaster)
-            {
-                photonView.RPC("AnswerCraftItem", info.Sender, itemtype,playerIndex, gc.items.Count);
-            }
+            photonView.RPC("AnswerCraftItem", RpcTarget.All, itemtype,playerIndex, gc.items.Count);
         }
         
         [PunRPC]
@@ -223,15 +215,82 @@ namespace GarbageRoyale.Scripts
             item.GetComponent<Item>().setId(itemID);
             gc.items.Add(itemID,item);
             playerInventory.itemInventory[25] = itemID;
+            
+            if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            {
+                CraftingResultSlot.texture = gc.inventoryGui.rawSprites[textureID].texture;
+            }
+        }
+
+        [PunRPC]
+        public void AskGetCraftedItem(int itemtype, int playerIndex, int itemID, int newPlace, bool isMaster, PhotonMessageInfo info)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+            
+            AnswerGetCraftedItem(itemtype,playerIndex, itemID, newPlace,isMaster);
+            if (!isMaster)
+            {
+                photonView.RPC("AnswerGetCraftedItem", info.Sender, itemtype,playerIndex, itemID, newPlace,isMaster);
+            }
+        }
+
+        [PunRPC]
+        public void AnswerGetCraftedItem(int itemtype, int playerIndex, int itemID, int newPlace, bool isMaster)
+        {
+            Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
+            GameObject item;
+            int poolID = 0;
+            int textureID = 0;
+            switch (itemtype)
+            {
+                case (int)ItemController.TypeItem.SteelStaff:
+                    poolID = 1;
+                    textureID = 1;
+                    break;
+                case (int)ItemController.TypeItem.OilBottle:
+                    poolID = 2;
+                    textureID = 7;
+                    break;
+                case (int)ItemController.TypeItem.Molotov:
+                    poolID = 3;
+                    textureID = 8;
+                    break;
+                case (int)ItemController.TypeItem.WolfTrap:
+                    poolID = 7;
+                    textureID = 9;
+                    break;
+                case (int)ItemController.TypeItem.ManifTrap:
+                    poolID = 9;
+                    textureID = 10;
+                    break;
+                default:
+                    Debug.Log("Wrong Item");
+                    break;
+            }
 
             if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
                 gc.items[itemID].transform.SetParent(gc.players[playerIndex].PlayerTorch.transform.parent);
                 gc.items[itemID].transform.localPosition = new Vector3(0, 0, 0);
                 gc.items[itemID].transform.localRotation = gc.items[itemID].transform.parent.transform.localRotation;
-                
-                Debug.Log("allo");
-                CraftingResultSlot.texture = gc.inventoryGui.rawSprites[textureID].texture;
+                if (newPlace != -1)
+                {
+                    photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,
+                        System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), 25, newPlace, PhotonNetwork.IsMasterClient);
+                }
+                else
+                {
+                    int place = gc.players[playerIndex].GetComponent<Inventory>().findPlaceInventory();
+                    RawImage rawImg = GameObject.Find("ItemImg_" + place).GetComponent<RawImage>();
+                    Texture textureMem = rawImg.texture;
+                    rawImg.texture = CraftingResultSlot.GetComponent<RawImage>().texture;
+                    CraftingResultSlot.GetComponent<RawImage>().texture = textureMem;
+                    photonView.RPC("AskSwapInventoryItems", RpcTarget.MasterClient,
+                        System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), 25, place, PhotonNetwork.IsMasterClient);
+                }
             }
         }
         
