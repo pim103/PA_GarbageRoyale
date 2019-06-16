@@ -142,7 +142,6 @@ namespace GarbageRoyale.Scripts
             } else
             {
                 StartCoroutine(SearchForActivateAvatar());
-                startDoor = PhotonNetwork.Instantiate("StartDoor", new Vector3(142, 0, 160), Quaternion.identity);
 
                 waterStart = false;
                 doorIsOpen = false;
@@ -163,6 +162,8 @@ namespace GarbageRoyale.Scripts
             playerTexture = MakeTex(4, 4, new Color(0.5f, 0.5f, 0.5f, 0.5f));
             generator = GetComponent<MazeConstructor>();      // 2
             generator.GenerateNewMaze(81, 81, itemList.Length);
+
+            startDoor = Instantiate(startDoorPrefab, new Vector3(142, 0, 160), Quaternion.identity);
 
             moveDirection = new Vector3[10];
             rotationPlayer = new Vector3[10];
@@ -372,7 +373,7 @@ namespace GarbageRoyale.Scripts
                     }
                     else if(!doorIsOpen)
                     {
-                        Destroy(startDoor);
+                        photonView.RPC("DesactiveStartDoorRPC", RpcTarget.All);
                         doorIsOpen = true;
                     }
                     else if(waterStartTimeLeft > 0)
@@ -398,6 +399,12 @@ namespace GarbageRoyale.Scripts
         public bool getCanMove()
         {
             return canMove;
+        }
+
+        [PunRPC]
+        public void DesactiveStartDoorRPC()
+        {
+            startDoor.SetActive(false);
         }
 
         private void OnGUI()

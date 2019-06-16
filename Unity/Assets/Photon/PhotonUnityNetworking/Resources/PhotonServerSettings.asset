@@ -158,4 +158,8 @@ MonoBehaviour:
   - EndGameRPC
   - AskUsePaper
   - UsePaperRpc
+  - AnswerGetCraftedItem
+  - AskGetCraftedItem
+  - DesactiveDoorRPC
+  - DesactiveStartDoorRPC
   DisableAutoOpenWizard: 1

@@ -51,7 +51,7 @@ namespace GarbageRoyale.Scripts.Menu
                 textSetFullscreen.text = "Passer en mode Plein écran";
             }
             settingsButton.onClick.AddListener(GoToSettings);
-            settingsReturn.onClick.AddListener(ResumeGame);
+            settingsReturn.onClick.AddListener(BackToMenu);
             exitButton.onClick.AddListener(AskForExit);
         }
 
@@ -95,7 +95,12 @@ namespace GarbageRoyale.Scripts.Menu
         {
             controller.GetComponent<PauseController>().isInEscapeMenu = false;
         }
-        
+
+        public void BackToMenu()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
         public void AskForExit()
         {
             Application.Quit();
