@@ -21,8 +21,6 @@ namespace GarbageRoyale.Scripts
         [SerializeField] public GameObject floorTransition;
         [SerializeField] private Material mazeMat1;
         [SerializeField] private Material mazeMat2;
-        [SerializeField] private Material startMat;
-        [SerializeField] private Material treasureMat;
 
         public MazeDataGenerator dataGenerator;
         public MazeMeshGenerator meshGenerator;

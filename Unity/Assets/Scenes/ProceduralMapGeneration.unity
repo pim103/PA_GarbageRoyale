@@ -4962,9 +4962,7 @@ MonoBehaviour:
   floorTransition: {fileID: 4449432576064577553, guid: 503958394bf416442aa3518a8fdcdf19,
     type: 3}
   mazeMat1: {fileID: 2100000, guid: 2019d743bc0984ba1b81150901d44455, type: 2}
-  mazeMat2: {fileID: 2100000, guid: a36a45d20a42a4a0695e782d8b69409e, type: 2}
-  startMat: {fileID: 0}
-  treasureMat: {fileID: 0}
+  mazeMat2: {fileID: 2100000, guid: 7d4018cc002e925488d631ab0f2bd072, type: 2}
   meshGenerator: {fileID: 0}
 --- !u!114 &1103656770
 MonoBehaviour:
@@ -5243,6 +5241,26 @@ MonoBehaviour:
   - objectToPool: {fileID: 3677910798032254441, guid: 1ed300607fbc7714c9f0134fed6b7442,
       type: 3}
     amountToPool: 50
+    shouldExpand: 1
+  - objectToPool: {fileID: 7462401996308063030, guid: 7f2939e5be338b34d818b1b0a4041b92,
+      type: 3}
+    amountToPool: 10
+    shouldExpand: 1
+  - objectToPool: {fileID: 1066649638503490098, guid: 79ac27bf71b2f5c47895455dd8e04f9a,
+      type: 3}
+    amountToPool: 10
+    shouldExpand: 1
+  - objectToPool: {fileID: 2021632103173086074, guid: dde2fbe1b24020242bba4da8d397796b,
+      type: 3}
+    amountToPool: 10
+    shouldExpand: 1
+  - objectToPool: {fileID: 4123475609780375399, guid: 1e616990ba986324e9e87d2902e4c24e,
+      type: 3}
+    amountToPool: 10
+    shouldExpand: 1
+  - objectToPool: {fileID: 4583224748811352036, guid: 05be5c53f20f9964e8ab9bcfe54397fc,
+      type: 3}
+    amountToPool: 10
     shouldExpand: 1
   pooledObjects:
   - {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117, type: 3}
