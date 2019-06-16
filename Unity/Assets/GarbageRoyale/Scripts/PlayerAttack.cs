@@ -27,7 +27,8 @@ namespace GarbageRoyale.Scripts
                 return;
             }
 
-            if(Input.GetMouseButtonDown(0))
+            int idPlayer = Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
+            if (!gc.playersActions[idPlayer].isInInventory && !gc.playersActions[idPlayer].isInEscapeMenu && Input.GetMouseButtonDown(0))
             {
                 photonView.RPC("PunchRPC", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId);
             }

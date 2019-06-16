@@ -21,9 +21,6 @@ namespace GarbageRoyale.Scripts.PlayerController {
         private ScriptExposer scripts;
 
         private GameController gc;
-
-        private bool isInInventory = false;
-        private bool isInEscapeMenu = false;
         
         private SkillsController skillsController;
 
@@ -37,6 +34,9 @@ namespace GarbageRoyale.Scripts.PlayerController {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             skillsController = GameObject.Find("SkillsController").GetComponent<SkillsController>();
             scripts.cr.cameraIndex = PlayerIndex;
+
+            isInInventory = false;
+            isInEscapeMenu = false;
         }
 
         // Update is called once per frame
