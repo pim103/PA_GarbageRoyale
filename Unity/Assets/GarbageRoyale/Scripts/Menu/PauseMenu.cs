@@ -50,8 +50,12 @@ namespace GarbageRoyale.Scripts.Menu
             {
                 textSetFullscreen.text = "Passer en mode Plein écran";
             }
+            baseMenu.SetActive(true);
+            settingsMenu.SetActive(false);
+            
             settingsButton.onClick.AddListener(GoToSettings);
-            settingsReturn.onClick.AddListener(BackToMenu);
+            disconnectButton.onClick.AddListener(BackToMenu);
+            settingsReturn.onClick.AddListener(GoToMainPause);
             exitButton.onClick.AddListener(AskForExit);
         }
 

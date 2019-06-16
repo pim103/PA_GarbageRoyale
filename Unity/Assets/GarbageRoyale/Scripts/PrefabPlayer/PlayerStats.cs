@@ -19,6 +19,8 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public float attackCostStamina;
 
         public bool isDead;
+        public string playerName;
+        private int playerRole;
         private bool isRotatePlayer;
 
         public bool isAlreadyTrigger;
@@ -35,6 +37,8 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
             currentBreath = 1.0f;
             basicAttack = 3f;
             attackCostStamina = 20f;
+            playerName = "null";
+            playerRole = 0;
 
             isDead = false;
             isRotatePlayer = false;
@@ -91,6 +95,18 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public void setStamina(float s)
         {
             currentStamina = s;
+        }
+
+        public int PlayerRole
+        {
+            get => playerRole;
+            set => playerRole = value;
+        }
+
+        public string PlayerName
+        {
+            get => playerName;
+            set => playerName = value;
         }
 
         public void useStamina()

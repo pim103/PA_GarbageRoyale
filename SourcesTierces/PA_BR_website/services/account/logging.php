@@ -14,10 +14,10 @@ if (count( $_POST ) == 2 && ! empty( $_POST["accountEmail"] ) && ! empty( $_POST
     //print_r($result);
 
     if (password_verify($_POST["accountPassword"], $result[0])) {
-        $queryUserId =$db->getPDO()->prepare('SELECT userid FROM account WHERE email="' . $_POST["accountEmail"].'"');
+        $queryUserId =$db->getPDO()->prepare('SELECT name, userid, role FROM account WHERE email="' . $_POST["accountEmail"].'"');
         $queryUserId->execute();
         $userId = $queryUserId->fetch();
-        echo $userId[0];
+        echo $userId[0] . "#" .  $userId[1] . "#" . $userId[2];
         http_response_code(202);
     } else {
         http_response_code(406);

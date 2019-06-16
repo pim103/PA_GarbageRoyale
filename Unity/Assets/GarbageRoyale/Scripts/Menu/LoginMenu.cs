@@ -38,7 +38,8 @@ namespace GarbageRoyale.Scripts.Menu
 
         [SerializeField]
         private StartGame controller;
-        
+
+        public string[] httpResponse;
 
         // Start is called before the first frame update
         void Start()
@@ -74,7 +75,9 @@ namespace GarbageRoyale.Scripts.Menu
                 dialogText.text = "Connexion réussi";
                 yield return new WaitForSeconds(0.5f);
                 PhotonNetwork.ConnectUsingSettings();
-                PhotonNetwork.AuthValues = new AuthenticationValues(www.downloadHandler.text);
+                httpResponse = www.downloadHandler.text.Split('#');
+                PhotonNetwork.AuthValues = new AuthenticationValues(httpResponse[1]);
+                Debug.Log(httpResponse[0]);
                 dialogWindow.SetActive(false);
                 controller.launchMainMenu();
             }

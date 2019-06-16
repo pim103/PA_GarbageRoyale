@@ -47,5 +47,6 @@ namespace GarbageRoyale.Scripts.PlayerController
 
         public bool isInInventory { get; set; }
         public bool isInEscapeMenu { get; set; }
+        public bool isInGMGUI { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using System.Collections;
 using System.Collections.Generic;
+using GarbageRoyale.Scripts.GameMaster;
 using GarbageRoyale.Scripts.PrefabPlayer;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -19,9 +20,8 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
         [SerializeField]
         private ScriptExposer scripts;
-
-        private GameController gc;
         
+        private GameController gc;
         private SkillsController skillsController;
 
         private void Start()
@@ -37,6 +37,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
             isInInventory = false;
             isInEscapeMenu = false;
+            isInGMGUI = false;
         }
 
         // Update is called once per frame
@@ -44,17 +45,22 @@ namespace GarbageRoyale.Scripts.PlayerController {
         {
             if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
             {
+                //Debug.Log("Error indexes");
                 return;
             }
 
+            if (Input.GetKeyDown(KeyCode.Tab) && (!isInGMGUI || !isInEscapeMenu))
+            {
+                isInInventory = !isInInventory;
+            }
+            
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 isInEscapeMenu = !isInEscapeMenu;
             }
-            
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.Quote) && (!isInInventory || !isInEscapeMenu))
             {
-                isInInventory = !isInInventory;
+                isInGMGUI = !isInGMGUI;
             }
 
             if (horizontalAxe != Input.GetAxis("Horizontal"))
@@ -110,7 +116,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
             if (rotationX != Input.GetAxis("Mouse Y"))
             {
-                if (!isInInventory && !isInEscapeMenu)
+                if (!isInInventory && !isInEscapeMenu && !isInGMGUI)
                 {
                     rotationX = Input.GetAxis("Mouse Y");
                     photonView.RPC("WantToRotateXRPC", RpcTarget.MasterClient, Input.GetAxis("Mouse Y"));
@@ -124,7 +130,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
             if (rotationY != Input.GetAxis("Mouse X"))
             {
-                if (!isInInventory && !isInEscapeMenu)
+                if (!isInInventory && !isInEscapeMenu && !isInGMGUI)
                 {
                     rotationY = Input.GetAxis("Mouse X");
                     photonView.RPC("WantToRotateYRPC", RpcTarget.MasterClient, Input.GetAxis("Mouse X"));
@@ -135,7 +141,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
                     photonView.RPC("WantToRotateYRPC", RpcTarget.MasterClient, 0f);
                 }
             }
-            if (isInInventory || isInEscapeMenu)
+            if (isInInventory || isInEscapeMenu || isInGMGUI)
             {
                 return;
             }
