@@ -15,7 +15,7 @@ namespace GarbageRoyale.Scripts.GameMaster
         [SerializeField]
         private Button invisibleButton;
         [SerializeField]
-        private Button invinsibleButton;
+        private Button invincibleButton;
         [SerializeField] 
         private InputField itemTypeField;
         [SerializeField] 
@@ -26,11 +26,11 @@ namespace GarbageRoyale.Scripts.GameMaster
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             addItemButton.onClick.AddListener(AddItem);
-            invinsibleButton.onClick.AddListener(SetInvinsible);
+            invincibleButton.onClick.AddListener(SetInvincible);
             //invisibleButton.interactable(false);
         }
 
-        public void SetInvinsible()
+        public void SetInvincible()
         {
             return;
         }
@@ -72,7 +72,8 @@ namespace GarbageRoyale.Scripts.GameMaster
             item = ObjectPooler.SharedInstance.GetPooledObject(itemtype);
             item.GetComponent<Item>().setId(itemID);
             gc.items.Add(itemID,item);
-
+            
+            Debug.Log("Test Add");
             playerInventory.itemInventory[place] = itemID;
 
             if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
