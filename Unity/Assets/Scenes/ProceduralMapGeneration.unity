@@ -3186,6 +3186,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6683574327873717355, guid: eec08ba0da3bcac40a57a8e5e2a64078, type: 3}
     - {fileID: 6235726624846415209, guid: eec08ba0da3bcac40a57a8e5e2a64078, type: 3}
+    - {fileID: 5280669250511911608, guid: eec08ba0da3bcac40a57a8e5e2a64078, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: eec08ba0da3bcac40a57a8e5e2a64078, type: 3}
 --- !u!1 &669335998 stripped
 GameObject:
@@ -5350,7 +5351,13 @@ MonoBehaviour:
   healthBar: {fileID: 669336003}
   staminaBar: {fileID: 669336002}
   breathBar: {fileID: 669336001}
-  skillTextures: []
+  skillTextures:
+  - {fileID: 5833977737841398870, guid: 7f09f46d884795145992b453d28f2b41, type: 3}
+  - {fileID: 5833977737841398870, guid: 055442008036a5a43b4c893ed3608ebb, type: 3}
+  - {fileID: 5833977737841398870, guid: 2e73d7b8d6de5de4a9c474d705fe8742, type: 3}
+  - {fileID: 5833977737841398870, guid: ca1733d3131f82943b400d21df472a02, type: 3}
+  - {fileID: 5833977737841398870, guid: b0f21300896d7ae4eba90661ebc0135a, type: 3}
+  - {fileID: 5833977737841398870, guid: 2cf580fdfbbd7d340a04e18dfdc2e248, type: 3}
 --- !u!114 &1103656786
 MonoBehaviour:
   m_ObjectHideFlags: 0

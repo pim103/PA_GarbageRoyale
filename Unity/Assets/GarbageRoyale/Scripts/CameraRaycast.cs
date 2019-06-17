@@ -214,7 +214,7 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         private void MobDeath(int mobID)
         {
-            photonView.RPC("MobDeathAll",RpcTarget.All,mobID,Random.Range(0, 5));
+            photonView.RPC("MobDeathAll",RpcTarget.All,mobID,Random.Range(0, 6));
         }
         
         [PunRPC]
