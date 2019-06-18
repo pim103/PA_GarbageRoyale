@@ -196,7 +196,9 @@ MonoBehaviour:
   basicAttack: 0
   attackCostStamina: 0
   isDead: 0
+  playerName: 
   isAlreadyTrigger: 0
+  isInvincible: 0
 --- !u!1 &122
 GameObject:
   m_ObjectHideFlags: 0
@@ -2252,6 +2254,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8723600378741118963, guid: e3a6c5ccafd1894408ec285e2097e64c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8723600378741118963, guid: e3a6c5ccafd1894408ec285e2097e64c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8723600378741118963, guid: e3a6c5ccafd1894408ec285e2097e64c,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8723600378741118963, guid: e3a6c5ccafd1894408ec285e2097e64c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.085
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6401679282709431903, guid: e3a6c5ccafd1894408ec285e2097e64c, type: 3}

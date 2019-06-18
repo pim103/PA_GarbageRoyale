@@ -269,6 +269,7 @@ MonoBehaviour:
   uniqueRope: 0
   withRope: 0
   initNewRope: 0
+  scaleRopeCube: {x: 0, y: 0, z: 0}
   savePosRope: {x: 0, y: 0, z: 0}
   savePosRope2: {x: 0, y: 0, z: 0}
   previewRope1: {fileID: 0}
@@ -311,6 +312,7 @@ MonoBehaviour:
   isOnline: 0
   scale: {x: 1, y: 1, z: 1}
   isThrow: 0
+  isBurn: 0
 --- !u!54 &4097259327586983953
 Rigidbody:
   m_ObjectHideFlags: 0
