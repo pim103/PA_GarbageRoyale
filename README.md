@@ -39,7 +39,7 @@ I - Ouvrir les portes de départ
 Oil Bottle = Bottle + Jerrican       
 Molotov Cocktail = Oil Bottle + Toilet Paper || Bottle + Jerrican + Toilet Paper      
 Steel-Jaw Trap (Wolf Trap) = Metal Sheet + Rope + Nail Box    
-Rioter Trap = Metal Sheet + Wooden Staff + Toilet Paper + Rope   
+Rioter Trap = Metal Sheet + Wooden Staff + Toilet Paper + Rope + Torch     
 
 
 # ID des Objets :   
