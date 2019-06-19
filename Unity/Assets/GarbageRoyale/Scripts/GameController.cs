@@ -71,8 +71,8 @@ namespace GarbageRoyale.Scripts
         private bool wantToGoDown;
 
         public bool isGameStart;
-        private float timeLeft = 40;
-        private float waterStartTimeLeft = 9999999999;
+        private float timeLeft;
+        private float waterStartTimeLeft;
         private bool waterStart;
         private bool pressL;
 
@@ -152,7 +152,7 @@ namespace GarbageRoyale.Scripts
                 waterStart = false;
                 doorIsOpen = false;
                 waterStartTimeLeft = 60.0f;
-                timeLeft = 60.0f;
+                timeLeft = 20.0f;
             }
 
             // INIT MAP AND MINIMAP
