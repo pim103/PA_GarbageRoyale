@@ -4988,7 +4988,7 @@ MonoBehaviour:
   mainCamera: {fileID: 1461953439}
   menuSound: {fileID: 901990065}
   soundManager: {fileID: 1103656776}
-  menuController: {fileID: 0}
+  menuController: {fileID: 415303308}
   inventoryGui: {fileID: 1103656785}
   water: {fileID: 1103656773}
   Mob: {fileID: 5808846029801638683, guid: 262e61a97cc11c649ac8a9648e44896d, type: 3}

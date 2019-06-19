@@ -98,6 +98,9 @@ namespace GarbageRoyale.Scripts
         public bool endOfInit;
         public bool doorIsOpen;
 
+        private bool triggerWater;
+        private bool forceOpenDoor;
+
         public Dictionary<int, GameObject> pipes = new Dictionary<int, GameObject>();
         public Dictionary<GameObject, int> buttonsTrap = new Dictionary<GameObject, int>();
         public Dictionary<int, GameObject> traps = new Dictionary<int, GameObject>();
@@ -136,7 +139,10 @@ namespace GarbageRoyale.Scripts
         void Start()
         {
             endOfInit = false;
-            if(!PhotonNetwork.IsMasterClient)
+            triggerWater = false;
+            forceOpenDoor = false;
+
+            if (!PhotonNetwork.IsMasterClient)
             {
                 photonView.RPC("SendUserId", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId);
             } else
@@ -354,28 +360,57 @@ namespace GarbageRoyale.Scripts
             }
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                triggerWater = true;
+            } else if(Input.GetKeyUp(KeyCode.U))
+            {
+                triggerWater = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                forceOpenDoor = true;
+            }
+            else if (Input.GetKeyUp(KeyCode.I))
+            {
+                forceOpenDoor = false;
+            }
+        }
+
         private void FixedUpdate()
         {
             if(PhotonNetwork.IsMasterClient)
             {
-                if (Input.GetKeyDown(KeyCode.U))
+                if(triggerWater)
                 {
                     waterStart = true;
-                    water.setStartWater(true);
+                    water.ToggleStartWater();
+                    Debug.Log("Incroyable");
+                    triggerWater = false;
                 }
 
-                if (Input.GetKeyDown(KeyCode.I))
+                if(forceOpenDoor)
                 {
                     photonView.RPC("DesactiveStartDoorRPC", RpcTarget.All);
                     doorIsOpen = true;
                 }
+
+                if (Input.GetKeyDown(KeyCode.O))
+                {
+                    Vector3 temp = players[0].PlayerGameObject.transform.position;
+                    temp.y = 113;
+                    players[0].PlayerGameObject.transform.position = temp;
+                }
+
 
                 if (endOfInit && PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
                 {
                     StartCoroutine(Invincible());
                     if(timeLeft > 0)
                     {
-                        Debug.Log("Start");
                         timeLeft -= Time.deltaTime;
                     }
                     else if(!doorIsOpen)
@@ -386,7 +421,6 @@ namespace GarbageRoyale.Scripts
                     }
                     else if(waterStartTimeLeft > 0)
                     {
-                        Debug.Log("Water Start");
                         waterStartTimeLeft -= Time.deltaTime;
                     }
                     else if(!waterStart)

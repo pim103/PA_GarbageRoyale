@@ -205,6 +205,16 @@ namespace GarbageRoyale.Scripts.PlayerController {
             }
         }
 
+        private void FixedUpdate()
+        {
+            if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId && PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            scripts.pcm.PlayerRotation(PlayerIndex);
+        }
+
         [PunRPC]
         void WantToMoveHorizontalRPC(float axe)
         {

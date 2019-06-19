@@ -114,8 +114,9 @@ namespace GarbageRoyale.Scripts.PlayerController
                     isMoving = PlayerMovement(i);
                 }
 
+                //rotationX = PlayerRotation(i);
                 rotationX = PlayerRotation(i);
-                if(!coroutineIsStart[i])
+                if (!coroutineIsStart[i])
                 {
                     coroutineIsStart[i] = true;
                     StartCoroutine(PlayerUpdateStats(i));
@@ -151,7 +152,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                     );
                 }
 
-                if(gc.players[i].PlayerGameObject.transform.position.y >(8 + 4) * 8 + 11)
+                if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 8 - 5)
                 {
                     gc.isGameStart = false;
                     photonView.RPC("EndGameRPC", RpcTarget.All, EndGameMenu.StateEndGame.One_Alive, i);
@@ -384,6 +385,11 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             gc.soundManager.playWalkSound(id, isMoving, soundNeeded,isQuiet);
 
+            if(isMoving)
+            {
+                gc.players[id].PlayerAnimator.Play("Movement");
+            }
+
             PlayerStats ps = gc.players[id].PlayerStats;
             ps.currentHp = h;
             ps.currentStamina = s;
@@ -391,11 +397,8 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             ps.isDead = isDead;
             gc.playersActions[id].headIsInWater = headIsInWater;
-
             gc.playersActions[id].isBurning = isBurning;
-
             gc.playersActions[id].isOiled = isOiled;
-            
             gc.playersActions[id].isDamageBoosted = isDamageBoosted;
 
             if (gc.AvatarToUserId[id] == PhotonNetwork.AuthValues.UserId)
