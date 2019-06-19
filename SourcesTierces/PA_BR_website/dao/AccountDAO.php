@@ -99,4 +99,20 @@ class AccountDAO
 
         return $result;
     }
+
+    public static function updatePlayerScore($userid, $score){
+        $db = DatabaseManager::getSharedInstance();
+        $querySelectScore = $db->getPDO()->prepare('SELECT score FROM account WHERE userid=?');
+        $querySelectScore->execute([$userid]);
+        $currentScore = $querySelectScore->fetch(PDO::FETCH_ASSOC)["score"];
+
+        $newScore = $currentScore + $score;
+
+        $sql = 'UPDATE account SET score=? WHERE userid=?';
+        $query = $db->getPDO()->prepare($sql);
+        $done = $query->execute([$newScore, $userid]);
+
+        return $done != 0;
+
+    }
 }

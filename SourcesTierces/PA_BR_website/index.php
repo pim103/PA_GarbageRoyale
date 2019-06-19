@@ -10,25 +10,60 @@ session_start();
 require_once "./utils/header.php"
 ?>
 
-<div class="container" xmlns="http://www.w3.org/1999/html">
+<div id="main-div">
+    <div id="titles-div">
+        <h1>Garbage Royale</h1>
+        <h2>Scoreboard</h2>
+    </div>
+    <div id="scoreboard-div">
 
-    <h3>Me connecter</h3>
-    <form method="post" action="">
-        <div class="form-group">
-            <label for="accountName">Nom de compte :</label>
-            <input type="text" class="form-control" id="accountName" placeholder="Votre nom de compte">
-        </div>
-        <div class="form-group">
-            <label for="accountPassword">Mot de passe :</label>
-            <input type="password" class="form-control" id="accountPassword" placeholder="Votre mot de passe">
-        </div>
-        <button id="submit-button" type="submit" class="btn btn-primary">Se connecter</button>
-    </form>
-    <div class="create-account-div">
-        <p style="float: left;">Pas encore de compte ? </p>
-        <a id="create-account" href="pages/account/register.php">Créer son compte</a>
     </div>
 </div>
+
+<script src="view/models/Score.js"></script>
+<script src="view/services/ScoreService.js"></script>
+<script src="view/fetchScore.js"></script>
+<style>
+    @font-face {font-family:"Orbitron Black";src:url("files/fonts/orbitron-black.eot?") format("eot"),url("files/fonts/orbitron-black.woff") format("woff"),url("files/fonts/orbitron-black.ttf") format("truetype"),url("files/fonts/orbitron-black.svg#Orbitron-Black") format("svg");font-weight:normal;font-style:normal;}
+
+    body{
+        background: #041057;
+    }
+    #main-div{
+        background: black;
+        margin: auto;
+        border-radius: 25px;
+        width: 80%;
+    }
+    #titles-div{
+        margin-bottom: 40px;
+    }
+    #score-div{
+        color: #FFFFFF;
+        margin: auto;
+        text-align: center;
+    }
+    .name-div{
+        color: #FFFFFF;
+        margin: auto;
+        text-align: center;
+        font-family: Orbitron Black;
+        padding-bottom: 10px;
+        display: inline-flex;
+    }
+    h1{
+        color: #FFFFFF;
+        margin: auto;
+        text-align: center;
+        font-family: Orbitron Black;
+    }
+    h2{
+        color: #FFFFFF;
+        margin: auto;
+        text-align: center;
+        font-family: Orbitron Black;
+    }
+</style>
 
 <?php
 require_once "./utils/footer.php"
