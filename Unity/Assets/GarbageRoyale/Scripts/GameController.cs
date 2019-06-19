@@ -388,7 +388,6 @@ namespace GarbageRoyale.Scripts
                 {
                     waterStart = true;
                     water.ToggleStartWater();
-                    Debug.Log("Incroyable");
                     triggerWater = false;
                 }
 
@@ -426,7 +425,7 @@ namespace GarbageRoyale.Scripts
                     else if(!waterStart)
                     {
                         waterStart = true;
-                        water.setStartWater(true);
+                        water.ToggleStartWater();
                     }
                 }
             }

@@ -212,7 +212,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
                 return;
             }
 
-            scripts.pcm.PlayerRotation(PlayerIndex);
+            //scripts.pcm.PlayerRotation(PlayerIndex);
         }
 
         [PunRPC]
