@@ -9,11 +9,14 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace GarbageRoyale.Scripts
 {
     public class InventoryRaycastHitActions : MonoBehaviourPunCallbacks
     {
+        [SerializeField]
+        private Text itemDataText;
         private CameraRaycastHitActions actionScript;
 
         private GameController gc;
@@ -38,6 +41,34 @@ namespace GarbageRoyale.Scripts
         // Update is called once per frame
         void Update()
         {
+            try
+            {
+                var ray = gc.players[Array.IndexOf(gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+                RaycastHit hitInfo;
+                if (Physics.Raycast(ray, out hitInfo, 2f))
+                {
+                    if (hitInfo.transform.gameObject.GetComponent<Item>())
+                    {
+                        GameObject itemGob = hitInfo.transform.gameObject;
+                        Item itemData = itemGob.GetComponent<Item>();
+                        itemDataText.text = itemData.name + " (Press F to take)";
+                    }
+                    else
+                    {
+                        itemDataText.text = "";
+                    }
+                }
+                else
+                {
+                    itemDataText.text = "";
+                }
+            }
+            catch (InvalidCastException e)
+            {
+                Debug.Log("Aucun item ciblé");
+            }
+           
+
             if (Input.GetKeyDown(KeyCode.F) && !wantUse)
             {
                 wantUse = true;
