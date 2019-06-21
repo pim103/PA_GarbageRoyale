@@ -37,6 +37,7 @@ namespace GarbageRoyale.Scripts
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             characterList = gc.characterList;
+            itemPanel.SetActive(false);
             Debug.Log(characterList);
         }
         

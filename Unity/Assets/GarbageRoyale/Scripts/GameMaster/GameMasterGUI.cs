@@ -15,27 +15,83 @@ namespace GarbageRoyale.Scripts.GameMaster
         [SerializeField]
         private Button invisibleButton;
         [SerializeField]
+        private Text invisibleText;
+        [SerializeField]
+        private Button teleportToTheEnd;
+        [SerializeField]
+        private Button stopWater;
+        [SerializeField]
+        private Button openTheGate;
+        [SerializeField]
         private Button invincibleButton;
+        [SerializeField] 
+        private InputField teleportToThemTypeField;
+        [SerializeField] 
+        private Button teleportToThemButton;
+        [SerializeField] 
+        private InputField teleportToMeTypeField;
+        [SerializeField] 
+        private Button teleportToMeButton;
         [SerializeField] 
         private InputField itemTypeField;
         [SerializeField] 
         private Button addItemButton;
+        [SerializeField] 
+        private Text waterSpeedText;
+        [SerializeField] 
+        private Slider sliderWaterSpeed;
+        [SerializeField] 
+        private Button applyWaterSpeedButon;
 
 
         private void Start()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
+            sliderWaterSpeed.value = gc.GetComponent<Water>().getSpeedWater();
             addItemButton.onClick.AddListener(AddItem);
             invincibleButton.onClick.AddListener(SetInvincible);
+            invisibleButton.onClick.AddListener(SetInvisible);
+            applyWaterSpeedButon.onClick.AddListener(SetWaterSpeedUp);
+            stopWater.onClick.AddListener(StopWater);
+            openTheGate.onClick.AddListener(OpenTheGate);
+            teleportToTheEnd.onClick.AddListener(GoToLastFloor);
             //invisibleButton.interactable(false);
+        }
+
+        private void Update()
+        {
+            waterSpeedText.text = sliderWaterSpeed.value + " / " + sliderWaterSpeed.maxValue;
+        }
+
+        public void SetWaterSpeedUp()
+        {
+            gc.GetComponent<Water>().setSpeedWater(sliderWaterSpeed.value);
+        }
+
+        public void SetInvisible()
+        {
+            photonView.RPC("SetGMInvisible", RpcTarget.All);
+        }
+        
+        public void StopWater()
+        {
+            gc.triggerWater = !gc.triggerWater;
+        }
+        
+        public void OpenTheGate()
+        {
+            gc.forceOpenDoor = !gc.forceOpenDoor;
+        }
+
+        public void GoToLastFloor()
+        {
+            gc.wantGoToLastFloor = true;
         }
 
         public void SetInvincible()
         {
             gc.players[Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerStats.isInvincible = true;
         }
-        
-        
         
         public void AddItem()
         {
@@ -49,7 +105,6 @@ namespace GarbageRoyale.Scripts.GameMaster
             
             itemTypeField.text = "";
         }
-        
         
         [PunRPC]
         public void AskAddItem(int itemtype, int playerIndex)
@@ -84,6 +139,20 @@ namespace GarbageRoyale.Scripts.GameMaster
                 gc.items[itemID].transform.SetParent(gc.players[playerIndex].PlayerTorch.transform.parent);
                 gc.items[itemID].transform.localPosition = new Vector3(0, 0, 0);
                 gc.items[itemID].transform.localRotation = gc.items[itemID].transform.parent.transform.localRotation;
+            }
+        }
+
+        [PunRPC]
+        public void SetGMInvisible()
+        {
+            gc.players[0].PlayerRenderer.enabled = !gc.players[0].PlayerRenderer.enabled;
+            if (gc.players[0].PlayerRenderer.enabled)
+            {
+                invisibleText.text = "Devenir invisible";
+            }
+            else
+            {
+                invisibleText.text = "Devenir visible";
             }
         }
 

@@ -98,8 +98,9 @@ namespace GarbageRoyale.Scripts
         public bool endOfInit;
         public bool doorIsOpen;
 
-        private bool triggerWater;
-        private bool forceOpenDoor;
+        public bool triggerWater;
+        public bool forceOpenDoor;
+        public bool wantGoToLastFloor;
 
         public Dictionary<int, GameObject> pipes = new Dictionary<int, GameObject>();
         public Dictionary<GameObject, int> buttonsTrap = new Dictionary<GameObject, int>();
@@ -360,26 +361,6 @@ namespace GarbageRoyale.Scripts
             }
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                triggerWater = true;
-            } else if(Input.GetKeyUp(KeyCode.U))
-            {
-                triggerWater = false;
-            }
-
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                forceOpenDoor = true;
-            }
-            else if (Input.GetKeyUp(KeyCode.I))
-            {
-                forceOpenDoor = false;
-            }
-        }
-
         private void FixedUpdate()
         {
             if(PhotonNetwork.IsMasterClient)
@@ -397,11 +378,12 @@ namespace GarbageRoyale.Scripts
                     doorIsOpen = true;
                 }
 
-                if (Input.GetKeyDown(KeyCode.O))
+                if (wantGoToLastFloor)
                 {
                     Vector3 temp = players[0].PlayerGameObject.transform.position;
                     temp.y = 113;
                     players[0].PlayerGameObject.transform.position = temp;
+                    wantGoToLastFloor = false;
                 }
 
 

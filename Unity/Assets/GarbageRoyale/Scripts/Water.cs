@@ -72,4 +72,14 @@ public class Water : MonoBehaviour
     {
         return startWater;
     }
+    
+    public void setSpeedWater(float speed)
+    {
+        speedWaterUp = speed;
+    }
+
+    public float getSpeedWater()
+    {
+        return speedWaterUp;
+    }
 }
