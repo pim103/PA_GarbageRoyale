@@ -59,6 +59,7 @@
             <e p="MazeDataGenerator.cs" t="Include" />
             <e p="MazeMeshGenerator.cs" t="Include" />
             <e p="Menu" t="Include">
+              <e p="EndGameMenu.cs" t="Include" />
               <e p="LoginMenu.cs" t="Include" />
               <e p="MainMenu.cs" t="Include" />
               <e p="PauseMenu.cs" t="Include" />

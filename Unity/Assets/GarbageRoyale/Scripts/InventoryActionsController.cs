@@ -336,6 +336,39 @@ namespace GarbageRoyale.Scripts
         }
         
         [PunRPC]
+        public void AskDropSkill(int inventoryPlace,int playerIndex,PhotonMessageInfo info)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+            
+            int idItem = gc.players[playerIndex].GetComponent<Inventory>().skillInventory[inventoryPlace];
+            if (idItem == -1)
+            {
+                return;
+            }
+            
+            photonView.RPC("AnswerDropSkill", RpcTarget.All, idItem, playerIndex, inventoryPlace);
+        }
+    
+        [PunRPC]
+        public void AnswerDropSkill(int idItem, int playerIndex, int inventoryPlace)
+        {
+            gc.players[playerIndex].GetComponent<Inventory>().skillInventory[inventoryPlace] = -1;
+            
+            gc.items[idItem].transform.parent = null;
+            gc.items[idItem].SetActive(true);
+            gc.items[idItem].GetComponent<Item>().resetScale();
+            gc.items[idItem].GetComponent<Item>().transform.position = gc.players[playerIndex].PlayerTorch.transform.position + (gc.players[playerIndex].PlayerCamera.transform.forward * 2);
+
+            if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            {
+                gc.GetComponent<InventoryGUI>().deleteSkillSprite(inventoryPlace);
+            }
+        }
+        
+        [PunRPC]
         private void LightOnTorchRPC(int placeInHand, int playerIndex)
         {
             if(!PhotonNetwork.IsMasterClient)
