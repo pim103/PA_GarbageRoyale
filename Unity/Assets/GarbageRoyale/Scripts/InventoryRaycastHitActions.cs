@@ -16,6 +16,8 @@ namespace GarbageRoyale.Scripts
     public class InventoryRaycastHitActions : MonoBehaviourPunCallbacks
     {
         [SerializeField]
+        private GameObject itemPanel;
+        [SerializeField]
         private Text itemDataText;
         private CameraRaycastHitActions actionScript;
 
@@ -41,34 +43,6 @@ namespace GarbageRoyale.Scripts
         // Update is called once per frame
         void Update()
         {
-            try
-            {
-                var ray = gc.players[Array.IndexOf(gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
-                RaycastHit hitInfo;
-                if (Physics.Raycast(ray, out hitInfo, 2f))
-                {
-                    if (hitInfo.transform.gameObject.GetComponent<Item>())
-                    {
-                        GameObject itemGob = hitInfo.transform.gameObject;
-                        Item itemData = itemGob.GetComponent<Item>();
-                        itemDataText.text = itemData.name + " (Press F to take)";
-                    }
-                    else
-                    {
-                        itemDataText.text = "";
-                    }
-                }
-                else
-                {
-                    itemDataText.text = "";
-                }
-            }
-            catch (InvalidCastException e)
-            {
-                Debug.Log("Aucun item ciblé");
-            }
-           
-
             if (Input.GetKeyDown(KeyCode.F) && !wantUse)
             {
                 wantUse = true;
@@ -77,6 +51,35 @@ namespace GarbageRoyale.Scripts
 
         private void FixedUpdate()
         {
+            try
+            {
+                var ray = gc.players[Array.IndexOf(gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+                RaycastHit hitInfo;
+                if (Physics.Raycast(ray, out hitInfo, 2f))
+                {
+                    if (hitInfo.transform.gameObject.GetComponent<Item>())
+                    {
+                        itemPanel.SetActive(true);
+                        GameObject itemGob = hitInfo.transform.gameObject;
+                        Item itemData = itemGob.GetComponent<Item>();
+                        itemDataText.text = itemData.name + " (Press F to take)";
+                    }
+                    else
+                    {
+                        itemPanel.SetActive(false);
+                        itemDataText.text = "";
+                    }
+                }
+                else
+                {
+                    itemPanel.SetActive(false);
+                    itemDataText.text = "";
+                }
+            }
+            catch (InvalidCastException e)
+            {
+                Debug.Log("Aucun item ciblé");
+            }
             if (wantUse)
             {
                 var ray = gc.players[Array.IndexOf(gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
