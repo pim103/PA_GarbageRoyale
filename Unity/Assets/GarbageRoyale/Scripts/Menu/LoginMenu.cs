@@ -72,7 +72,7 @@ namespace GarbageRoyale.Scripts.Menu
             yield return new WaitForSeconds(0.5f);
             if (www.responseCode == 202)
             {
-                dialogText.text = "Connexion réussi";
+                dialogText.text = "Connexion réussie";
                 yield return new WaitForSeconds(0.5f);
                 PhotonNetwork.ConnectUsingSettings();
                 httpResponse = www.downloadHandler.text.Split('#');
@@ -91,7 +91,6 @@ namespace GarbageRoyale.Scripts.Menu
             {
                 dialogButton.SetActive(true);
                 dialogText.text = "Une erreur est survenue. Veuillez réessayer à nouveau. Si cela ne fonctionnne toujours pas, veuillez contacter le support.";
-                //Debug.Log("Une erreur est survenue. Veuillez réessayer à nouveau. Si cela ne fonctionnne toujours pas, veuillez contacter le support.");
             }
         }
 

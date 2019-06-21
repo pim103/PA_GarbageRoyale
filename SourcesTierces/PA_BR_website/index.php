@@ -9,6 +9,15 @@
 session_start();
 require_once "./utils/header.php"
 ?>
+<div id="download-div">
+    <a class="name-div" style="text-decoration: none; color: #ffdd0b;" href="http://garbage-royale.heolia.eu/files/games/Builds.zip">
+        <p class="name-div" style="text-decoration: none; color: #ffdd0b;">Télécharger le jeu </p>
+        <i class="fas fa-download">
+        </i>
+    </a>
+</div>
+
+
 
 <div id="main-div">
     <div id="titles-div">
@@ -34,6 +43,15 @@ require_once "./utils/header.php"
         margin: auto;
         border-radius: 25px;
         width: 80%;
+    }
+    #download-div{
+        color: #FFFFFF;
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        font-family: Orbitron Black;
+        padding-bottom: 10px;
+        display: inline-flex;
     }
     #titles-div{
         margin-bottom: 40px;
