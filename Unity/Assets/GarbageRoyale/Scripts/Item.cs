@@ -25,6 +25,7 @@ namespace GarbageRoyale.Scripts
         public bool isThrow;
 
         public bool isBurn;
+        public int throwerId;
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -50,6 +51,7 @@ namespace GarbageRoyale.Scripts
             type = 0;
             isPickable = true;
             isBurn = false;
+            throwerId = -1;
         }
 
         public void resetScale()
@@ -91,6 +93,14 @@ namespace GarbageRoyale.Scripts
         public void setType(int ty)
         {
             this.type = ty;
+        }
+        public int getThrowerId()
+        {
+            return this.throwerId;
+        }
+        public void setThrowerId(int throwerId)
+        {
+            this.throwerId = throwerId;
         }
     }
 }

@@ -75,6 +75,9 @@ namespace GarbageRoyale.Scripts.GameMaster
             
             Debug.Log("Test Add");
             playerInventory.itemInventory[place] = itemID;
+            item.GetComponent<Item>().setThrowerId(playerIndex);
+            
+            //Debug.Log(item.GetComponent<Item>().getThrowerId());
 
             if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
