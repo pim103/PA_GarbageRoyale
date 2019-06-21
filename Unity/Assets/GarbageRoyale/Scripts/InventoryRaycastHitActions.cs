@@ -62,7 +62,15 @@ namespace GarbageRoyale.Scripts
                         itemPanel.SetActive(true);
                         GameObject itemGob = hitInfo.transform.gameObject;
                         Item itemData = itemGob.GetComponent<Item>();
-                        itemDataText.text = itemData.name + " (Press F to take)";
+                        if (itemData.getType() != (int) ItemController.TypeItem.Implant)
+                        {
+                            itemDataText.text = itemData.name + " (Press F to take)";
+                        }
+                        else
+                        {
+                            itemDataText.text = itemGob.GetComponent<Skill>().name + " (Press F to take)";
+                        }
+                        
                     }
                     else
                     {

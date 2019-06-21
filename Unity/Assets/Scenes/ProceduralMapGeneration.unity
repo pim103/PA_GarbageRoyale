@@ -3200,26 +3200,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: InfoItemText
       objectReference: {fileID: 0}
-    - target: {fileID: 453637613355811989, guid: eec08ba0da3bcac40a57a8e5e2a64078,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.8773585
-      objectReference: {fileID: 0}
-    - target: {fileID: 453637613355811989, guid: eec08ba0da3bcac40a57a8e5e2a64078,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.0041384934
-      objectReference: {fileID: 0}
-    - target: {fileID: 453637613355811989, guid: eec08ba0da3bcac40a57a8e5e2a64078,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.0041384934
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6683574327873717355, guid: eec08ba0da3bcac40a57a8e5e2a64078, type: 3}
     - {fileID: 6235726624846415209, guid: eec08ba0da3bcac40a57a8e5e2a64078, type: 3}
     - {fileID: 5280669250511911608, guid: eec08ba0da3bcac40a57a8e5e2a64078, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: eec08ba0da3bcac40a57a8e5e2a64078, type: 3}
+--- !u!1 &669335997 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6750679169721063599, guid: eec08ba0da3bcac40a57a8e5e2a64078,
+    type: 3}
+  m_PrefabInstance: {fileID: 669335996}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &669335998 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2738695995352787375, guid: eec08ba0da3bcac40a57a8e5e2a64078,
@@ -5309,6 +5300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4fe1ece2009462084fb03881828789d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemPanel: {fileID: 669335997}
   itemDataText: {fileID: 454834848}
 --- !u!114 &1103656782
 MonoBehaviour:

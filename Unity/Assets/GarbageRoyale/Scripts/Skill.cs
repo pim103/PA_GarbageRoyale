@@ -9,7 +9,8 @@ namespace GarbageRoyale.Scripts
         public int type;
         public int bufftime;
         public int cooldown;
-        
+
+        public string name;
         // Start is called before the first frame update
         void Start()
         {
