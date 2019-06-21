@@ -35,6 +35,8 @@ U - Activer/Désactiver la montée de l'eau
 I - Ouvrir les portes de départ   
 
 # Liste des crafts :      
+    
+Attention, le HUD est peu lisible dans cette version, mais les items sont bien là    
 
 Oil Bottle = Bottle + Jerrican       
 Molotov Cocktail = Oil Bottle + Toilet Paper || Bottle + Jerrican + Toilet Paper      
