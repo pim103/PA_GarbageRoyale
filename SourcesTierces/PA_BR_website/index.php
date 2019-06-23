@@ -10,7 +10,7 @@ session_start();
 require_once "./utils/header.php"
 ?>
 <div id="download-div">
-    <a class="name-div" style="text-decoration: none; color: #ffdd0b;" href="http://garbage-royale.heolia.eu/files/games/Builds.zip">
+    <a class="name-div" style="text-decoration: none; color: #ffdd0b;" href="http://garbage-royale.heolia.eu/files/games/GarbageRoyale.zip">
         <p class="name-div" style="text-decoration: none; color: #ffdd0b;">Télécharger le jeu </p>
         <i class="fas fa-download">
         </i>

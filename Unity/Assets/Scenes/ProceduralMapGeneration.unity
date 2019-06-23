@@ -2939,6 +2939,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8044369997333157998, guid: eec08ba0da3bcac40a57a8e5e2a64078,
+        type: 3}
+      propertyPath: m_Name
+      value: InventoryGUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044369997333157998, guid: eec08ba0da3bcac40a57a8e5e2a64078,
+        type: 3}
+      propertyPath: m_TagString
+      value: HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044369997333157998, guid: eec08ba0da3bcac40a57a8e5e2a64078,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449359740238654620, guid: eec08ba0da3bcac40a57a8e5e2a64078,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449359740238654620, guid: eec08ba0da3bcac40a57a8e5e2a64078,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449359740238654620, guid: eec08ba0da3bcac40a57a8e5e2a64078,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 926816099731519262, guid: eec08ba0da3bcac40a57a8e5e2a64078,
         type: 3}
       propertyPath: invisibleButton
@@ -3014,36 +3044,6 @@ PrefabInstance:
       propertyPath: applyWaterSpeedButon
       value: 
       objectReference: {fileID: 1781301926}
-    - target: {fileID: 8044369997333157998, guid: eec08ba0da3bcac40a57a8e5e2a64078,
-        type: 3}
-      propertyPath: m_Name
-      value: InventoryGUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 8044369997333157998, guid: eec08ba0da3bcac40a57a8e5e2a64078,
-        type: 3}
-      propertyPath: m_TagString
-      value: HUD
-      objectReference: {fileID: 0}
-    - target: {fileID: 8044369997333157998, guid: eec08ba0da3bcac40a57a8e5e2a64078,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8449359740238654620, guid: eec08ba0da3bcac40a57a8e5e2a64078,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8449359740238654620, guid: eec08ba0da3bcac40a57a8e5e2a64078,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8449359740238654620, guid: eec08ba0da3bcac40a57a8e5e2a64078,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5277631978575205049, guid: eec08ba0da3bcac40a57a8e5e2a64078,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5254,7 +5254,7 @@ MonoBehaviour:
   menuController: {fileID: 415303308}
   inventoryGui: {fileID: 1103656785}
   water: {fileID: 1103656773}
-  Mob: {fileID: 5808846029801638683, guid: 262e61a97cc11c649ac8a9648e44896d, type: 3}
+  Mob: {fileID: 161158, guid: 785ede44c4b05f84c8af8bfa003b0316, type: 3}
   isGameStart: 0
   players:
   - {fileID: 1944728899}

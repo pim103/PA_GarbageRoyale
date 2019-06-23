@@ -178,20 +178,20 @@ namespace GarbageRoyale.Scripts.PlayerController {
                 ActivateSkill(1);
             }
             
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouched || Input.GetKeyDown(KeyCode.LeftShift) && !wantToJump)
             {
-                Debug.Log("Running");
+                //Debug.Log("Running");
                 isRunning = true;
                 photonView.RPC("WantToRunRPC", RpcTarget.MasterClient, true);
             }
-            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            else if (Input.GetKeyUp(KeyCode.LeftShift) || isCrouched || wantToJump)
             {
-                Debug.Log("End Running");
+                //Debug.Log("End Running");
                 isRunning = false;
                 photonView.RPC("WantToRunRPC", RpcTarget.MasterClient, false);
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            if (Input.GetKeyDown(KeyCode.LeftControl) && !isRunning)
             {
                 Debug.Log("Crouching");
                 isCrouched = true;

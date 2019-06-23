@@ -65,7 +65,10 @@ namespace GarbageRoyale.Scripts
                         Item itemData = itemGob.GetComponent<Item>();
                         if (itemData.getType() != (int) ItemController.TypeItem.Implant)
                         {
-                            itemDataText.text = itemData.name + " (Press F to take)";
+                            if (!hitInfo.transform.gameObject.GetComponent<Item>().isThrow)
+                            {
+                                itemDataText.text = itemData.name + " (Press F to take)";
+                            }
                         }
                         else
                         {
