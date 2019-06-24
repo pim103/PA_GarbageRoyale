@@ -168,6 +168,4 @@ MonoBehaviour:
   - SetGMInvisible
   - AnswerDropSkill
   - AskDropSkill
-  - AskUseItem
-  - UseItemRPC
   DisableAutoOpenWizard: 1
