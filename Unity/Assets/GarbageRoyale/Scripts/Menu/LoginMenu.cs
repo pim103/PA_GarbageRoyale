@@ -66,7 +66,8 @@ namespace GarbageRoyale.Scripts.Menu
             WWWForm form = new WWWForm();
             form.AddField("accountEmail", accountMail.text);
             form.AddField("accountPassword", accountPassword.text);
-            var www = UnityWebRequest.Post("https://garbage-royale.heolia.eu/services/account/logging.php", form);
+            var www = UnityWebRequest.Post("http://garbage-royale.heolia.eu/services/account/logging.php", form);
+            //www.certificateHandler();
             yield return www.SendWebRequest();
             dialogText.text = "Authentification en cours";
             yield return new WaitForSeconds(0.5f);
@@ -91,6 +92,7 @@ namespace GarbageRoyale.Scripts.Menu
             {
                 dialogButton.SetActive(true);
                 dialogText.text = "Une erreur est survenue. Veuillez réessayer à nouveau. Si cela ne fonctionnne toujours pas, veuillez contacter le support.";
+                Debug.Log(www.downloadHandler);
             }
         }
 

@@ -60,7 +60,7 @@ namespace GarbageRoyale.Scripts.Menu
             form.AddField("accountMail", accountMail.text);
             form.AddField("accountPassword", accountPassword.text);
             form.AddField("accountPasswordConfirmation", accountPasswordConfirmation.text);
-            var www = UnityWebRequest.Post("https://garbage-royale.heolia.eu/services/account/insert.php", form);
+            var www = UnityWebRequest.Post("http://garbage-royale.heolia.eu/services/account/insert.php", form);
             yield return www.SendWebRequest();
             if (www.isNetworkError || www.isHttpError)
             {
