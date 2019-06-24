@@ -259,7 +259,7 @@ namespace GarbageRoyale.Scripts
         }
         
         [PunRPC]
-        public void AskDropItem(int inventoryPlace,int playerIndex, bool throwItem,PhotonMessageInfo info)
+        public void AskDropItem(int inventoryPlace,int playerIndex, bool throwItem)
         {
             if (!PhotonNetwork.IsMasterClient)
             {
@@ -329,14 +329,17 @@ namespace GarbageRoyale.Scripts
             
             if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
-                gc.GetComponent<InventoryGUI>().deleteSprite(placeInHand);
+                gc.GetComponent<InventoryGUI>().deleteSprite(inventoryPlace);
                 itemInHand = "";
-                placeInHand = -1;
+                if(inventoryPlace == placeInHand)
+                {
+                    placeInHand = -1;
+                }
             }
         }
         
         [PunRPC]
-        public void AskDropSkill(int inventoryPlace,int playerIndex,PhotonMessageInfo info)
+        public void AskDropSkill(int inventoryPlace,int playerIndex)
         {
             if (!PhotonNetwork.IsMasterClient)
             {

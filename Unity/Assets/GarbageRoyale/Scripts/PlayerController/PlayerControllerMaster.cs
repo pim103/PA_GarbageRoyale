@@ -80,19 +80,28 @@ namespace GarbageRoyale.Scripts.PlayerController
                         gc.players[i].PlayerStats.isAlreadyTrigger = true;
                         DataCollector.instance.AddKillPoint(gc.players[i].PlayerGameObject, i, Time.time);
 
+                        for(var placeInv = 0; placeInv < gc.players[i].PlayerInventory.itemInventory.Length; placeInv++)
+                        {
+                            se.iac.AskDropItem(placeInv, i, false);
+                        }
+                        for (var placeInv = 0; placeInv < gc.players[i].PlayerInventory.skillInventory.Length; placeInv++)
+                        {
+                            se.iac.AskDropSkill(placeInv, i);
+                        }
+
                         photonView.RPC("UpdateDataRPC", RpcTarget.All,
-                               i,
-                               false,
-                               0f,
-                               0f,
-                               0f,
-                               0f,
-                               false,
-                               true,
-                               false,
-                               false,
-                               false,
-                               false
+                            i,
+                            false,
+                            0f,
+                            0f,
+                            0f,
+                            0f,
+                            false,
+                            true,
+                            false,
+                            false,
+                            false,
+                            false
                         );
                     }
 
