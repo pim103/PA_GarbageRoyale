@@ -66,7 +66,7 @@ namespace GarbageRoyale.Scripts.Menu
             WWWForm form = new WWWForm();
             form.AddField("accountEmail", accountMail.text);
             form.AddField("accountPassword", accountPassword.text);
-            var www = UnityWebRequest.Post("http://garbage-royale.heolia.eu/services/account/logging.php", form);
+            var www = UnityWebRequest.Post("https://garbage-royale.heolia.eu/services/account/logging.php", form);
             yield return www.SendWebRequest();
             dialogText.text = "Authentification en cours";
             yield return new WaitForSeconds(0.5f);
