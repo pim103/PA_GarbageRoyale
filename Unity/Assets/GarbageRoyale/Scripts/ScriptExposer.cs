@@ -11,5 +11,6 @@ namespace GarbageRoyale.Scripts
         public GameController gc;
         public CameraRaycast cr;
         public InventoryActionsController iac;
+        public SpectateMode sm;
     }
 }

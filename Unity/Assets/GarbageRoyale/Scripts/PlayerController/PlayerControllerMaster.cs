@@ -410,10 +410,17 @@ namespace GarbageRoyale.Scripts.PlayerController
             gc.playersActions[id].isOiled = isOiled;
             gc.playersActions[id].isDamageBoosted = isDamageBoosted;
 
+            int playerIndex = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
+
             if (gc.AvatarToUserId[id] == PhotonNetwork.AuthValues.UserId)
             {
                 gc.players[id].PlayerCamera.transform.localEulerAngles = new Vector3(rotX, 0, 0);
                 gc.inventoryGui.updateBar(ps.currentHp, ps.currentStamina, ps.currentBreath);
+            }
+
+            if(isDead && (id == se.sm.idCamSpectate || id == playerIndex))
+            {
+                se.sm.SwitchCam(playerIndex);
             }
         }
 
