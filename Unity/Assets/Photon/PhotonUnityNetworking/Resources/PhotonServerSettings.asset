@@ -166,4 +166,6 @@ MonoBehaviour:
   - AskAddItem
   - ToggleInvisibilityRPC
   - SetGMInvisible
+  - AnswerDropSkill
+  - AskDropSkill
   DisableAutoOpenWizard: 1

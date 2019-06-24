@@ -1093,6 +1093,7 @@ GameObject:
   - component: {fileID: 274310796}
   - component: {fileID: 274310798}
   - component: {fileID: 274310797}
+  - component: {fileID: 274310799}
   m_Layer: 0
   m_Name: PlayerListScripts
   m_TagString: Untagged
@@ -1176,6 +1177,7 @@ MonoBehaviour:
   gc: {fileID: 1103656770}
   cr: {fileID: 274310798}
   iac: {fileID: 1103656783}
+  sm: {fileID: 274310799}
 --- !u!114 &274310798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1190,6 +1192,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gc: {fileID: 1103656770}
   cameraIndex: 0
+--- !u!114 &274310799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274310793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb342c27ed00da43b104ca63230de6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gc: {fileID: 1103656770}
+  idCamSpectate: 0
 --- !u!1 &288061745
 GameObject:
   m_ObjectHideFlags: 0
