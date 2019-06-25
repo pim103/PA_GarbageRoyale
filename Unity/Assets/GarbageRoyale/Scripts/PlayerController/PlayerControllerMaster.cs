@@ -268,7 +268,6 @@ namespace GarbageRoyale.Scripts.PlayerController
             float rotationX = gc.rotationPlayer[id].x;
             rotationX -= playerAction.rotationX * sensVertical;
             rotationX = Mathf.Clamp(rotationX , minimumVert, maximumVert);
-            //Debug.Log(playerAction.rotationX);
 
             gc.rotationPlayer[id] = new Vector3(rotationX, 0, 0);
             gc.players[id].PlayerCamera.transform.localEulerAngles = gc.rotationPlayer[id];

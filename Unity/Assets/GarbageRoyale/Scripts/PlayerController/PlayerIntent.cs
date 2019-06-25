@@ -90,29 +90,6 @@ namespace GarbageRoyale.Scripts.PlayerController {
                     photonView.RPC("WantToMoveVerticalRPC", RpcTarget.MasterClient, 0f);
                 }
             }
-            
-            /*
-            if(Input.GetKeyDown(KeyCode.Z))
-            {
-                wantToGoForward = true;
-                photonView.RPC("WantToMoveForwardRPC", RpcTarget.MasterClient, wantToGoForward);
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                wantToGoBackward = true;
-                photonView.RPC("WantToMoveBackwardRPC", RpcTarget.MasterClient, wantToGoBackward);
-            }
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                wantToGoLeft = true;
-                photonView.RPC("WantToMoveLeftRPC", RpcTarget.MasterClient, wantToGoLeft);
-            }
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                wantToGoRight = true;
-                photonView.RPC("WantToMoveRightRPC", RpcTarget.MasterClient, wantToGoRight);
-            }
-            */
 
             if (rotationX != Input.GetAxis("Mouse Y"))
             {

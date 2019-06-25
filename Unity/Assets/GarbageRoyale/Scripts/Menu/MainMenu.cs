@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using System.Collections.Generic;
+using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,8 @@ namespace GarbageRoyale.Scripts.Menu
 
         [SerializeField]
         private StartGame controller;
+
+        private List<RoomInfo> roomList;
     
         // Start is called before the first frame update
         void Start()
@@ -44,7 +47,7 @@ namespace GarbageRoyale.Scripts.Menu
         {
             controller.launchSubMenu();
         }
-    
+
         public void AskForRoomJoin()
         {
             PhotonNetwork.JoinRandomRoom();
@@ -56,8 +59,6 @@ namespace GarbageRoyale.Scripts.Menu
             controller.mainCamera.enabled = false;
             controller.mainMenu.SetActive(false);
             controller.subMenu.SetActive(false);
-            /*controller.invHUD.SetActive(true);
-            controller.playerGUI.SetActive(true);*/
 
             createRoomButton.interactable = false;
             joinRoomButton.interactable = false;

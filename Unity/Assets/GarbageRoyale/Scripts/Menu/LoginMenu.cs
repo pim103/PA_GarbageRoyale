@@ -66,8 +66,8 @@ namespace GarbageRoyale.Scripts.Menu
             WWWForm form = new WWWForm();
             form.AddField("accountEmail", accountMail.text);
             form.AddField("accountPassword", accountPassword.text);
-            var www = UnityWebRequest.Post("http://garbage-royale.heolia.eu/services/account/logging.php", form);
-            //www.certificateHandler();
+            var www = UnityWebRequest.Post("https://garbage-royale.heolia.eu/services/account/logging.php", form);
+            www.certificateHandler = new AcceptAllCertificatesSignedWithASpecificKeyPublicKey();
             yield return www.SendWebRequest();
             dialogText.text = "Authentification en cours";
             yield return new WaitForSeconds(0.5f);
@@ -78,7 +78,8 @@ namespace GarbageRoyale.Scripts.Menu
                 PhotonNetwork.ConnectUsingSettings();
                 httpResponse = www.downloadHandler.text.Split('#');
                 PhotonNetwork.AuthValues = new AuthenticationValues(httpResponse[1]);
-                Debug.Log(httpResponse[0]);
+                PhotonNetwork.NickName = httpResponse[0];
+                //Debug.Log(httpResponse[0]);
                 dialogWindow.SetActive(false);
                 controller.launchMainMenu();
             }
@@ -92,7 +93,7 @@ namespace GarbageRoyale.Scripts.Menu
             {
                 dialogButton.SetActive(true);
                 dialogText.text = "Une erreur est survenue. Veuillez réessayer à nouveau. Si cela ne fonctionnne toujours pas, veuillez contacter le support.";
-                Debug.Log(www.downloadHandler);
+                Debug.Log(www.downloadHandler.data);
             }
         }
 
