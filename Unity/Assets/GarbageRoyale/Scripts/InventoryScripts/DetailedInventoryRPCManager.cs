@@ -5,7 +5,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GarbageRoyale.Scripts
+namespace GarbageRoyale.Scripts.InventoryScripts
 {
     public class DetailedInventoryRPCManager : MonoBehaviourPunCallbacks
     {

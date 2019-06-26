@@ -3,7 +3,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace GarbageRoyale.Scripts
+namespace GarbageRoyale.Scripts.InventoryScripts
 {
     public class InventoryHUDController : MonoBehaviour
     {

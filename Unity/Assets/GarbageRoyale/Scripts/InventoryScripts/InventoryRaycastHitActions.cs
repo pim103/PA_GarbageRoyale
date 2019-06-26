@@ -11,7 +11,7 @@ using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace GarbageRoyale.Scripts
+namespace GarbageRoyale.Scripts.InventoryScripts
 {
     public class InventoryRaycastHitActions : MonoBehaviourPunCallbacks
     {
@@ -52,35 +52,35 @@ namespace GarbageRoyale.Scripts
 
         private void FixedUpdate()
         {
-            try
+            if(!gc.endOfInit)
             {
-                var ray = gc.players[Array.IndexOf(gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
-                RaycastHit hitInfo;
-                if (Physics.Raycast(ray, out hitInfo, 2f))
+                return;
+            }
+
+            bool touch;
+
+            var ray = gc.players[Array.IndexOf(gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+            RaycastHit hitInfo;
+
+            if (touch = Physics.Raycast(ray, out hitInfo, 2f))
+            {
+                if (hitInfo.transform.gameObject.GetComponent<Item>())
                 {
-                    if (hitInfo.transform.gameObject.GetComponent<Item>())
+                    itemPanel.SetActive(true);
+                    GameObject itemGob = hitInfo.transform.gameObject;
+                    Item itemData = itemGob.GetComponent<Item>();
+                    if (itemData.getType() != (int) ItemController.TypeItem.Implant)
                     {
-                        itemPanel.SetActive(true);
-                        GameObject itemGob = hitInfo.transform.gameObject;
-                        Item itemData = itemGob.GetComponent<Item>();
-                        if (itemData.getType() != (int) ItemController.TypeItem.Implant)
+                        if (!hitInfo.transform.gameObject.GetComponent<Item>().isThrow)
                         {
-                            if (!hitInfo.transform.gameObject.GetComponent<Item>().isThrow)
-                            {
-                                itemDataText.text = itemData.name + " (Press F to take)";
-                            }
+                            itemDataText.text = itemData.name + " (Press F to take)";
                         }
-                        else
-                        {
-                            itemDataText.text = itemGob.GetComponent<Skill>().name + " (Press F to take)";
-                        }
-                        
                     }
                     else
                     {
-                        itemPanel.SetActive(false);
-                        itemDataText.text = "";
+                        itemDataText.text = itemGob.GetComponent<Skill>().name + " (Press F to take)";
                     }
+                        
                 }
                 else
                 {
@@ -88,16 +88,15 @@ namespace GarbageRoyale.Scripts
                     itemDataText.text = "";
                 }
             }
-            catch (InvalidCastException e)
+            else
             {
-                Debug.Log("Aucun item ciblé");
+                itemPanel.SetActive(false);
+                itemDataText.text = "";
             }
+
             if (wantUse)
-            {
-                var ray = gc.players[Array.IndexOf(gc.AvatarToUserId,PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
-                RaycastHit hitInfo;
-                
-                if (Physics.Raycast(ray, out hitInfo, 2f))
+            {   
+                if (touch)
                 {
                     if (hitInfo.transform.name == "implantOnline(Clone)")
                     {

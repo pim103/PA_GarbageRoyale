@@ -5,6 +5,7 @@ using Photon.Pun;
 using GarbageRoyale.Scripts.PrefabPlayer;
 using System;
 using GarbageRoyale.Scripts.Items;
+using GarbageRoyale.Scripts.InventoryScripts;
 
 namespace GarbageRoyale.Scripts
 {

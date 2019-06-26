@@ -5379,7 +5379,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31b1fa7934554d47a259befbf967579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gc: {fileID: 1103656770}
 --- !u!114 &1103656775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5461,9 +5460,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16152de0bbd1cd14696272cb09b2ca9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorToOpen: 999;999
-  doorX: 999
-  doorZ: 999
 --- !u!114 &1103656780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5575,9 +5571,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89402caab2fee7e409f30c7c34decfba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gazX: 0
-  gazY: 0
-  gazZ: 0
 --- !u!114 &1103656783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5608,8 +5601,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56cccb19fbbd04c42a73e20b9f920ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsToPool: []
-  pooledObjects: []
 --- !u!114 &1103656785
 MonoBehaviour:
   m_ObjectHideFlags: 0

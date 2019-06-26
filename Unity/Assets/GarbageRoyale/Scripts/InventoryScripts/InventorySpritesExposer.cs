@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace GarbageRoyale.Scripts
+namespace GarbageRoyale.Scripts.InventoryScripts
 {
     public class InventorySpritesExposer : MonoBehaviour
     {
@@ -15,17 +15,5 @@ namespace GarbageRoyale.Scripts
         public RawImage[] skillSlots;
         [SerializeField] 
         public GameObject DropArea;
-        
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
     }
 }

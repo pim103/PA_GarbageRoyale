@@ -40,7 +40,6 @@ namespace GarbageRoyale.Scripts.Menu
 
         void AskForCreate()
         {
-            StaticSwitchScene.gameSceneNbPlayers = choosePlayers.value;
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = (byte)choosePlayers.value;
 

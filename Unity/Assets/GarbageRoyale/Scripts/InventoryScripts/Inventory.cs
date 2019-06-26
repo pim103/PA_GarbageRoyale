@@ -1,7 +1,7 @@
 ﻿using GarbageRoyale.Scripts.HUD;
 using UnityEngine;
 
-namespace GarbageRoyale.Scripts
+namespace GarbageRoyale.Scripts.InventoryScripts
 {
     public class Inventory : MonoBehaviour
     {

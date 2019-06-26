@@ -1,4 +1,5 @@
-﻿using GarbageRoyale.Scripts.PrefabPlayer;
+﻿using GarbageRoyale.Scripts.InventoryScripts;
+using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
 using UnityEngine;
 

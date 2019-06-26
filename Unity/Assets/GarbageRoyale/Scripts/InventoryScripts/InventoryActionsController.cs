@@ -4,7 +4,7 @@ using GarbageRoyale.Scripts.Items;
 using Photon.Pun;
 using UnityEngine;
 
-namespace GarbageRoyale.Scripts
+namespace GarbageRoyale.Scripts.InventoryScripts
 {
     public class InventoryActionsController : MonoBehaviourPunCallbacks
     {
@@ -78,7 +78,11 @@ namespace GarbageRoyale.Scripts
                 {
                     photonView.RPC("WantToPlaceObject", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId, placeInHand);
                 }
-                else if(itemInHand == "Toilet Paper")
+                else if(itemInHand == "Toilet Paper" || itemInHand == "Battery")
+                {
+                    photonView.RPC("AskUseItem", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                }
+                else if (itemInHand == "Toilet Paper")
                 {
                     photonView.RPC("AskUsePaper", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 }

@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using GarbageRoyale.Scripts.InventoryScripts;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

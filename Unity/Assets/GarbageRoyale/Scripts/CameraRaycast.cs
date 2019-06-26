@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using GarbageRoyale.Scripts.InventoryScripts;
 using GarbageRoyale.Scripts.PlayerController;
 using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
