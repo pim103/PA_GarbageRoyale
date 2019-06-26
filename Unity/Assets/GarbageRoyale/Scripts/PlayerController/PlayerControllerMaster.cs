@@ -80,19 +80,28 @@ namespace GarbageRoyale.Scripts.PlayerController
                         gc.players[i].PlayerStats.isAlreadyTrigger = true;
                         DataCollector.instance.AddKillPoint(gc.players[i].PlayerGameObject, i, Time.time);
 
+                        for(var placeInv = 0; placeInv < gc.players[i].PlayerInventory.itemInventory.Length; placeInv++)
+                        {
+                            se.iac.AskDropItem(placeInv, i, false);
+                        }
+                        for (var placeInv = 0; placeInv < gc.players[i].PlayerInventory.skillInventory.Length; placeInv++)
+                        {
+                            se.iac.AskDropSkill(placeInv, i);
+                        }
+
                         photonView.RPC("UpdateDataRPC", RpcTarget.All,
-                               i,
-                               false,
-                               0f,
-                               0f,
-                               0f,
-                               0f,
-                               false,
-                               true,
-                               false,
-                               false,
-                               false,
-                               false
+                            i,
+                            false,
+                            0f,
+                            0f,
+                            0f,
+                            0f,
+                            false,
+                            true,
+                            false,
+                            false,
+                            false,
+                            false
                         );
                     }
 
@@ -400,10 +409,17 @@ namespace GarbageRoyale.Scripts.PlayerController
             gc.playersActions[id].isOiled = isOiled;
             gc.playersActions[id].isDamageBoosted = isDamageBoosted;
 
+            int playerIndex = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
+
             if (gc.AvatarToUserId[id] == PhotonNetwork.AuthValues.UserId)
             {
                 gc.players[id].PlayerCamera.transform.localEulerAngles = new Vector3(rotX, 0, 0);
                 gc.inventoryGui.updateBar(ps.currentHp, ps.currentStamina, ps.currentBreath);
+            }
+
+            if(isDead && (id == se.sm.idCamSpectate || id == playerIndex))
+            {
+                se.sm.SwitchCam(playerIndex);
             }
         }
 
