@@ -82,35 +82,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 {
                     photonView.RPC("AskUseItem", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 }
-                else if (itemInHand == "Toilet Paper")
-                {
-                    photonView.RPC("AskUsePaper", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                }
             }
-            
-            /*if (Input.GetKeyDown(KeyCode.A))
-            {
-                gc.playersActions[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].isQuiet = true;
-            }*/
-
-            /*
-            if (PhotonNetwork.IsMasterClient)
-            {
-                foreach (var item in thrownItems)
-                {
-                    if(thrownItemsCount[thrownItems.IndexOf(item)]<30 && thrownItemsCount[thrownItems.IndexOf(item)] >= 0){
-                        item.transform.Translate(new Vector3(0,0,4)*Time.deltaTime);
-                        item.transform.GetChild(0).Rotate(new Vector3(360,0,0)*Time.deltaTime,Space.Self);
-                        thrownItemsCount[thrownItems.IndexOf(item)]+=1;
-                    }
-                    else if(thrownItemsCount[thrownItems.IndexOf(item)]>0)
-                    {
-                        item.transform.Translate(0,-1,0);
-                        item.transform.GetChild(0).rotation = Quaternion.identity;
-                        thrownItemsCount[thrownItems.IndexOf(item)] = -1;
-                    }
-                }
-            }*/
         }
 
         [PunRPC]
@@ -182,39 +154,20 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         [PunRPC]
         public void AnswerChangePlayerHandItem(string item, int playerIndex)
         {
-            int handChild = -1;
-            //Desactivate unused items
-            gc.players[playerIndex].PlayerStaff.SetActive(false);
-            gc.players[playerIndex].PlayerTorch.SetActive(false);
-            gc.players[playerIndex].PlayerToiletPaper.SetActive(false);
-            gc.players[playerIndex].PlayerJerrican.SetActive(false);
-            gc.players[playerIndex].PlayerBottle.SetActive(false);
-            gc.players[playerIndex].PlayerBrokenBottle.SetActive(false);
-            gc.players[playerIndex].PlayerBottleOil.SetActive(false);
-            gc.players[playerIndex].PlayerMolotov.SetActive(false);
-            gc.players[playerIndex].PlayerRope.SetActive(false);
-            gc.players[playerIndex].PlayerMetalSheet.SetActive(false);
-            gc.players[playerIndex].PlayerBoxNail.SetActive(false);
-            gc.players[playerIndex].PlayerWolfTrap.SetActive(false);
-            gc.players[playerIndex].PlayerBattery.SetActive(false);
-            gc.players[playerIndex].PlayerTrapManif.SetActive(false);
+            HideObjectInHand(playerIndex);
 
             switch (item)
             {
                 case "Wooden Staff":
-                    handChild = 1;
                     gc.players[playerIndex].PlayerStaff.SetActive(true);
                     break;
                 case "Steel Staff":
-                    handChild = 1;
                     gc.players[playerIndex].PlayerStaff.SetActive(true);
                     break;
                 case "Torch":
-                    handChild = 0;
                     gc.players[playerIndex].PlayerTorch.SetActive(true);
                     break;
                 case "Toilet Paper":
-                    handChild = 2;
                     gc.players[playerIndex].PlayerToiletPaper.SetActive(true);
                     break;
                 case "Jerrican":
@@ -286,27 +239,13 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         public void AnswerDropItem(int typeItem, int idItem, int playerIndex, bool throwItem, int inventoryPlace, string typeName)
         {
             gc.players[playerIndex].GetComponent<Inventory>().itemInventory[inventoryPlace] = -1;
-            int handChild = -1;
 
             gc.items[idItem].transform.parent = null;
             gc.items[idItem].SetActive(true);
             gc.items[idItem].GetComponent<Item>().resetScale();
             gc.items[idItem].GetComponent<Item>().transform.position = gc.players[playerIndex].PlayerTorch.transform.position + (gc.players[playerIndex].PlayerCamera.transform.forward * 2);
 
-            gc.players[playerIndex].PlayerStaff.SetActive(false);
-            gc.players[playerIndex].PlayerTorch.SetActive(false);
-            gc.players[playerIndex].PlayerToiletPaper.SetActive(false);
-            gc.players[playerIndex].PlayerJerrican.SetActive(false);
-            gc.players[playerIndex].PlayerBottle.SetActive(false);
-            gc.players[playerIndex].PlayerBrokenBottle.SetActive(false);
-            gc.players[playerIndex].PlayerBottleOil.SetActive(false);
-            gc.players[playerIndex].PlayerMolotov.SetActive(false);
-            gc.players[playerIndex].PlayerRope.SetActive(false);
-            gc.players[playerIndex].PlayerMetalSheet.SetActive(false);
-            gc.players[playerIndex].PlayerBoxNail.SetActive(false);
-            gc.players[playerIndex].PlayerWolfTrap.SetActive(false);
-            gc.players[playerIndex].PlayerBattery.SetActive(false);
-            gc.players[playerIndex].PlayerTrapManif.SetActive(false);
+            HideObjectInHand(playerIndex);
 
             if (throwItem)
             {
@@ -317,7 +256,6 @@ namespace GarbageRoyale.Scripts.InventoryScripts
             switch (typeName)
             {
                 case "Torch":
-                    handChild = 0;
                     gc.players[playerIndex].PlayerTorch.SetActive(false);
                     if(gc.players[playerIndex].PlayerTorch.transform.GetChild(0).gameObject.activeSelf)
                     {
@@ -475,7 +413,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         }
 
         [PunRPC]
-        private void AskUsePaper(int placeInHand, int playerIndex)
+        private void AskUseItem(int placeInHand, int playerIndex)
         {
             if (!PhotonNetwork.IsMasterClient)
             {
@@ -485,21 +423,26 @@ namespace GarbageRoyale.Scripts.InventoryScripts
             Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
             int itemId = inventoryData.getItemInventory()[placeInHand];
 
-            if (gc.items[itemId].GetComponent<Item>().type == (int)ItemController.TypeItem.ToiletPaper)
+            Item scriptItem = gc.items[itemId].GetComponent<Item>();
+            switch ((ItemController.TypeItem)scriptItem.type)
             {
-                if(gc.players[playerIndex].PlayerStats.currentHp < gc.players[playerIndex].PlayerStats.defaultHp)
-                {
-                    gc.players[playerIndex].PlayerStats.healPlayer(10.0f);
-                    photonView.RPC("UsePaperRpc", RpcTarget.All, playerIndex, placeInHand);
-                }
+                case ItemController.TypeItem.ToiletPaper:
+                    if (gc.players[playerIndex].PlayerStats.currentHp < gc.players[playerIndex].PlayerStats.defaultHp)
+                    {
+                        gc.players[playerIndex].PlayerStats.healPlayer(10.0f);
+                        photonView.RPC("UseItemRPC", RpcTarget.All, playerIndex, placeInHand);
+                    }
+                    break;
+                case ItemController.TypeItem.Battery:
+                    break;
             }
         }
 
         [PunRPC]
-        private void UsePaperRpc(int idPlayer, int placeInHand)
+        private void UseItemRPC(int idPlayer, int placeInHand)
         {
             gc.players[idPlayer].GetComponent<Inventory>().itemInventory[placeInHand] = -1;
-            gc.players[idPlayer].PlayerToiletPaper.SetActive(false);
+            HideObjectInHand(idPlayer);
 
             if (idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
@@ -507,6 +450,24 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 itemInHand = "";
                 placeInHand = -1;
             }
+        }
+        
+        private void HideObjectInHand(int idPlayer)
+        {
+            gc.players[idPlayer].PlayerStaff.SetActive(false);
+            gc.players[idPlayer].PlayerTorch.SetActive(false);
+            gc.players[idPlayer].PlayerToiletPaper.SetActive(false);
+            gc.players[idPlayer].PlayerJerrican.SetActive(false);
+            gc.players[idPlayer].PlayerBottle.SetActive(false);
+            gc.players[idPlayer].PlayerBrokenBottle.SetActive(false);
+            gc.players[idPlayer].PlayerBottleOil.SetActive(false);
+            gc.players[idPlayer].PlayerMolotov.SetActive(false);
+            gc.players[idPlayer].PlayerRope.SetActive(false);
+            gc.players[idPlayer].PlayerMetalSheet.SetActive(false);
+            gc.players[idPlayer].PlayerBoxNail.SetActive(false);
+            gc.players[idPlayer].PlayerWolfTrap.SetActive(false);
+            gc.players[idPlayer].PlayerBattery.SetActive(false);
+            gc.players[idPlayer].PlayerTrapManif.SetActive(false);
         }
     }
 }
