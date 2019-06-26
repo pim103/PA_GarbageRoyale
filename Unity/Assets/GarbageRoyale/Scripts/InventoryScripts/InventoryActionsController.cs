@@ -11,6 +11,9 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         [SerializeField]
         private GameController gc;
 
+        [SerializeField]
+        private SkillsController sc;
+
         public Dictionary <int, GameObject> characterList = new Dictionary<int, GameObject>();
         private Inventory playerInventory;
         private GameObject gtest;
@@ -434,6 +437,11 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                     }
                     break;
                 case ItemController.TypeItem.Battery:
+                    if (sc.ReduceCooldown(playerIndex))
+                    {
+                        gc.players[playerIndex].PlayerStats.healPlayer(10.0f);
+                        photonView.RPC("UseItemRPC", RpcTarget.All, playerIndex, placeInHand);
+                    }
                     break;
             }
         }
