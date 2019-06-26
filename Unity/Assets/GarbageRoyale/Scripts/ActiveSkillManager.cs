@@ -14,7 +14,12 @@ namespace GarbageRoyale.Scripts
         public int playerID = 0;
         public int skillPlace = 0;
         public bool isActive = true;
-        
+
+        private void Start()
+        {
+            StartCoroutine(DecreaseTimers());
+        }
+
         private IEnumerator DecreaseTimers()
         {
             while (true)
