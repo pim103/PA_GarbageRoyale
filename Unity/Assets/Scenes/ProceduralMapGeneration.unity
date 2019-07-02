@@ -4965,6 +4965,7 @@ MonoBehaviour:
   mazeMat1: {fileID: 2100000, guid: 2019d743bc0984ba1b81150901d44455, type: 2}
   mazeMat2: {fileID: 2100000, guid: 7d4018cc002e925488d631ab0f2bd072, type: 2}
   meshGenerator: {fileID: 0}
+  Surfaces: []
 --- !u!114 &1103656770
 MonoBehaviour:
   m_ObjectHideFlags: 0

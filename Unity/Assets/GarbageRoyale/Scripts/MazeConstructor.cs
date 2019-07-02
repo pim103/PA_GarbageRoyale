@@ -7,6 +7,7 @@ using System.Text;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -30,6 +31,7 @@ namespace GarbageRoyale.Scripts
         public Dictionary<string, int>[] trapId = new Dictionary<string, int>[8];
         public Dictionary<string, int>[] itemRoom = new Dictionary<string, int>[8];
 
+        public List<NavMeshSurface> Surfaces;
         //2
         public int[,] data
         {
@@ -62,7 +64,13 @@ namespace GarbageRoyale.Scripts
                 {
                     DisplayMaze(i * 16,floors[i], floorsRooms[i], i);
                 }
-                
+
+                foreach (var surface in Surfaces)
+                {
+                    /*surface.collectObjects = CollectObjects.Volume;
+                    surface.size = new Vector3(8*16,3,8*16);*/
+                    surface.BuildNavMesh();
+                }
             }
             else
             {
@@ -121,6 +129,10 @@ namespace GarbageRoyale.Scripts
 
             MeshRenderer mr = go.AddComponent<MeshRenderer>();
             mr.materials = new Material[2] {mazeMat1, mazeMat2};
+
+            go.AddComponent<NavMeshSurface>();
+            Surfaces.Add(go.GetComponent<NavMeshSurface>());
+            
         }
     
         /*+-[PunRPC]

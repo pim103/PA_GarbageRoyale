@@ -165,4 +165,10 @@ MonoBehaviour:
   - AnswerAddItem
   - AskAddItem
   - ToggleInvisibilityRPC
+<<<<<<< Updated upstream
+=======
+  - SetGMInvisible
+  - AnswerDropSkill
+  - AskDropSkill
+>>>>>>> Stashed changes
   DisableAutoOpenWizard: 1
