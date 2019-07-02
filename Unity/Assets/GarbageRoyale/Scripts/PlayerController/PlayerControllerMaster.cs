@@ -224,7 +224,6 @@ namespace GarbageRoyale.Scripts.PlayerController
             }
 
             var playerAction = gc.playersActions[id];
-
             var actualSpeed = speed;
 
             if(playerAction.isSlow)
@@ -389,7 +388,6 @@ namespace GarbageRoyale.Scripts.PlayerController
                 else if (gc.playersActions[id].isFallen)
                 {
                     gc.playersActions[id].isFallen = false;
-                    gc.players[id].PlayerGameObject.transform.localEulerAngles = new Vector3(0f, gc.players[id].PlayerGameObject.transform.localEulerAngles.y, 0.0f);
                 }
 
                 yield return new WaitForSeconds(0.1f);
@@ -459,6 +457,14 @@ namespace GarbageRoyale.Scripts.PlayerController
             gc.playersActions[id].isTrap = isTrap;
             gc.playersActions[id].isInWater = isInWater;
             gc.playersActions[id].feetIsInWater = feetIsInWater;
+
+            if (isFallen)
+            {
+                gc.players[id].PlayerGameObject.transform.localEulerAngles = new Vector3(90.0f, gc.players[id].PlayerGameObject.transform.localEulerAngles.y, gc.players[id].PlayerGameObject.transform.localEulerAngles.z);
+            } else
+            {
+                gc.players[id].PlayerGameObject.transform.localEulerAngles = new Vector3(0.0f, gc.players[id].PlayerGameObject.transform.localEulerAngles.y, gc.players[id].PlayerGameObject.transform.localEulerAngles.z);
+            }
 
             int playerIndex = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
 
