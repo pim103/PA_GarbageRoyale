@@ -17,11 +17,6 @@ namespace GarbageRoyale.Scripts
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                return;
-            }
-            
             if (other.name.StartsWith("Player"))
             {
                 int idPlayer = other.GetComponent<ExposerPlayer>().PlayerIndex;
@@ -31,11 +26,6 @@ namespace GarbageRoyale.Scripts
 
         private void OnTriggerExit(Collider other)
         {
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                return;
-            }
-
             if (other.name.StartsWith("Player"))
             {
                 int idPlayer = other.GetComponent<ExposerPlayer>().PlayerIndex;

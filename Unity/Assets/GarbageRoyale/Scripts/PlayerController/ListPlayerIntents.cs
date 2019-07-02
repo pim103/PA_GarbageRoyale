@@ -9,6 +9,10 @@ namespace GarbageRoyale.Scripts.PlayerController
         public float horizontalAxe { get; set; }
         public float verticalAxe { get; set; }
 
+        public Vector3 position { get; set; }
+        public Vector3 rotation { get; set; }
+        public float rotX { get; set; }
+
         public bool wantToGoForward { get; set; }
         public bool wantToGoBackward { get; set; }
         public bool wantToGoRight { get; set; }

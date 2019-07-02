@@ -54,22 +54,22 @@ namespace GarbageRoyale.Scripts.Items
 
         private void OnTriggerEnter(Collider other)
         {
-            if(!PhotonNetwork.IsMasterClient)
-            {
-                return;
-            }
             if (other.name.StartsWith("Player"))
             {
                 ExposerPlayer ep = other.GetComponent<ExposerPlayer>();
 
                 if (idTrap != -1)
                 {
+                    if (!PhotonNetwork.IsMasterClient)
+                    {
+                        return;
+                    }
+
                     TrapInterface item = gc.items[idTrap].GetComponent<TrapInterface>();
                     item.TriggerTrap(ep.PlayerIndex);
                 }
                 else
                 {
-                    Debug.Log("Tombe");
                     ep.PlayerGameObject.transform.localEulerAngles = new Vector3(90.0f, ep.PlayerGameObject.transform.localEulerAngles.y, ep.PlayerGameObject.transform.localEulerAngles.z);
 
                     gc.playersActions[ep.PlayerIndex].isFallen = true;

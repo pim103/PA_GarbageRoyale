@@ -170,4 +170,5 @@ MonoBehaviour:
   - AskDropSkill
   - AskUseItem
   - UseItemRPC
+  - AskUpdateRotPos
   DisableAutoOpenWizard: 1
