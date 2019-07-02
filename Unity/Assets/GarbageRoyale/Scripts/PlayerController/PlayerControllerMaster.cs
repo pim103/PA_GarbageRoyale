@@ -102,6 +102,12 @@ namespace GarbageRoyale.Scripts.PlayerController
                             false,
                             false,
                             false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
                             Vector3.zero,
                             Vector3.zero
                         );
@@ -189,6 +195,9 @@ namespace GarbageRoyale.Scripts.PlayerController
                         gc.playersActions[i].isFallen,
                         gc.playersActions[i].isTrap,
                         gc.playersActions[i].isSlow,
+                        gc.playersActions[i].isInWater,
+                        gc.playersActions[i].headIsInWater,
+                        gc.playersActions[i].feetIsInWater,
                         gc.playersActions[i].position,
                         gc.playersActions[i].rotation
                     );
@@ -399,7 +408,9 @@ namespace GarbageRoyale.Scripts.PlayerController
         private void UpdateDataRPC(int id, bool isMoving, float rotX, float h, float s, float b, bool headIsInWater, bool isDead, bool isBurning, bool isOiled, bool isQuiet, bool isDamageBoosted,
             bool isFallen,
             bool isTrap,
-            bool isSlow, 
+            bool isSlow,
+            bool isInWater,
+            bool feetIsInWater,
             Vector3 pos, 
             Vector3 rot)
         {
@@ -448,6 +459,8 @@ namespace GarbageRoyale.Scripts.PlayerController
             gc.playersActions[id].isFallen = isFallen;
             gc.playersActions[id].isSlow = isSlow;
             gc.playersActions[id].isTrap = isTrap;
+            gc.playersActions[id].isInWater = isInWater;
+            gc.playersActions[id].feetIsInWater = feetIsInWater;
 
             int playerIndex = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
 
