@@ -107,7 +107,6 @@ namespace GarbageRoyale.Scripts.PlayerController
                             false,
                             false,
                             false,
-                            false,
                             Vector3.zero,
                             Vector3.zero
                         );
@@ -196,7 +195,6 @@ namespace GarbageRoyale.Scripts.PlayerController
                         gc.playersActions[i].isTrap,
                         gc.playersActions[i].isSlow,
                         gc.playersActions[i].isInWater,
-                        gc.playersActions[i].headIsInWater,
                         gc.playersActions[i].feetIsInWater,
                         gc.playersActions[i].position,
                         gc.playersActions[i].rotation
