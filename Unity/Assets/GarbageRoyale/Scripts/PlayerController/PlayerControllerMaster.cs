@@ -507,7 +507,7 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             if (isDead)
             {
-                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), deadTexture);
+                //GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), deadTexture);
             }
             else if (headIsInWater)
             {
