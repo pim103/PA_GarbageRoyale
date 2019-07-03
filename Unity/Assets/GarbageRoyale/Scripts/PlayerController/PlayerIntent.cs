@@ -58,11 +58,15 @@ namespace GarbageRoyale.Scripts.PlayerController {
             {
                 isInEscapeMenu = !isInEscapeMenu;
             }
-            if (Input.GetKeyDown(KeyCode.Quote) && (!isInInventory || !isInEscapeMenu))
-            {
-                isInGMGUI = !isInGMGUI;
-            }
 
+            if (PhotonNetwork.IsMasterClient)
+            {
+                if (Input.GetKeyDown(KeyCode.Quote) && (!isInInventory || !isInEscapeMenu))
+                {
+                    isInGMGUI = !isInGMGUI;
+                }
+            }
+            
             if (horizontalAxe != Input.GetAxis("Horizontal"))
             {
                 if (!isInInventory && !isInEscapeMenu)
