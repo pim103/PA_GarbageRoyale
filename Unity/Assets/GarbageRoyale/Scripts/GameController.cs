@@ -126,7 +126,7 @@ namespace GarbageRoyale.Scripts
         private void Awake()
         {
             nbItems = 0;
-            AvatarToUserId = Enumerable.Repeat("", 8).ToArray();
+            AvatarToUserId = Enumerable.Repeat("", 20).ToArray();
             PlayerJoined += ActivateAvatar;
             PlayerLeft += null;
             OnlinePlayReady += StartGame;
@@ -172,8 +172,8 @@ namespace GarbageRoyale.Scripts
 
             startDoor = Instantiate(startDoorPrefab, new Vector3(142, 0, 160), Quaternion.identity);
 
-            moveDirection = new Vector3[10];
-            rotationPlayer = new Vector3[10];
+            moveDirection = new Vector3[20];
+            rotationPlayer = new Vector3[20];
             // END INIT MAP
 
             //playerCamera = Instantiate(cameraPrefab, new Vector3(150, 1.5f, 150), Quaternion.identity);

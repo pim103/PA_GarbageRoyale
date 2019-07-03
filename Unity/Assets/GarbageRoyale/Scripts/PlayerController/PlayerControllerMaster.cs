@@ -51,7 +51,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         private void Start()
         {
             initTexture();
-            coroutineIsStart = Enumerable.Repeat(false, 10).ToArray();
+            coroutineIsStart = Enumerable.Repeat(false, 20).ToArray();
             IsGameEnd = false;
         } 
 

@@ -647,7 +647,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6119040042248144079}
   m_Direction: 0
   m_MinValue: 2
-  m_MaxValue: 5
+  m_MaxValue: 20
   m_WholeNumbers: 1
   m_Value: 2
   m_OnValueChanged:
@@ -811,6 +811,7 @@ MonoBehaviour:
   createRoomButton: {fileID: 6119040042129188269}
   backButton: {fileID: 6119040043527854027}
   nbPlayers: {fileID: 4463591697060108725}
+  roomNameIpt: {fileID: 0}
   controller: {fileID: 0}
 --- !u!1 &6119040042776640883
 GameObject:

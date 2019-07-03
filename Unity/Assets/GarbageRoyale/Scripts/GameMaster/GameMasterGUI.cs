@@ -96,11 +96,12 @@ namespace GarbageRoyale.Scripts.GameMaster
         
         public void AddItem()
         {
+            /*
             Debug.Log(Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
             Debug.Log(gc.AvatarToUserId);
             Debug.Log(PhotonNetwork.AuthValues.UserId);
             Debug.Log(itemTypeField.text);
-            
+            */
             
             photonView.RPC("AskAddItem", RpcTarget.MasterClient, int.Parse(itemTypeField.text), Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
             

@@ -20,7 +20,7 @@ public class Electricity : MonoBehaviour
     {
         timeToBurn = 50.0f;
         gc = GameObject.Find("Controller").GetComponent<GameController>();
-        coroutine = new IEnumerator[10];
+        coroutine = new IEnumerator[20];
     }
 
     private void Update()
