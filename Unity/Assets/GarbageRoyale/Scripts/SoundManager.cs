@@ -82,6 +82,7 @@ namespace GarbageRoyale.Scripts
             lastAmbientSoundPlayed = Sound.Cave;
             gc.menuSound.clip = caveAmbientSound;
             gc.menuSound.loop = true;
+            gc.menuSound.volume = 1;
             gc.menuSound.Play();
         }
 
@@ -91,6 +92,7 @@ namespace GarbageRoyale.Scripts
             lastAmbientSoundPlayed = Sound.Water;
             gc.menuSound.clip = underwaterAmbientSound;
             gc.menuSound.loop = true;
+            gc.menuSound.volume = 0.2f;
             gc.menuSound.Play();
         }
 
@@ -132,53 +134,10 @@ namespace GarbageRoyale.Scripts
 
             photonView.RPC("playSoundForAll", RpcTarget.AllBuffered, info.Sender.ActorNumber, sound);
         }
-        /*
-        [PunRPC]
-        private void playSoundForAll(int idPlayer, Sound sound, PhotonMessageInfo info)
-        {
-            if (gc.getCanMove())
-            {
-                AudioSource audio = characterSound[idPlayer].GetComponent<AudioSource>();
 
-                switch (sound)
-                {
-                    case Sound.Pipe:
-                        characterPlaying[idPlayer] = Sound.Pipe;
-                        audio.PlayOneShot(pipeSound);
-                        break;
-                    case Sound.Button:
-                        characterPlaying[idPlayer] = Sound.Button;
-                        audio.PlayOneShot(buttonSound);
-                        break;
-                    case Sound.OpeningDoor:
-                        characterPlaying[idPlayer] = Sound.Button;
-                        audio.PlayOneShot(openingDoorSound);
-                        break;
-                    case Sound.EndOpeningDoor:
-                        characterPlaying[idPlayer] = Sound.Button;
-                        audio.PlayOneShot(endOpeningDoorSound);
-                        break;
-                    case Sound.None:
-                    default:
-                        audio.Stop();
-                        break;
-                }
-            }
-        }
-        */
         public void stopSound()
         {
             photonView.RPC("verifySongPlay", RpcTarget.MasterClient, Sound.None);
-        }
-
-        [PunRPC]
-        void getNeededSong(PhotonMessageInfo info)
-        {
-            /*
-            PlayerMovement playerMov;
-            playerMov = characterList[info.Sender.ActorNumber].GetComponent<PlayerMovement>();*/
-            //photonView.RPC("playWalkSound", RpcTarget.AllBuffered, playerMov.needToPlaySong, info.Sender.ActorNumber, playerMov.soundNeeded);
-            //photonView.RPC("playAmbientSound", info.Sender, playerMov.getHeadIsOnWater());
         }
 
         public void playWalkSound(int idPlayer, bool playSong, Sound soundNeeded, bool isQuiet)
@@ -213,6 +172,7 @@ namespace GarbageRoyale.Scripts
                 {
                     if (!isQuiet)
                     {
+                        audio.volume = 1.0f;
                         switch (soundNeeded)
                         {
                             case Sound.Walk:
@@ -232,6 +192,7 @@ namespace GarbageRoyale.Scripts
                                 audio.PlayOneShot(walkWaterSound);
                                 break;
                             case Sound.Swim:
+                                audio.volume = 0.15f;
                                 audio.PlayOneShot(swimmingSound);
                                 break;
                             case Sound.MetalSheet:

@@ -470,6 +470,8 @@ MonoBehaviour:
   stamina: 0
   breath: 0
   basicAttack: 0
+  isDead: 0
+  isRotateMob: 0
 --- !u!64 &2478371402471721163
 MeshCollider:
   m_ObjectHideFlags: 0

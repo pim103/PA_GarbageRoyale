@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GarbageRoyale.Scripts.HUD;
+using GarbageRoyale.Scripts.InventoryScripts;
 using GarbageRoyale.Scripts.Items;
 using Photon.Pun;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace GarbageRoyale.Scripts
         
         private RawImage CraftingResultSlot;
 
+        private GameObject DropArea;
+
         private RectTransform[] ItemRects = new RectTransform[20];
         
         private RectTransform[] CraftingRects = new RectTransform[20];
@@ -26,9 +29,11 @@ namespace GarbageRoyale.Scripts
         private RectTransform[] SkillRects = new RectTransform[20];
         
         private RectTransform CraftingResultRect = new RectTransform();
+        private RectTransform DropAreaRect = new RectTransform();
 
         private GameController gc;
 
+        private InventoryActionsController iac;
         private InventorySpritesExposer spritesExposer;
 
         public int invIndex;
@@ -43,12 +48,14 @@ namespace GarbageRoyale.Scripts
         void Start()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
+            iac = GameObject.Find("Controller").GetComponent<InventoryActionsController>();
             RpcManager = GameObject.Find("DetailedInventory").GetComponent<DetailedInventoryRPCManager>();
             spritesExposer = GameObject.Find("DetailedInventory").GetComponent<InventorySpritesExposer>();
             ItemSlots = spritesExposer.ItemSlots;
             CraftingSlots = spritesExposer.CraftingSlots;
             CraftingResultSlot = spritesExposer.CraftingResult;
             SkillSlots = spritesExposer.skillSlots;
+            DropArea = spritesExposer.DropArea;
             
             for (int i = 0; i<20; i++)
             {
@@ -63,6 +70,7 @@ namespace GarbageRoyale.Scripts
                 SkillRects[i] = SkillSlots[i].transform as RectTransform;
             }
             CraftingResultRect = CraftingResultSlot.transform as RectTransform;
+            DropAreaRect = DropArea.transform as RectTransform;
             
         }
 
@@ -184,6 +192,19 @@ namespace GarbageRoyale.Scripts
                         rawImg.texture = GetComponent<RawImage>().texture;
                         GetComponent<RawImage>().texture = textureMem;
                     }
+                }
+            }
+
+            if (RectTransformUtility.RectangleContainsScreenPoint(DropAreaRect, Input.mousePosition))
+            {
+                if (invIndex < 100)
+                {
+                    iac.photonView.RPC("AskDropItem", RpcTarget.MasterClient, invIndex,
+                        System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), false);
+                }
+                else
+                {
+                    iac.photonView.RPC("AskDropSkill", RpcTarget.MasterClient, invIndex-100, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 }
             }
         }

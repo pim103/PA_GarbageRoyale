@@ -88,7 +88,7 @@ namespace GarbageRoyale.Scripts.Items
 
             while (true)
             {
-                gc.players[id].PlayerStats.takeDamage(1f);
+                gc.players[id].PlayerStats.takeDamage(5f);
                 yield return new WaitForSeconds(0.5f);
             }
         }

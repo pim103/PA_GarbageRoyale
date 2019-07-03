@@ -1,0 +1,22 @@
+using UnityEngine.Networking;
+using System.Security.Cryptography.X509Certificates;
+using UnityEngine;
+
+namespace GarbageRoyale.Scripts
+{
+    class AcceptAllCertificatesSignedWithASpecificKeyPublicKey : CertificateHandler
+    {
+        // Encoded RSAPublicKey
+        private static string PUB_KEY = "3082010A0282010100A72167CC90A3BEEAC9BDDC6038F3F0EB90A854ECEF3F98E123834B9F28303EE105D7D69028F9579EBBCC58F7B8E50A5E487FBD106F843A2ECA02AF13C401D7777FF25F3F04E36CF086CD1C00A0612D4B9FE7CED655BFCB2145FFEAC0E17CDEFD681DADA2296ACBD22B34189911F34AF8BC8486B5010DC5875BBD83E5E8E6126F6C72D9AC4671FDAF53CB5DB5A81A2B42C93E0AE62F593DDFDF59A40E6615458F83B5A544F73E5A5A335D712368BCCA056F9BDAA3D7056D2FE73BDFF476C6C3B14C7908DC6D75E246C8B5847F40E90A2995DA90E5911ADC0E0A5F87B1A47EB934B643B28B189DFCB3C3F1E5A1364DC3AF257479C19B93E98AA3BA8380B59979930203010001";
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            X509Certificate2 certificate = new X509Certificate2(certificateData);
+            string pk = certificate.GetPublicKeyString();
+            if (pk.ToLower().Equals(PUB_KEY.ToLower()))
+                return true;
+
+            // Bad dog
+            return false;
+        }
+    }
+}

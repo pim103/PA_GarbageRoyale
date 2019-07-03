@@ -35,6 +35,8 @@ U - Activer/Désactiver la montée de l'eau
 I - Ouvrir les portes de départ   
 
 # Liste des crafts :      
+    
+Attention, le HUD est peu lisible dans cette version, mais les items sont bien là    
 
 Oil Bottle = Bottle + Jerrican       
 Molotov Cocktail = Oil Bottle + Toilet Paper || Bottle + Jerrican + Toilet Paper      
@@ -59,15 +61,15 @@ Les sprites des items ne sont pas les bons lors de l'ajout par commande GameMast
 16 - Metal Sheet : Peut être posée au sol afin de produire du bruit lorsqu'un joueur marche dessus    
 17 - Torch : Peut être allumée afin de produire une lumière plus ténue et plus discrète    
 
+# Compétences :    
 
-
-
-
-
-
-
-
-
+Lorsque les ennemis sont éliminés, ils laissent tomber des implants, donnant une compétence aléatoire parmis :    
+- un buff permettant de marcher silencieusement    
+- un buff de dégats d'arme    
+- un tazer assommant les adversaires pendant 2 sec, et électrifiant l'eau présente    
+- un buff d'invisibilité    
+- un dash en avant électrifiant l'eau présente    
+- un buff permettant de respirer sous l'eau    
 
 
 

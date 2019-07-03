@@ -16,6 +16,9 @@ namespace GarbageRoyale.Scripts.Menu
         [SerializeField]
         private Text nbPlayers;
 
+        [SerializeField] 
+        private InputField roomNameIpt;
+
         [SerializeField]
         private StartGame controller;
 
@@ -37,11 +40,10 @@ namespace GarbageRoyale.Scripts.Menu
 
         void AskForCreate()
         {
-            StaticSwitchScene.gameSceneNbPlayers = choosePlayers.value;
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = (byte)choosePlayers.value;
 
-            PhotonNetwork.CreateRoom("Test", roomOptions);
+            PhotonNetwork.CreateRoom(roomNameIpt.text, roomOptions);
         }
 
         void AskForBack()

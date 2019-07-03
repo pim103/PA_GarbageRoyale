@@ -58,11 +58,15 @@ namespace GarbageRoyale.Scripts.PlayerController {
             {
                 isInEscapeMenu = !isInEscapeMenu;
             }
-            if (Input.GetKeyDown(KeyCode.Quote) && (!isInInventory || !isInEscapeMenu))
-            {
-                isInGMGUI = !isInGMGUI;
-            }
 
+            if (PhotonNetwork.IsMasterClient)
+            {
+                if (Input.GetKeyDown(KeyCode.Quote) && (!isInInventory || !isInEscapeMenu))
+                {
+                    isInGMGUI = !isInGMGUI;
+                }
+            }
+            
             if (horizontalAxe != Input.GetAxis("Horizontal"))
             {
                 if (!isInInventory && !isInEscapeMenu)
@@ -90,29 +94,6 @@ namespace GarbageRoyale.Scripts.PlayerController {
                     photonView.RPC("WantToMoveVerticalRPC", RpcTarget.MasterClient, 0f);
                 }
             }
-            
-            /*
-            if(Input.GetKeyDown(KeyCode.Z))
-            {
-                wantToGoForward = true;
-                photonView.RPC("WantToMoveForwardRPC", RpcTarget.MasterClient, wantToGoForward);
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                wantToGoBackward = true;
-                photonView.RPC("WantToMoveBackwardRPC", RpcTarget.MasterClient, wantToGoBackward);
-            }
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                wantToGoLeft = true;
-                photonView.RPC("WantToMoveLeftRPC", RpcTarget.MasterClient, wantToGoLeft);
-            }
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                wantToGoRight = true;
-                photonView.RPC("WantToMoveRightRPC", RpcTarget.MasterClient, wantToGoRight);
-            }
-            */
 
             if (rotationX != Input.GetAxis("Mouse Y"))
             {
@@ -178,20 +159,20 @@ namespace GarbageRoyale.Scripts.PlayerController {
                 ActivateSkill(1);
             }
             
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouched || Input.GetKeyDown(KeyCode.LeftShift) && !wantToJump)
             {
-                Debug.Log("Running");
+                //Debug.Log("Running");
                 isRunning = true;
                 photonView.RPC("WantToRunRPC", RpcTarget.MasterClient, true);
             }
-            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            else if (Input.GetKeyUp(KeyCode.LeftShift) || isCrouched || wantToJump)
             {
-                Debug.Log("End Running");
+                //Debug.Log("End Running");
                 isRunning = false;
                 photonView.RPC("WantToRunRPC", RpcTarget.MasterClient, false);
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            if (Input.GetKeyDown(KeyCode.LeftControl) && !isRunning)
             {
                 Debug.Log("Crouching");
                 isCrouched = true;
@@ -207,12 +188,23 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
         private void FixedUpdate()
         {
-            if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId && PhotonNetwork.IsMasterClient)
+            if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
             {
                 return;
             }
 
-            //scripts.pcm.PlayerRotation(PlayerIndex);
+            scripts.pcm.PlayerMovement(PlayerIndex);
+            scripts.pcm.PlayerRotation(PlayerIndex);
+
+            photonView.RPC("AskUpdateRotPos", RpcTarget.MasterClient, gc.players[PlayerIndex].PlayerGameObject.transform.position, gc.players[PlayerIndex].PlayerGameObject.transform.localEulerAngles, gc.rotationPlayer[PlayerIndex].x);
+        }
+
+        [PunRPC]
+        private void AskUpdateRotPos(Vector3 position, Vector3 rotation, float rotY)
+        {
+            this.position = position;
+            this.rotation = rotation;
+            this.rotX = rotY;
         }
 
         [PunRPC]

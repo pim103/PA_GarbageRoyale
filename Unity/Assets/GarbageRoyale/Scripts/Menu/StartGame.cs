@@ -14,6 +14,8 @@ namespace GarbageRoyale.Scripts.Menu
         public GameObject loginMenu;
         [SerializeField]
         public GameObject subMenu;
+        [SerializeField] 
+        public GameObject lobbyMenu;
         [SerializeField]
         public GameObject EndGameMenu;
 
@@ -30,7 +32,6 @@ namespace GarbageRoyale.Scripts.Menu
         // Start is called before the first frame update
         void Start()
         {
-            //launchLoginMenu();
             launchLoginMenu();
 
             Cursor.lockState = CursorLockMode.None;
@@ -47,6 +48,12 @@ namespace GarbageRoyale.Scripts.Menu
         {
             ResetAllMenu();
             subMenu.SetActive(true);
+        }
+        
+        public void launchLobbyMenu()
+        {
+            ResetAllMenu();
+            lobbyMenu.SetActive(true);
         }
         
         public void launchRegisterMenu()

@@ -52,7 +52,12 @@ namespace GarbageRoyale.Scripts.HUD
         {
             RawImage rawImg = GameObject.Find("ItemImg_" + idx).GetComponent<RawImage>();
             rawImg.texture = null;
-            //rawImg.color = new Color(0f,0f,0f,0f);
+        }
+        
+        public void deleteSkillSprite(int idx)
+        {
+            RawImage rawImg = GameObject.Find("SkillImg_" + idx).GetComponent<RawImage>();
+            rawImg.texture = null;
         }
         /*
         public void printSkillSprite(int idx, int id)

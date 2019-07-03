@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using GarbageRoyale.Scripts.InventoryScripts;
 using GarbageRoyale.Scripts.PlayerController;
 using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
@@ -107,9 +108,10 @@ namespace GarbageRoyale.Scripts
                         int pipeId = hitInfo.transform.parent.GetComponent<PipeScript>().pipeIndex;
                         photonView.RPC("brokePipeRPC", RpcTarget.MasterClient, pipeId);
                     }
-                    else if (hitInfo.transform.name == "Mob(Clone)")
+                    else if (hitInfo.transform.name == "Mob(Clone)" || hitInfo.transform.name == "GIANT_RAT_LEGACY(Clone)")
                     {
                         //hitInfo.transform.GetComponent<MobStats>().takeDamage(Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
+                        //Debug.Log("Test saucisse de rat");
                         photonView.RPC("HitMobRPC",RpcTarget.MasterClient,hitInfo.transform.GetComponent<MobStats>().id,Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                     }
                     else if (hitInfo.transform.name.StartsWith("Player"))

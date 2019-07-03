@@ -1,4 +1,5 @@
-﻿using GarbageRoyale.Scripts.PrefabPlayer;
+﻿using GarbageRoyale.Scripts.InventoryScripts;
+using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
 using UnityEngine;
 
@@ -79,6 +80,27 @@ namespace GarbageRoyale.Scripts
             lootedSkill.transform.position = transform.position;
             GarbageRoyale.Scripts.Skill skill = lootedSkill.GetComponent<GarbageRoyale.Scripts.Skill>();
             skill.type = type;
+            switch (type)
+            {
+                case 0:
+                    skill.name = "Marche silencieuse";
+                    break;
+                case 1:
+                    skill.name = "Maîtrise du bâton";
+                    break;
+                case 2:
+                    skill.name = "Invisibilité";
+                    break;
+                case 3:
+                    skill.name = "Taser";
+                    break;
+                case 4:
+                    skill.name = "Respiration aquatique";
+                    break;
+                case 5:
+                    skill.name = "Dash éclair";
+                    break;
+            }
         }
     }
 }

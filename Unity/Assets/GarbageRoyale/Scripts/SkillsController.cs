@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GarbageRoyale.Scripts.HUD;
+using GarbageRoyale.Scripts.InventoryScripts;
 using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace GarbageRoyale.Scripts
         private GameObject SkillBuffTime_1;
         [SerializeField] 
         private RawImage[] buffTextures;
-        
+
         [SerializeField] 
         private GameObject Water;
         
@@ -154,45 +155,50 @@ namespace GarbageRoyale.Scripts
             }
 
             skillID = gc.players[playerIndex].GetComponent<Inventory>().skillInventory[skillPlace];
+            if(skillID == -1)
+            {
+                return;
+            }
+
             Skill skillInfos = gc.items[skillID].GetComponent<Skill>();
             skillType = skillInfos.type;
             
-                foreach (var skillManager in CurrentSkills)
+            foreach (var skillManager in CurrentSkills)
+            {
+                if (skillManager.skillType == skillType && skillManager.skillID == skillID &&
+                    skillManager.playerID == playerIndex)
                 {
-                    if (skillManager.skillType == skillType && skillManager.skillID == skillID &&
-                        skillManager.playerID == playerIndex)
+                    if (skillManager.coolDown > 0)
                     {
-                        if (skillManager.coolDown > 0)
-                        {
-                            return;
-                        }
-
-                        foundSkill = skillManager;
+                        return;
                     }
-                }
 
-                Debug.Log(skillID);
-
-                if (foundSkill)
-                {
-                    newSkill = foundSkill;
-                    foundSkill = null;
+                    foundSkill = skillManager;
                 }
-                else
-                {
-                    newSkill = gameObject.AddComponent<ActiveSkillManager>();
-                }
+            }
 
-                Debug.Log("yees");
-                newSkill.playerID = playerIndex;
-                newSkill.bufftime = skillInfos.bufftime;
-                newSkill.coolDown = skillInfos.cooldown;
-                newSkill.skillType = skillInfos.type;
-                newSkill.skillID = skillID;
-                newSkill.skillPlace = skillPlace;
-                newSkill.isActive = true;
-                CurrentSkills.Add(newSkill);
-                photonView.RPC("ActivateSkill",RpcTarget.All, playerIndex,skillPlace,skillID,targetID);
+            Debug.Log(skillID);
+
+            if (foundSkill)
+            {
+                newSkill = foundSkill;
+                foundSkill = null;
+            }
+            else
+            {
+                newSkill = gameObject.AddComponent<ActiveSkillManager>();
+            }
+
+            Debug.Log("yees");
+            newSkill.playerID = playerIndex;
+            newSkill.bufftime = skillInfos.bufftime;
+            newSkill.coolDown = skillInfos.cooldown;
+            newSkill.skillType = skillInfos.type;
+            newSkill.skillID = skillID;
+            newSkill.skillPlace = skillPlace;
+            newSkill.isActive = true;
+            CurrentSkills.Add(newSkill);
+            photonView.RPC("ActivateSkill",RpcTarget.All, playerIndex,skillPlace,skillID,targetID);
             //photonView.RPC("AnswerSkillActivation",RpcTarget.All,skillType, playerIndex);
         }
         
@@ -339,6 +345,25 @@ namespace GarbageRoyale.Scripts
                     break;
             }
             
+        }
+
+        public bool ReduceCooldown(int playerId)
+        {
+            bool findSkillInCd = false;
+
+            foreach (var skillManager in CurrentSkills)
+            {
+                if (skillManager.playerID == playerId)
+                {
+                    if (skillManager.coolDown > 0)
+                    {
+                        findSkillInCd = true;
+                        skillManager.coolDown = skillManager.coolDown > 10 ? skillManager.coolDown - 10 : 0;
+                    }
+                }
+            }
+
+            return findSkillInCd;
         }
     }
 }

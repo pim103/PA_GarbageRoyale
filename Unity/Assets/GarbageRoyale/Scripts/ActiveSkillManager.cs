@@ -14,20 +14,12 @@ namespace GarbageRoyale.Scripts
         public int playerID = 0;
         public int skillPlace = 0;
         public bool isActive = true;
-        
-        // Start is called before the first frame update
-        void Start()
+
+        private void Start()
         {
             StartCoroutine(DecreaseTimers());
         }
 
-        
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
-        
         private IEnumerator DecreaseTimers()
         {
             while (true)
