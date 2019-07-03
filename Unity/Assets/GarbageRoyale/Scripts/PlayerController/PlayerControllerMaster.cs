@@ -37,7 +37,7 @@ namespace GarbageRoyale.Scripts.PlayerController
 
         //Camera
         private float minimumVert = -90.0f;
-        private float maximumVert = 90.0f;
+        private float maximumVert = 73.0f;
         private float sensHorizontal = 5.0f;
         private float sensVertical = 5.0f;
 
