@@ -71,7 +71,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                     Item itemData = itemGob.GetComponent<Item>();
                     if (itemData.getType() != (int) ItemController.TypeItem.Implant)
                     {
-                        if (!hitInfo.transform.gameObject.GetComponent<Item>().isPickable)
+                        if (hitInfo.transform.gameObject.GetComponent<Item>().isPickable)
                         {
                             itemDataText.text = itemData.name + " (Press F to take)";
                         }

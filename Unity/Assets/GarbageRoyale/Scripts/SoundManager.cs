@@ -179,12 +179,12 @@ namespace GarbageRoyale.Scripts
                                 audio.PlayOneShot(walkSound);
                                 if (gc.playersActions[idPlayer].isRunning)
                                 {
-                                    audio.volume = audio.volume * 1.5f;
+                                    audio.volume = 1.5f;
                                 }
 
                                 if (gc.playersActions[idPlayer].isCrouched)
                                 {
-                                    audio.volume = audio.volume * 0.5f;
+                                    audio.volume = 0.5f;
                                 }
 
                                 break;
