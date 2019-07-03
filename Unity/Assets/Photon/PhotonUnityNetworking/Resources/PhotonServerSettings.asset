@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: 05bc07b4-6e63-453f-8d6f-03be7911a9d3
+    AppIdRealtime: 
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
-    FixedRegion: eu
+    FixedRegion: 
     Server: 
     Port: 0
     Protocol: 0
@@ -28,147 +28,5 @@ MonoBehaviour:
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
-  RpcList:
-  - DestroySpaceship
-  - Fire
-  - RespawnSpaceship
-  - SayHello
-  - GetDatas
-  - OnPhotonPlayerConnected
-  - OnPlayerEnteredRoom
-  - GenerateClientMaze
-  - SendData
-  - SendPlayers
-  - InitPlayers
-  - MovePlayer
-  - RotatePlayerCamera
-  - SendCameraPosition
-  - initPlayerStats
-  - getPlayerStats
-  - playWalkSound
-  - getNeededSong
-  - RotatePlayerSound
-  - SendSoundPosition
-  - MovePlayerSound
-  - InstatiateOtherSound
-  - InstantiateOtherSound
-  - getLastId
-  - initOwnSound
-  - TurnLightOff
-  - playAmbientSound
-  - AskTrapDoorOpening
-  - OpenTrapDoors
-  - findPlayer
-  - setCanMove
-  - returnToMenu
-  - OpenByOtherPlayer
-  - AskTakeItem
-  - verifySongPlay
-  - playSoundForAll
-  - initListSound
-  - AskBrokenPipe
-  - brokePipe
-  - AskIn
-  - AskDisableItem
-  - verifyTriggerExplosion
-  - explode
-  - AnswerChangePlayerHandItem
-  - AskChangePlayerHandItem
-  - ChangeItemInHandOthers
-  - AnswerDropItem
-  - AskDropItem
-  - AskThrowItem
-  - punch
-  - ChangeGUIClient
-  - AskTakeImplant
-  - AnswerTakeImplant
-  - askTriggerTorch
-  - moveTorch
-  - sendTriggerTorch
-  - triggerTorchForAll
-  - ActivateAvatarRPC
-  - WantToJumpRPC
-  - WantToLightUpRPC
-  - WantToMoveHorizontalRPC
-  - WantToMoveVerticalRPC
-  - WantToRotateXRPC
-  - WantToRotateYRPC
-  - WantToUseTorcj
-  - WantToUseTorch
-  - RotateLampRPC
-  - LightUpRPC
-  - SendUserId
-  - initAvatarUserIdRPC
-  - PutItemInInventory
-  - brokePipeRPC
-  - brokeSpecificPipeRPC
-  - openDoorRPC
-  - openSpecificDoorRPC
-  - openSpecificTrapRPC
-  - openTrapRPC
-  - LightOnTorchRPC
-  - setItemInHand
-  - LightOnSpecificTorch
-  - PlayWalkSoundRPC
-  - endOfInitRPC
-  - UpdateDataRPC
-  - PunchRPC
-  - soundOpenDoorRPC
-  - soundOpenSpecificDoorRPC
-  - AnswerSwapInventoryItems
-  - AskSwapInventoryItems
-  - testrpc
-  - DisperseOil
-  - DisperseSpecificOil
-  - AnswerCraftItem
-  - AnswerDeleteCraftItem
-  - AskCraftItem
-  - AskDeleteCraftItem
-  - brokeBottleRpc
-  - addSpecificBrokenBottle
-  - ActivateQuietSkill
-  - AskSkillActivation
-  - DeactivateQuietSkill
-  - HitMobRPC
-  - MobDeath
-  - addSpecificBrokenBottleInHand
-  - BurnSurfaceRPC
-  - AskPlaceRope
-  - PlaceRopeRPC
-  - ThrowNail
-  - DisperseSpecificNail
-  - AskPlaceMetalSheet
-  - PlaceMetalSheetRPC
-  - AnswerSwapInventorySkills
-  - AskSwapInventorySkills
-  - AskPlaceWolfTrap
-  - PlaceWolfTrapRPC
-  - AskPlaceObject
-  - PlaceObjectRPC
-  - ActiveSpecificPreview
-  - WantToPlaceObject
-  - LaunchProjectileRPC
-  - ActiveWolfTrapRPC
-  - ActivateSkill
-  - DeactivateSkill
-  - WantToCrouch
-  - WantToRunRPC
-  - MobDeathAll
-  - WantToCrouchRPC
-  - EndGameRPC
-  - AskUsePaper
-  - UsePaperRpc
-  - AnswerGetCraftedItem
-  - AskGetCraftedItem
-  - DesactiveDoorRPC
-  - DesactiveStartDoorRPC
-  - AnswerAddItem
-  - AskAddItem
-  - ToggleInvisibilityRPC
-<<<<<<< Updated upstream
-=======
-  - SetGMInvisible
-  - AnswerDropSkill
-  - AskDropSkill
->>>>>>> Stashed changes
+  RpcList: []
   DisableAutoOpenWizard: 1

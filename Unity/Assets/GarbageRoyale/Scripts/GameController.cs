@@ -63,6 +63,7 @@ namespace GarbageRoyale.Scripts
 
         private GUIStyle currentStyle = null;
         private Texture2D mapTexture;
+        private Texture2D trapTexture;
         private Texture2D playerTexture;
         private float currentPosX;
         private float currentPosY;
@@ -165,6 +166,7 @@ namespace GarbageRoyale.Scripts
                 }
             }
             mapTexture = MakeTex(4, 4, new Color(1f, 1f, 1f, 0.5f));
+            trapTexture = MakeTex(4, 4, new Color(0f, 1f, 0f, 0.5f));
             playerTexture = MakeTex(4, 4, new Color(0.5f, 0.5f, 0.5f, 0.5f));
             generator = GetComponent<MazeConstructor>();      // 2
             generator.GenerateNewMaze(81, 81, itemList.Length);
@@ -523,7 +525,14 @@ namespace GarbageRoyale.Scripts
                             {
                                 if (exploredRooms[currentFloor][j, i] == 1 || (currentFloor == 0 && i > (81 / 2 - 5) && i < (81 / 2 + 5) && j > 81 / 2 - 5 && j < 81 / 2 + 5 ))
                                 {
-                                    GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), mapTexture);
+                                    if (generator.floorsRooms[currentFloor][j, i] == 3)
+                                    {
+                                        GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), trapTexture);
+                                    }
+                                    else
+                                    {
+                                        GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), mapTexture);
+                                    }
                                 }
                             }
                             else

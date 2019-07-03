@@ -69,7 +69,7 @@ namespace GarbageRoyale.Scripts
                 {
                     /*surface.collectObjects = CollectObjects.Volume;
                     surface.size = new Vector3(8*16,3,8*16);*/
-                    surface.BuildNavMesh();
+                    //surface.BuildNavMesh();
                 }
             }
             else
