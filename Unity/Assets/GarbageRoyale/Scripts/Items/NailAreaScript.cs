@@ -17,7 +17,7 @@ namespace GarbageRoyale.Scripts.Items
         private void Start()
         {
             isEmpty = false;
-            coroutine = new IEnumerator[10];
+            coroutine = new IEnumerator[20];
 
             gc = GameObject.Find("Controller").GetComponent<GameController>();
         }

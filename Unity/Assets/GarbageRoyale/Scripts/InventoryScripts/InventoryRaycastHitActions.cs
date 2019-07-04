@@ -36,9 +36,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         void Start()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
-            characterList = gc.characterList;
             itemPanel.SetActive(false);
-            Debug.Log(characterList);
         }
         
         // Update is called once per frame

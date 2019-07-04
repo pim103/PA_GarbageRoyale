@@ -78,8 +78,10 @@ namespace GarbageRoyale.Scripts
             gc.items.Add(gc.items.Count,lootedSkill);
             lootedSkill.SetActive(true);
             lootedSkill.transform.position = transform.position;
-            GarbageRoyale.Scripts.Skill skill = lootedSkill.GetComponent<GarbageRoyale.Scripts.Skill>();
-            skill.type = type;
+
+            Skill skill = lootedSkill.GetComponent<Skill>();
+            skill.type = 5;
+
             switch (type)
             {
                 case 0:

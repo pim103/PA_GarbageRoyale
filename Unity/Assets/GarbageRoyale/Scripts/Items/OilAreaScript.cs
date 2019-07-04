@@ -28,11 +28,11 @@ namespace GarbageRoyale.Scripts.Items
 
         private void Start()
         {
-            isInZone = Enumerable.Repeat(false, 10).ToArray();
+            isInZone = Enumerable.Repeat(false, 20).ToArray();
             isBurning = false;
             timeToBurn = 50.0f;
             gc = GameObject.Find("Controller").GetComponent<GameController>();
-            coroutine = new IEnumerator[10];
+            coroutine = new IEnumerator[20];
         }
 
         private void Update()

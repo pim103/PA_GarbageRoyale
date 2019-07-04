@@ -20,7 +20,7 @@ public class Electricity : MonoBehaviour
     {
         timeToBurn = 50.0f;
         gc = GameObject.Find("Controller").GetComponent<GameController>();
-        coroutine = new IEnumerator[10];
+        coroutine = new IEnumerator[20];
     }
 
     private void Update()
@@ -38,6 +38,11 @@ public class Electricity : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
         if (other.name.StartsWith("Player"))
         {
             int id = other.GetComponent<ExposerPlayer>().PlayerIndex;
@@ -49,6 +54,11 @@ public class Electricity : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
         if (other.name.StartsWith("Player"))
         {
             int id = other.GetComponent<ExposerPlayer>().PlayerIndex;

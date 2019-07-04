@@ -14,7 +14,6 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         [SerializeField]
         private SkillsController sc;
 
-        public Dictionary <int, GameObject> characterList = new Dictionary<int, GameObject>();
         private Inventory playerInventory;
         private GameObject gtest;
         public string itemInHand;

@@ -73,7 +73,7 @@ namespace GarbageRoyale.Scripts
         void Awake()
         {
             lastAmbientSoundPlayed = Sound.Menu;
-            lastSoundPlayed = Enumerable.Repeat(Sound.Walk, 10).ToArray();
+            lastSoundPlayed = Enumerable.Repeat(Sound.Walk, 20).ToArray();
         }
 
         public void initAmbientSound()
