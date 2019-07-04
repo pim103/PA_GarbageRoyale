@@ -44,6 +44,7 @@ namespace GarbageRoyale.Scripts.Menu
             roomOptions.MaxPlayers = (byte)choosePlayers.value;
 
             PhotonNetwork.CreateRoom(roomNameIpt.text, roomOptions);
+            //Photo
         }
 
         void AskForBack()

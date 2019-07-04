@@ -18,7 +18,6 @@ namespace GarbageRoyale.Scripts.GameMaster
             }
             if (Input.GetKeyDown(KeyCode.Quote))
             {
-                
                 if (!isInGMGUI)
                 {
                     gmGUI.SetActive(true);
@@ -33,9 +32,7 @@ namespace GarbageRoyale.Scripts.GameMaster
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                 }
-                
             }
         }
-        
     }
 }

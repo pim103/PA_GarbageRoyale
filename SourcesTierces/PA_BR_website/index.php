@@ -36,7 +36,7 @@ require_once "./utils/header.php"
     @font-face {font-family:"Orbitron Black";src:url("files/fonts/orbitron-black.eot?") format("eot"),url("files/fonts/orbitron-black.woff") format("woff"),url("files/fonts/orbitron-black.ttf") format("truetype"),url("files/fonts/orbitron-black.svg#Orbitron-Black") format("svg");font-weight:normal;font-style:normal;}
 
     body{
-        background: #041057;
+        background: #434548;
     }
     #main-div{
         background: black;

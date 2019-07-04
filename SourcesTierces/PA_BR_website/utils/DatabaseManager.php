@@ -40,6 +40,18 @@ class DatabaseManager {
         $statement = $this->pdo->prepare($sql);
         return (int)$statement->execute($params);
     }
+
+    public function getObject($row){
+
+        $query = $this->getPDO()->prepare('SELECT room_list_players.* FROM room_list_players WHERE room_list_players.room_list="' .  $row .'"');
+        //$query->execute();
+
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_GROUP);
+
+        return $result;
+    }
+
 }
 
 ?>
