@@ -102,6 +102,7 @@ namespace GarbageRoyale.Scripts.Menu
 
         public void BackToMenu()
         {
+            PhotonNetwork.Disconnect();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 

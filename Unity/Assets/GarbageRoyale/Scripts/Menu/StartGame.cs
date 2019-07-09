@@ -15,7 +15,9 @@ namespace GarbageRoyale.Scripts.Menu
         [SerializeField]
         public GameObject subMenu;
         [SerializeField] 
-        public GameObject lobbyMenu;
+        public GameObject serverListMenu;
+        [SerializeField] 
+        public GameObject roomLobby;
         [SerializeField]
         public GameObject EndGameMenu;
 
@@ -50,10 +52,10 @@ namespace GarbageRoyale.Scripts.Menu
             subMenu.SetActive(true);
         }
         
-        public void launchLobbyMenu()
+        public void launchServerList()
         {
             ResetAllMenu();
-            lobbyMenu.SetActive(true);
+            serverListMenu.SetActive(true);
         }
         
         public void launchRegisterMenu()
@@ -81,6 +83,7 @@ namespace GarbageRoyale.Scripts.Menu
         {
             loginMenu.SetActive(false);
             mainMenu.SetActive(false);
+            serverListMenu.SetActive(false);
             registerMenu.SetActive(false);
             subMenu.SetActive(false);
             EndGameMenu.SetActive(false);

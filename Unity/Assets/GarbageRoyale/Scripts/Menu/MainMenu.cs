@@ -40,6 +40,7 @@ namespace GarbageRoyale.Scripts.Menu
 
                 createRoomButton.onClick.AddListener(AskForRoomCreation);
                 joinRoomButton.onClick.AddListener(AskForRoomJoin);
+                PhotonNetwork.JoinLobby();
             }
         }
 
@@ -50,7 +51,7 @@ namespace GarbageRoyale.Scripts.Menu
 
         public void AskForRoomJoin()
         {
-            PhotonNetwork.JoinRandomRoom();
+            controller.launchServerList();
         }
 
         public override void OnJoinedRoom()
