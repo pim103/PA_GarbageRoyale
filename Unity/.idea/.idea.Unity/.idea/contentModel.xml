@@ -31,6 +31,7 @@
               <e p="GoBackToGuardPoint.cs" t="Include" />
               <e p="Guard.cs" t="Include" />
               <e p="SearchForNoiseSource.cs" t="Include" />
+              <e p="SoundDetector.cs" t="Include" />
             </e>
             <e p="InventoryScripts" t="Include">
               <e p="DetailedInventoryRPCManager.cs" t="Include" />
@@ -43,6 +44,7 @@
             <e p="ItemDragController.cs" t="Include" />
             <e p="Items" t="Include">
               <e p="BottleScript.cs" t="Include" />
+              <e p="ElecTrapScript.cs" t="Include" />
               <e p="Item.cs" t="Include" />
               <e p="ItemController.cs" t="Include" />
               <e p="MetalSheetScript.cs" t="Include" />
@@ -88,7 +90,7 @@
               <e p="PlayerControllerMaster.cs" t="Include" />
               <e p="PlayerIntent.cs" t="Include" />
               <e p="PlayerSoundObjects.cs" t="Include" />
-              <e p="SoundBlockDeactivator.cs" t="Include" />
+              <e p="SoundBlockController.cs" t="Include" />
               <e p="SpectateMode.cs" t="Include" />
             </e>
             <e p="PrefabPlayer" t="Include">

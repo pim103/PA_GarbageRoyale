@@ -240,37 +240,6 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         [PunRPC]
         public void AnswerGetCraftedItem(int itemtype, int playerIndex, int itemID, int newPlace, bool isMaster)
         {
-            Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
-            GameObject item;
-            int poolID = 0;
-            int textureID = 0;
-            switch (itemtype)
-            {
-                case (int)ItemController.TypeItem.SteelStaff:
-                    poolID = 1;
-                    textureID = 1;
-                    break;
-                case (int)ItemController.TypeItem.OilBottle:
-                    poolID = 2;
-                    textureID = 7;
-                    break;
-                case (int)ItemController.TypeItem.Molotov:
-                    poolID = 3;
-                    textureID = 8;
-                    break;
-                case (int)ItemController.TypeItem.WolfTrap:
-                    poolID = 7;
-                    textureID = 9;
-                    break;
-                case (int)ItemController.TypeItem.ManifTrap:
-                    poolID = 9;
-                    textureID = 10;
-                    break;
-                default:
-                    Debug.Log("Wrong Item");
-                    break;
-            }
-
             if (playerIndex == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
                 gc.items[itemID].transform.SetParent(gc.players[playerIndex].PlayerTorch.transform.parent);

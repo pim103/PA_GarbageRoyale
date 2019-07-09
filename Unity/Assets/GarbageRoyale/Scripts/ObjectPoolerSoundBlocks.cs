@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GarbageRoyale.Scripts.PlayerController;
 using UnityEngine;
 
 namespace GarbageRoyale.Scripts
@@ -73,6 +74,10 @@ namespace GarbageRoyale.Scripts
 			}
 			return null;
 		}
+		public GameObject GetPooledObjectWithID(int playerId, int id)
+		{
+			return pooledObjectsList[playerId][id];
+		}
 
 		public List<GameObject> GetAllPooledObjects(int index)
 		{
@@ -98,8 +103,8 @@ namespace GarbageRoyale.Scripts
 			for (int i = 0; i < item.amountToPool; i++)
 			{
 				GameObject obj = (GameObject)Instantiate(item.objectToPool);
-				// obj.AddComponent<Item>();
-				// obj.GetComponent<Item>().initItem(1);
+				obj.GetComponent<SoundBlockController>().id = i;
+				obj.GetComponent<SoundBlockController>().playerId = index;
 				obj.SetActive(false);
 				obj.transform.parent = this.transform;
 				pooledObjects.Add(obj);

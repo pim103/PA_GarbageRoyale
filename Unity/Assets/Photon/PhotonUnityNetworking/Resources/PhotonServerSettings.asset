@@ -119,4 +119,5 @@ MonoBehaviour:
   - WantToRotateYRPC
   - WantToRunRPC
   - WantToUseTorch
+  - TriggerElectricityRPC
   DisableAutoOpenWizard: 1

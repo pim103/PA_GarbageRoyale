@@ -26,7 +26,7 @@ namespace GarbageRoyale.Scripts.PlayerController
             while (true)
             {
                 yield return new WaitForSeconds(1.0f);
-                if (gc.players[playerIndex].PlayerGameObject.activeInHierarchy)
+                if (gc.players[playerIndex].PlayerGameObject.activeInHierarchy && !gc.playersActions[playerIndex].isQuiet)
                 {
                     block = ObjectPoolerSoundBlocks.SharedInstance.GetPooledObject(playerIndex);
                     block.SetActive(true);

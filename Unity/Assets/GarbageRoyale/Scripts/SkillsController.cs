@@ -147,7 +147,6 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         public void AskSkillActivation(int skillPlace, int playerIndex, int targetID)
         {
-            Debug.Log("hoi");
             ActiveSkillManager newSkill;
             if (!PhotonNetwork.IsMasterClient)
             {

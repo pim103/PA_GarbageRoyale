@@ -13,14 +13,23 @@ namespace GarbageRoyale.Scripts.IAMobs
         private int reachedGuardPointHash;
         private int isMovingHash;
         private int playerIDHash;
+        private int blockIDHash;
+        private int hasHeardNoiseHash;
 
         [SerializeField] 
         private Animator ratAnimator;
+        
         public Vector3 GuardPosition { get { return guardPosition; } }
         public int ReachedGuardPointHash { get { return reachedGuardPointHash; } }
-        public GameObject detectedPlayer;
-
+        
         private GameController gc;
+
+        [SerializeField] 
+        private SoundDetector QuietSoundDetector;
+        [SerializeField] 
+        private SoundDetector MidLevelSoundDetector;
+        [SerializeField] 
+        private SoundDetector LoudSoundDetector;
         
         private void Start()
         {
@@ -30,6 +39,8 @@ namespace GarbageRoyale.Scripts.IAMobs
             reachedGuardPointHash = Animator.StringToHash("ReachedGuardPoint");
             isMovingHash = Animator.StringToHash("isMoving");
             playerIDHash = Animator.StringToHash("PlayerID");
+            blockIDHash = Animator.StringToHash("BlockID");
+            hasHeardNoiseHash = Animator.StringToHash("HasHeardNoise");
         }
         private void OnTriggerEnter(Collider collider)
         {
@@ -38,20 +49,29 @@ namespace GarbageRoyale.Scripts.IAMobs
                 ratState.SetBool(playerOnSightHash, true);
                 ratState.SetInteger(playerIDHash,collider.gameObject.GetComponent<ExposerPlayer>().PlayerIndex);
                 ratAnimator.SetBool(isMovingHash,true);
-                detectedPlayer = collider.gameObject;
+                Debug.Log("player");
             } 
-            else if(collider.CompareTag("LoudSoundBlock"))
+            /*else if(LoudSoundDetector.hasDetectedSound && !ratState.GetBool(playerOnSightHash))
             {
-                
+                ratState.SetInteger(blockIDHash,LoudSoundDetector.detectedBlockId);
+                ratState.SetInteger(playerIDHash,LoudSoundDetector.detectedBlockPlayerId);
+                ratState.SetBool(hasHeardNoiseHash,true);
+                Debug.Log("loudsound");
             } 
-            else if (collider.CompareTag("MidLevelSoundBlock"))
+            else if (MidLevelSoundDetector.hasDetectedSound && !ratState.GetBool(playerOnSightHash))
             {
-                
+                ratState.SetInteger(blockIDHash,LoudSoundDetector.detectedBlockId);
+                ratState.SetInteger(playerIDHash,LoudSoundDetector.detectedBlockPlayerId);
+                ratState.SetBool(hasHeardNoiseHash,true);
+                Debug.Log("midsound");
             }
-            else if (collider.CompareTag("QuietSoundBlock"))
+            else if (QuietSoundDetector.hasDetectedSound && !ratState.GetBool(playerOnSightHash))
             {
-                
-            }
+                ratState.SetInteger(blockIDHash,LoudSoundDetector.detectedBlockId);
+                ratState.SetInteger(playerIDHash,LoudSoundDetector.detectedBlockPlayerId);
+                ratState.SetBool(hasHeardNoiseHash,true);
+                Debug.Log("quietsound");
+            }*/
         }
         private void OnTriggerExit(Collider collider)
         {
@@ -61,6 +81,16 @@ namespace GarbageRoyale.Scripts.IAMobs
             }
         }
 
+        public void SoundHeard(int detectedBlockId, int detectedBlockPlayerId)
+        {
+            if(!ratState.GetBool(playerOnSightHash)){
+                ratState.SetInteger(blockIDHash, detectedBlockId);
+                ratState.SetInteger(playerIDHash, detectedBlockPlayerId);
+                ratState.SetBool(hasHeardNoiseHash, true);
+                Debug.Log("midsound");
+            }
+        }
+        
         private void Update()
         {
             if (ratState.GetBool(reachedGuardPointHash))

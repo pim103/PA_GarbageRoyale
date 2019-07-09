@@ -1,11 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace GarbageRoyale.Scripts.PlayerController
 {
-    public class SoundBlockDeactivator : MonoBehaviour
+    public class SoundBlockController : MonoBehaviour
     {
-        // Start is called before the first frame update
+        public int id;
+        public int playerId;
+
+        public bool hasBeenSeenByMob = false;
+        
         private void OnEnable()
         {
             StartCoroutine(DeactivateMyself());
