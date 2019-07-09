@@ -120,6 +120,8 @@ namespace GarbageRoyale.Scripts
         public GameObject playerGUI;
         [SerializeField]
         public GameObject skillsController;
+        [SerializeField]
+        public GameObject PlayerListScripts;
 
         [SerializeField]
         public GameObject[] itemList;
@@ -299,6 +301,7 @@ namespace GarbageRoyale.Scripts
                 invHUD.SetActive(true);
                 playerGUI.SetActive(true);
                 skillsController.SetActive(true);
+                PlayerListScripts.GetComponent<PlayerSoundObjects>().enabled = true;
             }
 
             moveDirection[id] = Vector3.zero;
@@ -510,6 +513,7 @@ namespace GarbageRoyale.Scripts
                                     if (generator.floorsRooms[currentFloor][j, i] == 3)
                                     {
                                         GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), trapTexture);
+                                        Debug.Log("ui x"+j+" z "+i);
                                     }
                                     else
                                     {

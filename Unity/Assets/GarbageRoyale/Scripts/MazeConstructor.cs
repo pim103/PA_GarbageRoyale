@@ -65,12 +65,12 @@ namespace GarbageRoyale.Scripts
                     DisplayMaze(i * 16,floors[i], floorsRooms[i], i);
                 }
 
-                foreach (var surface in Surfaces)
-                {
+                /*foreach (var surface in Surfaces)
+                {*/
                     /*surface.collectObjects = CollectObjects.Volume;
                     surface.size = new Vector3(8*16,3,8*16);*/
-                    //surface.BuildNavMesh();
-                }
+                    Surfaces[0].BuildNavMesh();
+                //}
             }
             else
             {
@@ -220,7 +220,6 @@ namespace GarbageRoyale.Scripts
                 DisplayMaze(i*16,maze[i], rooms[i], i);
             }
         }
-
     }
-   }
+}
 

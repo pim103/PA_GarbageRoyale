@@ -14,34 +14,36 @@
             <e p="NewScriptableObject.cs" t="Include" />
           </e>
           <e p="Scripts" t="Include">
+            <e p="AcceptAllCertificatesSignedWithASpecificKeyPublicKey.cs" t="Include" />
             <e p="ActiveSkillManager.cs" t="Include" />
-            <e p="CameraControl.cs" t="Include" />
             <e p="CameraRaycast.cs" t="Include" />
             <e p="CameraRaycastHitActions.cs" t="Include" />
-            <e p="DesactivateCameraControl.cs" t="Include" />
-            <e p="DetailedInventoryRPCManager.cs" t="Include" />
-            <e p="DoorController.cs" t="Include" />
-            <e p="Electricity.cs" t="Include" />
-            <e p="EnvironmentEvent.cs" t="Include" />
             <e p="GameController.cs" t="Include" />
             <e p="GameMaster" t="Include">
               <e p="GameMasterController.cs" t="Include" />
               <e p="GameMasterGUI.cs" t="Include" />
             </e>
-            <e p="HandScript.cs" t="Include" />
             <e p="HUD" t="Include">
               <e p="InventoryGUI.cs" t="Include" />
             </e>
-            <e p="Inventory.cs" t="Include" />
-            <e p="InventoryActionsController.cs" t="Include" />
-            <e p="InventoryController.cs" t="Include" />
-            <e p="InventoryHUDController.cs" t="Include" />
-            <e p="InventoryRaycastHitActions.cs" t="Include" />
-            <e p="InventorySpritesExposer.cs" t="Include" />
-            <e p="Item.cs" t="Include" />
+            <e p="IAMobs" t="Include">
+              <e p="ChasePlayer.cs" t="Include" />
+              <e p="GoBackToGuardPoint.cs" t="Include" />
+              <e p="Guard.cs" t="Include" />
+              <e p="SearchForNoiseSource.cs" t="Include" />
+            </e>
+            <e p="InventoryScripts" t="Include">
+              <e p="DetailedInventoryRPCManager.cs" t="Include" />
+              <e p="Inventory.cs" t="Include" />
+              <e p="InventoryActionsController.cs" t="Include" />
+              <e p="InventoryHUDController.cs" t="Include" />
+              <e p="InventoryRaycastHitActions.cs" t="Include" />
+              <e p="InventorySpritesExposer.cs" t="Include" />
+            </e>
             <e p="ItemDragController.cs" t="Include" />
             <e p="Items" t="Include">
               <e p="BottleScript.cs" t="Include" />
+              <e p="Item.cs" t="Include" />
               <e p="ItemController.cs" t="Include" />
               <e p="MetalSheetScript.cs" t="Include" />
               <e p="NailAreaScript.cs" t="Include" />
@@ -71,12 +73,11 @@
             <e p="MinimapDrawer.cs" t="Include" />
             <e p="MobStats.cs" t="Include" />
             <e p="ObjectPooler.cs" t="Include" />
-            <e p="ObjectPoolerPhoton.cs" t="Include" />
-            <e p="OnlinePlayerManager.cs" t="Include" />
+            <e p="ObjectPoolerSoundBlocks.cs" t="Include" />
             <e p="OpenDoorScript.cs" t="Include" />
             <e p="Particles" t="Include">
+              <e p="Electricity.cs" t="Include" />
               <e p="Explosion.cs" t="Include" />
-              <e p="Gaz.cs" t="Include" />
             </e>
             <e p="PauseController.cs" t="Include" />
             <e p="PipeScript.cs" t="Include" />
@@ -85,9 +86,10 @@
               <e p="ListPlayerIntents.cs" t="Include" />
               <e p="PlayerControllerMaster.cs" t="Include" />
               <e p="PlayerIntent.cs" t="Include" />
-              <e p="PlayerStatsDisplay.cs" t="Include" />
+              <e p="PlayerSoundObjects.cs" t="Include" />
+              <e p="SoundBlockDeactivator.cs" t="Include" />
+              <e p="SpectateMode.cs" t="Include" />
             </e>
-            <e p="PlayerMovement.cs" t="Include" />
             <e p="PrefabPlayer" t="Include">
               <e p="ExposerPlayer.cs" t="Include" />
               <e p="PlayerStats.cs" t="Include" />
@@ -95,16 +97,12 @@
             <e p="ScriptExposer.cs" t="Include" />
             <e p="Skill.cs" t="Include" />
             <e p="SkillsController.cs" t="Include" />
-            <e p="SkillSpawner.cs" t="Include" />
             <e p="SoundManager.cs" t="Include" />
             <e p="SpawnMob.cs" t="Include" />
-            <e p="StaticSwitchScene.cs" t="Include" />
             <e p="TransitionScript.cs" t="Include" />
-            <e p="TrapDoorCheckButton.cs" t="Include" />
             <e p="Water.cs" t="Include" />
           </e>
           <e p="testForce.cs" t="Include" />
-          <e p="testSceneScript.cs" t="Include" />
         </e>
         <e p="NavMeshComponents" t="Include">
           <e p="Editor" t="Include">

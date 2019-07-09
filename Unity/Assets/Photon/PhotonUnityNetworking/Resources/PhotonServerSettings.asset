@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: 
+    AppIdRealtime: 05bc07b4-6e63-453f-8d6f-03be7911a9d3
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 
@@ -28,5 +28,95 @@ MonoBehaviour:
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
-  RpcList: []
+  RpcList:
+  - ActivateAvatarRPC
+  - ActivateSkill
+  - ActiveSpecificPreview
+  - ActiveWolfTrapRPC
+  - addSpecificBrokenBottle
+  - addSpecificBrokenBottleInHand
+  - AnswerAddItem
+  - AnswerChangePlayerHandItem
+  - AnswerCraftItem
+  - AnswerDeleteCraftItem
+  - AnswerDropItem
+  - AnswerDropSkill
+  - AnswerGetCraftedItem
+  - AnswerSwapInventoryItems
+  - AnswerSwapInventorySkills
+  - AskAddItem
+  - AskBrokenPipe
+  - AskChangePlayerHandItem
+  - AskCraftItem
+  - AskDeleteCraftItem
+  - AskDropItem
+  - AskDropSkill
+  - AskGetCraftedItem
+  - AskPlaceObject
+  - AskPlaceRope
+  - AskSkillActivation
+  - AskSwapInventoryItems
+  - AskSwapInventorySkills
+  - AskTakeItem
+  - AskTrapDoorOpening
+  - AskUpdateRotPos
+  - AskUseItem
+  - brokePipe
+  - brokePipeRPC
+  - brokeSpecificPipeRPC
+  - BurnSurfaceRPC
+  - ChangeGUIClient
+  - DeactivateSkill
+  - DesactiveStartDoorRPC
+  - DestroySpaceship
+  - DisperseOil
+  - DisperseSpecificNail
+  - DisperseSpecificOil
+  - EndGameRPC
+  - endOfInitRPC
+  - findPlayer
+  - Fire
+  - GenerateClientMaze
+  - HitMobRPC
+  - initAvatarUserIdRPC
+  - initListSound
+  - LaunchProjectileRPC
+  - LightOnSpecificTorch
+  - LightOnTorchRPC
+  - LightUpRPC
+  - MobDeath
+  - MobDeathAll
+  - openDoorRPC
+  - openSpecificDoorRPC
+  - openSpecificTrapRPC
+  - OpenTrapDoors
+  - openTrapRPC
+  - PlaceObjectRPC
+  - PlaceRopeRPC
+  - PunchRPC
+  - PutItemInInventory
+  - RespawnSpaceship
+  - SendData
+  - SendUserId
+  - setCanMove
+  - SetGMInvisible
+  - setItemInHand
+  - soundOpenDoorRPC
+  - soundOpenSpecificDoorRPC
+  - testrpc
+  - ThrowNail
+  - ToggleInvisibilityRPC
+  - UpdateDataRPC
+  - UseItemRPC
+  - verifySongPlay
+  - WantToCrouchRPC
+  - WantToJumpRPC
+  - WantToLightUpRPC
+  - WantToMoveHorizontalRPC
+  - WantToMoveVerticalRPC
+  - WantToPlaceObject
+  - WantToRotateXRPC
+  - WantToRotateYRPC
+  - WantToRunRPC
+  - WantToUseTorch
   DisableAutoOpenWizard: 1

@@ -14,7 +14,7 @@ namespace GarbageRoyale.Scripts
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             Mob = Instantiate(gc.Mob, transform.position, Quaternion.identity);
-            Mob.GetComponent<MobStats>().id = gc.mobList.Count;
+            Mob.transform.GetChild(0).GetComponent<MobStats>().id = gc.mobList.Count;
             gc.mobList.Add(gc.mobList.Count,Mob);
         }
     }
