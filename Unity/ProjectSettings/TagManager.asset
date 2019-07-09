@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - HUD
+  - LoudSoundBlock
+  - QuietSoundBlock
+  - MidLevelSoundBlock
   layers:
   - Default
   - TransparentFX

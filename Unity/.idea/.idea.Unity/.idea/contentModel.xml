@@ -66,6 +66,7 @@
               <e p="MainMenu.cs" t="Include" />
               <e p="PauseMenu.cs" t="Include" />
               <e p="RegisterMenu.cs" t="Include" />
+              <e p="RoomLobby.cs" t="Include" />
               <e p="SettingsMenu.cs" t="Include" />
               <e p="StartGame.cs" t="Include" />
               <e p="SubMenu.cs" t="Include" />
