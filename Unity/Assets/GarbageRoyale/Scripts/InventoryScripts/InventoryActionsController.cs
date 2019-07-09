@@ -76,7 +76,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 {
                     photonView.RPC("ThrowNail", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 }
-                else if (itemInHand == "Metal Sheet" || itemInHand == "Wolf Trap" || itemInHand == "Trap Manif" || itemInHand == "Rope")
+                else if (itemInHand == "Metal Sheet" || itemInHand == "Wolf Trap" || itemInHand == "Trap Manif" || itemInHand == "Rope" || itemInHand == "Elec Trap")
                 {
                     photonView.RPC("WantToPlaceObject", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId, placeInHand);
                 }
@@ -106,19 +106,22 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         {
             PreviewItemScript pis = null;
 
-            switch(type)
+            switch((ItemController.TypeItem)type)
             {
-                case 11:
+                case ItemController.TypeItem.Rope:
                     pis = gc.players[idPlayer].PlayerRope.GetComponent<PreviewItemScript>();
                     break;
-                case 13:
+                case ItemController.TypeItem.MetalSheet:
                     pis = gc.players[idPlayer].PlayerMetalSheet.GetComponent<PreviewItemScript>();
                     break;
-                case 15:
+                case ItemController.TypeItem.WolfTrap:
                     pis = gc.players[idPlayer].PlayerWolfTrap.GetComponent<PreviewItemScript>();
                     break;
-                case 17:
+                case ItemController.TypeItem.ManifTrap:
                     pis = gc.players[idPlayer].PlayerTrapManif.GetComponent<PreviewItemScript>();
+                    break;
+                case ItemController.TypeItem.ElecTrap:
+                    pis = gc.players[idPlayer].PlayerElecTrap.GetComponent<PreviewItemScript>();
                     break;
             }
             
@@ -204,6 +207,12 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                     break;
                 case "Trap Manif":
                     gc.players[playerIndex].PlayerTrapManif.SetActive(true);
+                    break;
+                case "Elec Trap":
+                    gc.players[playerIndex].PlayerElecTrap.SetActive(true);
+                    break;
+                case "Water Bottle":
+                    gc.players[playerIndex].PlayerWaterBottle.SetActive(true);
                     break;
                 default:
                     Debug.Log("Error, wrong item");
@@ -461,7 +470,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 placeInHand = -1;
             }
         }
-        
+
         private void HideObjectInHand(int idPlayer)
         {
             gc.players[idPlayer].PlayerStaff.SetActive(false);
@@ -478,6 +487,8 @@ namespace GarbageRoyale.Scripts.InventoryScripts
             gc.players[idPlayer].PlayerWolfTrap.SetActive(false);
             gc.players[idPlayer].PlayerBattery.SetActive(false);
             gc.players[idPlayer].PlayerTrapManif.SetActive(false);
+            gc.players[idPlayer].PlayerElecTrap.SetActive(false);
+            gc.players[idPlayer].PlayerWaterBottle.SetActive(false);
         }
     }
 }

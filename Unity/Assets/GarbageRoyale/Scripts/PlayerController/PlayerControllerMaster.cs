@@ -135,6 +135,10 @@ namespace GarbageRoyale.Scripts.PlayerController
                 {
                     isMoving = PlayerMovement(i);
                 }
+                else
+                {
+                    gc.players[i].PlayerChar.velocity = Vector3.zero;
+                }
                 rotationX = PlayerRotation(i);
 
                 if (!coroutineIsStart[i])

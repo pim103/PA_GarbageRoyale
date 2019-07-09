@@ -241,16 +241,19 @@ namespace GarbageRoyale.Scripts.Items
             pis.bc.isTrigger = true;
             pis.bc.size += pis.bonusColliderSize;
             
-            switch(type)
+            switch((TypeItem)type)
             {
-                case 13:
+                case TypeItem.MetalSheet:
                     gc.players[idPlayer].PlayerMetalSheet.SetActive(false);
                     break;
-                case 15:
+                case TypeItem.WolfTrap:
                     gc.players[idPlayer].PlayerWolfTrap.SetActive(false);
                     break;
-                case 17:
+                case TypeItem.ManifTrap:
                     gc.players[idPlayer].PlayerTrapManif.SetActive(false);
+                    break;
+                case TypeItem.ElecTrap:
+                    gc.players[idPlayer].PlayerElecTrap.SetActive(false);
                     break;
             }
 
@@ -319,6 +322,27 @@ namespace GarbageRoyale.Scripts.Items
                 wts.leftPanel.transform.localEulerAngles = new Vector3(-90, 90, -90);
                 wts.rightPanel.transform.localEulerAngles = new Vector3(-90, 90, -90);
             }
+        }
+
+        public void TriggerElectricity(Vector3 posTrap, int idTrap)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            photonView.RPC("TriggerElectricityRPC", RpcTarget.All, posTrap, idTrap);
+        }
+
+        [PunRPC]
+        private void TriggerElectricityRPC(Vector3 posTrap, int idItem)
+        {
+            gc.items[idItem].SetActive(false);
+
+            GameObject electricity = ObjectPooler.SharedInstance.GetPooledObject(12);
+            electricity.transform.position = transform.position;
+            electricity.SetActive(true);
+            electricity.transform.parent = gc.water.waterObject.transform;
         }
     }
 }
