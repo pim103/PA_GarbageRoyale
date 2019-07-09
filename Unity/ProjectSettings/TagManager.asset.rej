@@ -1,0 +1,12 @@
+diff a/Unity/ProjectSettings/TagManager.asset b/Unity/ProjectSettings/TagManager.asset	(rejected hunks)
+@@ -5,9 +5,7 @@
+   serializedVersion: 2
+   tags:
+   - HUD
+-  - LoudSoundBlock
+-  - QuietSoundBlock
+-  - MidLevelSoundBlock
++  - RoomList
+   layers:
+   - Default
+   - TransparentFX
