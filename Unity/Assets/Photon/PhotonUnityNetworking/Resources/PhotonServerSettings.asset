@@ -171,4 +171,5 @@ MonoBehaviour:
   - AskUseItem
   - UseItemRPC
   - AskUpdateRotPos
+  - TriggerElectricityRPC
   DisableAutoOpenWizard: 1
