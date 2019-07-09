@@ -4840,9 +4840,13 @@ MonoBehaviour:
   damage: 0
   type: 4
   itemImg: {fileID: 0}
+  isPickable: 1
   initOnStart: 1
   isOnline: 1
   scale: {x: 0, y: 0, z: 0}
+  isThrow: 0
+  isBurn: 0
+  throwerId: -1
 --- !u!114 &659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4862,7 +4866,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 664}
-  viewIdField: 32
+  viewIdField: 0
   InstantiationId: 32
   isRuntimeInstantiated: 0
 --- !u!114 &664

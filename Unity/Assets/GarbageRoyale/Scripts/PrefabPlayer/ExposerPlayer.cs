@@ -10,7 +10,7 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
     {
         public int PlayerIndex;
 
-        public CharacterController PlayerChar;
+        public Rigidbody PlayerChar;
         public PhotonTransformView PlayerPhotonTransform;
         public Transform PlayerTransform;
         public Light SpotLight;

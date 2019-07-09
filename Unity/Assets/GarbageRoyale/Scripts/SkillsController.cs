@@ -254,7 +254,8 @@ namespace GarbageRoyale.Scripts
                     gc.moveDirection[playerIndex] = forward;
                     gc.moveDirection[playerIndex] *= 5;
                     Debug.Log(gc.moveDirection[playerIndex]);
-                    gc.players[playerIndex].PlayerChar.Move(gc.moveDirection[playerIndex]);
+
+                    //gc.players[playerIndex].PlayerChar.Move(gc.moveDirection[playerIndex]);
                     if (gc.playersActions[playerIndex].isInWater || gc.playersActions[playerIndex].headIsInWater || gc.playersActions[playerIndex].isInWater)
                     {
                         Debug.Log("hououou");

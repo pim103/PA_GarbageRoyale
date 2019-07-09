@@ -35,7 +35,9 @@ namespace GarbageRoyale.Scripts.Items
             NailBox,
             WolfTrap,
             Battery,
-            ManifTrap
+            ManifTrap,
+            WaterBottle,
+            ElecTrap
         }
 
         public void brokeBottle(int id, bool keepInHand, int idPlayer, int placeInHand)

@@ -30,7 +30,7 @@ namespace GarbageRoyale.Scripts.PlayerController
 
         //Movement
         private float speed = 6.0f;
-        private float jumpSpeed = 8.0f;
+        private float jumpSpeed = 5.0f;
         private float runSpeed = 6.0f * 0.4f;
         private float crouchSpeed = 3.0f;
         private float gravity = 20.0f;
@@ -73,6 +73,7 @@ namespace GarbageRoyale.Scripts.PlayerController
             int playerAlive = 0;
             for (var i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
             {
+                //Debug.Log(players[i].PlayerTransform.position);
                 if (gc.players[i].PlayerStats.isDead)
                 {
                     if(!gc.players[i].PlayerStats.isAlreadyTrigger)
@@ -125,39 +126,17 @@ namespace GarbageRoyale.Scripts.PlayerController
                     return;
                 }
 
-                isMoving = (playerAction.horizontalAxe != 0 | playerAction.verticalAxe != 0);
-                rotationX = playerAction.rotX;
-                gc.players[i].PlayerGameObject.transform.position = playerAction.position;
-                gc.players[i].PlayerGameObject.transform.localEulerAngles = playerAction.rotation;
+                //isMoving = (playerAction.horizontalAxe != 0 | playerAction.verticalAxe != 0);
+                //rotationX = playerAction.rotX;
+                //gc.players[i].PlayerGameObject.transform.position = playerAction.position;
+                //gc.players[i].PlayerGameObject.transform.localEulerAngles = playerAction.rotation;
 
-                if (gc.water.waterObject.transform.position.y > gc.players[i].PlayerGameObject.transform.position.y + 0.3f)
-                {
-                    gc.playersActions[i].isInWater = true;
-                    gc.playersActions[i].feetIsInWater = false;
-                    gc.playersActions[i].headIsInWater = true;
-                    se.iac.ExtinctTorch(i);
-                }
-                else if (gc.water.waterObject.transform.position.y > gc.players[i].PlayerGameObject.transform.position.y - 1f)
-                {
-                    gc.playersActions[i].isInWater = true;
-                    gc.playersActions[i].feetIsInWater = true;
-                    gc.playersActions[i].headIsInWater = false;
-                }
-                else
-                {
-                    gc.playersActions[i].isInWater = false;
-                    gc.playersActions[i].feetIsInWater = false;
-                    gc.playersActions[i].headIsInWater = false;
-                }
-                /*
                 if (!gc.playersActions[i].isFallen && !gc.playersActions[i].isTrap)
                 {
                     isMoving = PlayerMovement(i);
                 }
-
-                //rotationX = PlayerRotation(i);
                 rotationX = PlayerRotation(i);
-                */
+
                 if (!coroutineIsStart[i])
                 {
                     coroutineIsStart[i] = true;
@@ -231,7 +210,30 @@ namespace GarbageRoyale.Scripts.PlayerController
                 actualSpeed /= 2;
             }
 
-            if (gc.players[id].PlayerChar.isGrounded)
+            if (gc.water.waterObject.transform.position.y > gc.players[id].PlayerGameObject.transform.position.y + 0.3f)
+            {
+                gc.playersActions[id].isInWater = true;
+                gc.playersActions[id].feetIsInWater = false;
+                gc.playersActions[id].headIsInWater = true;
+                se.iac.ExtinctTorch(id);
+            }
+            else if (gc.water.waterObject.transform.position.y > gc.players[id].PlayerGameObject.transform.position.y - 1f)
+            {
+                gc.playersActions[id].isInWater = true;
+                gc.playersActions[id].feetIsInWater = true;
+                gc.playersActions[id].headIsInWater = false;
+            }
+            else
+            {
+                gc.playersActions[id].isInWater = false;
+                gc.playersActions[id].feetIsInWater = false;
+                gc.playersActions[id].headIsInWater = false;
+            }
+
+            RaycastHit hitInfo;
+            bool isGrounded = Physics.Raycast(gc.players[id].PlayerFeet.transform.position, transform.TransformDirection(Vector3.down), out hitInfo, 0.1f);
+
+            if (isGrounded)
             {
                 gc.moveDirection[id] = new Vector3(playerAction.horizontalAxe, 0.0f, playerAction.verticalAxe);
                 gc.moveDirection[id] *= actualSpeed;
@@ -240,7 +242,7 @@ namespace GarbageRoyale.Scripts.PlayerController
 
                 if (playerAction.wantToJump && !playerAction.headIsInWater)
                 {
-                    gc.moveDirection[id].y = jumpSpeed;
+                    gc.players[id].PlayerChar.AddForce(Vector2.up * jumpSpeed, ForceMode.Impulse);
                 }
                 if(playerAction.isRunning)
                 {
@@ -259,9 +261,9 @@ namespace GarbageRoyale.Scripts.PlayerController
                 gc.moveDirection[id] *= actualSpeed;
 
                 gc.moveDirection[id] = gc.players[id].PlayerGameObject.transform.TransformDirection(gc.moveDirection[id]);
-                gc.moveDirection[id].y = tempY;
+                //gc.moveDirection[id].y = tempY;
             }
-            else
+            else if(playerAction.isInWater)
             {
                 gc.moveDirection[id] = new Vector3(playerAction.horizontalAxe, 0.0f, playerAction.verticalAxe);
                 gc.moveDirection[id] *= actualSpeed;
@@ -269,26 +271,26 @@ namespace GarbageRoyale.Scripts.PlayerController
                 gc.moveDirection[id] = gc.players[id].PlayerGameObject.transform.TransformDirection(gc.moveDirection[id]);
             }
 
+            Vector3 movement = gc.players[id].PlayerChar.velocity;
             if (playerAction.isInTransition && playerAction.wantToJump && gc.moveDirection[id].y < 6.0f)
             {
-                gc.moveDirection[id].y += 6.0f;
-            }
-            if (playerAction.isInTransition && playerAction.wantToGoDown)
-            {
-                gc.moveDirection[id].y += 0.0f;
-            }
-            else if (playerAction.isInTransition)
-            {
-                gc.moveDirection[id].y += 9.8f * Time.deltaTime;
+                gc.moveDirection[id].y += 3.0f;
+                movement.y = gc.moveDirection[id].y;
             }
             else if (playerAction.isInWater && playerAction.wantToJump && gc.moveDirection[id].y < 3.0f)
             {
-                gc.moveDirection[id].y += 3.0f;
+                gc.moveDirection[id].y += 2.0f;
+                movement.y = gc.moveDirection[id].y;
             }
-
-            gc.moveDirection[id].y -= gravity * Time.deltaTime;
-
-            gc.players[id].PlayerChar.Move(gc.moveDirection[id] * Time.deltaTime);
+            else if (playerAction.isInWater)
+            {
+                movement.y /= 2;
+            }
+            //gc.moveDirection[id].y -= 1.0f;
+            movement.x = gc.moveDirection[id].x;
+            movement.z = gc.moveDirection[id].z;
+            gc.players[id].PlayerChar.velocity = movement;
+            //gc.players[id].PlayerChar.Move(gc.moveDirection[id] * Time.deltaTime);
 
             return (playerAction.horizontalAxe != 0 | playerAction.verticalAxe != 0);
         }
@@ -312,7 +314,7 @@ namespace GarbageRoyale.Scripts.PlayerController
             gc.players[id].PlayerCamera.transform.localEulerAngles = gc.rotationPlayer[id];
 
             gc.players[id].SpotLight.transform.localEulerAngles = gc.rotationPlayer[id];
-            
+
             return rotationX;
         }
 
@@ -411,15 +413,14 @@ namespace GarbageRoyale.Scripts.PlayerController
             Vector3 rot)
         {
             Vector3 vec = new Vector3(rotX, 0, 0);
-            gc.players[id].SpotLight.transform.localEulerAngles = vec;
-            gc.players[id].PlayerGameObject.transform.position = pos;
+            //gc.players[id].SpotLight.transform.localEulerAngles = vec;
 
+            /*  
             if (!PhotonNetwork.IsMasterClient && id != System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
                 gc.players[id].PlayerGameObject.transform.localEulerAngles = rot;
             }
-            //Debug.Log("id : " + id + " rot : " + rot);
-
+            */
             SoundManager.Sound soundNeeded = SoundManager.Sound.Walk;
 
             if (gc.playersActions[id].headIsInWater)

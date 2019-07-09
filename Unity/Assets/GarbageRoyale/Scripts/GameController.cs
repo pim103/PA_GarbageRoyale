@@ -301,7 +301,7 @@ namespace GarbageRoyale.Scripts
 
             moveDirection[id] = Vector3.zero;
             rotationPlayer[id] = Vector3.zero;
-
+ 
             OnlinePlayReady?.Invoke(id);
         }
 
