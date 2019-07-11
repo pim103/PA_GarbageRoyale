@@ -81,7 +81,6 @@ namespace GarbageRoyale.Scripts
                             k++;
                         }
                     }*/
-
                     if (data[i, j] == 0)
                     {
                         if (rooms[i, j] != 9999 && rooms[i, j] != 9)

@@ -135,6 +135,10 @@ namespace GarbageRoyale.Scripts
                             rooms[i, j] = rand;
                             //rooms[i, j] = 3;
                         }
+                        if (i == 40 && j == 40)
+                        {
+                            rooms[i, j] = 11;
+                        }
                     }
                 }
                 
@@ -232,6 +236,10 @@ namespace GarbageRoyale.Scripts
                                 else
                                 {
                                     int rand = Random.Range(5, 13);
+                                    if (rand == 11)
+                                    {
+                                        rand = Random.Range(5, 13);
+                                    }
                                     if (rand == 12 && !itemRoom[k].ContainsKey(i+";"+j))
                                     {
                                         int randItem = Random.Range(0, nbItems);
