@@ -116,13 +116,14 @@ namespace GarbageRoyale.Scripts.IAMobs
                 mc.mobsPosX[mstats.id] = transform.position.x;
                 mc.mobsPosY[mstats.id] = transform.position.y;
                 mc.mobsPosZ[mstats.id] = transform.position.z;
+                mc.mobsRotY[mstats.id] = transform.eulerAngles.y;
                 mc.mobsAnimState[mstats.id] = 0;
                 
                 
             }
             else
             {
-                /*switch (mc.mobsAnimState[mstats.id])
+                switch (mc.mobsAnimState[mstats.id])
                 {
                     case 0:
                         ratAnimator.Play("idle");
@@ -136,8 +137,9 @@ namespace GarbageRoyale.Scripts.IAMobs
                     case 3:
                         ratAnimator.Play("jumpBite");
                         break;
-                }*/
+                }
                 transform.position = new Vector3(mc.mobsPosX[mstats.id],mc.mobsPosY[mstats.id],mc.mobsPosZ[mstats.id]);
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x,mc.mobsRotY[mstats.id],transform.eulerAngles.z);
             }
         }
 

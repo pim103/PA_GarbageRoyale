@@ -10,6 +10,7 @@ namespace GarbageRoyale.Scripts.IAMobs
         public float[] mobsPosX = new float[300];
         public float[] mobsPosY = new float[300];
         public float[] mobsPosZ = new float[300];
+        public float[] mobsRotY = new float[300];
 
         public int[] mobsAnimState = new int[300];
         
@@ -20,6 +21,7 @@ namespace GarbageRoyale.Scripts.IAMobs
             mobsPosX = Enumerable.Repeat(0f, 300).ToArray();
             mobsPosY = Enumerable.Repeat(0f, 300).ToArray();
             mobsPosY = Enumerable.Repeat(0f, 300).ToArray();
+            mobsRotY = Enumerable.Repeat(0f, 300).ToArray();
             mobsAnimState = Enumerable.Repeat(0, 300).ToArray();
         }
 
@@ -30,18 +32,19 @@ namespace GarbageRoyale.Scripts.IAMobs
                 yield return new WaitForSeconds(0.1f);
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    photonView.RPC("UpdateArrays",RpcTarget.Others,mobsAnimState,mobsPosX,mobsPosY,mobsPosZ);
+                    photonView.RPC("UpdateArrays",RpcTarget.Others,mobsAnimState,mobsPosX,mobsPosY,mobsPosZ,mobsRotY);
                 }
             }
         }
 
         [PunRPC]
-        void UpdateArrays(int[] animStates, float[] posX, float[] posY, float[] posZ)
+        void UpdateArrays(int[] animStates, float[] posX, float[] posY, float[] posZ, float[] rotY)
         {
             mobsAnimState = animStates;
             mobsPosX = posX;
             mobsPosY = posY;
             mobsPosZ = posZ;
+            mobsRotY = rotY;
         }
     }
 }

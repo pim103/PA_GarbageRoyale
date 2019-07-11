@@ -131,7 +131,6 @@ namespace GarbageRoyale.Scripts
                                 int randItem = Random.Range(0, nbItems);
                                 itemRoom[k].Add( i + ";" + j, randItem);
                             }
-                            
                             rooms[i, j] = rand;
                             //rooms[i, j] = 3;
                         }
