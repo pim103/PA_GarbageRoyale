@@ -13,7 +13,6 @@ namespace GarbageRoyale.Scripts.IAMobs
         private float lastUpdateTime = 0f;
         private GameController gc;
         private Guard manager;
-        private int isAttackingHash;
         
         private void Awake()
         {
@@ -27,7 +26,6 @@ namespace GarbageRoyale.Scripts.IAMobs
                 player = gc.players[animator.GetInteger("PlayerID")].PlayerGameObject;
                 agent = animator.gameObject.GetComponent<NavMeshAgent>();
                 manager = animator.gameObject.GetComponent(typeof(Guard)) as Guard;
-                isAttackingHash = Animator.StringToHash("isAttacking");
             }
         }
     
@@ -41,7 +39,6 @@ namespace GarbageRoyale.Scripts.IAMobs
                 if (agent.remainingDistance < 2f || Math.Abs(agent.remainingDistance) < 0.00001f)
                 {
                     agent.isStopped = true;
-                    manager.ratAnimator.SetBool(isAttackingHash,true);
                     manager.attackZone.gameObject.SetActive(true);
                     manager.startAttack();
                     
@@ -52,7 +49,6 @@ namespace GarbageRoyale.Scripts.IAMobs
                 {
                     //Debug.Log("not attack : " + agent.remainingDistance);
                     agent.isStopped = false;
-                    manager.ratAnimator.SetBool(isAttackingHash,false);
                     animator.SetBool("isCloseToPlayer", false);
                 }
             }
