@@ -167,24 +167,5 @@ namespace GarbageRoyale.Scripts
                 ods.StopOpenSound();
             }
         }
-
-        [PunRPC]
-        private void MobDeath(int mobID)
-        {
-            photonView.RPC("MobDeathAll",RpcTarget.All,mobID,Random.Range(0, 6));
-        }
-        
-        [PunRPC]
-        private void MobDeathAll(int mobID, int type)
-        {
-            MobStats stats = gc.mobList[mobID].GetComponent<MobStats>();
-            stats.isDead = true;
-            if (!stats.isRotateMob)
-            {
-                stats.rotateDeadMob();
-                stats.lootSkill(type);
-                stats.gameObject.SetActive(false);
-            }
-        }
     }
 }    

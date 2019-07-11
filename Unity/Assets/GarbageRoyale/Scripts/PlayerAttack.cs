@@ -63,20 +63,20 @@ namespace GarbageRoyale.Scripts
 
             if(touch)
             {
+                Debug.Log(hitInfo.transform.name);
                 if (hitInfo.transform.name == "pipe")
                 {
                     int pipeId = hitInfo.transform.parent.GetComponent<PipeScript>().pipeIndex;
                     photonView.RPC("brokePipeRPC", RpcTarget.MasterClient, pipeId);
                 }
-                else if (hitInfo.transform.name == "Mob(Clone)" || hitInfo.transform.name == "GIANT_RAT_LEGACY(Clone)")
+                else if (hitInfo.transform.name == "Mob(Clone)" || hitInfo.transform.name == "GIANT_RAT_LEGACY")
                 {
-                    photonView.RPC("HitMobRPC", RpcTarget.MasterClient, hitInfo.transform.GetComponent<MobStats>().id, idSrc);
+                    int idMob = hitInfo.transform.GetComponent<MobStats>().id;
+                    gc.mobList[idMob].transform.GetChild(0).GetComponent<MobStats>().takeDamage(idSrc, inventorySlot);
                 }
                 else if (hitInfo.transform.name.StartsWith("Player"))
                 {
-                    Debug.Log("HitPlayer");
                     int idHit = hitInfo.transform.gameObject.GetComponent<ExposerPlayer>().PlayerIndex;
-                    Debug.Log("Joueur Attaquant : " + idSrc + " Joueur attaqué " + idHit);
                     hitPlayer(idSrc, idHit, inventorySlot);
                 }
             }
@@ -194,13 +194,16 @@ namespace GarbageRoyale.Scripts
         }
 
         [PunRPC]
-        private void HitMobRPC(int mobID, int playerIndex)
+        private void MobDeathAll(int mobID, int type)
         {
-            if (!PhotonNetwork.IsMasterClient)
+            MobStats stats = gc.mobList[mobID].transform.GetChild(0).GetComponent<MobStats>();
+            stats.isDead = true;
+            if (!stats.isRotateMob)
             {
-                return;
+                stats.rotateDeadMob();
+                stats.lootSkill(type);
+                stats.gameObject.SetActive(false);
             }
-            gc.mobList[mobID].GetComponent<MobStats>().takeDamage(playerIndex);
         }
     }
 }

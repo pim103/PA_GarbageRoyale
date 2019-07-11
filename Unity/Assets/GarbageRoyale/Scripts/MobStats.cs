@@ -19,14 +19,14 @@ namespace GarbageRoyale.Scripts
     
         private InventoryActionsController iac;
         private GameController gc;
-        private CameraRaycast cr;
+        private PlayerAttack pa;
 
         // Start is called before the first frame update
         void Start()
         {
             iac = GameObject.Find("Controller").GetComponent<InventoryActionsController>();
             gc = GameObject.Find("Controller").GetComponent<GameController>();
-            cr = GameObject.Find("PlayerListScripts").GetComponent<CameraRaycast>();
+            pa = GameObject.Find("Controller").GetComponent<PlayerAttack>();
             //id = (int) transform.position.x + (int) transform.position.y + (int) transform.position.z;
             hp = 100f;
             stamina = 100f;
@@ -48,26 +48,28 @@ namespace GarbageRoyale.Scripts
             isRotateMob = true;
         }
 
-        public void takeDamage(int playerIndex)
+        public void takeDamage(int playerIndex, int inventorySlot)
         {
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
             PlayerStats ps = gc.players[playerIndex].PlayerStats;
             float damage = ps.getBasickAttack();
-            int indexItem = gc.players[playerIndex].PlayerInventory.itemInventory[iac.placeInHand];
+            int indexItem = gc.players[playerIndex].PlayerInventory.itemInventory[inventorySlot];
         
             if (indexItem != -1)
             {
-                Item item = gc.items[gc.players[playerIndex].PlayerInventory.itemInventory[iac.placeInHand]].GetComponent<Item>();
+                Item item = gc.items[gc.players[playerIndex].PlayerInventory.itemInventory[inventorySlot]].GetComponent<Item>();
                 damage += item.getDamage();
             }
 
-            if (ps.getStamina() >= ps.getAttackCostStamina())
-            {
-                hp -= damage;
-            }
+            hp -= damage;    
 
             if(hp <= 0)
             {
-                cr.photonView.RPC("MobDeath",RpcTarget.All,id);
+                pa.photonView.RPC("MobDeathAll",RpcTarget.All,id, Random.Range(0, 6));
             }
         }
 
@@ -80,7 +82,6 @@ namespace GarbageRoyale.Scripts
             lootedSkill.transform.position = transform.position;
 
             Skill skill = lootedSkill.GetComponent<Skill>();
-            skill.type = 5;
 
             switch (type)
             {
