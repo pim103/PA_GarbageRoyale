@@ -23,7 +23,7 @@ namespace GarbageRoyale.Scripts.IAMobs
             if(player == null)
             {
                 player = gc.players[animator.GetInteger("PlayerID")].PlayerGameObject;
-                agent = animator.gameObject.GetComponent(typeof(NavMeshAgent)) as NavMeshAgent;
+                agent = animator.gameObject.GetComponent<NavMeshAgent>();
             }
         }
     

@@ -25,7 +25,7 @@ namespace GarbageRoyale.Scripts.IAMobs
             {
                 player = gc.players[animator.GetInteger("PlayerID")].PlayerGameObject;
                 agent = animator.gameObject.GetComponent<NavMeshAgent>();
-                manager = animator.gameObject.GetComponent(typeof(Guard)) as Guard;
+                manager = animator.gameObject.GetComponent<Guard>();
             }
         }
     

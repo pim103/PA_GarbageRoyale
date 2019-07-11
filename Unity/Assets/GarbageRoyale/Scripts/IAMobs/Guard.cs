@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
 using GarbageRoyale.Scripts.PrefabPlayer;
+using Photon.Pun;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace GarbageRoyale.Scripts.IAMobs
 {
@@ -21,11 +23,14 @@ namespace GarbageRoyale.Scripts.IAMobs
 
         [SerializeField] 
         public Animator ratAnimator;
+
+        [SerializeField] 
+        public MobStats mstats;
         
         public Vector3 GuardPosition { get { return guardPosition; } }
         public int ReachedGuardPointHash { get { return reachedGuardPointHash; } }
         
-        private GameController gc;
+        private MobController mc;
 
         [SerializeField] 
         private SoundDetector QuietSoundDetector;
@@ -39,68 +44,121 @@ namespace GarbageRoyale.Scripts.IAMobs
         
         private void Start()
         {
-            guardPosition = transform.position;
-            ratState = GetComponent(typeof(Animator)) as Animator;
-            playerOnSightHash = Animator.StringToHash("PlayerOnSight");
-            reachedGuardPointHash = Animator.StringToHash("ReachedGuardPoint");
-            isMovingHash = Animator.StringToHash("isMoving");
-            isRunningHash = Animator.StringToHash("isRunning");
-            playerIDHash = Animator.StringToHash("PlayerID");
-            blockIDHash = Animator.StringToHash("BlockID");
-            hasHeardNoiseHash = Animator.StringToHash("HasHeardNoise");
-            isAttackingHash = Animator.StringToHash("isAttacking");
-            Debug.Log("hello");
+            mc = GameObject.Find("Controller").GetComponent<MobController>();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                guardPosition = transform.position;
+                ratState = GetComponent<Animator>();
+                playerOnSightHash = Animator.StringToHash("PlayerOnSight");
+                reachedGuardPointHash = Animator.StringToHash("ReachedGuardPoint");
+                isMovingHash = Animator.StringToHash("isMoving");
+                isRunningHash = Animator.StringToHash("isRunning");
+                playerIDHash = Animator.StringToHash("PlayerID");
+                blockIDHash = Animator.StringToHash("BlockID");
+                hasHeardNoiseHash = Animator.StringToHash("HasHeardNoise");
+                isAttackingHash = Animator.StringToHash("isAttacking");
+            }
+            else
+            {
+                GetComponent<NavMeshAgent>().enabled = false;
+            }
         }
         private void OnTriggerEnter(Collider collider)
         {
-            if(collider.CompareTag("Player"))
+            if (PhotonNetwork.IsMasterClient)
             {
-                ratState.SetBool(playerOnSightHash, true);
-                ratState.SetInteger(playerIDHash,collider.gameObject.GetComponent<ExposerPlayer>().PlayerIndex);
-                ratAnimator.SetBool(isRunningHash,true);
-                ratAnimator.SetBool(isMovingHash,true);
-                //Debug.Log("player");
-            } 
+                if (collider.CompareTag("Player"))
+                {
+                    ratState.SetBool(playerOnSightHash, true);
+                    ratState.SetInteger(playerIDHash, collider.gameObject.GetComponent<ExposerPlayer>().PlayerIndex);
+                    ratAnimator.SetBool(isRunningHash, true);
+                    ratAnimator.SetBool(isMovingHash, true);
+                    //Debug.Log("player");
+                }
+            }
         }
         private void OnTriggerExit(Collider collider)
         {
-            if (collider.CompareTag("Player"))
+            if (PhotonNetwork.IsMasterClient)
             {
-                ratState.SetBool(playerOnSightHash, false);
+                if (collider.CompareTag("Player"))
+                {
+                    ratState.SetBool(playerOnSightHash, false);
+                }
             }
         }
 
         public void SoundHeard(int detectedBlockId, int detectedBlockPlayerId)
         {
-            if(!ratState.GetBool(playerOnSightHash)){
-                ratState.SetInteger(blockIDHash, detectedBlockId);
-                ratState.SetInteger(playerIDHash, detectedBlockPlayerId);
-                ratState.SetBool(hasHeardNoiseHash, true);
-                ratAnimator.SetBool(isMovingHash,true);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                if (!ratState.GetBool(playerOnSightHash))
+                {
+                    ratState.SetInteger(blockIDHash, detectedBlockId);
+                    ratState.SetInteger(playerIDHash, detectedBlockPlayerId);
+                    ratState.SetBool(hasHeardNoiseHash, true);
+                    ratAnimator.SetBool(isMovingHash, true);
+                }
             }
         }
         
         private void Update()
         {
-            if (ratState.GetBool(reachedGuardPointHash))
+            if (PhotonNetwork.IsMasterClient)
             {
-                ratAnimator.SetBool(isRunningHash,false);
-                ratAnimator.SetBool(isMovingHash,false);
+                if (ratState.GetBool(reachedGuardPointHash))
+                {
+                    ratAnimator.SetBool(isRunningHash, false);
+                    ratAnimator.SetBool(isMovingHash, false);
+                }
+                /*Debug.Log(mstats.id);
+                Debug.Log(mc.mobsPosX[mstats.id]);*/
+                mc.mobsPosX[mstats.id] = transform.position.x;
+                mc.mobsPosY[mstats.id] = transform.position.y;
+                mc.mobsPosZ[mstats.id] = transform.position.z;
+                mc.mobsAnimState[mstats.id] = 0;
+                
+                
+            }
+            else
+            {
+                /*switch (mc.mobsAnimState[mstats.id])
+                {
+                    case 0:
+                        ratAnimator.Play("idle");
+                        break;
+                    case 1:
+                        ratAnimator.Play("walk");
+                        break;
+                    case 2:
+                        ratAnimator.Play("run");
+                        break;
+                    case 3:
+                        ratAnimator.Play("jumpBite");
+                        break;
+                }*/
+                transform.position = new Vector3(mc.mobsPosX[mstats.id],mc.mobsPosY[mstats.id],mc.mobsPosZ[mstats.id]);
             }
         }
 
         public void startAttack()
         {
-            StartCoroutine(ActivateAttackZone());
+            if (PhotonNetwork.IsMasterClient)
+            {
+                StartCoroutine(ActivateAttackZone());
+            }
         }
         IEnumerator ActivateAttackZone()
         {
-            ratAnimator.SetBool(isAttackingHash,true);
-            yield return new WaitForSeconds(1f);
-            attackZone.gameObject.SetActive(true);
-            yield return new WaitForSeconds(0.1f);
-            attackZone.gameObject.SetActive(false);
-            ratAnimator.SetBool(isAttackingHash,false);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                ratAnimator.SetBool(isAttackingHash, true);
+                yield return new WaitForSeconds(1f);
+                attackZone.gameObject.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                attackZone.gameObject.SetActive(false);
+                ratAnimator.SetBool(isAttackingHash, false);
+            }
         }
     }
 }
