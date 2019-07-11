@@ -17,6 +17,7 @@ namespace GarbageRoyale.Scripts.IAMobs
         private int playerIDHash;
         private int blockIDHash;
         private int hasHeardNoiseHash;
+        private int isAttackingHash;
 
         [SerializeField] 
         public Animator ratAnimator;
@@ -47,6 +48,8 @@ namespace GarbageRoyale.Scripts.IAMobs
             playerIDHash = Animator.StringToHash("PlayerID");
             blockIDHash = Animator.StringToHash("BlockID");
             hasHeardNoiseHash = Animator.StringToHash("HasHeardNoise");
+            isAttackingHash = Animator.StringToHash("isAttacking");
+            Debug.Log("hello");
         }
         private void OnTriggerEnter(Collider collider)
         {
@@ -92,10 +95,12 @@ namespace GarbageRoyale.Scripts.IAMobs
         }
         IEnumerator ActivateAttackZone()
         {
-            yield return new WaitForSeconds(0.5f);
+            ratAnimator.SetBool(isAttackingHash,true);
+            yield return new WaitForSeconds(1f);
             attackZone.gameObject.SetActive(true);
             yield return new WaitForSeconds(0.1f);
             attackZone.gameObject.SetActive(false);
+            ratAnimator.SetBool(isAttackingHash,false);
         }
     }
 }
