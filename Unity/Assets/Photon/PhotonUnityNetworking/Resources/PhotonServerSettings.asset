@@ -122,4 +122,5 @@ MonoBehaviour:
   - TriggerElectricityRPC
   - AddNewBottleRPC
   - WantToPunchRPC
+  - UpdateArrays
   DisableAutoOpenWizard: 1
