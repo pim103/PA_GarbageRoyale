@@ -103,6 +103,20 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                             Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId),isMaster);
                         //CraftingResultSlot.texture = gc.inventoryGui.rawSprites[8].texture;
                     }
+                    else if (craftingList.Contains((int)ItemController.TypeItem.Battery) &&
+                             craftingList.Contains((int)ItemController.TypeItem.MetalSheet))
+                    {
+                        photonView.RPC("AskCraftItem", RpcTarget.MasterClient, (int)ItemController.TypeItem.ElecTrap,
+                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), isMaster);
+                        //CraftingResultSlot.texture = gc.inventoryGui.rawSprites[8].texture;
+                    }
+                    else if (craftingList.Contains((int)ItemController.TypeItem.WaterBottle) &&
+                            craftingList.Contains((int)ItemController.TypeItem.Battery))
+                    {
+                        photonView.RPC("AskCraftItem", RpcTarget.MasterClient, (int)ItemController.TypeItem.Electof,
+                            Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), isMaster);
+                        //CraftingResultSlot.texture = gc.inventoryGui.rawSprites[8].texture;
+                    }
                     else
                     {
                         isCrafting = false;
@@ -205,6 +219,14 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 case (int)ItemController.TypeItem.ManifTrap:
                     poolID = 9;
                     textureID = 10;
+                    break;
+                case (int)ItemController.TypeItem.ElecTrap:
+                    poolID = 19;
+                    textureID = 11;
+                    break;
+                case (int)ItemController.TypeItem.Electof:
+                    poolID = 21;
+                    textureID = 12;
                     break;
                 default:
                     Debug.Log("Wrong Item");

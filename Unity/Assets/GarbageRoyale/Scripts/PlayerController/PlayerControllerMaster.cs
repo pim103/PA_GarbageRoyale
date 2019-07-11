@@ -145,7 +145,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                 {
                     gc.players[i].PlayerChar.velocity = Vector3.zero;
                 }
-                rotationX = PlayerRotation(i);
+                //rotationX = PlayerRotation(i);
 
                 if (!coroutineIsStart[i])
                 {
@@ -299,6 +299,11 @@ namespace GarbageRoyale.Scripts.PlayerController
             //gc.moveDirection[id].y -= 1.0f;
             movement.x = gc.moveDirection[id].x;
             movement.z = gc.moveDirection[id].z;
+            //gc.players[id].PlayerTransform.position += movement * Time.deltaTime;
+            //Vector3 newPos = gc.players[id].PlayerChar.position + (movement * Time.deltaTime);
+            //gc.players[id].PlayerChar.MovePosition(newPos);
+            //Debug.Log(movement);
+
             gc.players[id].PlayerChar.velocity = movement;
             //gc.players[id].PlayerChar.Move(gc.moveDirection[id] * Time.deltaTime);
 
@@ -423,14 +428,13 @@ namespace GarbageRoyale.Scripts.PlayerController
             Vector3 rot)
         {
             Vector3 vec = new Vector3(rotX, 0, 0);
-            //gc.players[id].SpotLight.transform.localEulerAngles = vec;
-
-            /*  
+            gc.players[id].SpotLight.transform.localEulerAngles = vec;
+  
             if (!PhotonNetwork.IsMasterClient && id != System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
                 gc.players[id].PlayerGameObject.transform.localEulerAngles = rot;
             }
-            */
+
             SoundManager.Sound soundNeeded = SoundManager.Sound.Walk;
 
             if (gc.playersActions[id].headIsInWater)

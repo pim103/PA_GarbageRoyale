@@ -21,7 +21,9 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         private Text itemDataText;
         private CameraRaycastHitActions actionScript;
 
+        [SerializeField]
         private GameController gc;
+
         private Dictionary<int, GameObject> characterList = new Dictionary<int, GameObject>();
 
         private string staffName;
@@ -35,7 +37,6 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         
         void Start()
         {
-            gc = GameObject.Find("Controller").GetComponent<GameController>();
             itemPanel.SetActive(false);
         }
         

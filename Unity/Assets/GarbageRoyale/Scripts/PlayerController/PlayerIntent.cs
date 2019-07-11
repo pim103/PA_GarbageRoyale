@@ -188,21 +188,27 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
         private void FixedUpdate()
         {
-            if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId || PhotonNetwork.IsMasterClient)
+            if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
             {
                 return;
             }
 
-            scripts.pcm.PlayerMovement(PlayerIndex);
-            scripts.pcm.PlayerRotation(PlayerIndex);
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                scripts.pcm.PlayerMovement(PlayerIndex);
+            }
+
+            float rotX = scripts.pcm.PlayerRotation(PlayerIndex);
+
+            photonView.RPC("AskUpdateRotPos", RpcTarget.MasterClient, null, gc.players[PlayerIndex].PlayerGameObject.transform.localEulerAngles, rotX);
         }
 
         [PunRPC]
-        private void AskUpdateRotPos(Vector3 position, Vector3 rotation, float rotY)
+        private void AskUpdateRotPos(Vector3 position, Vector3 rotation, float rotX)
         {
             this.position = position;
             this.rotation = rotation;
-            this.rotX = rotY;
+            this.rotX = rotX;
         }
 
         [PunRPC]

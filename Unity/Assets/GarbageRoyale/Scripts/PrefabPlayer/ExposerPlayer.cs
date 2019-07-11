@@ -34,6 +34,7 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public GameObject PlayerBoxNail;
         public GameObject PlayerBattery;
         public GameObject PlayerWaterBottle;
+        public GameObject PlayerElectof;
 
         public GameObject PlayerElecTrap;
         public GameObject PlayerWolfTrap;

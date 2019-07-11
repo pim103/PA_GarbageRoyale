@@ -1,4 +1,5 @@
 ﻿using GarbageRoyale.Scripts.PrefabPlayer;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace GarbageRoyale.Scripts.Items
         private int countChoc;
         public bool isBroken;
         private ItemController ic;
+        private GameController gc;
 
         [SerializeField]
         private Item item;
@@ -20,19 +22,31 @@ namespace GarbageRoyale.Scripts.Items
         [SerializeField]
         public bool isBurn;
 
+        [SerializeField]
+        public bool isElec;
+
         // Start is called before the first frame update
         void Start()
         {
             countChoc = 0;
             isBroken = false;
-            ic = GameObject.Find("Controller").GetComponent<ItemController>();
+            GameObject controller = GameObject.Find("Controller");
+            ic = controller.GetComponent<ItemController>();
+            gc = controller.GetComponent<GameController>();
         }
 
         private void OnCollisionEnter(Collision collision)
         {
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
             if(item.isThrow)
             {
-                if (collision.transform.name.StartsWith("Player") && isOiled)
+                bool isPlayer = collision.transform.name.StartsWith("Player");
+
+                if (isPlayer && isOiled)
                 {
                     ic.OiledPlayer(item.getId(), collision.transform.GetComponent<ExposerPlayer>().PlayerIndex);
                     isBroken = true;
@@ -41,6 +55,22 @@ namespace GarbageRoyale.Scripts.Items
                 {
                     ic.BurnSurface(item.getId());
                     isBroken = true;
+                }
+                else if (isElec)
+                {
+                    bool inWater = (collision.transform.position.y <= gc.water.waterObject.transform.position.y + 0.2f);
+                    int idPlayer = -1;
+
+                    if(isPlayer)
+                    {
+                        idPlayer = collision.transform.GetComponent<ExposerPlayer>().PlayerIndex;
+                        Debug.Log(idPlayer);
+                    }
+
+                    if(idPlayer != -1 || inWater)
+                    {
+                        ic.BrokeElectof(item.getId(), idPlayer, inWater);
+                    }
                 }
                 else if (!isBroken && countChoc > 3)
                 {

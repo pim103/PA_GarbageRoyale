@@ -37,7 +37,8 @@ namespace GarbageRoyale.Scripts.Items
             Battery,
             ManifTrap,
             WaterBottle,
-            ElecTrap
+            ElecTrap,
+            Electof
         }
 
         public void brokeBottle(int id, bool keepInHand, int idPlayer, int placeInHand)
@@ -76,6 +77,27 @@ namespace GarbageRoyale.Scripts.Items
             }
 
             photonView.RPC("BurnSurfaceRPC", RpcTarget.All, gc.items[idItem].transform.position);
+            photonView.RPC("addSpecificBrokenBottle", RpcTarget.All, idItem, gc.items.Count);
+        }
+
+        public void BrokeElectof(int idItem, int idPlayer, bool inWater)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            if(idPlayer != -1)
+            {
+                gc.playersActions[idPlayer].isFallen = true;
+                gc.playersActions[idPlayer].timeLeftFallen = 5.0f;
+                gc.players[idPlayer].PlayerStats.takeDamage(8.0f);
+            }
+
+            if(inWater)
+            {
+                photonView.RPC("TriggerElectricityRPC", RpcTarget.All, gc.items[idItem].transform.position, -1);
+            }
             photonView.RPC("addSpecificBrokenBottle", RpcTarget.All, idItem, gc.items.Count);
         }
 
@@ -337,10 +359,13 @@ namespace GarbageRoyale.Scripts.Items
         [PunRPC]
         private void TriggerElectricityRPC(Vector3 posTrap, int idItem)
         {
-            gc.items[idItem].SetActive(false);
+            if(idItem != -1)
+            {
+                gc.items[idItem].SetActive(false);
+            }
 
             GameObject electricity = ObjectPooler.SharedInstance.GetPooledObject(12);
-            electricity.transform.position = transform.position;
+            electricity.transform.position = posTrap;
             electricity.SetActive(true);
             electricity.transform.parent = gc.water.waterObject.transform;
         }

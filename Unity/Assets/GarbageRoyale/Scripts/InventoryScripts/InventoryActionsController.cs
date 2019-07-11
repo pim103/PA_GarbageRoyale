@@ -80,7 +80,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 {
                     photonView.RPC("WantToPlaceObject", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId, placeInHand);
                 }
-                else if(itemInHand == "Toilet Paper" || itemInHand == "Battery")
+                else if(itemInHand == "Toilet Paper" || itemInHand == "Battery" || itemInHand == "Water Bottle" || itemInHand == "Bottle")
                 {
                     photonView.RPC("AskUseItem", RpcTarget.MasterClient, placeInHand, System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
                 }
@@ -213,6 +213,9 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                     break;
                 case "Water Bottle":
                     gc.players[playerIndex].PlayerWaterBottle.SetActive(true);
+                    break;
+                case "Electof":
+                    gc.players[playerIndex].PlayerElectof.SetActive(true);
                     break;
                 default:
                     Debug.Log("Error, wrong item");
@@ -454,6 +457,21 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                         photonView.RPC("UseItemRPC", RpcTarget.All, playerIndex, placeInHand);
                     }
                     break;
+                case ItemController.TypeItem.Bottle:
+                    if(gc.playersActions[playerIndex].isInWater)
+                    {
+                        photonView.RPC("AddNewBottleRPC", RpcTarget.All, gc.items.Count, playerIndex);
+                    }
+                    break;
+                case ItemController.TypeItem.WaterBottle:
+                    if(gc.playersActions[playerIndex].isBurning || gc.playersActions[playerIndex].isOiled)
+                    {
+                        gc.playersActions[playerIndex].isOiled = false;
+                        gc.playersActions[playerIndex].isBurning = false;
+
+                        photonView.RPC("UseItemRPC", RpcTarget.All, playerIndex, placeInHand);
+                    }
+                    break;
             }
         }
 
@@ -469,6 +487,26 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 itemInHand = "";
                 placeInHand = -1;
             }
+            
+        }
+        [PunRPC]
+        private void AddNewBottleRPC(int idItem, int idPlayer)
+        {
+            HideObjectInHand(idPlayer);
+
+            gc.players[idPlayer].GetComponent<Inventory>().itemInventory[placeInHand] = idItem;
+
+            GameObject waterBottle = ObjectPooler.SharedInstance.GetPooledObject(18);
+            waterBottle.GetComponent<Item>().setId(idItem);
+            waterBottle.transform.parent = gc.players[idPlayer].PlayerCamera.transform.parent.transform;
+            gc.items.Add(idItem, waterBottle);
+
+            if (idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            {
+                itemInHand = "Water Bottle";
+            }
+
+            gc.players[idPlayer].PlayerWaterBottle.SetActive(true);
         }
 
         private void HideObjectInHand(int idPlayer)
@@ -489,6 +527,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
             gc.players[idPlayer].PlayerTrapManif.SetActive(false);
             gc.players[idPlayer].PlayerElecTrap.SetActive(false);
             gc.players[idPlayer].PlayerWaterBottle.SetActive(false);
+            gc.players[idPlayer].PlayerElectof.SetActive(false);
         }
     }
 }
