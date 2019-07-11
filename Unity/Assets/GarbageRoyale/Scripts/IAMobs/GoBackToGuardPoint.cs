@@ -11,8 +11,8 @@ namespace GarbageRoyale.Scripts.IAMobs
         {
             if(agent == null)
             {
-                agent = animator.gameObject.GetComponent(typeof(NavMeshAgent)) as NavMeshAgent;
-                manager = animator.gameObject.GetComponent(typeof(Guard)) as Guard;
+                agent = animator.gameObject.GetComponent<NavMeshAgent>();
+                manager = animator.gameObject.GetComponent<Guard>();
             }
             agent.SetDestination(manager.GuardPosition);
         }

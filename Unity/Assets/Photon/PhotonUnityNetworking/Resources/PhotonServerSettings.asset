@@ -18,7 +18,7 @@ MonoBehaviour:
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
-    FixedRegion: eu
+    FixedRegion: 
     Server: 
     Port: 0
     Protocol: 0
@@ -121,4 +121,5 @@ MonoBehaviour:
   - WantToUseTorch
   - TriggerElectricityRPC
   - AddNewBottleRPC
+  - UpdateArrays
   DisableAutoOpenWizard: 1

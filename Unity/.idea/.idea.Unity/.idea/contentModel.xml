@@ -32,6 +32,7 @@
               <e p="ChasePlayer.cs" t="Include" />
               <e p="GoBackToGuardPoint.cs" t="Include" />
               <e p="Guard.cs" t="Include" />
+              <e p="MobController.cs" t="Include" />
               <e p="SearchForNoiseSource.cs" t="Include" />
               <e p="SoundDetector.cs" t="Include" />
             </e>

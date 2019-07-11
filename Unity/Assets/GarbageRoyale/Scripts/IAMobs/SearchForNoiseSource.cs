@@ -23,7 +23,7 @@ namespace GarbageRoyale.Scripts.IAMobs
             if(soundBlock == null)
             {
                 soundBlock = ObjectPoolerSoundBlocks.SharedInstance.GetPooledObjectWithID(animator.GetInteger("PlayerID"),animator.GetInteger("BlockID"));
-                agent = animator.gameObject.GetComponent(typeof(NavMeshAgent)) as NavMeshAgent;
+                agent = animator.gameObject.GetComponent<NavMeshAgent>();
             }
         }
     

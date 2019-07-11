@@ -176,8 +176,6 @@ namespace GarbageRoyale.Scripts
                 }
             }
 
-            Debug.Log(skillID);
-
             if (foundSkill)
             {
                 newSkill = foundSkill;
@@ -188,7 +186,6 @@ namespace GarbageRoyale.Scripts
                 newSkill = gameObject.AddComponent<ActiveSkillManager>();
             }
 
-            Debug.Log("yees");
             newSkill.playerID = playerIndex;
             newSkill.bufftime = skillInfos.bufftime;
             newSkill.coolDown = skillInfos.cooldown;
@@ -204,8 +201,6 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         public void ActivateSkill(int playerIndex,int skillPlace, int skillID, int targetID)
         {
-            Debug.Log("wut1");
-            //skillID = gc.players[playerIndex].GetComponent<Inventory>().skillInventory[skillPlace];
             Skill skillInfos = gc.items[skillID].GetComponent<Skill>();
             skillType = skillInfos.type;
             switch (skillType)
@@ -223,7 +218,6 @@ namespace GarbageRoyale.Scripts
                 case 3:
                     if (targetID != -1)
                     {
-                        Debug.Log("hoiiiiioi");
                         gc.playersActions[targetID].isFallen = true;
                         gc.playersActions[targetID].timeLeftFallen = 2.0f;
                         if (gc.playersActions[playerIndex].feetIsInWater || gc.playersActions[playerIndex].headIsInWater)
@@ -235,16 +229,11 @@ namespace GarbageRoyale.Scripts
                             electricity.transform.localPosition =  new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
                         }
                     }
-                    else
-                    {
-                        Debug.Log("eeehhhh");
-                    }
                     break;
                 case 4:
                     gc.playersActions[playerIndex].isAmphibian = true;
                     break;
                 case 5:
-                    Debug.Log("dash");
                     var forward = gc.players[playerIndex].PlayerCamera.transform.forward;
  
                     forward.y = 0f;
@@ -257,7 +246,6 @@ namespace GarbageRoyale.Scripts
                     //gc.players[playerIndex].PlayerChar.Move(gc.moveDirection[playerIndex]);
                     if (gc.playersActions[playerIndex].isInWater || gc.playersActions[playerIndex].headIsInWater || gc.playersActions[playerIndex].isInWater)
                     {
-                        Debug.Log("hououou");
                         GameObject electricity = ObjectPooler.SharedInstance.GetPooledObject(12);
                         electricity.transform.position = gc.players[playerIndex].PlayerFeet.transform.position;
                         electricity.SetActive(true);
@@ -268,8 +256,6 @@ namespace GarbageRoyale.Scripts
                 default:
                     break;
             }
-
-            Debug.Log("wut2");
             
             if (playerIndex == Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
@@ -322,8 +308,6 @@ namespace GarbageRoyale.Scripts
                     SkillBuffTime_1.GetComponent<Text>().text =skillInfos.bufftime.ToString();
                 }
             }
-            Debug.Log("wut");
-            
         }
 
         [PunRPC]
@@ -344,7 +328,6 @@ namespace GarbageRoyale.Scripts
                     gc.playersActions[playerIndex].isAmphibian = false;
                     break;
             }
-            
         }
 
         public bool ReduceCooldown(int playerId)

@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ratAnimator: {fileID: 580733851822124127}
+  mstats: {fileID: 1735114809083639661}
   QuietSoundDetector: {fileID: 3788427913378333946}
   MidLevelSoundDetector: {fileID: 8485524071008839896}
   LoudSoundDetector: {fileID: 3355023622948215529}
@@ -577,3 +578,15 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 580733851814838575}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1735114809083639661 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1160648757663299138, guid: 785ede44c4b05f84c8af8bfa003b0316,
+    type: 3}
+  m_PrefabInstance: {fileID: 580733851814838575}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b5a56cb8eed5d49bab11254c9dc6f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
