@@ -21,34 +21,75 @@ namespace GarbageRoyale.Scripts
         private ItemController ic;
 
         // Start is called before the first frame update
-        private void LateUpdate()
+        private void Update()
         {
             if(!gc.endOfInit)
             {
                 return;
             }
 
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            /*
             int idPlayer = Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
             if (!gc.playersActions[idPlayer].isInInventory && !gc.playersActions[idPlayer].isInEscapeMenu && Input.GetMouseButtonDown(0))
             {
                 photonView.RPC("PunchRPC", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId);
             }
+            */
         }
 
-        public void hitPlayer(RaycastHit info, int id)
+        public void sendRaycast(int idSrc, int inventorySlot)
         {
-            photonView.RPC("findPlayer", RpcTarget.MasterClient, id, info.transform.position.x, info.transform.position.y, info.transform.position.z, iac.placeInHand, PhotonNetwork.AuthValues.UserId);
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return; 
+            }
+
+            PlayerStats ps = gc.players[idSrc].PlayerStats;
+
+            if (ps.getAttackCostStamina() > ps.getStamina())
+            {
+                return;
+            }
+            ps.useStamina();
+
+            var ray = gc.players[idSrc].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+            RaycastHit hitInfo;
+            bool touch = Physics.Raycast(ray, out hitInfo, 2f);
+
+            if(touch)
+            {
+                if (hitInfo.transform.name == "pipe")
+                {
+                    int pipeId = hitInfo.transform.parent.GetComponent<PipeScript>().pipeIndex;
+                    photonView.RPC("brokePipeRPC", RpcTarget.MasterClient, pipeId);
+                }
+                else if (hitInfo.transform.name == "Mob(Clone)" || hitInfo.transform.name == "GIANT_RAT_LEGACY(Clone)")
+                {
+                    photonView.RPC("HitMobRPC", RpcTarget.MasterClient, hitInfo.transform.GetComponent<MobStats>().id, idSrc);
+                }
+                else if (hitInfo.transform.name.StartsWith("Player"))
+                {
+                    Debug.Log("HitPlayer");
+                    int idHit = hitInfo.transform.gameObject.GetComponent<ExposerPlayer>().PlayerIndex;
+                    Debug.Log("Joueur Attaquant : " + idSrc + " Joueur attaqué " + idHit);
+                    hitPlayer(idSrc, idHit, inventorySlot);
+                }
+            }
         }
 
-        [PunRPC]
-        private void findPlayer(int playerId, float x, float y, float z, int inventorySlot, string userId, PhotonMessageInfo info)
+        public void hitPlayer(int idSrc, int idTarget, int inventorySlot)
         {
             if (!PhotonNetwork.IsMasterClient) return;
 
-            int playerIdSrc = Array.IndexOf(gc.AvatarToUserId, userId);
-            PlayerStats ps = gc.players[playerIdSrc].PlayerStats;
+            PlayerStats ps = gc.players[idSrc].PlayerStats;
+
             float damage = ps.getBasickAttack();
-            int indexItem = gc.players[playerIdSrc].PlayerInventory.itemInventory[inventorySlot];
+            int indexItem = gc.players[idSrc].PlayerInventory.itemInventory[inventorySlot];
 
             bool canBurn = false;
             bool canOiled = false;
@@ -57,8 +98,8 @@ namespace GarbageRoyale.Scripts
 
             if (indexItem != -1)
             {
-                Item item = gc.items[gc.players[playerIdSrc].PlayerInventory.itemInventory[inventorySlot]].GetComponent<Item>();
-                if (gc.playersActions[playerIdSrc].isDamageBoosted)
+                Item item = gc.items[gc.players[idSrc].PlayerInventory.itemInventory[inventorySlot]].GetComponent<Item>();
+                if (gc.playersActions[idSrc].isDamageBoosted)
                 {
                     damage += 5;
                 }
@@ -66,7 +107,7 @@ namespace GarbageRoyale.Scripts
                 
                 if(item.name == "Torch")
                 {
-                    if(gc.players[playerIdSrc].PlayerTorch.transform.GetChild(0).gameObject.activeSelf)
+                    if(gc.players[idSrc].PlayerTorch.transform.GetChild(0).gameObject.activeSelf)
                     {
                         canBurn = true;
                     }
@@ -78,48 +119,29 @@ namespace GarbageRoyale.Scripts
                         canOiled = true;
                     }
 
-                    ic.brokeBottle(item.getId(), true, playerIdSrc, inventorySlot);
+                    ic.brokeBottle(item.getId(), true, idSrc, inventorySlot);
                 }
             }
 
-            if (ps.getStamina() >= ps.getAttackCostStamina())
+            gc.players[idTarget].PlayerStats.takeDamage(damage);
+            if(canBurn && gc.playersActions[idTarget].isOiled)
             {
-                GameObject target = gc.players[playerId].PlayerGameObject;
-                if (target.transform.position.x == x && target.transform.position.y == y && target.transform.position.z == z)
+                gc.playersActions[idTarget].isOiled = false;
+                gc.playersActions[idTarget].isBurning = true;
+                gc.playersActions[idTarget].timeLeftBurn = 5.0f;
+            }
+            else if(canOiled)
+            {
+                if(gc.playersActions[idTarget].isBurning)
                 {
-                    gc.players[playerId].PlayerStats.takeDamage(damage);
-                    if(canBurn && gc.playersActions[playerId].isOiled)
-                    {
-                        gc.playersActions[playerId].isOiled = false;
-                        gc.playersActions[playerId].isBurning = true;
-                        gc.playersActions[playerId].timeLeftBurn = 5.0f;
-                    }
-                    else if(canOiled)
-                    {
-                        if(gc.playersActions[playerId].isBurning)
-                        {
-                            gc.playersActions[playerId].timeLeftBurn = 5.0f;
-                        }
-                        else
-                        {
-                            gc.playersActions[playerId].isOiled = true;
-                            gc.playersActions[playerId].timeLeftOiled = 10.0f;
-                        }
-                    }
+                    gc.playersActions[idTarget].timeLeftBurn = 5.0f;
+                }
+                else
+                {
+                    gc.playersActions[idTarget].isOiled = true;
+                    gc.playersActions[idTarget].timeLeftOiled = 10.0f;
                 }
             }
-        }
-
-        [PunRPC]
-        private void PunchRPC(string userId, PhotonMessageInfo info)
-        {
-            if (!PhotonNetwork.IsMasterClient) return;
-
-            int playerIdSrc = Array.IndexOf(gc.AvatarToUserId, userId);
-            PlayerStats ps = gc.players[playerIdSrc].PlayerStats;
-
-            if (ps.getAttackCostStamina() > ps.getStamina()) return;
-            ps.useStamina();
         }
 
         public void HitByThrowItem(int idPlayer, int idItem, int type, bool isBurn)
@@ -156,6 +178,29 @@ namespace GarbageRoyale.Scripts
                     gc.playersActions[idPlayer].timeLeftBurn = 3.0f;
                 }
             }
+        }
+
+        [PunRPC]
+        private void brokePipeRPC(int pipeId)
+        {
+            //TODO verify coord
+            photonView.RPC("brokeSpecificPipeRPC", RpcTarget.All, pipeId);
+        }
+
+        [PunRPC]
+        private void brokeSpecificPipeRPC(int pipeId)
+        {
+            gc.pipes[pipeId].GetComponent<PipeScript>().brokePipe();
+        }
+
+        [PunRPC]
+        private void HitMobRPC(int mobID, int playerIndex)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+            gc.mobList[mobID].GetComponent<MobStats>().takeDamage(playerIndex);
         }
     }
 }

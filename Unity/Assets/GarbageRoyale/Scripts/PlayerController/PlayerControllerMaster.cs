@@ -131,11 +131,6 @@ namespace GarbageRoyale.Scripts.PlayerController
                     return;
                 }
 
-                //isMoving = (playerAction.horizontalAxe != 0 | playerAction.verticalAxe != 0);
-                //rotationX = playerAction.rotX;
-                //gc.players[i].PlayerGameObject.transform.position = playerAction.position;
-                //gc.players[i].PlayerGameObject.transform.localEulerAngles = playerAction.rotation;
-
                 if (!gc.playersActions[i].isFallen && !gc.playersActions[i].isTrap)
                 {
                     isMoving = PlayerMovement(i);
@@ -143,9 +138,15 @@ namespace GarbageRoyale.Scripts.PlayerController
                 }
                 else
                 {
+                    isMoving = false;
                     gc.players[i].PlayerChar.velocity = Vector3.zero;
                 }
-                //rotationX = PlayerRotation(i);
+
+                if(playerAction.wantToPunch)
+                {
+                    se.pa.sendRaycast(i, se.iac.placeInHand);
+                    playerAction.wantToPunch = false;
+                }
 
                 if (!coroutineIsStart[i])
                 {
@@ -430,10 +431,12 @@ namespace GarbageRoyale.Scripts.PlayerController
             Vector3 vec = new Vector3(rotX, 0, 0);
             gc.players[id].SpotLight.transform.localEulerAngles = vec;
   
-            if (!PhotonNetwork.IsMasterClient && id != System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            /*
+            if (id != System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
                 gc.players[id].PlayerGameObject.transform.localEulerAngles = rot;
-            }
+            } 
+            */
 
             SoundManager.Sound soundNeeded = SoundManager.Sound.Walk;
 

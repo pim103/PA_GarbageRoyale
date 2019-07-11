@@ -287,10 +287,6 @@ namespace GarbageRoyale.Scripts.InventoryScripts
             {
                 gc.GetComponent<InventoryGUI>().deleteSprite(inventoryPlace);
                 itemInHand = "";
-                if(inventoryPlace == placeInHand)
-                {
-                    placeInHand = -1;
-                }
             }
         }
         

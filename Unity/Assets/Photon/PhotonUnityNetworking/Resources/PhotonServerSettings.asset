@@ -121,4 +121,5 @@ MonoBehaviour:
   - WantToUseTorch
   - TriggerElectricityRPC
   - AddNewBottleRPC
+  - WantToPunchRPC
   DisableAutoOpenWizard: 1

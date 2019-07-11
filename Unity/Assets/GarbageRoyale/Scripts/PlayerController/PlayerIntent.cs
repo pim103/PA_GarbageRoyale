@@ -21,7 +21,6 @@ namespace GarbageRoyale.Scripts.PlayerController {
         [SerializeField]
         private ScriptExposer scripts;
         
-        private GameController gc;
         private SkillsController skillsController;
 
         private void Start()
@@ -31,7 +30,6 @@ namespace GarbageRoyale.Scripts.PlayerController {
                 return;
             }
 
-            gc = GameObject.Find("Controller").GetComponent<GameController>();
             skillsController = GameObject.Find("SkillsController").GetComponent<SkillsController>();
             scripts.cr.cameraIndex = PlayerIndex;
 
@@ -158,6 +156,15 @@ namespace GarbageRoyale.Scripts.PlayerController {
             {
                 ActivateSkill(1);
             }
+
+            if(Input.GetMouseButtonDown(0))
+            {
+                photonView.RPC("WantToPunchRPC", RpcTarget.MasterClient, true);
+                wantToPunch = true;
+            } else
+            {
+                wantToPunch = false;
+            }
             
             if (Input.GetKeyDown(KeyCode.LeftShift) && !isCrouched || Input.GetKeyDown(KeyCode.LeftShift) && !wantToJump)
             {
@@ -200,15 +207,21 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
             float rotX = scripts.pcm.PlayerRotation(PlayerIndex);
 
-            photonView.RPC("AskUpdateRotPos", RpcTarget.MasterClient, null, gc.players[PlayerIndex].PlayerGameObject.transform.localEulerAngles, rotX);
+            photonView.RPC("AskUpdateRotPos", RpcTarget.MasterClient, null, scripts.gc.players[PlayerIndex].PlayerGameObject.transform.localEulerAngles, rotX, PlayerIndex);
         }
 
         [PunRPC]
-        private void AskUpdateRotPos(Vector3 position, Vector3 rotation, float rotX)
+        private void AskUpdateRotPos(Vector3 position, Vector3 rotation, float rotX, int idPlayer)
         {
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
             this.position = position;
             this.rotation = rotation;
             this.rotX = rotX;
+            scripts.gc.players[idPlayer].PlayerGameObject.transform.localEulerAngles = rotation;
         }
 
         [PunRPC]
@@ -303,6 +316,15 @@ namespace GarbageRoyale.Scripts.PlayerController {
             if (PhotonNetwork.IsMasterClient)
             {
                 isCrouched = action;
+            }
+        }
+
+        [PunRPC]
+        void WantToPunchRPC(bool action)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                wantToPunch = action;
             }
         }
 

@@ -25,6 +25,8 @@ namespace GarbageRoyale.Scripts.PlayerController
         public bool wantToTurnOnTorch { get; set; }
         public bool wantToGoDown { get; set; }
 
+        public bool wantToPunch { get; set; }
+
         public bool isInWater { get; set; }
         public bool headIsInWater { get; set; }
         public bool feetIsInWater { get; set; }

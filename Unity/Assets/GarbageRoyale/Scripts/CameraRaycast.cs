@@ -98,28 +98,6 @@ namespace GarbageRoyale.Scripts
                         photonView.RPC("openDoorRPC", RpcTarget.MasterClient, doorId, false, true);
                     }
                 }
-
-                if (Input.GetMouseButtonDown(0))
-                {
-                    attackScript = GameObject.Find("Controller").GetComponent<PlayerAttack>();
-
-                    if (hitInfo.transform.name == "pipe")
-                    {
-                        int pipeId = hitInfo.transform.parent.GetComponent<PipeScript>().pipeIndex;
-                        photonView.RPC("brokePipeRPC", RpcTarget.MasterClient, pipeId);
-                    }
-                    else if (hitInfo.transform.name == "Mob(Clone)" || hitInfo.transform.name == "GIANT_RAT_LEGACY(Clone)")
-                    {
-                        //hitInfo.transform.GetComponent<MobStats>().takeDamage(Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                        //Debug.Log("Test saucisse de rat");
-                        photonView.RPC("HitMobRPC",RpcTarget.MasterClient,hitInfo.transform.GetComponent<MobStats>().id,Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
-                    }
-                    else if (hitInfo.transform.name.StartsWith("Player"))
-                    {
-                        int idHit = hitInfo.transform.gameObject.GetComponent<ExposerPlayer>().PlayerIndex;
-                        attackScript.hitPlayer(hitInfo, idHit);
-                    }
-                }
             } else if (openingDoorLoading > 0)
             {
                 openingDoorLoading = 0;
@@ -130,19 +108,6 @@ namespace GarbageRoyale.Scripts
                     lastDoorId = -1;
                 }
             }
-        }
-
-        [PunRPC]
-        private void brokePipeRPC(int pipeId)
-        {
-            //TODO verify coord
-            photonView.RPC("brokeSpecificPipeRPC", RpcTarget.All, pipeId);
-        }
-
-        [PunRPC]
-        private void brokeSpecificPipeRPC(int pipeId)
-        {
-            gc.pipes[pipeId].GetComponent<PipeScript>().brokePipe();
         }
 
         [PunRPC]
@@ -201,16 +166,6 @@ namespace GarbageRoyale.Scripts
             {
                 ods.StopOpenSound();
             }
-        }
-
-        [PunRPC]
-        private void HitMobRPC(int mobID, int playerIndex)
-        {
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                return;
-            }
-            gc.mobList[mobID].GetComponent<MobStats>().takeDamage(playerIndex);
         }
 
         [PunRPC]
