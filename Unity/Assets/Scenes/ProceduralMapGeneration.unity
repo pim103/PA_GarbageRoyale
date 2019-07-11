@@ -1380,6 +1380,7 @@ MonoBehaviour:
   se: {fileID: 274310797}
   rotationPlayer: []
   moveDirection: []
+  playersWalking: 0000000000000000000000000000000000000000
 --- !u!114 &274310796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1459,6 +1460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e3ba1fe5f504e438dbd574046fb5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pcm: {fileID: 274310795}
 --- !u!114 &274310801
 MonoBehaviour:
   m_ObjectHideFlags: 0

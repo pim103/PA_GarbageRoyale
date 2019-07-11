@@ -62,7 +62,6 @@ namespace GarbageRoyale.Scripts.InventoryScripts
 
             if (touch = Physics.Raycast(ray, out hitInfo, 2f))
             {
-                Debug.Log(hitInfo.transform.name);
                 if (hitInfo.transform.gameObject.GetComponent<Item>())
                 {
                     itemPanel.SetActive(true);

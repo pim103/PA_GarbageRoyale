@@ -22,7 +22,7 @@ namespace GarbageRoyale.Scripts.IAMobs
                 if (!sbc.hasBeenSeenByMob)
                 {
                     guard.SoundHeard(sbc.id,sbc.playerId);
-                    Debug.Log("allo");
+                    //Debug.Log("allo");
                 }
             }
         }
