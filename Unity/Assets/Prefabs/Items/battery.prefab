@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7752550333330284373}
   - component: {fileID: 8566456550548037369}
   - component: {fileID: 2362643081296621158}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 9185940400054394504}
   - component: {fileID: 212548161072502236}
   - component: {fileID: 116872534226528982}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 443366745775683964}
   - component: {fileID: 1088392169189752763}
   - component: {fileID: 8357180160015178185}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 2152802712625190175}
   - component: {fileID: 7885449455789597674}
   - component: {fileID: 7035593101193535633}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: battery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,10 +319,13 @@ MonoBehaviour:
   damage: 5
   type: 16
   itemImg: {fileID: 5833977737841398870, guid: 93654daed275d44408a126613f4b75af, type: 3}
+  isPickable: 1
   initOnStart: 0
   isOnline: 0
   scale: {x: 0.2, y: 0.2, z: 0.2}
   isThrow: 0
+  isBurn: 0
+  throwerId: -1
 --- !u!65 &7035593101193535633
 BoxCollider:
   m_ObjectHideFlags: 0

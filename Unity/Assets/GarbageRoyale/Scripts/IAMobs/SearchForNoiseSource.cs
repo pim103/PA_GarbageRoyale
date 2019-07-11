@@ -29,7 +29,6 @@ namespace GarbageRoyale.Scripts.IAMobs
     
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            Debug.Log(agent.remainingDistance);
             if(Time.time > lastUpdateTime + PathUpdateInterval && (agent.remainingDistance > 0.2f || Math.Abs(agent.remainingDistance) < 0.00001f))
             {
                 lastUpdateTime = Time.time;

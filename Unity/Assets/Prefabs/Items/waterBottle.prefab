@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7308017055490283063}
   - component: {fileID: 497841083780988976}
   - component: {fileID: 5106722211360264457}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 5368363328291578771}
   - component: {fileID: 4433480117117694195}
   - component: {fileID: 3470747683651181813}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: waterBottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 8873749998222463370}
   - component: {fileID: 2503430371923696282}
   - component: {fileID: 160649576654408764}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

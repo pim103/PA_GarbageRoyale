@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8426511688400917000}
   - component: {fileID: 2964728110557829474}
   - component: {fileID: 3158234681766751200}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: boxNail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,10 +142,13 @@ MonoBehaviour:
   damage: 5
   type: 14
   itemImg: {fileID: 5833977737841398870, guid: 6be70af991311c74bbdd9a218eb6c2a3, type: 3}
+  isPickable: 1
   initOnStart: 0
   isOnline: 0
   scale: {x: 0.14, y: 0.14, z: 0.04}
   isThrow: 0
+  isBurn: 0
+  throwerId: -1
 --- !u!64 &8426511688400917000
 MeshCollider:
   m_ObjectHideFlags: 0

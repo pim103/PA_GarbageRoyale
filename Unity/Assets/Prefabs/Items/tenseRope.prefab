@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4734460958692247620}
   - component: {fileID: 2387228180170264564}
   - component: {fileID: 6662084065129219402}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 5217655620808799063}
   - component: {fileID: 5385569557056252690}
   - component: {fileID: 7469723489299772422}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 344793204718557029}
   - component: {fileID: 3967982780095254497}
   - component: {fileID: 8359154658291113587}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tenseRope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,12 +305,15 @@ MonoBehaviour:
   inEditMode: 0
   previewCube: {fileID: 0}
   rotation: {x: 0, y: 0, z: 0}
+  keepRotation: 0
   scalePreview: {x: 0, y: 0, z: 0}
   savePos: {x: 0, y: 0, z: 0}
+  saveRot: {x: 0, y: 0, z: 0}
   canPose: 0
   uniqueRope: 1
   withRope: 1
   initNewRope: 0
+  scaleRopeCube: {x: 0, y: 0, z: 0}
   savePosRope: {x: 0, y: 0, z: 0}
   savePosRope2: {x: 0, y: 0, z: 0}
   previewRope1: {fileID: 806850494355882243}
@@ -332,6 +335,7 @@ MonoBehaviour:
   material: {fileID: 5385569557056252690}
   mc: {fileID: 8359154658291113587}
   idItem: 0
+  idTrap: 0
   inEditMode: 0
   isDeployed: 0
 --- !u!114 &344793204718557029
@@ -350,10 +354,13 @@ MonoBehaviour:
   damage: 5
   type: 11
   itemImg: {fileID: 5833977737841398870, guid: c4d0578e72a202d4793bad5e50d3e49f, type: 3}
+  isPickable: 1
   initOnStart: 0
   isOnline: 0
   scale: {x: 0.075, y: 0.075, z: 1}
   isThrow: 0
+  isBurn: 0
+  throwerId: -1
 --- !u!54 &3967982780095254497
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2946058668693099295}
   - component: {fileID: 2324105621540632084}
   - component: {fileID: 8408936671484940219}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 8267196037842359109}
   - component: {fileID: 552533412314186290}
   - component: {fileID: 2507912589554293841}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder_000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6701438049028986214}
   - component: {fileID: 6652686273764500902}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 9109059722138373306}
   - component: {fileID: 8013650536613750212}
   - component: {fileID: 4985448799574417095}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ GameObject:
   - component: {fileID: 4755860162955400731}
   - component: {fileID: 5394240510294391996}
   - component: {fileID: 5400120262637535247}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 2562759122542101987}
   - component: {fileID: 7960046305050247801}
   - component: {fileID: 367337492936930652}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: elecTrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 2331786134096160776}
   - component: {fileID: 1618682722351872663}
   - component: {fileID: 6673287044968226630}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder_000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,7 +605,7 @@ GameObject:
   - component: {fileID: 3794852134890719765}
   - component: {fileID: 7725224473002458079}
   - component: {fileID: 1087335730339124736}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}

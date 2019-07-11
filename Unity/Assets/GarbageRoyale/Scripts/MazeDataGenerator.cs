@@ -122,11 +122,16 @@ namespace GarbageRoyale.Scripts
                         } else if (maze[k][i, j] == 0 && rooms[i,j] != 3 && rooms[i,j] != 2)
                         {
                             int rand = Random.Range(5, 13);
+                            if (rand == 11)
+                            {
+                                rand = Random.Range(5, 13);
+                            }
                             if(rand == 12)
                             {
                                 int randItem = Random.Range(0, nbItems);
                                 itemRoom[k].Add( i + ";" + j, randItem);
                             }
+                            
                             rooms[i, j] = rand;
                             //rooms[i, j] = 3;
                         }

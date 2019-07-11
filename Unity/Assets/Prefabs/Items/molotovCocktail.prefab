@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1651587101603514949}
   - component: {fileID: 312816139}
   - component: {fileID: 3074684788666706412}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: molotovCocktail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,10 +103,13 @@ MonoBehaviour:
   damage: 5
   type: 10
   itemImg: {fileID: 5833977737841398870, guid: cee90852b1232ad4196833231c7a1b85, type: 3}
+  isPickable: 1
   initOnStart: 0
   isOnline: 0
   scale: {x: 0.1, y: 0.1, z: 0.1}
   isThrow: 0
+  isBurn: 0
+  throwerId: -1
 --- !u!64 &3074684788666706412
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -132,7 +135,7 @@ GameObject:
   - component: {fileID: 4394468927602783931}
   - component: {fileID: 5498533667784865821}
   - component: {fileID: 6567655054960340488}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +212,7 @@ GameObject:
   - component: {fileID: 7687984455963143867}
   - component: {fileID: 3374933963203475130}
   - component: {fileID: 1360031571151250644}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +289,7 @@ GameObject:
   - component: {fileID: 6882919763582075152}
   - component: {fileID: 413558142740076336}
   - component: {fileID: 8670731906134877537}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

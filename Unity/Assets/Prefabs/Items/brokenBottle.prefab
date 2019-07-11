@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1489532522196623382}
   - component: {fileID: 4983989005793719740}
   - component: {fileID: 7417527860305116216}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: brokenBottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,14 +112,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c39cd4afd64358ad9cd78dc50a3b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: -1
   name: Broken Bottle
   damage: 8
   type: 8
   itemImg: {fileID: 5833977737841398870, guid: 3d530559520791e458d2394ff07307b8, type: 3}
+  isPickable: 1
   initOnStart: 0
   isOnline: 0
   scale: {x: 0.1, y: 0.1, z: 0.1}
+  isThrow: 0
+  isBurn: 0
+  throwerId: -1
 --- !u!54 &4983989005793719740
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using Photon.Pun;
@@ -22,6 +23,7 @@ namespace GarbageRoyale.Scripts
         [SerializeField] public GameObject floorTransition;
         [SerializeField] private Material mazeMat1;
         [SerializeField] private Material mazeMat2;
+        [SerializeField] private GameObject configuredNvs;
 
         public MazeDataGenerator dataGenerator;
         public MazeMeshGenerator meshGenerator;
@@ -118,6 +120,7 @@ namespace GarbageRoyale.Scripts
         private void DisplayMaze(int ypos, int[,] maze, int[,] rooms, int level)
         {
             GameObject go = new GameObject();
+            GameObject newnvs;
             go.transform.position = Vector3.zero;
             go.name = "Procedural Maze";
 
@@ -130,9 +133,13 @@ namespace GarbageRoyale.Scripts
             MeshRenderer mr = go.AddComponent<MeshRenderer>();
             mr.materials = new Material[2] {mazeMat1, mazeMat2};
 
-            go.AddComponent<NavMeshSurface>();
-            Surfaces.Add(go.GetComponent<NavMeshSurface>());
-            
+            //go.AddComponent<NavMeshSurface>();
+            if (level == 0)
+            {
+                newnvs = Instantiate(configuredNvs);
+                newnvs.transform.parent = go.transform;
+                Surfaces.Add(newnvs.GetComponent<NavMeshSurface>());
+            }
         }
     
         /*+-[PunRPC]

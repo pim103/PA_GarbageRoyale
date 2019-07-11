@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7196656100936885429}
   - component: {fileID: 1657766646}
   - component: {fileID: 1107289619551619248}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bottleOil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,10 +103,13 @@ MonoBehaviour:
   damage: 5
   type: 9
   itemImg: {fileID: 5833977737841398870, guid: 25ef27347d9ab2f4f9a91af739ee6a99, type: 3}
+  isPickable: 1
   initOnStart: 0
   isOnline: 0
   scale: {x: 0.1, y: 0.1, z: 0.1}
   isThrow: 0
+  isBurn: 0
+  throwerId: -1
 --- !u!64 &1107289619551619248
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -132,7 +135,7 @@ GameObject:
   - component: {fileID: 1211450660450533737}
   - component: {fileID: 285164375327982262}
   - component: {fileID: 7015118125348682703}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +213,7 @@ GameObject:
   - component: {fileID: 6176305404653743600}
   - component: {fileID: 5779464215548284447}
   - component: {fileID: 2821554757624421794}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

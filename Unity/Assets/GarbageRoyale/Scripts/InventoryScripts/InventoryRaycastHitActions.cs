@@ -62,6 +62,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
 
             if (touch = Physics.Raycast(ray, out hitInfo, 2f))
             {
+                Debug.Log(hitInfo.transform.name);
                 if (hitInfo.transform.gameObject.GetComponent<Item>())
                 {
                     itemPanel.SetActive(true);
@@ -129,7 +130,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
             Item itemData = itemGob.GetComponent<Item>();
             Inventory inventoryData = player.GetComponent<Inventory>();
 
-            Debug.Log(string.Format("Item : \n ID : {0} - Name: {1} - Damage : {2} - Type : {3}", itemData.getId(), itemData.getName(), itemData.getDamage(), itemData.getType()));
+            //Debug.Log(string.Format("Item : \n ID : {0} - Name: {1} - Damage : {2} - Type : {3}", itemData.getId(), itemData.getName(), itemData.getDamage(), itemData.getType()));
             if(isMaster)
             {
                 gc.GetComponent<InventoryGUI>().printSprite(inventoryData.findPlaceInventory(), itemData.itemImg);
@@ -140,7 +141,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 //photonView.RPC("AskDisableItem", RpcTarget.All, itemGob.name);
                 
             }
-            Debug.Log(string.Format("Inventory : \n ID : {0} {1} {2} {3} {4} - Joueur : {5}", inventoryData.getItemInventory()[0], inventoryData.getItemInventory()[1], inventoryData.getItemInventory()[2], inventoryData.getItemInventory()[3], inventoryData.getItemInventory()[4], player));
+            //Debug.Log(string.Format("Inventory : \n ID : {0} {1} {2} {3} {4} - Joueur : {5}", inventoryData.getItemInventory()[0], inventoryData.getItemInventory()[1], inventoryData.getItemInventory()[2], inventoryData.getItemInventory()[3], inventoryData.getItemInventory()[4], player));
             
         }
         
@@ -152,7 +153,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 return;
             }
 
-            Debug.Log(gc.items[itemId].GetComponent<Item>().type);
+            //Debug.Log(gc.items[itemId].GetComponent<Item>().type);
             Item itemData = gc.items[itemId].GetComponent<Item>();
             
             if(!itemData.isPickable)

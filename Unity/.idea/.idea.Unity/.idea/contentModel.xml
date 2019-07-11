@@ -27,6 +27,8 @@
               <e p="InventoryGUI.cs" t="Include" />
             </e>
             <e p="IAMobs" t="Include">
+              <e p="AttackPlayer.cs" t="Include" />
+              <e p="AttackZone.cs" t="Include" />
               <e p="ChasePlayer.cs" t="Include" />
               <e p="GoBackToGuardPoint.cs" t="Include" />
               <e p="Guard.cs" t="Include" />
@@ -68,7 +70,8 @@
               <e p="MainMenu.cs" t="Include" />
               <e p="PauseMenu.cs" t="Include" />
               <e p="RegisterMenu.cs" t="Include" />
-              <e p="RoomLobby.cs" t="Include" />
+              <e p="RoomListing.cs" t="Include" />
+              <e p="RoomListMenu.cs" t="Include" />
               <e p="SettingsMenu.cs" t="Include" />
               <e p="StartGame.cs" t="Include" />
               <e p="SubMenu.cs" t="Include" />

@@ -9,7 +9,9 @@ namespace GarbageRoyale.Scripts.PlayerController
     public class PlayerSoundObjects : MonoBehaviourPunCallbacks
     {
         private GameController gc;
-
+        [SerializeField] 
+        private PlayerControllerMaster pcm;
+        
         private GameObject block;
         // Start is called before the first frame update
         void Start()
@@ -26,11 +28,30 @@ namespace GarbageRoyale.Scripts.PlayerController
             while (true)
             {
                 yield return new WaitForSeconds(1.0f);
-                if (gc.players[playerIndex].PlayerGameObject.activeInHierarchy && !gc.playersActions[playerIndex].isQuiet)
+                if (gc.players[playerIndex].PlayerGameObject.activeInHierarchy && pcm.playersWalking[playerIndex])
                 {
-                    block = ObjectPoolerSoundBlocks.SharedInstance.GetPooledObject(playerIndex);
-                    block.SetActive(true);
-                    block.transform.position = gc.players[playerIndex].transform.position;
+                    if (!gc.playersActions[playerIndex].isQuiet && !gc.playersActions[playerIndex].isRunning &&
+                        !gc.playersActions[playerIndex].isCrouched)
+                    {
+                        block = ObjectPoolerSoundBlocks.SharedInstance.GetPooledObject(playerIndex);
+                        block.SetActive(true);
+                        block.tag = "MidLevelSoundBlock";
+                        block.transform.position = gc.players[playerIndex].transform.position;
+                    }
+                    else if (!gc.playersActions[playerIndex].isQuiet && !gc.playersActions[playerIndex].isRunning && gc.playersActions[playerIndex].isCrouched)
+                    {
+                        block = ObjectPoolerSoundBlocks.SharedInstance.GetPooledObject(playerIndex);
+                        block.SetActive(true);
+                        block.tag = "QuietSoundBlock";
+                        block.transform.position = gc.players[playerIndex].transform.position;
+                    }
+                    else if (!gc.playersActions[playerIndex].isQuiet && gc.playersActions[playerIndex].isRunning && !gc.playersActions[playerIndex].isCrouched)
+                    {
+                        block = ObjectPoolerSoundBlocks.SharedInstance.GetPooledObject(playerIndex);
+                        block.SetActive(true);
+                        block.tag = "LoudSoundBlock";
+                        block.transform.position = gc.players[playerIndex].transform.position;
+                    }
                 }
             }
         }

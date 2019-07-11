@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2352031730403671248}
   - component: {fileID: 7454771203833467315}
   - component: {fileID: 3362310061401269462}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TOILETPAPER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 1737446450262882310}
   - component: {fileID: 3002769026964176829}
   - component: {fileID: 3993996481712551616}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4653233363041524994}
   - component: {fileID: 109277034671376756}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 8560015406102700428}
   - component: {fileID: 2693164219950839492}
   - component: {fileID: 7445762015979382653}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 8339853818983004989}
   - component: {fileID: 314006784976026321}
   - component: {fileID: 4669747380052033271}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 1457141778486119863}
   - component: {fileID: 7400910637692369255}
   - component: {fileID: 3787357969421263698}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 5128245368884173505}
   - component: {fileID: 2269390781351419926}
   - component: {fileID: 5491543160957722173}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -574,7 +574,7 @@ GameObject:
   - component: {fileID: 647695743397071262}
   - component: {fileID: 129626271726735804}
   - component: {fileID: 76241828163749984}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: manifTrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -717,6 +717,7 @@ MonoBehaviour:
   scale: {x: 1, y: 1, z: 1}
   isThrow: 0
   isBurn: 0
+  throwerId: -1
 --- !u!1 &2697620764778851674
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,7 +728,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1784576097995063700}
   - component: {fileID: 5795022925778558799}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -782,7 +783,7 @@ GameObject:
   - component: {fileID: 8643030634575229924}
   - component: {fileID: 3835304326132209743}
   - component: {fileID: 4215927752006634643}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -859,7 +860,7 @@ GameObject:
   - component: {fileID: 30330427978756183}
   - component: {fileID: 5624268781551100921}
   - component: {fileID: 2527474010979497349}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TOILETPAPER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -937,7 +938,7 @@ GameObject:
   - component: {fileID: 1718121571363732014}
   - component: {fileID: 3195988188787234916}
   - component: {fileID: 3714828906890077728}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Flame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5733,7 +5734,7 @@ GameObject:
   - component: {fileID: 8389123429245732723}
   - component: {fileID: 6234004295681834630}
   - component: {fileID: 2422058215677958274}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5810,7 +5811,7 @@ GameObject:
   - component: {fileID: 128700564843079214}
   - component: {fileID: 6197162298118665119}
   - component: {fileID: 8839628568619126388}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

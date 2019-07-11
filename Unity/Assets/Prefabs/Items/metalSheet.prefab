@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 8008948162355218687}
   - component: {fileID: 189137234886397770}
   - component: {fileID: 2927706523230511472}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: metalSheet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,14 +118,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idPlayer: 0
   bc: {fileID: 2927706523230511472}
-  previewCube: {fileID: 7317705782935411732}
-  rotation: {x: 90, y: 0, z: 0}
   bonusColliderSize: {x: 0, y: 0, z: 13}
   item: {fileID: 8861673272424080865}
-  canPose: 0
+  inEditMode: 0
+  previewCube: {fileID: 7317705782935411732}
+  rotation: {x: 90, y: 0, z: 0}
+  keepRotation: 0
   scalePreview: {x: 0, y: 0, z: 0}
   savePos: {x: 0, y: 0, z: 0}
-  inEditMode: 0
+  saveRot: {x: 0, y: 0, z: 0}
+  canPose: 0
+  uniqueRope: 0
+  withRope: 0
+  initNewRope: 0
+  scaleRopeCube: {x: 0, y: 0, z: 0}
+  savePosRope: {x: 0, y: 0, z: 0}
+  savePosRope2: {x: 0, y: 0, z: 0}
+  previewRope1: {fileID: 0}
+  previewRope2: {fileID: 0}
 --- !u!114 &3160123226451191988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,10 +166,13 @@ MonoBehaviour:
   damage: 8
   type: 13
   itemImg: {fileID: 5833977737841398870, guid: 9623f64cd3572b94381c65343669321e, type: 3}
+  isPickable: 1
   initOnStart: 0
   isOnline: 0
   scale: {x: 1, y: 1, z: 0.01}
   isThrow: 0
+  isBurn: 0
+  throwerId: -1
 --- !u!54 &8008948162355218687
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -298,7 +311,7 @@ GameObject:
   - component: {fileID: 3164799409415819774}
   - component: {fileID: 2845293160253767541}
   - component: {fileID: 4094985750739754058}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}

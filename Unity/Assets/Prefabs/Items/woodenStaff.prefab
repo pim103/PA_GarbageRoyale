@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7102408539433446284}
   - component: {fileID: 5911716980773490038}
   - component: {fileID: 3994358724564302350}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: woodenStaff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,14 +112,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c39cd4afd64358ad9cd78dc50a3b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: -1
   name: Wooden Staff
   damage: 15
   type: 1
   itemImg: {fileID: 5833977737841398870, guid: ad67ab737c4b5a94f9a74e0fed20b690, type: 3}
+  isPickable: 1
   initOnStart: 0
   isOnline: 0
   scale: {x: 0.8, y: 0.8, z: 0.8}
+  isThrow: 0
+  isBurn: 0
+  throwerId: -1
 --- !u!64 &5911716980773490038
 MeshCollider:
   m_ObjectHideFlags: 0

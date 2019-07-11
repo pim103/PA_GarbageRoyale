@@ -4,27 +4,23 @@ using UnityEngine.AI;
 namespace GarbageRoyale.Scripts.IAMobs
 {
     public class GoBackToGuardPoint : StateMachineBehaviour {
-        private NavMeshAgent _agent;
-        private Guard _manager;
-        [SerializeField] 
-        private Animator ratAnimator;
-        private int isMovingHash;
+        private NavMeshAgent agent;
+        private Guard manager;
     
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if(_agent == null)
+            if(agent == null)
             {
-                _agent = animator.gameObject.GetComponent(typeof(NavMeshAgent)) as NavMeshAgent;
-                _manager = animator.gameObject.GetComponent(typeof(Guard)) as Guard;
-                isMovingHash = Animator.StringToHash("isMoving");
+                agent = animator.gameObject.GetComponent(typeof(NavMeshAgent)) as NavMeshAgent;
+                manager = animator.gameObject.GetComponent(typeof(Guard)) as Guard;
             }
-            _agent.SetDestination(_manager.GuardPosition);
+            agent.SetDestination(manager.GuardPosition);
         }
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (_agent.remainingDistance < 0.2f)
+            if (agent.remainingDistance < 0.2f)
             {
-                animator.SetTrigger(_manager.ReachedGuardPointHash);
+                animator.SetTrigger(manager.ReachedGuardPointHash);
             }
         }
     }

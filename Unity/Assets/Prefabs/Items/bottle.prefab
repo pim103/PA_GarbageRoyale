@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 791463094799067103}
   - component: {fileID: 7464176333056474953}
   - component: {fileID: 2574446210250004002}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,10 +147,13 @@ MonoBehaviour:
   damage: 5
   type: 7
   itemImg: {fileID: 5833977737841398870, guid: e218f15e510a09c4087eb399b5a934f3, type: 3}
+  isPickable: 1
   initOnStart: 0
   isOnline: 0
   scale: {x: 0.1, y: 0.1, z: 0.1}
   isThrow: 0
+  isBurn: 0
+  throwerId: -1
 --- !u!54 &2574446210250004002
 Rigidbody:
   m_ObjectHideFlags: 0

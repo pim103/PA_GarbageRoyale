@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4856796686901194971}
   - component: {fileID: 2409053719725442096}
   - component: {fileID: 469938558710332768}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Flame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4817,7 +4817,7 @@ GameObject:
   - component: {fileID: 2976038016397569251}
   - component: {fileID: 941183063438484956}
   - component: {fileID: 2802319221098556591}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: torch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4937,10 +4937,13 @@ MonoBehaviour:
   damage: 5
   type: 4
   itemImg: {fileID: 5833977737841398870, guid: 7fa254dcddedd94428d6748609bc2dfd, type: 3}
+  isPickable: 1
   initOnStart: 0
   isOnline: 0
   scale: {x: 0.6, y: 0.6, z: 0.6}
   isThrow: 0
+  isBurn: 0
+  throwerId: -1
 --- !u!54 &2802319221098556591
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4968,7 +4971,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7839245904847544624}
   - component: {fileID: 3579673351212051476}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

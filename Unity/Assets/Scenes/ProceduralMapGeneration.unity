@@ -5756,6 +5756,8 @@ MonoBehaviour:
     type: 3}
   mazeMat1: {fileID: 2100000, guid: 2019d743bc0984ba1b81150901d44455, type: 2}
   mazeMat2: {fileID: 2100000, guid: 7d4018cc002e925488d631ab0f2bd072, type: 2}
+  configuredNvs: {fileID: 400120993610236984, guid: fb16862ebfd683745bd09f5e6091c161,
+    type: 3}
   meshGenerator: {fileID: 0}
   Surfaces: []
 --- !u!114 &1103656770
@@ -7610,6 +7612,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Water
+      objectReference: {fileID: 0}
+    - target: {fileID: 8878313210229368649, guid: 3691311aefd7c874a9b2b885d075c7d5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8949559102902261448, guid: 3691311aefd7c874a9b2b885d075c7d5,
         type: 3}

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace GarbageRoyale.Scripts.IAMobs
@@ -28,10 +29,13 @@ namespace GarbageRoyale.Scripts.IAMobs
     
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if(Time.time > lastUpdateTime + PathUpdateInterval)
-            {
+            if(Time.time > lastUpdateTime + (PathUpdateInterval)){ 
                 lastUpdateTime = Time.time;
                 agent.SetDestination(player.transform.position);
+                if(agent.remainingDistance < 2f && Math.Abs(agent.remainingDistance) > 0.00001f)
+                {
+                    animator.SetBool("isCloseToPlayer", true);
+                }
             }
         }
     }

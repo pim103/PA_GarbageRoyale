@@ -46,6 +46,8 @@ namespace GarbageRoyale.Scripts.PlayerController
         private Texture2D oiledTexture;
         private Texture2D burnedTexture;
 
+        public bool[] playersWalking = new bool[20];
+        
         private bool IsGameEnd;
 
         private void Start()
@@ -53,6 +55,9 @@ namespace GarbageRoyale.Scripts.PlayerController
             initTexture();
             coroutineIsStart = Enumerable.Repeat(false, 20).ToArray();
             IsGameEnd = false;
+
+            playersWalking = Enumerable.Repeat(false, 20).ToArray();
+            
         } 
 
         void FixedUpdate()
@@ -134,6 +139,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                 if (!gc.playersActions[i].isFallen && !gc.playersActions[i].isTrap)
                 {
                     isMoving = PlayerMovement(i);
+                    playersWalking[i] = isMoving;
                 }
                 else
                 {

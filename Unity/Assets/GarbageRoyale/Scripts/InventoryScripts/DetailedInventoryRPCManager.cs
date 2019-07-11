@@ -34,8 +34,8 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         [PunRPC]
         public void AskSwapInventoryItems(int playerIndex, int oldPlace, int newPlace, bool isMaster, PhotonMessageInfo info)
         {
-            Debug.Log("yes");
-            Debug.Log(" sent playerindex "+playerIndex+" oldplace "+oldPlace+" newplace "+newPlace);
+            //Debug.Log("yes");
+            //Debug.Log(" sent playerindex "+playerIndex+" oldplace "+oldPlace+" newplace "+newPlace);
             if (!PhotonNetwork.IsMasterClient)
             {
                 return;
@@ -56,7 +56,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         [PunRPC]
         public void AnswerSwapInventoryItems(int playerIndex, int oldPlace, int newPlace, bool isMaster)
         {
-            Debug.Log(" received playerindex "+playerIndex+" oldplace "+oldPlace+" newplace "+newPlace);
+            //Debug.Log(" received playerindex "+playerIndex+" oldplace "+oldPlace+" newplace "+newPlace);
             Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
             int idMem = playerInventory.itemInventory[newPlace];
             playerInventory.itemInventory[newPlace] = playerInventory.itemInventory[oldPlace];
@@ -68,7 +68,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 //Debug.Log("eheh "+playerInventory.itemInventory[j]);
                 if (playerInventory.itemInventory[j] != -1)
                 {
-                    Debug.Log("eh "+gc.items[playerInventory.itemInventory[j]].GetComponent<Item>().type);
+                    //Debug.Log("eh "+gc.items[playerInventory.itemInventory[j]].GetComponent<Item>().type);
                     craftingList.Add(gc.items[playerInventory.itemInventory[j]].GetComponent<Item>().type);
 
                 }
