@@ -29,7 +29,7 @@ namespace GarbageRoyale.Scripts.IAMobs
         {
             while (true)
             {
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.025f);
                 if (PhotonNetwork.IsMasterClient)
                 {
                     photonView.RPC("UpdateArrays",RpcTarget.Others,mobsAnimState,mobsPosX,mobsPosY,mobsPosZ,mobsRotY);

@@ -17,18 +17,16 @@ namespace GarbageRoyale.Scripts
         public bool isDead;
         public bool isRotateMob;
     
-        private InventoryActionsController iac;
         private GameController gc;
         private PlayerAttack pa;
 
         // Start is called before the first frame update
         void Start()
         {
-            iac = GameObject.Find("Controller").GetComponent<InventoryActionsController>();
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             pa = GameObject.Find("Controller").GetComponent<PlayerAttack>();
             //id = (int) transform.position.x + (int) transform.position.y + (int) transform.position.z;
-            hp = 100f;
+            hp = 1f;
             stamina = 100f;
             breath = 100f;
             basicAttack = 20f;
@@ -69,7 +67,7 @@ namespace GarbageRoyale.Scripts
 
             if(hp <= 0)
             {
-                pa.photonView.RPC("MobDeathAll",RpcTarget.All,id, Random.Range(0, 6));
+                pa.photonView.RPC("MobDeathAll",RpcTarget.All,id, Random.Range(0, (int)SkillsController.SkillType.All));
             }
         }
 
@@ -82,26 +80,37 @@ namespace GarbageRoyale.Scripts
             lootedSkill.transform.position = transform.position;
 
             Skill skill = lootedSkill.GetComponent<Skill>();
+            skill.type = type;
+            skill.type = (int)SkillsController.SkillType.Hunting;
 
-            switch (type)
+            switch ((SkillsController.SkillType)type)
             {
-                case 0:
+                case SkillsController.SkillType.QuietSound:
                     skill.name = "Marche silencieuse";
                     break;
-                case 1:
+                case SkillsController.SkillType.StaffMaster:
                     skill.name = "Maîtrise du bâton";
                     break;
-                case 2:
+                case SkillsController.SkillType.Invisibility:
                     skill.name = "Invisibilité";
                     break;
-                case 3:
+                case SkillsController.SkillType.Tazer:
                     skill.name = "Taser";
                     break;
-                case 4:
+                case SkillsController.SkillType.AquaticBreath:
                     skill.name = "Respiration aquatique";
                     break;
-                case 5:
+                case SkillsController.SkillType.Dash:
                     skill.name = "Dash éclair";
+                    break;
+                case SkillsController.SkillType.IceWall:
+                    skill.name = "Mur de Glace";
+                    break;
+                case SkillsController.SkillType.Hunting:
+                    skill.name = "Chasseur";
+                    break;
+                default:
+                    skill.name = "Inconnu";
                     break;
             }
         }

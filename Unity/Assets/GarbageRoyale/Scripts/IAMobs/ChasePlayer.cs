@@ -32,7 +32,7 @@ namespace GarbageRoyale.Scripts.IAMobs
             if(Time.time > lastUpdateTime + (PathUpdateInterval)){ 
                 lastUpdateTime = Time.time;
                 agent.SetDestination(player.transform.position);
-                if(agent.remainingDistance < 2f && Math.Abs(agent.remainingDistance) > 0.00001f)
+                if(agent.remainingDistance < 2.5f && Math.Abs(agent.remainingDistance) > 0.00001f)
                 {
                     animator.SetBool("isCloseToPlayer", true);
                 }

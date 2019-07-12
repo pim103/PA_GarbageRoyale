@@ -330,20 +330,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
         void ActivateSkill(int place)
         {
-            var ray = scripts.gc.players[Array.IndexOf(scripts.gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
-            RaycastHit hitInfo;
-            bool touch = Physics.Raycast(ray, out hitInfo, 2f);
-            int Hitid = -1;
-
-            if (touch)
-            {
-                if (hitInfo.transform.name.StartsWith("Player"))
-                {
-                    Hitid = hitInfo.transform.gameObject.GetComponent<ExposerPlayer>().PlayerIndex;
-                }
-            }
-
-            skillsController.photonView.RPC("AskSkillActivation", RpcTarget.MasterClient, place, Array.IndexOf(scripts.gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId), Hitid);
+            skillsController.photonView.RPC("AskSkillActivation", RpcTarget.MasterClient, place, Array.IndexOf(scripts.gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId));
         }
     }
 }
