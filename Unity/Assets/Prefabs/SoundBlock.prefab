@@ -197,8 +197,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cab1810b058a8e741bc8fb514194dbaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textContainer: {fileID: 7316399312657809202}
+  textIdPlayer: {fileID: 7201255871968070079}
   id: 0
   playerId: 0
+  actualIdPlayer: 0
   hasBeenSeenByMob: 0
 --- !u!54 &2513571753838958698
 Rigidbody:
