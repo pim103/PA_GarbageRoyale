@@ -19,12 +19,13 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public float attackCostStamina;
 
         public bool isDead;
-        public string playerName;
-        private int playerRole;
+        private string playerName;
+        public int playerRole;
         private bool isRotatePlayer;
 
         public bool isAlreadyTrigger;
         public bool isInvincible;
+        public bool isReadyToPlay;
 
         // Start is called before the first frame update
         void Start()
@@ -38,13 +39,12 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
             currentBreath = 1.0f;
             basicAttack = 3f;
             attackCostStamina = 20f;
-            playerName = "null";
-            playerRole = 0;
 
             isDead = false;
             isRotatePlayer = false;
             isAlreadyTrigger = false;
             isInvincible = false;
+            isReadyToPlay = false;
         }
 
         private void rotateDeadPlayer()
@@ -141,6 +141,12 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public float getBasickAttack()
         {
             return basicAttack;
+        }
+        
+        public bool IsReadyToPlay
+        {
+            get => isReadyToPlay;
+            set => isReadyToPlay = value;
         }
     }
 }

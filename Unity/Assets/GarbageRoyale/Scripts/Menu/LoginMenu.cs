@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Pun.Demo.Cockpit;
 using Photon.Realtime;
@@ -77,8 +78,14 @@ namespace GarbageRoyale.Scripts.Menu
                 yield return new WaitForSeconds(0.5f);
                 PhotonNetwork.ConnectUsingSettings();
                 httpResponse = www.downloadHandler.text.Split('#');
+                
                 PhotonNetwork.AuthValues = new AuthenticationValues(httpResponse[1]);
                 PhotonNetwork.NickName = httpResponse[0];
+                PhotonNetwork.SetPlayerCustomProperties(new ExitGames.Client.Photon.Hashtable()
+                {
+                    {"role", httpResponse[2]}
+                });
+                
                 //Debug.Log(httpResponse[0]);
                 dialogWindow.SetActive(false);
                 controller.launchMainMenu();

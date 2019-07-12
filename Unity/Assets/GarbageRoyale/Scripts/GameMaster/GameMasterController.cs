@@ -1,3 +1,5 @@
+using System;
+using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
 using UnityEngine;
 
@@ -9,10 +11,16 @@ namespace GarbageRoyale.Scripts.GameMaster
         public GameObject gmGUI;
 
         public bool isInGMGUI = false;
+        [SerializeField]
+        private GameController gc;
 
         private void Update()
         {
-            if (!PhotonNetwork.IsMasterClient)
+            if (Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId) == -1)
+            {
+                return;
+            }
+            if (gc.players[Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].GetComponent<PlayerStats>().PlayerRole < 3)
             {
                 return;
             }
@@ -33,6 +41,7 @@ namespace GarbageRoyale.Scripts.GameMaster
                     Cursor.visible = false;
                 }
             }
+
         }
     }
 }

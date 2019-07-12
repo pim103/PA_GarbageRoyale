@@ -32,19 +32,33 @@ namespace GarbageRoyale.Scripts.Menu
             backButton.onClick.AddListener(AskForBack);
         }
 
+        private void Awake()
+        {
+            PhotonNetwork.JoinLobby();
+        }
+
         void AskForJoin()
         {
             Debug.Log(roomSelected);
             PhotonNetwork.JoinRoom(roomSelected);
         }
 
+        private void Update()
+        {
+            //PhotonNetwork.JoinLobby();
+        }
+
         public override void OnJoinedRoom()
         {
             controller.gameController.SetActive(true);
+            /*controller.invHUD.SetActive(true);
+            controller.playerGUI.SetActive(true);*/
+
             controller.mainCamera.enabled = false;
-            controller.serverListMenu.SetActive(false);
-            //controller.mainMenu.SetActive(false);
-            //controller.subMenu.SetActive(false);
+            controller.mainMenu.SetActive(false);
+            controller.subMenu.SetActive(false);
+            controller.launchRoomLobby();
+            //PhotonNetwork.LoadLevel("ProceduralMapGeneration");
         }
         
         void SelectRoom(RoomListing listing, string name)
@@ -64,12 +78,12 @@ namespace GarbageRoyale.Scripts.Menu
             {
                 if (info.RemovedFromList)
                 {
-                    int index = listRooms.FindIndex(x => x.RoomInfo.Name == info.Name);
+                    /*int index = listRooms.FindIndex(x => x.RoomInfo.Name == info.Name);
                     if (index != -1)
                     {
                         Destroy(listRooms[index].gameObject);
                         listRooms.RemoveAt(index);
-                    }
+                    }*/
                 }
                 else
                 {
@@ -77,9 +91,12 @@ namespace GarbageRoyale.Scripts.Menu
                     if (listing != null)
                     {
                         listing.SetRoomInfo(info);
-                        listing.GetComponent<Button>().onClick.AddListener(delegate { SelectRoom(listing, info.Name); });
+                        listing.GetComponent<Button>().onClick.AddListener(delegate
+                        {
+                            SelectRoom(listing, info.Name);
+                        });
                         listRooms.Add(listing);
-                    } 
+                    }
                 }
             }
         }

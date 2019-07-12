@@ -40,7 +40,7 @@ namespace GarbageRoyale.Scripts.Menu
 
                 createRoomButton.onClick.AddListener(AskForRoomCreation);
                 joinRoomButton.onClick.AddListener(AskForRoomJoin);
-                PhotonNetwork.JoinLobby();
+                //PhotonNetwork.JoinLobby();
             }
         }
 

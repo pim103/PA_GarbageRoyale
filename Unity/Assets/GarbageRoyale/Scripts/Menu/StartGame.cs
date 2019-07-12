@@ -58,6 +58,12 @@ namespace GarbageRoyale.Scripts.Menu
             serverListMenu.SetActive(true);
         }
         
+        public void launchRoomLobby()
+        {
+            ResetAllMenu();
+            roomLobby.SetActive(true);
+        }
+        
         public void launchRegisterMenu()
         {
             ResetAllMenu();
@@ -84,6 +90,7 @@ namespace GarbageRoyale.Scripts.Menu
             loginMenu.SetActive(false);
             mainMenu.SetActive(false);
             serverListMenu.SetActive(false);
+            roomLobby.SetActive(false);
             registerMenu.SetActive(false);
             subMenu.SetActive(false);
             EndGameMenu.SetActive(false);

@@ -126,14 +126,18 @@ namespace GarbageRoyale.Scripts
         [SerializeField]
         public GameObject[] itemList;
 
+        public bool mineQ;
+
         private void Awake()
         {
             nbItems = 0;
+            mineQ = false;
             AvatarToUserId = Enumerable.Repeat("", 20).ToArray();
             PlayerJoined += ActivateAvatar;
             PlayerLeft += null;
             OnlinePlayReady += StartGame;
         }
+        
         
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
@@ -233,7 +237,7 @@ namespace GarbageRoyale.Scripts
             }
 
             AvatarToUserId[i] = userId;
-
+            Debug.Log("JJJ");
             photonView.RPC("initAvatarUserIdRPC", RpcTarget.Others, AvatarToUserId, userId);
 
             PlayerJoined?.Invoke(i);
@@ -251,7 +255,9 @@ namespace GarbageRoyale.Scripts
 
             if (PhotonNetwork.IsMasterClient)
             {
+                Debug.Log("ZZZ");
                 AvatarToUserId[i] = PhotonNetwork.AuthValues.UserId;
+                mineQ = true;
                 PlayerJoined?.Invoke(i);
             }
         }
@@ -260,7 +266,8 @@ namespace GarbageRoyale.Scripts
         private void initAvatarUserIdRPC(string[] UserIdList, string userId)
         {
             AvatarToUserId = UserIdList;
-
+            Debug.Log("AAA");
+            mineQ = true;
             var i = 0;
             if(PhotonNetwork.AuthValues.UserId == userId)
             {
@@ -287,7 +294,38 @@ namespace GarbageRoyale.Scripts
         private void ActivateAvatarRPC(int id)
         {
             players[id].PlayerGameObject.SetActive(true);
-            
+            mainCamera.GetComponent<Camera>().enabled = true;
+
+            foreach (Player playerPhoton in PhotonNetwork.PlayerList)
+            {
+                if (playerPhoton.UserId == AvatarToUserId[id])
+                {
+                    players[id].GetComponent<PlayerStats>().PlayerRole = Int32.Parse(playerPhoton.CustomProperties["role"].ToString());
+                    players[id].GetComponent<PlayerStats>().PlayerName = playerPhoton.NickName;
+                }
+                
+            }
+        }
+
+        [PunRPC]
+        public void SetReady(int index)
+        {
+            players[index].GetComponent<PlayerStats>().IsReadyToPlay = !players[index].GetComponent<PlayerStats>().IsReadyToPlay;
+        }
+        
+        [PunRPC]
+        public void MasterActivateAvatarPlayer()
+        {
+            for (int i = 0; i < AvatarToUserId.Length; i++)
+            {
+                if (AvatarToUserId[i] != "")
+                    photonView.RPC("launchGameRPC", RpcTarget.All, i);
+            }
+        }
+
+        [PunRPC]
+        private void launchGameRPC(int id)
+        {
             if(PhotonNetwork.AuthValues.UserId == AvatarToUserId[id])
             {
                 mainCamera.SetActive(false);
@@ -302,12 +340,16 @@ namespace GarbageRoyale.Scripts
                 playerGUI.SetActive(true);
                 skillsController.SetActive(true);
                 PlayerListScripts.GetComponent<PlayerSoundObjects>().enabled = true;
+                //playersActionsActivated[id].GetComponent<PlayerIntent>().activeScripts(id);
+                menuController.roomLobby.SetActive(false);
+                
             }
 
             moveDirection[id] = Vector3.zero;
             rotationPlayer[id] = Vector3.zero;
- 
+            
             OnlinePlayReady?.Invoke(id);
+            
         }
 
         [PunRPC]
@@ -361,8 +403,7 @@ namespace GarbageRoyale.Scripts
             }
             if (PhotonNetwork.AuthValues.UserId == AvatarToUserId[id])
             {
-                photonView.RPC("endOfInitRPC", RpcTarget.All);
-                
+                //photonView.RPC("endOfInitRPC", RpcTarget.All);
             }
         }
 

@@ -44,7 +44,6 @@ namespace GarbageRoyale.Scripts.Menu
             roomOptions.MaxPlayers = (byte)choosePlayers.value;
 
             PhotonNetwork.CreateRoom(roomNameIpt.text, roomOptions);
-            //Photo
         }
 
         void AskForBack()
@@ -61,6 +60,7 @@ namespace GarbageRoyale.Scripts.Menu
             controller.mainCamera.enabled = false;
             controller.mainMenu.SetActive(false);
             controller.subMenu.SetActive(false);
+            controller.launchRoomLobby();
             //PhotonNetwork.LoadLevel("ProceduralMapGeneration");
         }
     }
