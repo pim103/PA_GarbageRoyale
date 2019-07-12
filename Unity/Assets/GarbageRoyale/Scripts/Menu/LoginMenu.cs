@@ -40,6 +40,8 @@ namespace GarbageRoyale.Scripts.Menu
         [SerializeField]
         private StartGame controller;
 
+        private GameController gc;
+
         public string[] httpResponse;
 
         // Start is called before the first frame update
@@ -132,7 +134,8 @@ namespace GarbageRoyale.Scripts.Menu
             controller.mainMenu.SetActive(false);
             controller.subMenu.SetActive(false);
             controller.loginMenu.SetActive(false);
-        
+            controller.gameController.GetComponent<GameController>().MasterActivateAvatarPlayer();
+
             offlineRoomButton.interactable = false;
         }
         public void AskForExit()

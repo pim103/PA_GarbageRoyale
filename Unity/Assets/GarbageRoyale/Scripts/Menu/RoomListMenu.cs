@@ -19,6 +19,14 @@ namespace GarbageRoyale.Scripts.Menu
         private Button backButton;
         [SerializeField]
         private StartGame controller;
+        [SerializeField]
+        private GameObject dialogWindow;
+        [SerializeField]
+        private Text dialogText;
+        [SerializeField]
+        private GameObject dialogButton;
+        [SerializeField]
+        private Button dialogButtonBtn;
 
         private string roomSelected;
         
@@ -41,11 +49,6 @@ namespace GarbageRoyale.Scripts.Menu
         {
             Debug.Log(roomSelected);
             PhotonNetwork.JoinRoom(roomSelected);
-        }
-
-        private void Update()
-        {
-            //PhotonNetwork.JoinLobby();
         }
 
         public override void OnJoinedRoom()

@@ -325,6 +325,7 @@ namespace GarbageRoyale.Scripts
                 if (AvatarToUserId[i] != "")
                     photonView.RPC("launchGameRPC", RpcTarget.All, i);
             }
+            
         }
 
         [PunRPC]
@@ -351,7 +352,10 @@ namespace GarbageRoyale.Scripts
 
             moveDirection[id] = Vector3.zero;
             rotationPlayer[id] = Vector3.zero;
-            
+            if (!PhotonNetwork.IsConnected)
+            {
+                players[0].PlayerCamera.enabled = true;
+            }
             OnlinePlayReady?.Invoke(id);
             
         }

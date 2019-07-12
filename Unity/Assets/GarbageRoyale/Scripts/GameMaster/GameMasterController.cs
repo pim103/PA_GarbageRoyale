@@ -16,7 +16,7 @@ namespace GarbageRoyale.Scripts.GameMaster
 
         private void Update()
         {
-            if (Int32.Parse(PhotonNetwork.LocalPlayer.CustomProperties["role"].ToString()) < 3)
+            if (gc.players[Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerStats.PlayerRole < 3 && PhotonNetwork.IsConnected)
             {
                 return;
             }
