@@ -6,6 +6,7 @@ using GarbageRoyale.Scripts.PrefabPlayer;
 using System;
 using GarbageRoyale.Scripts.Items;
 using GarbageRoyale.Scripts.InventoryScripts;
+using GarbageRoyale.Scripts.Environment;
 
 namespace GarbageRoyale.Scripts
 {
@@ -41,7 +42,6 @@ namespace GarbageRoyale.Scripts
 
             if(touch)
             {
-                Debug.Log(hitInfo.transform.name);
                 if (hitInfo.transform.name == "pipe")
                 {
                     int pipeId = hitInfo.transform.parent.GetComponent<PipeScript>().pipeIndex;
@@ -56,6 +56,23 @@ namespace GarbageRoyale.Scripts
                 {
                     int idHit = hitInfo.transform.gameObject.GetComponent<ExposerPlayer>().PlayerIndex;
                     hitPlayer(idSrc, idHit, inventorySlot);
+                }
+                else if(hitInfo.transform.name == "icewall(Clone)")
+                {
+                    float damage = gc.players[idSrc].PlayerStats.getBasickAttack();
+                    int indexItem = gc.players[idSrc].PlayerInventory.itemInventory[inventorySlot];
+
+                    if (indexItem != -1)
+                    {
+                        Item item = gc.items[gc.players[idSrc].PlayerInventory.itemInventory[inventorySlot]].GetComponent<Item>();
+                        if (gc.playersActions[idSrc].isDamageBoosted && (item.type == (int)ItemController.TypeItem.WoodenStaff || item.type == (int)ItemController.TypeItem.SteelStaff))
+                        {
+                            damage += 5;
+                        }
+                        damage += item.getDamage();
+                    }
+
+                    hitInfo.transform.GetComponent<IceWallScript>().HitWall(damage);
                 }
             }
         }
@@ -77,7 +94,7 @@ namespace GarbageRoyale.Scripts
             if (indexItem != -1)
             {
                 Item item = gc.items[gc.players[idSrc].PlayerInventory.itemInventory[inventorySlot]].GetComponent<Item>();
-                if (gc.playersActions[idSrc].isDamageBoosted)
+                if (gc.playersActions[idSrc].isDamageBoosted && (item.type == (int)ItemController.TypeItem.WoodenStaff || item.type == (int)ItemController.TypeItem.SteelStaff))
                 {
                     damage += 5;
                 }

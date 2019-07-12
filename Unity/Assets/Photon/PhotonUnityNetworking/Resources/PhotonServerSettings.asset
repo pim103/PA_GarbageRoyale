@@ -123,4 +123,6 @@ MonoBehaviour:
   - AddNewBottleRPC
   - WantToPunchRPC
   - UpdateArrays
+  - DesactiveIceWall
+  - ActivateIceWall
   DisableAutoOpenWizard: 1

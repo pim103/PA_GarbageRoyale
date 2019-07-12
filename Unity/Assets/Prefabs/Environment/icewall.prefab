@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 630467507344487374}
   - component: {fileID: 3972115868394295747}
   - component: {fileID: 4260465196718893525}
+  - component: {fileID: 5815439666534139307}
   m_Layer: 0
   m_Name: icewall
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4239606155775561306}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 172.20502, y: 2.88, z: 170.70984}
-  m_LocalScale: {x: 2, y: 0.5, z: 3}
+  m_LocalScale: {x: 2, y: 0.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -111,3 +112,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.124784, y: 2.7728617, z: 2.1057434}
   m_Center: {x: 0.003244996, y: 0.009215476, z: 0.052871536}
+--- !u!114 &5815439666534139307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4239606155775561306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f116bdfef9d5b4a45a5a296c050fa78c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  durability: 0
+  id: 0

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GarbageRoyale.Scripts.Environment;
 using GarbageRoyale.Scripts.HUD;
 using GarbageRoyale.Scripts.InventoryScripts;
 using GarbageRoyale.Scripts.PrefabPlayer;
@@ -11,12 +12,14 @@ namespace GarbageRoyale.Scripts
 {
     public class SkillsController : MonoBehaviourPunCallbacks
     {
+        [SerializeField]
         private GameController gc;
-        //private GameObject InvGUI;
+
+        [SerializeField]
+        private EnvironmentController ec;
 
         private int skillID;
         private int skillType = 0;
-        
 
         private List<ActiveSkillManager> CurrentSkills = new List<ActiveSkillManager>();
         private ActiveSkillManager foundSkill;
@@ -50,12 +53,6 @@ namespace GarbageRoyale.Scripts
             Dash,
             IceWall,
             All
-        }
-        
-        // Start is called before the first frame update
-        void Start()
-        {
-            gc = GameObject.Find("Controller").GetComponent<GameController>();
         }
 
         // Update is called once per frame
@@ -270,7 +267,7 @@ namespace GarbageRoyale.Scripts
                     RaycastHit info;
                     if (Physics.Raycast(gc.players[playerIndex].PlayerFeet.transform.position, Vector3.down, out info))
                     {
-                        pos = info.point + (Vector3.up/10) + (gc.players[playerIndex].PlayerCamera.transform.forward * 2);
+                        pos = info.point + (Vector3.up) + (gc.players[playerIndex].PlayerCamera.transform.forward * 2);
                     }
 
                     GameObject iceWall = ObjectPooler.SharedInstance.GetPooledObject(22);
@@ -279,6 +276,11 @@ namespace GarbageRoyale.Scripts
                     rot.y += gc.players[playerIndex].PlayerGameObject.transform.localEulerAngles.y;
                     iceWall.transform.localEulerAngles = rot;
                     iceWall.SetActive(true);
+
+                    IceWallScript iws = iceWall.GetComponent<IceWallScript>();
+                    iws.ActiveIceWall();
+                    iws.id = ec.iceWalls.Count;
+                    ec.iceWalls.Add(ec.iceWalls.Count, iceWall);
                     break;
                 default:
                     break;
