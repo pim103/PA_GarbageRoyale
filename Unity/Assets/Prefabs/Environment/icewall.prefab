@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3972115868394295747}
   - component: {fileID: 4260465196718893525}
   - component: {fileID: 5815439666534139307}
+  - component: {fileID: 5705079263862248382}
   m_Layer: 0
   m_Name: icewall
   m_TagString: Untagged
@@ -126,3 +127,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durability: 0
   id: 0
+--- !u!135 &5705079263862248382
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4239606155775561306}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.3864309
+  m_Center: {x: 0.003244996, y: 0.009215476, z: 0.052871536}

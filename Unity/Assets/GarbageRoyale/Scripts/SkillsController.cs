@@ -259,7 +259,6 @@ namespace GarbageRoyale.Scripts
                         electricity.transform.position = gc.players[playerIndex].PlayerFeet.transform.position;
                         electricity.SetActive(true);
                         electricity.transform.parent = Water.transform;
-                        //electricity.transform.localPosition = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
                     }
                     break;
                 case SkillType.IceWall:
@@ -267,7 +266,7 @@ namespace GarbageRoyale.Scripts
                     RaycastHit info;
                     if (Physics.Raycast(gc.players[playerIndex].PlayerFeet.transform.position, Vector3.down, out info))
                     {
-                        pos = info.point + (Vector3.up) + (gc.players[playerIndex].PlayerCamera.transform.forward * 2);
+                        pos = info.point + (Vector3.up * 1.5f) + (gc.players[playerIndex].PlayerCamera.transform.forward * 2);
                     }
 
                     GameObject iceWall = ObjectPooler.SharedInstance.GetPooledObject(22);
