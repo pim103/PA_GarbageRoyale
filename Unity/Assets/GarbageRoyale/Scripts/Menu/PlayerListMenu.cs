@@ -26,13 +26,19 @@ namespace GarbageRoyale.Scripts.Menu
         private GameController gc;
         [SerializeField] 
         private StartGame menuController;
+        [SerializeField]
+        private GameObject dialogWindow;
+        [SerializeField]
+        private Text dialogText;
+        [SerializeField]
+        private GameObject dialogButton;
+        [SerializeField]
+        private Button dialogButtonBtn;
         
         public List<PlayerList> listPlayers = new List<PlayerList>();
 
         private string[] playersNickName;
-
         
-
         private void Awake()
         {
             playersNickName = Enumerable.Repeat("", 20).ToArray();
@@ -41,6 +47,7 @@ namespace GarbageRoyale.Scripts.Menu
             readyButton.onClick.AddListener(AskToBeReady);
             leftLobby.onClick.AddListener(AskToLeftLobby);
             backToMainMenu.onClick.AddListener(AskToGoToMainMenu);
+            dialogButtonBtn.onClick.AddListener(dialogBoxEnable);
         }
         
         public void AskToBeReady()
@@ -49,6 +56,8 @@ namespace GarbageRoyale.Scripts.Menu
             {
                 /*if (PhotonNetwork.CurrentRoom.MaxPlayers != PhotonNetwork.CurrentRoom.PlayerCount)
                 {
+                    dialogBoxEnable();
+                    dialogText.text = "Tous les joueurs ne sont pas prêts!";
                     return;
                 }*/
                 for (int i = 0; i < gc.AvatarToUserId.Length; i++)
@@ -68,6 +77,20 @@ namespace GarbageRoyale.Scripts.Menu
                 return;
             }
             photonView.RPC("SetReadyPlayer", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId);
+        }
+
+        private void dialogBoxEnable()
+        {
+            if (dialogWindow.activeSelf)
+            {
+                dialogWindow.SetActive(false);
+            }
+            else
+            { 
+                dialogWindow.SetActive(true); 
+                dialogButton.SetActive(true);
+            }
+            
         }
         
         private void AskToLeftLobby()
