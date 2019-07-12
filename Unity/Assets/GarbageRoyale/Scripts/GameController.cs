@@ -403,7 +403,7 @@ namespace GarbageRoyale.Scripts
             }
             if (PhotonNetwork.AuthValues.UserId == AvatarToUserId[id])
             {
-                //photonView.RPC("endOfInitRPC", RpcTarget.All);
+                photonView.RPC("endOfInitRPC", RpcTarget.All);
             }
         }
 
