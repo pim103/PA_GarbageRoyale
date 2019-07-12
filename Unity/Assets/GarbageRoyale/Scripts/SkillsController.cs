@@ -403,6 +403,7 @@ namespace GarbageRoyale.Scripts
                 foreach (var soundBlock in list)
                 {
                     soundBlock.GetComponent<MeshRenderer>().enabled = action;
+                    soundBlock.transform.GetChild(0).gameObject.SetActive(action);
                 }
             }
         }

@@ -17,18 +17,16 @@ namespace GarbageRoyale.Scripts
         public bool isDead;
         public bool isRotateMob;
     
-        private InventoryActionsController iac;
         private GameController gc;
         private PlayerAttack pa;
 
         // Start is called before the first frame update
         void Start()
         {
-            iac = GameObject.Find("Controller").GetComponent<InventoryActionsController>();
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             pa = GameObject.Find("Controller").GetComponent<PlayerAttack>();
             //id = (int) transform.position.x + (int) transform.position.y + (int) transform.position.z;
-            hp = 100f;
+            hp = 1f;
             stamina = 100f;
             breath = 100f;
             basicAttack = 20f;
@@ -83,6 +81,7 @@ namespace GarbageRoyale.Scripts
 
             Skill skill = lootedSkill.GetComponent<Skill>();
             skill.type = type;
+            skill.type = (int)SkillsController.SkillType.Hunting;
 
             switch ((SkillsController.SkillType)type)
             {

@@ -14,6 +14,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         private void OnEnable()
         {
             StartCoroutine(DeactivateMyself());
+            transform.GetChild(0).GetComponent<TextMesh>().text = playerId.ToString();
         }
 
         IEnumerator DeactivateMyself()
