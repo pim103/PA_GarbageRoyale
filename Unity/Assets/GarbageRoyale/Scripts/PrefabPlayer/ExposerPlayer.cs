@@ -47,5 +47,6 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public Inventory PlayerInventory;
         
         public SkinnedMeshRenderer PlayerRenderer;
+        public GameObject EndElevatorArrow;
     }
 }

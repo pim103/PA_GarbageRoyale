@@ -125,4 +125,11 @@ MonoBehaviour:
   - UpdateArrays
   - DesactiveIceWall
   - ActivateIceWall
+  - ActivatePlayerRPC
+  - BeReadyRPC
+  - GetPlayersRPC
+  - launchGameRPC
+  - MasterActivateAvatarPlayer
+  - SetReady
+  - SetReadyPlayer
   DisableAutoOpenWizard: 1

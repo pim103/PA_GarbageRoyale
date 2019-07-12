@@ -47,10 +47,10 @@ namespace GarbageRoyale.Scripts.Menu
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                if (PhotonNetwork.CurrentRoom.MaxPlayers != PhotonNetwork.CurrentRoom.PlayerCount)
+                /*if (PhotonNetwork.CurrentRoom.MaxPlayers != PhotonNetwork.CurrentRoom.PlayerCount)
                 {
                     return;
-                }
+                }*/
                 for (int i = 0; i < gc.AvatarToUserId.Length; i++)
                 {
                     if (gc.AvatarToUserId[i] != "" && gc.players[i].PlayerStats.isReadyToPlay ||

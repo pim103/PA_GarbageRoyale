@@ -18,6 +18,11 @@
             <e p="ActiveSkillManager.cs" t="Include" />
             <e p="CameraRaycast.cs" t="Include" />
             <e p="CameraRaycastHitActions.cs" t="Include" />
+            <e p="EndGameElevator" t="Include">
+              <e p="ArrowController.cs" t="Include" />
+              <e p="EndGameElevatorController.cs" t="Include" />
+              <e p="EndRoomScript.cs" t="Include" />
+            </e>
             <e p="Environment" t="Include">
               <e p="EnvironmentController.cs" t="Include" />
               <e p="IceWallScript.cs" t="Include" />
@@ -74,6 +79,8 @@
               <e p="LoginMenu.cs" t="Include" />
               <e p="MainMenu.cs" t="Include" />
               <e p="PauseMenu.cs" t="Include" />
+              <e p="PlayerList.cs" t="Include" />
+              <e p="PlayerListMenu.cs" t="Include" />
               <e p="RegisterMenu.cs" t="Include" />
               <e p="RoomListing.cs" t="Include" />
               <e p="RoomListMenu.cs" t="Include" />

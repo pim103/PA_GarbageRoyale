@@ -555,6 +555,7 @@ namespace GarbageRoyale.Scripts
                             {
                                 if (exploredRooms[currentFloor][j, i] == 1 || (currentFloor == 0 && i > (81 / 2 - 5) && i < (81 / 2 + 5) && j > 81 / 2 - 5 && j < 81 / 2 + 5 ))
                                 {
+                                    //Debug.Log(generator.floorsRooms[currentFloor][j, i]);
                                     if (generator.floorsRooms[currentFloor][j, i] == 3)
                                     {
                                         GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), trapTexture);

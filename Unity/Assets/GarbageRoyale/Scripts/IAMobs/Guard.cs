@@ -31,6 +31,7 @@ namespace GarbageRoyale.Scripts.IAMobs
         public int ReachedGuardPointHash { get { return reachedGuardPointHash; } }
         
         private MobController mc;
+        private GameController gc;
 
         [SerializeField] 
         private SoundDetector QuietSoundDetector;
@@ -47,6 +48,7 @@ namespace GarbageRoyale.Scripts.IAMobs
         private void Start()
         {
             mc = GameObject.Find("Controller").GetComponent<MobController>();
+            gc = GameObject.Find("Controller").GetComponent<GameController>();
             if (PhotonNetwork.IsMasterClient)
             {
                 guardPosition = transform.position;
@@ -67,7 +69,7 @@ namespace GarbageRoyale.Scripts.IAMobs
         }
         private void OnTriggerEnter(Collider collider)
         {
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient && gc.doorIsOpen)
             {
                 if (collider.CompareTag("Player"))
                 {
@@ -82,7 +84,7 @@ namespace GarbageRoyale.Scripts.IAMobs
         }
         private void OnTriggerExit(Collider collider)
         {
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient && gc.doorIsOpen)
             {
                 if (collider.CompareTag("Player"))
                 {
@@ -93,7 +95,7 @@ namespace GarbageRoyale.Scripts.IAMobs
 
         public void SoundHeard(int detectedBlockId, int detectedBlockPlayerId)
         {
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient && gc.doorIsOpen)
             {
                 if (!ratState.GetBool(playerOnSightHash))
                 {
@@ -108,7 +110,7 @@ namespace GarbageRoyale.Scripts.IAMobs
         
         private void Update()
         {
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient && gc.doorIsOpen)
             {
                 if (ratState.GetBool(reachedGuardPointHash))
                 {
@@ -166,14 +168,14 @@ namespace GarbageRoyale.Scripts.IAMobs
 
         public void startAttack()
         {
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient && gc.doorIsOpen)
             {
                 StartCoroutine(ActivateAttackZone());
             }
         }
         IEnumerator ActivateAttackZone()
         {
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient && gc.doorIsOpen)
             {
                 ratAnimator.SetBool(isAttackingHash, true);
                 mc.mobsAnimState[mstats.id] = 3;

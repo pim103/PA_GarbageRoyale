@@ -250,11 +250,23 @@ namespace GarbageRoyale.Scripts
                         }
                     }
                 }
+                
+                int randx;
+                int randy;
+                do
+                {
+                    randx = Random.Range(0, sizeCols);
+                    randy = Random.Range(0, sizeRows);
+                    Debug.Log(randx + " "+randy + " "+k + " "+maze[k][randx, randy]);
+                } while (maze[k][randx, randy] != 0 || rooms[randx,randy] == 3|| rooms[randx,randy] == 2);
+                
+                rooms[randx, randy] = 13;
 
                 floorRooms[k] = rooms;
                 if (k < 3) frequency -= 6;
                 else frequency-= 4;
             }
+            
                
             return floorRooms;
         }

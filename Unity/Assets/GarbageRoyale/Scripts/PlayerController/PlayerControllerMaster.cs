@@ -6,6 +6,7 @@ using Photon.Pun.UtilityScripts;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GarbageRoyale.Scripts.EndGameElevator;
 using UnityEngine;
 
 namespace GarbageRoyale.Scripts.PlayerController
@@ -14,6 +15,8 @@ namespace GarbageRoyale.Scripts.PlayerController
     {
         [SerializeField]
         private GameController gc;
+        [SerializeField]
+        private EndGameElevatorController eec;
 
         [SerializeField]
         private ScriptExposer se;
@@ -202,6 +205,11 @@ namespace GarbageRoyale.Scripts.PlayerController
                 }
             }
 
+            if (playerAlive == 1)
+            {
+                eec.InitEndPhase();
+            }
+            
             if(playerAlive <= 0)
             {
                 gc.isGameStart = false;
