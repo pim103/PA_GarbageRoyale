@@ -12,6 +12,7 @@ using System.Linq;
 using GarbageRoyale.Scripts.HUD;
 using GarbageRoyale.Scriptable;
 using GarbageRoyale.Scripts.Menu;
+using UnityEngine.UI;
 
 namespace GarbageRoyale.Scripts
 {
@@ -51,6 +52,9 @@ namespace GarbageRoyale.Scripts
         [SerializeField] 
         public GameObject Mob;
 
+        [SerializeField] 
+        private RawImage minimapArrow;
+        
         private GameObject playerCamera;
 
         private GameObject startDoor;
@@ -174,7 +178,7 @@ namespace GarbageRoyale.Scripts
             }
             mapTexture = MakeTex(4, 4, new Color(1f, 1f, 1f, 0.5f));
             trapTexture = MakeTex(4, 4, new Color(0f, 1f, 0f, 0.5f));
-            playerTexture = MakeTex(4, 4, new Color(0.5f, 0.5f, 0.5f, 0.5f));
+            playerTexture = MakeTex(6, 6, new Color(1f, 0.0f, 0.0f, 1f));
             generator = GetComponent<MazeConstructor>();      // 2
             generator.GenerateNewMaze(81, 81, itemList.Length);
 
@@ -554,7 +558,6 @@ namespace GarbageRoyale.Scripts
                                     if (generator.floorsRooms[currentFloor][j, i] == 3)
                                     {
                                         GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), trapTexture);
-                                        Debug.Log("ui x"+j+" z "+i);
                                     }
                                     else
                                     {
@@ -565,8 +568,11 @@ namespace GarbageRoyale.Scripts
                             else
                             {
                                 exploredRooms[currentFloor][j, i] = 1;
-                                GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), playerTexture);
-
+                                GUI.DrawTexture(new Rect(l * 4, k * 4, 4, 4), mapTexture);
+                                GUIUtility.RotateAroundPivot(players[Array.IndexOf(AvatarToUserId, PhotonNetwork.AuthValues.UserId)].transform.eulerAngles.y, new Vector2(l * 4,k*4));
+                                GUI.DrawTexture(new Rect(l * 4, k * 4, 6, 6), playerTexture);
+                                GUIUtility.RotateAroundPivot(players[Array.IndexOf(AvatarToUserId, PhotonNetwork.AuthValues.UserId)].transform.eulerAngles.y*-1, new Vector2(l * 4,k*4));
+                                //minimapArrow.rectTransform.eulerAngles = new Vector3(minimapArrow.rectTransform.eulerAngles.x,minimapArrow.rectTransform.eulerAngles.y,players[Array.IndexOf(AvatarToUserId, PhotonNetwork.AuthValues.UserId)].transform.eulerAngles.y*-1);
                             }
                         }
                     }

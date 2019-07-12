@@ -18,6 +18,10 @@
             <e p="ActiveSkillManager.cs" t="Include" />
             <e p="CameraRaycast.cs" t="Include" />
             <e p="CameraRaycastHitActions.cs" t="Include" />
+            <e p="Environment" t="Include">
+              <e p="EnvironmentController.cs" t="Include" />
+              <e p="IceWallScript.cs" t="Include" />
+            </e>
             <e p="GameController.cs" t="Include" />
             <e p="GameMaster" t="Include">
               <e p="GameMasterController.cs" t="Include" />
