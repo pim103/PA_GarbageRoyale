@@ -20,28 +20,6 @@ namespace GarbageRoyale.Scripts
         [SerializeField]
         private ItemController ic;
 
-        // Start is called before the first frame update
-        private void Update()
-        {
-            if(!gc.endOfInit)
-            {
-                return;
-            }
-
-            if(!PhotonNetwork.IsMasterClient)
-            {
-                return;
-            }
-
-            /*
-            int idPlayer = Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
-            if (!gc.playersActions[idPlayer].isInInventory && !gc.playersActions[idPlayer].isInEscapeMenu && Input.GetMouseButtonDown(0))
-            {
-                photonView.RPC("PunchRPC", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId);
-            }
-            */
-        }
-
         public void sendRaycast(int idSrc, int inventorySlot)
         {
             if(!PhotonNetwork.IsMasterClient)

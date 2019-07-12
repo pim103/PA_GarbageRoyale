@@ -142,7 +142,11 @@ namespace GarbageRoyale.Scripts.PlayerController
                     gc.players[i].PlayerChar.velocity = Vector3.zero;
                 }
 
-                if(playerAction.wantToPunch)
+                Vector3 rot = gc.players[i].PlayerCamera.transform.localEulerAngles;
+                rot.x = playerAction.rotX;
+                gc.players[i].PlayerCamera.transform.localEulerAngles = rot;
+
+                if (playerAction.wantToPunch)
                 {
                     se.pa.sendRaycast(i, se.iac.placeInHand);
                     playerAction.wantToPunch = false;
@@ -153,7 +157,6 @@ namespace GarbageRoyale.Scripts.PlayerController
                     coroutineIsStart[i] = true;
                     StartCoroutine(PlayerUpdateStats(i));
                 }
-                //PlayerUpdateStats(i);
 
                 if (playerAction.wantToLightUp && !player.SpotLight.gameObject.activeSelf)
                 {
@@ -297,16 +300,10 @@ namespace GarbageRoyale.Scripts.PlayerController
             {
                 movement.y /= 2;
             }
-            //gc.moveDirection[id].y -= 1.0f;
             movement.x = gc.moveDirection[id].x;
             movement.z = gc.moveDirection[id].z;
-            //gc.players[id].PlayerTransform.position += movement * Time.deltaTime;
-            //Vector3 newPos = gc.players[id].PlayerChar.position + (movement * Time.deltaTime);
-            //gc.players[id].PlayerChar.MovePosition(newPos);
-            //Debug.Log(movement);
 
             gc.players[id].PlayerChar.velocity = movement;
-            //gc.players[id].PlayerChar.Move(gc.moveDirection[id] * Time.deltaTime);
 
             return (playerAction.horizontalAxe != 0 | playerAction.verticalAxe != 0);
         }
@@ -430,13 +427,6 @@ namespace GarbageRoyale.Scripts.PlayerController
         {
             Vector3 vec = new Vector3(rotX, 0, 0);
             gc.players[id].SpotLight.transform.localEulerAngles = vec;
-  
-            /*
-            if (id != System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
-            {
-                gc.players[id].PlayerGameObject.transform.localEulerAngles = rot;
-            } 
-            */
 
             SoundManager.Sound soundNeeded = SoundManager.Sound.Walk;
 
@@ -488,7 +478,6 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             if (gc.AvatarToUserId[id] == PhotonNetwork.AuthValues.UserId)
             {
-                gc.players[id].PlayerCamera.transform.localEulerAngles = new Vector3(rotX, 0, 0);
                 gc.inventoryGui.updateBar(ps.currentHp, ps.currentStamina, ps.currentBreath);
             }
 

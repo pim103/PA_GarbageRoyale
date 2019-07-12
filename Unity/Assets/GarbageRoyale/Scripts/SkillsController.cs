@@ -39,23 +39,28 @@ namespace GarbageRoyale.Scripts
 
         [SerializeField] 
         private GameObject Water;
+
+        public enum SkillType
+        {
+            QuietSound,
+            StaffMaster,
+            Invisibility,
+            Tazer,
+            AquaticBreath,
+            Dash,
+            IceWall,
+            All
+        }
         
         // Start is called before the first frame update
         void Start()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
-            //InvGUI = GameObject.Find("InventoryGUI");
         }
-        
 
         // Update is called once per frame
         void Update()
         {
-            /*if (!PhotonNetwork.IsMasterClient)
-            {
-                return;
-            }*/
-
             isDouble = false;
             foreach (var skillManager in CurrentSkills)
             {
@@ -63,8 +68,6 @@ namespace GarbageRoyale.Scripts
                 {
                     if (skillManager.bufftime <= 0)
                     {
-                        //Debug.Log("hai " + skillManager.bufftime);
-                        
                         if (PhotonNetwork.IsMasterClient)
                         {
                             foreach (var otherSkillManager in CurrentSkills)
@@ -75,7 +78,6 @@ namespace GarbageRoyale.Scripts
                                     isDouble = true;
                                     if (otherSkillManager.bufftime <= 0)
                                     {
-                                        Debug.Log("deact");
                                         photonView.RPC("DeactivateSkill", RpcTarget.All,skillManager.playerID, skillManager.skillType);
                                         skillManager.isActive = false;
                                         break;
@@ -85,7 +87,6 @@ namespace GarbageRoyale.Scripts
 
                             if (!isDouble)
                             {
-                                Debug.Log("deact2");
                                 photonView.RPC("DeactivateSkill", RpcTarget.All, skillManager.playerID, skillManager.skillType);
                                 skillManager.isActive = false;
                             }
@@ -96,8 +97,7 @@ namespace GarbageRoyale.Scripts
                         
                     }
                 }
-                if (skillManager.playerID ==
-                    Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+                if (skillManager.playerID == Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
                 {
                     //Debug.Log(skillManager.coolDown);
                     if (skillManager.skillPlace == 0)
@@ -145,13 +145,27 @@ namespace GarbageRoyale.Scripts
         }
 
         [PunRPC]
-        public void AskSkillActivation(int skillPlace, int playerIndex, int targetID)
+        public void AskSkillActivation(int skillPlace, int playerIndex)
         {
-            ActiveSkillManager newSkill;
             if (!PhotonNetwork.IsMasterClient)
             {
                 return;
             }
+
+            var ray = gc.players[playerIndex].PlayerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+            RaycastHit hitInfo;
+            bool touch = Physics.Raycast(ray, out hitInfo, 2f);
+            int targetID= -1;
+
+            if (touch)
+            {
+                if (hitInfo.transform.name.StartsWith("Player"))
+                {
+                    targetID = hitInfo.transform.gameObject.GetComponent<ExposerPlayer>().PlayerIndex;
+                }
+            }
+
+            ActiveSkillManager newSkill;
 
             skillID = gc.players[playerIndex].GetComponent<Inventory>().skillInventory[skillPlace];
             if(skillID == -1)
@@ -203,19 +217,18 @@ namespace GarbageRoyale.Scripts
         {
             Skill skillInfos = gc.items[skillID].GetComponent<Skill>();
             skillType = skillInfos.type;
-            switch (skillType)
+            switch ((SkillType)skillType)
             {
-                case 0:
+                case SkillType.QuietSound:
                     gc.playersActions[playerIndex].isQuiet = true;
                     break;
-                case 1:
+                case SkillType.StaffMaster:
                     gc.playersActions[playerIndex].isDamageBoosted = true;
                     break;
-                case 2:
-                    Debug.Log("invisible");
+                case SkillType.Invisibility:
                     gc.players[playerIndex].PlayerRenderer.enabled = false;
                     break;
-                case 3:
+                case SkillType.Tazer:
                     if (targetID != -1)
                     {
                         gc.playersActions[targetID].isFallen = true;
@@ -230,10 +243,10 @@ namespace GarbageRoyale.Scripts
                         }
                     }
                     break;
-                case 4:
+                case SkillType.AquaticBreath:
                     gc.playersActions[playerIndex].isAmphibian = true;
                     break;
-                case 5:
+                case SkillType.Dash:
                     var forward = gc.players[playerIndex].PlayerCamera.transform.forward;
  
                     forward.y = 0f;
@@ -241,7 +254,6 @@ namespace GarbageRoyale.Scripts
                     
                     gc.moveDirection[playerIndex] = forward;
                     gc.moveDirection[playerIndex] *= 5;
-                    Debug.Log(gc.moveDirection[playerIndex]);
 
                     //gc.players[playerIndex].PlayerChar.Move(gc.moveDirection[playerIndex]);
                     if (gc.playersActions[playerIndex].isInWater || gc.playersActions[playerIndex].headIsInWater || gc.playersActions[playerIndex].isInWater)
@@ -252,6 +264,21 @@ namespace GarbageRoyale.Scripts
                         electricity.transform.parent = Water.transform;
                         //electricity.transform.localPosition = new Vector3(transform.localPosition.x, 0, transform.localPosition.z);
                     }
+                    break;
+                case SkillType.IceWall:
+                    Vector3 pos = Vector3.forward;
+                    RaycastHit info;
+                    if (Physics.Raycast(gc.players[playerIndex].PlayerFeet.transform.position, Vector3.down, out info))
+                    {
+                        pos = info.point + (Vector3.up/10) + (gc.players[playerIndex].PlayerCamera.transform.forward * 2);
+                    }
+
+                    GameObject iceWall = ObjectPooler.SharedInstance.GetPooledObject(22);
+                    iceWall.transform.position = pos;
+                    Vector3 rot = iceWall.transform.localEulerAngles;
+                    rot.y += gc.players[playerIndex].PlayerGameObject.transform.localEulerAngles.y;
+                    iceWall.transform.localEulerAngles = rot;
+                    iceWall.SetActive(true);
                     break;
                 default:
                     break;
@@ -313,18 +340,18 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         public void DeactivateSkill(int playerIndex, int type)
         {
-            switch (type)
+            switch ((SkillType)type)
             {
-                case 0:
+                case SkillType.QuietSound:
                     gc.playersActions[playerIndex].isQuiet = false;
                     break;
-                case 1:
+                case SkillType.StaffMaster:
                     gc.playersActions[playerIndex].isDamageBoosted = false;
                     break;
-                case 2:
+                case SkillType.Invisibility:
                     gc.players[playerIndex].PlayerRenderer.enabled = true;
                     break;
-                case 4:
+                case SkillType.AquaticBreath:
                     gc.playersActions[playerIndex].isAmphibian = false;
                     break;
             }

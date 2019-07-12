@@ -32,8 +32,6 @@ namespace GarbageRoyale.Scripts
         {
             currentlyLoading = false;
             openingDoorLoading = 0;
-            //activatedCamera = gc.players[PlayerIndex].PlayerCamera;
-            //soundManager = GameObject.Find("Controller").GetComponent<SoundManager>();
         }
 
         // Update is called once per frame

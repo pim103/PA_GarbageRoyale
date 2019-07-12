@@ -1331,11 +1331,11 @@ GameObject:
   - component: {fileID: 274310795}
   - component: {fileID: 274310796}
   - component: {fileID: 274310798}
+  - component: {fileID: 274310802}
   - component: {fileID: 274310797}
   - component: {fileID: 274310799}
   - component: {fileID: 274310801}
   - component: {fileID: 274310800}
-  - component: {fileID: 274310802}
   m_Layer: 0
   m_Name: PlayerListScripts
   m_TagString: Untagged
@@ -5168,6 +5168,7 @@ MonoBehaviour:
   - {fileID: 5833977737841398870, guid: ca1733d3131f82943b400d21df472a02, type: 3}
   - {fileID: 5833977737841398870, guid: b0f21300896d7ae4eba90661ebc0135a, type: 3}
   - {fileID: 5833977737841398870, guid: 2cf580fdfbbd7d340a04e18dfdc2e248, type: 3}
+  - {fileID: 5833977737841398870, guid: 8211d3c6411ae9845add9ef99959ea6f, type: 3}
   Water: {fileID: 1147012261}
 --- !u!114 &959770058
 MonoBehaviour:
@@ -6973,6 +6974,10 @@ MonoBehaviour:
       type: 3}
     amountToPool: 10
     shouldExpand: 1
+  - objectToPool: {fileID: 4239606155775561306, guid: a640843a26eb8294496d1d2c910d2261,
+      type: 3}
+    amountToPool: 30
+    shouldExpand: 1
   pooledObjects:
   - {fileID: 3657382005534258069, guid: 402a19dee574917419e6a46884201117, type: 3}
 --- !u!114 &1103656783
@@ -7028,6 +7033,7 @@ MonoBehaviour:
   - {fileID: 5833977737841398870, guid: ca1733d3131f82943b400d21df472a02, type: 3}
   - {fileID: 5833977737841398870, guid: b0f21300896d7ae4eba90661ebc0135a, type: 3}
   - {fileID: 5833977737841398870, guid: 2cf580fdfbbd7d340a04e18dfdc2e248, type: 3}
+  - {fileID: 5833977737841398870, guid: 8211d3c6411ae9845add9ef99959ea6f, type: 3}
 --- !u!114 &1103656786
 MonoBehaviour:
   m_ObjectHideFlags: 0
