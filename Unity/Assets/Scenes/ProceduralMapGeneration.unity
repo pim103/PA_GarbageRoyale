@@ -5171,6 +5171,7 @@ MonoBehaviour:
   - {fileID: 5833977737841398870, guid: b0f21300896d7ae4eba90661ebc0135a, type: 3}
   - {fileID: 5833977737841398870, guid: 2cf580fdfbbd7d340a04e18dfdc2e248, type: 3}
   - {fileID: 5833977737841398870, guid: 8211d3c6411ae9845add9ef99959ea6f, type: 3}
+  - {fileID: 5833977737841398870, guid: 4c3d669b3e5f18c4291c0af85dfee831, type: 3}
   Water: {fileID: 1147012261}
 --- !u!114 &959770058
 MonoBehaviour:
@@ -5782,7 +5783,7 @@ MonoBehaviour:
   configuredNvs: {fileID: 400120993610236984, guid: fb16862ebfd683745bd09f5e6091c161,
     type: 3}
   meshGenerator: {fileID: 0}
-  Surfaces: []
+  Surfaces: {fileID: 0}
 --- !u!114 &1103656770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7351,6 +7352,7 @@ MonoBehaviour:
   - {fileID: 5833977737841398870, guid: b0f21300896d7ae4eba90661ebc0135a, type: 3}
   - {fileID: 5833977737841398870, guid: 2cf580fdfbbd7d340a04e18dfdc2e248, type: 3}
   - {fileID: 5833977737841398870, guid: 8211d3c6411ae9845add9ef99959ea6f, type: 3}
+  - {fileID: 5833977737841398870, guid: 4c3d669b3e5f18c4291c0af85dfee831, type: 3}
 --- !u!114 &1103656786
 MonoBehaviour:
   m_ObjectHideFlags: 0

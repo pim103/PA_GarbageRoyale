@@ -26,7 +26,6 @@ namespace GarbageRoyale.Scripts
 		public static ObjectPoolerSoundBlocks SharedInstance;
 		public List<ObjectPoolItem> itemsToPool;
 
-
 		public List<List<GameObject>> pooledObjectsList;
 		public List<GameObject> pooledObjects;
 		private List<int> positions;

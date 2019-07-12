@@ -52,6 +52,7 @@ namespace GarbageRoyale.Scripts
             AquaticBreath,
             Dash,
             IceWall,
+            Hunting,
             All
         }
 
@@ -281,6 +282,9 @@ namespace GarbageRoyale.Scripts
                     iws.id = ec.iceWalls.Count;
                     ec.iceWalls.Add(ec.iceWalls.Count, iceWall);
                     break;
+                case SkillType.Hunting:
+                    gc.playersActions[playerIndex].isHunting = true;
+                    break;
                 default:
                     break;
             }
@@ -324,7 +328,7 @@ namespace GarbageRoyale.Scripts
                 }
                 if (skillPlace == 0)
                 {
-                    if (skillInfos.type != 3 && skillInfos.type != 5)
+                    if (skillInfos.type != (int)SkillType.Tazer && skillInfos.type != (int)SkillType.Dash && skillInfos.type != (int)SkillType.IceWall)
                     {
                         SkillBuff_0.GetComponent<RawImage>().texture = buffTextures[skillInfos.type].texture;
                         SkillBuffTime_0.GetComponent<Text>().text =skillInfos.bufftime.ToString();
@@ -332,8 +336,16 @@ namespace GarbageRoyale.Scripts
                 }
                 else
                 {
-                    SkillBuff_1.GetComponent<RawImage>().texture = buffTextures[skillInfos.type].texture;
-                    SkillBuffTime_1.GetComponent<Text>().text =skillInfos.bufftime.ToString();
+                    if (skillInfos.type != (int)SkillType.Tazer && skillInfos.type != (int)SkillType.Dash && skillInfos.type != (int)SkillType.IceWall)
+                    {
+                        SkillBuff_1.GetComponent<RawImage>().texture = buffTextures[skillInfos.type].texture;
+                        SkillBuffTime_1.GetComponent<Text>().text = skillInfos.bufftime.ToString();
+                    }
+                }
+
+                if(skillInfos.type == (int)SkillType.Hunting)
+                {
+                    TriggerBlock(true);
                 }
             }
         }
@@ -355,6 +367,13 @@ namespace GarbageRoyale.Scripts
                 case SkillType.AquaticBreath:
                     gc.playersActions[playerIndex].isAmphibian = false;
                     break;
+                case SkillType.Hunting:
+                    gc.playersActions[playerIndex].isHunting = false;
+                    if (playerIndex == Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+                    {
+                        TriggerBlock(false);
+                    }
+                    break;
             }
         }
 
@@ -375,6 +394,17 @@ namespace GarbageRoyale.Scripts
             }
 
             return findSkillInCd;
+        }
+
+        public void TriggerBlock(bool action)
+        {
+            foreach (var list in ObjectPoolerSoundBlocks.SharedInstance.pooledObjectsList)
+            {
+                foreach (var soundBlock in list)
+                {
+                    soundBlock.GetComponent<MeshRenderer>().enabled = action;
+                }
+            }
         }
     }
 }

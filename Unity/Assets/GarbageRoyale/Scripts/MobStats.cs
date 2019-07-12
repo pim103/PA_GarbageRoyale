@@ -28,7 +28,7 @@ namespace GarbageRoyale.Scripts
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             pa = GameObject.Find("Controller").GetComponent<PlayerAttack>();
             //id = (int) transform.position.x + (int) transform.position.y + (int) transform.position.z;
-            hp = 1f;
+            hp = 100f;
             stamina = 100f;
             breath = 100f;
             basicAttack = 20f;
@@ -83,7 +83,6 @@ namespace GarbageRoyale.Scripts
 
             Skill skill = lootedSkill.GetComponent<Skill>();
             skill.type = type;
-            skill.type = (int)SkillsController.SkillType.IceWall;
 
             switch ((SkillsController.SkillType)type)
             {
@@ -107,6 +106,9 @@ namespace GarbageRoyale.Scripts
                     break;
                 case SkillsController.SkillType.IceWall:
                     skill.name = "Mur de Glace";
+                    break;
+                case SkillsController.SkillType.Hunting:
+                    skill.name = "Chasseur";
                     break;
                 default:
                     skill.name = "Inconnu";
