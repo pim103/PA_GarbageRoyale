@@ -36,7 +36,7 @@ namespace GarbageRoyale.Scripts.IAMobs
             {
                 agent.SetDestination(player.transform.position);
                 lastUpdateTime = Time.time;
-                if (agent.remainingDistance < 2f || Math.Abs(agent.remainingDistance) < 0.00001f)
+                if (agent.remainingDistance < 2.5f || Math.Abs(agent.remainingDistance) < 0.00001f)
                 {
                     agent.isStopped = true;
                     manager.attackZone.gameObject.SetActive(true);

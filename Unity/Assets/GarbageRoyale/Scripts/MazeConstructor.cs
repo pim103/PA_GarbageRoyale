@@ -33,7 +33,7 @@ namespace GarbageRoyale.Scripts
         public Dictionary<string, int>[] trapId = new Dictionary<string, int>[8];
         public Dictionary<string, int>[] itemRoom = new Dictionary<string, int>[8];
 
-        public List<NavMeshSurface> Surfaces;
+        public NavMeshSurface Surfaces;
         //2
         public int[,] data
         {
@@ -71,7 +71,7 @@ namespace GarbageRoyale.Scripts
                 {*/
                     /*surface.collectObjects = CollectObjects.Volume;
                     surface.size = new Vector3(8*16,3,8*16);*/
-                    Surfaces[0].BuildNavMesh();
+                    Surfaces.BuildNavMesh();
                 //}
             }
             else
@@ -138,7 +138,7 @@ namespace GarbageRoyale.Scripts
             {
                 newnvs = Instantiate(configuredNvs);
                 newnvs.transform.parent = go.transform;
-                Surfaces.Add(newnvs.GetComponent<NavMeshSurface>());
+                Surfaces = newnvs.GetComponent<NavMeshSurface>();
             }
         }
     

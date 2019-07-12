@@ -197,7 +197,7 @@ namespace GarbageRoyale.Scripts
             {
                 stats.rotateDeadMob();
                 stats.lootSkill(type);
-                stats.gameObject.SetActive(false);
+                stats.transform.parent.gameObject.SetActive(false);
             }
         }
     }
