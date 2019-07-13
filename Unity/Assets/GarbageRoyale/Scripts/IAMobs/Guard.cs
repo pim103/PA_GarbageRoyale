@@ -110,7 +110,7 @@ namespace GarbageRoyale.Scripts.IAMobs
         
         private void Update()
         {
-            if (PhotonNetwork.IsMasterClient && gc.doorIsOpen)
+            if (PhotonNetwork.IsMasterClient)
             {
                 if (ratState.GetBool(reachedGuardPointHash))
                 {
