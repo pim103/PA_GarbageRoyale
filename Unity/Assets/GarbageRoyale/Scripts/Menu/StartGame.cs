@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 namespace GarbageRoyale.Scripts.Menu
@@ -34,10 +36,49 @@ namespace GarbageRoyale.Scripts.Menu
         // Start is called before the first frame update
         void Start()
         {
-            launchLoginMenu();
+            DataState loadedData = SaveState.LoadData();
+            if (loadedData != null)
+            {
+                PhotonNetwork.AuthValues.UserId = loadedData.UserId;
+                Debug.Log(PhotonNetwork.AuthValues.UserId);
+                PhotonNetwork.NickName = loadedData.NickName;
+                
+                StartCoroutine(LoadRole());
+                
+                if (loadedData.IsInMenu)
+                {
+                    launchServerList();
+                }
+                else if(loadedData.endGame)
+                {
+                    launchMainMenu();
+                }
+                
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true; 
+            }
+            else
+            {
+                launchLoginMenu();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true; 
+            }
+        }
 
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+        IEnumerator LoadRole()
+        {
+            if (!mainMenu.GetComponent<MainMenu>().isConnected)
+            {
+                yield return new WaitForSeconds(1.0f);
+            }
+            DataState loadedData = SaveState.LoadData();
+            if (loadedData != null)
+            {
+                PhotonNetwork.SetPlayerCustomProperties(new ExitGames.Client.Photon.Hashtable()
+                {
+                    {"role", loadedData.Role}
+                });
+            }
         }
 
         public void launchMainMenu()
@@ -83,6 +124,11 @@ namespace GarbageRoyale.Scripts.Menu
             EndGameMenu.SetActive(true);
             EndGameMenu egm = EndGameMenu.GetComponent<EndGameMenu>();
             egm.SetEndMessage(sg, idPlayer);
+        }
+
+        private void OnApplicationQuit()
+        {
+            SaveState.DeleteData();
         }
 
         private void ResetAllMenu()

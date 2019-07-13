@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -33,6 +34,8 @@ namespace GarbageRoyale.Scripts.Menu
 
         private void BackToMenu()
         {
+            PhotonNetwork.Disconnect();
+            SaveState.SaveStateGame(false);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 

@@ -19,6 +19,8 @@ namespace GarbageRoyale.Scripts.Menu
         [SerializeField]
         private StartGame controller;
 
+        public bool isConnected = false;
+
         private List<RoomInfo> roomList;
     
         // Start is called before the first frame update
@@ -26,6 +28,15 @@ namespace GarbageRoyale.Scripts.Menu
         {
             createRoomButton.interactable = false;
             joinRoomButton.interactable = false;
+            DataState loadedData = SaveState.LoadData();
+            if (loadedData != null)
+            {
+                if (!PhotonNetwork.IsConnected)
+                {
+                    PhotonNetwork.ConnectUsingSettings();
+                    isConnected = true;
+                }
+            }
             
             exitRoomButton.onClick.AddListener(AskForExit);
         }

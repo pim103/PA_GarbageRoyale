@@ -103,6 +103,7 @@ namespace GarbageRoyale.Scripts.Menu
         public void BackToMenu()
         {
             PhotonNetwork.Disconnect();
+            SaveState.SaveStateGame(false);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 

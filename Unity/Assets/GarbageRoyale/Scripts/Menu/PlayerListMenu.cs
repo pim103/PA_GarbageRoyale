@@ -6,6 +6,7 @@ using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace GarbageRoyale.Scripts.Menu
@@ -103,14 +104,16 @@ namespace GarbageRoyale.Scripts.Menu
         
         private void AskToLeftLobby()
         {
-            PhotonNetwork.LeaveRoom();
-            menuController.launchServerList();
+            PhotonNetwork.Disconnect();
+            SaveState.SaveStateGame(true);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         
         private void AskToGoToMainMenu()
         {
-            PhotonNetwork.LeaveRoom();
-            menuController.launchMainMenu();
+            PhotonNetwork.Disconnect();
+            SaveState.SaveStateGame(false);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         private IEnumerator GetPlayers()

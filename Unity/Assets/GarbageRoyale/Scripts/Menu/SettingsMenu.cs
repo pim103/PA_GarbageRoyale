@@ -27,6 +27,7 @@ namespace GarbageRoyale.Scripts.Menu
                 Debug.Log(PhotonNetwork.AuthValues);
                 disconnectButton.interactable = true;
             }
+            exitButton.onClick.AddListener(AskForExit);
         }
 
         public void AskForExit()

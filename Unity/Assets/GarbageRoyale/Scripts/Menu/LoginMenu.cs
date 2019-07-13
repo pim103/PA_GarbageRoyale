@@ -50,6 +50,7 @@ namespace GarbageRoyale.Scripts.Menu
         void Start()
         {
             accountPassword.inputType = InputField.InputType.Password;
+            accountMail.text = LoginSave.LoadMailLogin();
             submitButton.onClick.AddListener(CallLogin);
             registerButton.onClick.AddListener(GoToRegistrationScreen);
             PhotonNetwork.AuthValues = new AuthenticationValues("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
@@ -66,19 +67,13 @@ namespace GarbageRoyale.Scripts.Menu
                 if (EventSystem.current != null)
                 {
                     GameObject selected = EventSystem.current.currentSelectedGameObject;
-
-                    //try and find the first selectable if there isn't one currently selected
-                    //only do it if the findFirstSelectable is true
-                    //you may not always want this feature and thus
-                    //it is disabled by default
+                    
                     if(selected == null && findFirstSelectable)
                     {
                         Selectable found = (Selectable.allSelectables.Count > 0) ? Selectable.allSelectables[0] : null;
 
                         if(found != null)
                         {
-                            //simple reference so that selected isn't null and will proceed
-                            //past the next if statement
                             selected = found.gameObject;
                         }
                     }
@@ -123,6 +118,7 @@ namespace GarbageRoyale.Scripts.Menu
 
         public void CallLogin()
         {
+            LoginSave.SaveMailLogin(accountMail.text);
             dialogWindow.SetActive(true);
             //dialogText.enabled = true;
             dialogText.text = "Connexion en cours";
