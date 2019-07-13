@@ -117,9 +117,13 @@ MonoBehaviour:
   damage: 0
   type: 1
   itemImg: {fileID: 0}
+  isPickable: 1
   initOnStart: 1
   isOnline: 1
   scale: {x: 0, y: 0, z: 0}
+  isThrow: 0
+  isBurn: 0
+  throwerId: -1
 --- !u!64 &607
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -153,7 +157,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 661}
-  viewIdField: 9
+  viewIdField: 0
   InstantiationId: 9
   isRuntimeInstantiated: 0
 --- !u!114 &661

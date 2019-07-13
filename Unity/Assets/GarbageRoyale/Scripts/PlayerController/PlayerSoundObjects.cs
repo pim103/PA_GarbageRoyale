@@ -28,7 +28,6 @@ namespace GarbageRoyale.Scripts.PlayerController
             while (true)
             {
                 yield return new WaitForSeconds(1.0f);
-                Debug.Log(playerIndex);
                 if (gc.players[playerIndex].PlayerGameObject.activeInHierarchy && pcm.playersWalking[playerIndex])
                 {
                     if (!gc.playersActions[playerIndex].isQuiet && !gc.playersActions[playerIndex].isRunning &&
