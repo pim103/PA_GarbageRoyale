@@ -36,19 +36,17 @@ namespace GarbageRoyale.Scripts.Menu
         
         void Start()
         {
+            joinButton.interactable = false;
             joinButton.onClick.AddListener(AskForJoin);
+            dialogButtonBtn.onClick.AddListener(ConfirmationDialogBox);
             backButton.onClick.AddListener(AskForBack);
-        }
-
-        private void Awake()
-        {
-            PhotonNetwork.JoinLobby();
         }
 
         void AskForJoin()
         {
             Debug.Log(roomSelected);
             PhotonNetwork.JoinRoom(roomSelected);
+            joinButton.interactable = false;
             dialogWindow.SetActive(true);
             dialogText.text = "Connexion à la partie";
         }
@@ -56,24 +54,38 @@ namespace GarbageRoyale.Scripts.Menu
         public override void OnJoinedRoom()
         {
             controller.gameController.SetActive(true);
-            /*controller.invHUD.SetActive(true);
-            controller.playerGUI.SetActive(true);*/
+
 
             controller.mainCamera.enabled = false;
             controller.mainMenu.SetActive(false);
             controller.subMenu.SetActive(false);
             controller.launchRoomLobby();
-            //PhotonNetwork.LoadLevel("ProceduralMapGeneration");
         }
-        
+
+        public override void OnJoinRoomFailed(short returnCode, string message)
+        {
+            dialogText.text = "Erreur : Impossible de rejoindre la partie";
+            joinButton.interactable = true;
+            dialogButton.SetActive(true);
+            
+        }
+
         void SelectRoom(RoomListing listing, string name)
         {
             roomSelected = name;
             listing.SelectRoom();
+            joinButton.interactable = true;
+        }
+        
+        public void ConfirmationDialogBox()
+        {
+            dialogWindow.SetActive(false);
+            dialogButton.SetActive(false);
         }
 
         void AskForBack()
         {
+            PhotonNetwork.LeaveLobby();
             controller.launchMainMenu();
         }
         

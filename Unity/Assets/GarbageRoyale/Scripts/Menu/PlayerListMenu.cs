@@ -41,7 +41,14 @@ namespace GarbageRoyale.Scripts.Menu
         public List<PlayerList> listPlayers = new List<PlayerList>();
 
         private string[] playersNickName;
-        
+
+        private void Start()
+        {
+            dialogButton.SetActive(false);
+            dialogWindow.SetActive(true);
+            dialogText.text = "Chargement des joueurs";
+        }
+
         private void Awake()
         {
             if (!PhotonNetwork.IsMasterClient)
@@ -61,14 +68,14 @@ namespace GarbageRoyale.Scripts.Menu
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                /*
+                
                 if (PhotonNetwork.CurrentRoom.MaxPlayers != PhotonNetwork.CurrentRoom.PlayerCount)
                 {
-                    dialogBoxEnable();
+                    dialogWindow.SetActive(true);
                     dialogText.text = "Tous les joueurs ne sont pas prêts!";
                     return;
                 }
-                */
+                
                 for (int i = 0; i < gc.AvatarToUserId.Length; i++)
                 {
                     if (gc.AvatarToUserId[i] != "" && gc.players[i].PlayerStats.isReadyToPlay ||
@@ -90,16 +97,7 @@ namespace GarbageRoyale.Scripts.Menu
 
         private void dialogBoxEnable()
         {
-            if (dialogWindow.activeSelf)
-            {
-                dialogWindow.SetActive(false);
-            }
-            else
-            { 
-                dialogWindow.SetActive(true); 
-                dialogButton.SetActive(true);
-            }
-            
+            dialogWindow.SetActive(false);
         }
         
         private void AskToLeftLobby()
@@ -159,6 +157,7 @@ namespace GarbageRoyale.Scripts.Menu
                     listPlayers[i].SetPlayerInfo(players[i]);
                 }
             }
+            dialogWindow.SetActive(false);
         }
 
         [PunRPC]

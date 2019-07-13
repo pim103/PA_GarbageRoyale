@@ -40,13 +40,14 @@ namespace GarbageRoyale.Scripts.Menu
             if (loadedData != null)
             {
                 PhotonNetwork.AuthValues.UserId = loadedData.UserId;
-                Debug.Log(PhotonNetwork.AuthValues.UserId);
+                //Debug.Log(PhotonNetwork.AuthValues.UserId);
                 PhotonNetwork.NickName = loadedData.NickName;
                 
                 StartCoroutine(LoadRole());
                 
                 if (loadedData.IsInMenu)
                 {
+                    PhotonNetwork.LeaveLobby();
                     launchServerList();
                 }
                 else if(loadedData.endGame)
@@ -96,6 +97,7 @@ namespace GarbageRoyale.Scripts.Menu
         public void launchServerList()
         {
             ResetAllMenu();
+            PhotonNetwork.JoinLobby();
             serverListMenu.SetActive(true);
         }
         
