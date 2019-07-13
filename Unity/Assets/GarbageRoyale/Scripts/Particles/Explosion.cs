@@ -39,6 +39,7 @@ namespace GarbageRoyale.Scripts
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log(other.name);
             if (other.name == "otherPerso(Clone)")
             {
                 PlayerStats ps = other.GetComponent<PlayerStats>();

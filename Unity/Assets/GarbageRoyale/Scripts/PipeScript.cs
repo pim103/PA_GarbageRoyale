@@ -67,6 +67,7 @@ namespace GarbageRoyale.Scripts
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log(other.name);
             if (isExplode && other.name.StartsWith("Player"))
             {
                 if(PhotonNetwork.IsMasterClient)
@@ -74,6 +75,12 @@ namespace GarbageRoyale.Scripts
                     GameController gc = GameObject.Find("Controller").GetComponent<GameController>();
                     int id = other.GetComponent<ExposerPlayer>().PlayerIndex;
                     gc.players[id].PlayerStats.takeDamage(30.0f);
+                }
+            } else if (isExplode && other.gameObject.CompareTag("Rat"))
+            {
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    other.GetComponent<MobStats>().takeDamageFromEnv(50.0f);
                 }
             }
         }

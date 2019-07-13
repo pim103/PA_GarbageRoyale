@@ -3,6 +3,7 @@ using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
 using System;
 using System.Collections;
+using GarbageRoyale.Scripts.IAMobs;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,11 +33,14 @@ namespace GarbageRoyale.Scripts
         [SerializeField]
         private Slider sliderHealthBar;
 
+        private MobController mc;
+
         // Start is called before the first frame update
         void Start()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             pa = GameObject.Find("Controller").GetComponent<PlayerAttack>();
+            mc = GameObject.Find("Controller").GetComponent<MobController>();
             //id = (int) transform.position.x + (int) transform.position.y + (int) transform.position.z;
             hp = 100f;
             stamina = 100f;
@@ -56,6 +60,15 @@ namespace GarbageRoyale.Scripts
                 idPlayer = Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
                 healthBarCanvas.SetActive(true);
                 StartCoroutine(UpdateStats());
+            }
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                mc.mobsHP[id] = hp;
+            }
+            else
+            {
+                hp = mc.mobsHP[id];
             }
         }
 
@@ -114,7 +127,7 @@ namespace GarbageRoyale.Scripts
 
             if(hp <= 0)
             {
-                pa.photonView.RPC("MobDeathAll",RpcTarget.All,id, Random.Range(0, (int)SkillsController.SkillType.All));
+                pa.photonView.RPC("MobDeathAll",RpcTarget.All,id, UnityEngine.Random.Range(0, (int)SkillsController.SkillType.All));
             }
         }
 

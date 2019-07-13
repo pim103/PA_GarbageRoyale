@@ -748,6 +748,7 @@ GameObject:
   - component: {fileID: 9514352}
   - component: {fileID: 1501568998714900945}
   - component: {fileID: 1160648757663299138}
+  - component: {fileID: 6717090736646646178}
   m_Layer: 0
   m_Name: GIANT_RAT_LEGACY
   m_TagString: Rat
@@ -822,6 +823,24 @@ MonoBehaviour:
   basicAttack: 0
   isDead: 0
   isRotateMob: 0
+  healthBarCanvas: {fileID: 0}
+  sliderHealthBar: {fileID: 0}
+--- !u!54 &6717090736646646178
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161158}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &162328
 GameObject:
   m_ObjectHideFlags: 0

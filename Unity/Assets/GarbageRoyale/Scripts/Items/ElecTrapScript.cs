@@ -50,7 +50,7 @@ namespace GarbageRoyale.Scripts.Items
                 StartCoroutine(coroutine[idPlayer]);
             } else if (other.gameObject.CompareTag("Rat"))
             {
-                other.GetComponent<MobStats>().takeDamageFromEnv(5.0f);
+                other.GetComponent<MobStats>().takeDamageFromEnv(20.0f);
             }
         }
 

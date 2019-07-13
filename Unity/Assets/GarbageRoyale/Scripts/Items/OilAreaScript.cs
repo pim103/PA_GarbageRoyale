@@ -94,7 +94,7 @@ namespace GarbageRoyale.Scripts.Items
                 }
             } else if (isBurning && other.gameObject.CompareTag("Rat"))
             {
-                other.GetComponent<MobStats>().takeDamageFromEnv(5.0f);
+                other.GetComponent<MobStats>().takeDamageFromEnv(25.0f);
             }
         }
 

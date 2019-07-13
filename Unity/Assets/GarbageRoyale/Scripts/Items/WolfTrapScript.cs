@@ -55,7 +55,7 @@ namespace GarbageRoyale.Scripts.Items
                 isTrigger = true;
 
                 ic.ActiveWolfTrap(transform.GetComponent<Item>().getId(), isTrigger);
-                other.GetComponent<MobStats>().takeDamageFromEnv(5.0f);
+                other.GetComponent<MobStats>().takeDamageFromEnv(20.0f);
             }
         }
 
