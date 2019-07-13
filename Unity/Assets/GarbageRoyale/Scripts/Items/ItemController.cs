@@ -135,7 +135,7 @@ namespace GarbageRoyale.Scripts.Items
 
             gc.items.Add(idItem, brokenBottle);
             gc.items[idItem].transform.SetParent(gc.players[idPlayer].PlayerTorch.transform.parent);
-            gc.players[idPlayer].GetComponent<Inventory>().itemInventory[placeInHand] = idItem;
+            gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand] = idItem;
         }
 
         [PunRPC]

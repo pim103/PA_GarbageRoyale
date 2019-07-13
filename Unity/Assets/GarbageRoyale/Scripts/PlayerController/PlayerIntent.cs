@@ -152,7 +152,6 @@ namespace GarbageRoyale.Scripts.PlayerController {
             {
                 //scripts.gc.playersActions[PlayerIndex].isQuiet = true;
                 ActivateSkill(0);
-                
             }
 
             if (Input.GetKeyDown(KeyCode.E))
@@ -198,7 +197,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
         private void FixedUpdate()
         {
-            if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId && !scripts.gc.players[PlayerIndex].PlayerStats.isDead)
+            if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
             {
                 return;
             }
@@ -210,7 +209,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
             float rotX = scripts.pcm.PlayerRotation(PlayerIndex);
 
-            photonView.RPC("AskUpdateRotPos", RpcTarget.MasterClient, null, scripts.gc.players[PlayerIndex].PlayerGameObject.transform.localEulerAngles, rotX, PlayerIndex);
+            photonView.RPC("AskUpdateRotPos", RpcTarget.MasterClient, null, scripts.gc.players[PlayerIndex].PlayerModel.transform.localEulerAngles, rotX, PlayerIndex);
         }
 
         [PunRPC]
@@ -224,7 +223,6 @@ namespace GarbageRoyale.Scripts.PlayerController {
             this.position = position;
             this.rotation = rotation;
             this.rotX = rotX;
-            scripts.gc.players[idPlayer].PlayerGameObject.transform.localEulerAngles = rotation;
         }
 
         [PunRPC]

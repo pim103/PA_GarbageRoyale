@@ -9,7 +9,7 @@ namespace GarbageRoyale.Scripts.IAMobs
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                other.GetComponent<PlayerStats>().takeDamage(5f);
+                other.GetComponent<ExposerPlayer>().PlayerStats.takeDamage(5f);
             }
         }
     }

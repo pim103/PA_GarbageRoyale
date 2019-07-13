@@ -15,6 +15,7 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public Transform PlayerTransform;
         public Light SpotLight;
         public GameObject PlayerGameObject;
+        public GameObject PlayerModel;
         public Camera PlayerCamera;
         public AudioListener PlayerAudioListener;
         public GameObject PlayerFeet;
@@ -39,6 +40,8 @@ namespace GarbageRoyale.Scripts.PrefabPlayer
         public GameObject PlayerElecTrap;
         public GameObject PlayerWolfTrap;
         public GameObject PlayerTrapManif;
+
+        public GameObject PlayerHand;
 
         public AudioSource PlayerMovement;
         public AudioSource PlayerAction;

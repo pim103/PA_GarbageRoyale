@@ -69,7 +69,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         {
             int idPlayer = Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
 
-            if (!gc.players[idPlayer].PlayerStats.isDead || !gc.isSpectator)
+            if (!gc.players[idPlayer].PlayerStats.isDead && !gc.isSpectator)
             {
                 return;
             }

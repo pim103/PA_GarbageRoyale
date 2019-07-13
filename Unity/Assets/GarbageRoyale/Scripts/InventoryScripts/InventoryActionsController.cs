@@ -96,7 +96,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
             }
 
             int idPlayer = System.Array.IndexOf(gc.AvatarToUserId, userId);
-            int idItem = gc.players[idPlayer].GetComponent<Inventory>().getItemInventory()[inventoryPlace];
+            int idItem = gc.players[idPlayer].PlayerInventory.getItemInventory()[inventoryPlace];
 
             photonView.RPC("ActiveSpecificPreview", info.Sender, gc.items[idItem].GetComponent<Item>().type, idPlayer);
         }
@@ -143,7 +143,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         [PunRPC]
         public void AskChangePlayerHandItem(int inventoryPlace,int playerIndex,PhotonMessageInfo info)
         {
-            Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
+            Inventory inventoryData = gc.players[playerIndex].PlayerInventory;
             var idItem = inventoryData.getItemInventory()[inventoryPlace];
             var itemName = "";
 
@@ -237,7 +237,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 return;
             }
 
-            int idItem = gc.players[playerIndex].GetComponent<Inventory>().getItemInventory()[inventoryPlace];
+            int idItem = gc.players[playerIndex].PlayerInventory.getItemInventory()[inventoryPlace];
             if (idItem == -1)
             {
                 return;
@@ -252,7 +252,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         [PunRPC]
         public void AnswerDropItem(int typeItem, int idItem, int playerIndex, bool throwItem, int inventoryPlace, string typeName)
         {
-            gc.players[playerIndex].GetComponent<Inventory>().itemInventory[inventoryPlace] = -1;
+            gc.players[playerIndex].PlayerInventory.itemInventory[inventoryPlace] = -1;
 
             gc.items[idItem].transform.parent = null;
             gc.items[idItem].SetActive(true);
@@ -298,7 +298,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 return;
             }
             
-            int idItem = gc.players[playerIndex].GetComponent<Inventory>().skillInventory[inventoryPlace];
+            int idItem = gc.players[playerIndex].PlayerInventory.skillInventory[inventoryPlace];
             if (idItem == -1)
             {
                 return;
@@ -310,7 +310,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         [PunRPC]
         public void AnswerDropSkill(int idItem, int playerIndex, int inventoryPlace)
         {
-            gc.players[playerIndex].GetComponent<Inventory>().skillInventory[inventoryPlace] = -1;
+            gc.players[playerIndex].PlayerInventory.skillInventory[inventoryPlace] = -1;
             
             gc.items[idItem].transform.parent = null;
             gc.items[idItem].SetActive(true);
@@ -331,7 +331,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 return;
             }
 
-            Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
+            Inventory inventoryData = gc.players[playerIndex].PlayerInventory;
             int itemId = inventoryData.getItemInventory()[placeInHand];
 
             if(gc.playersActions[playerIndex].headIsInWater)
@@ -360,7 +360,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 return;
             }
 
-            Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
+            Inventory inventoryData = gc.players[playerIndex].PlayerInventory;
             int itemId = inventoryData.getItemInventory()[placeInHand];
 
             Vector3 pos = Vector3.forward;
@@ -400,7 +400,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 return;
             }
 
-            Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
+            Inventory inventoryData = gc.players[playerIndex].PlayerInventory;
             int itemId = inventoryData.getItemInventory()[placeInHand];
 
             Vector3 pos = Vector3.forward;
@@ -433,7 +433,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 return;
             }
 
-            Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
+            Inventory inventoryData = gc.players[playerIndex].PlayerInventory;
             int itemId = inventoryData.getItemInventory()[placeInHand];
 
             Item scriptItem = gc.items[itemId].GetComponent<Item>();
@@ -474,7 +474,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         [PunRPC]
         private void UseItemRPC(int idPlayer, int placeInHand)
         {
-            gc.players[idPlayer].GetComponent<Inventory>().itemInventory[placeInHand] = -1;
+            gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand] = -1;
             HideObjectInHand(idPlayer);
 
             if (idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
@@ -490,11 +490,11 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         {
             HideObjectInHand(idPlayer);
 
-            gc.players[idPlayer].GetComponent<Inventory>().itemInventory[placeInHand] = idItem;
+            gc.players[idPlayer].PlayerInventory.itemInventory[placeInHand] = idItem;
 
             GameObject waterBottle = ObjectPooler.SharedInstance.GetPooledObject(18);
             waterBottle.GetComponent<Item>().setId(idItem);
-            waterBottle.transform.parent = gc.players[idPlayer].PlayerCamera.transform.parent.transform;
+            waterBottle.transform.parent = gc.players[idPlayer].PlayerHand.transform;
             gc.items.Add(idItem, waterBottle);
 
             if (idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))

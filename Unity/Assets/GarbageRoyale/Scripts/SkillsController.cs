@@ -165,7 +165,7 @@ namespace GarbageRoyale.Scripts
 
             ActiveSkillManager newSkill;
 
-            skillID = gc.players[playerIndex].GetComponent<Inventory>().skillInventory[skillPlace];
+            skillID = gc.players[playerIndex].PlayerInventory.skillInventory[skillPlace];
             if(skillID == -1)
             {
                 return;
@@ -273,7 +273,7 @@ namespace GarbageRoyale.Scripts
                     GameObject iceWall = ObjectPooler.SharedInstance.GetPooledObject(22);
                     iceWall.transform.position = pos;
                     Vector3 rot = iceWall.transform.localEulerAngles;
-                    rot.y += gc.players[playerIndex].PlayerGameObject.transform.localEulerAngles.y;
+                    rot.y += gc.players[playerIndex].PlayerModel.transform.localEulerAngles.y;
                     iceWall.transform.localEulerAngles = rot;
                     iceWall.SetActive(true);
 

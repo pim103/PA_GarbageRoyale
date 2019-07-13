@@ -85,7 +85,7 @@ namespace GarbageRoyale.Scripts
             transform.position = Input.mousePosition;
             if (RectTransformUtility.RectangleContainsScreenPoint(CraftingResultRect, Input.mousePosition))
             {
-                Inventory playerInventory = gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerGameObject.GetComponent<Inventory>();
+                Inventory playerInventory = gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerInventory;
                 if (playerInventory.itemInventory[25] != -1)
                 {
                     for (int j = 20; j < 25; j++)
@@ -114,7 +114,7 @@ namespace GarbageRoyale.Scripts
         public void OnEndDrag(PointerEventData eventData)
         {
             //gc = GameObject.Find("Controller").GetComponent<GameController>();
-            Inventory playerInventory = gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerGameObject.GetComponent<Inventory>();
+            Inventory playerInventory = gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerInventory;
             transform.localPosition = Vector3.zero;
             if (invIndex < 100)
             {
@@ -164,7 +164,7 @@ namespace GarbageRoyale.Scripts
                             Texture textureMem = rawImg.texture;
                             rawImg.texture = GetComponent<RawImage>().texture;
                             GetComponent<RawImage>().texture = textureMem;
-                            //Inventory playerInventory = gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerGameObject.GetComponent<Inventory>();
+                            //Inventory playerInventory = gc.players[System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerInventory;
                             /*int idMem = playerInventory.itemInventory[20+i];
                             playerInventory.itemInventory[20+i] = playerInventory.itemInventory[invIndex];
                             playerInventory.itemInventory[invIndex] = idMem;*/
@@ -225,7 +225,7 @@ namespace GarbageRoyale.Scripts
         public void AnswerSwapInventoryItems(int playerIndex, int oldPlace, int newPlace)
         {
             Debug.Log(" received playerindex "+playerIndex+" oldplace "+oldPlace+" newplace "+newPlace);
-            Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
+            Inventory playerInventory = gc.players[playerIndex].PlayerInventory;
             int idMem = playerInventory.itemInventory[newPlace];
             playerInventory.itemInventory[newPlace] = playerInventory.itemInventory[oldPlace];
             playerInventory.itemInventory[oldPlace] = idMem;
@@ -255,14 +255,10 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         public void AnswerSwapInventorySkills(int playerIndex, int oldPlace, int newPlace)
         {
-            Debug.Log(" received playerindex "+playerIndex+" oldplace "+oldPlace+" newplace "+newPlace);
-            Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
+            Inventory playerInventory = gc.players[playerIndex].PlayerInventory;
             int idMem = playerInventory.skillInventory[newPlace];
-            Debug.Log("wuuuuut");
-            Debug.Log(playerInventory.skillInventory[newPlace] + playerInventory.skillInventory[oldPlace]);
             playerInventory.skillInventory[newPlace] = playerInventory.skillInventory[oldPlace];
             playerInventory.skillInventory[oldPlace] = idMem;
-            Debug.Log(playerInventory.skillInventory[newPlace] + playerInventory.skillInventory[oldPlace]);
 
             if (playerIndex ==System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {

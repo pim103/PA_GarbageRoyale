@@ -528,7 +528,7 @@ namespace GarbageRoyale.Scripts
                 for(var i = 0; i < AvatarToUserId.Length; i++)
                 {
                     if(AvatarToUserId[i] != "")
-                        players[i].GetComponent<PlayerStats>().currentHp = players[i].GetComponent<PlayerStats>().defaultHp;
+                        players[i].PlayerStats.currentHp = players[i].PlayerStats.defaultHp;
                 }
                 yield return new WaitForSeconds(1.0f);
             }
@@ -546,9 +546,12 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         private void ToggleInvisibilityRPC(bool toggle)
         {
-            for (var i = 0; i < playersActions.Length; i++)
+            for (var i = 0; i < AvatarToUserId.Length; i++)
             {
-                players[i].PlayerRenderer.enabled = toggle;
+                if(AvatarToUserId[i] != "")
+                {
+                    players[i].PlayerRenderer.enabled = toggle;
+                }
             }
         }
 

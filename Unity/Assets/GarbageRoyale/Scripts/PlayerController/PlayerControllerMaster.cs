@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GarbageRoyale.Scripts.EndGameElevator;
 using UnityEngine;
+using System;
 
 namespace GarbageRoyale.Scripts.PlayerController
 {
@@ -147,10 +148,11 @@ namespace GarbageRoyale.Scripts.PlayerController
                     isMoving = false;
                     gc.players[i].PlayerChar.velocity = Vector3.zero;
                 }
-
+                /*
                 Vector3 rot = gc.players[i].PlayerCamera.transform.localEulerAngles;
                 rot.x = playerAction.rotX;
-
+                gc.players[i].PlayerCamera.transform.localEulerAngles = rot;
+                */
                 if (playerAction.wantToPunch)
                 {
                     se.pa.sendRaycast(i, se.iac.placeInHand);
@@ -179,7 +181,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                     photonView.RPC("UpdateDataRPC", RpcTarget.All,
                         i,
                         isMoving,
-                        rotationX,
+                        gc.playersActions[i].rotX,
                         gc.players[i].PlayerStats.currentHp,
                         gc.players[i].PlayerStats.currentStamina,
                         gc.players[i].PlayerStats.currentBreath,
@@ -262,7 +264,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                 gc.moveDirection[id] = new Vector3(playerAction.horizontalAxe, 0.0f, playerAction.verticalAxe);
                 gc.moveDirection[id] *= actualSpeed;
 
-                gc.moveDirection[id] = gc.players[id].PlayerGameObject.transform.TransformDirection(gc.moveDirection[id]);
+                gc.moveDirection[id] = gc.players[id].PlayerModel.transform.TransformDirection(gc.moveDirection[id]);
 
                 if (playerAction.wantToJump && !playerAction.headIsInWater)
                 {
@@ -284,15 +286,14 @@ namespace GarbageRoyale.Scripts.PlayerController
                 gc.moveDirection[id] = new Vector3(playerAction.horizontalAxe, 0.0f, playerAction.verticalAxe);
                 gc.moveDirection[id] *= actualSpeed;
 
-                gc.moveDirection[id] = gc.players[id].PlayerGameObject.transform.TransformDirection(gc.moveDirection[id]);
-                //gc.moveDirection[id].y = tempY;
+                gc.moveDirection[id] = gc.players[id].PlayerModel.transform.TransformDirection(gc.moveDirection[id]);
             }
             else if(playerAction.isInWater)
             {
                 gc.moveDirection[id] = new Vector3(playerAction.horizontalAxe, 0.0f, playerAction.verticalAxe);
                 gc.moveDirection[id] *= actualSpeed;
 
-                gc.moveDirection[id] = gc.players[id].PlayerGameObject.transform.TransformDirection(gc.moveDirection[id]);
+                gc.moveDirection[id] = gc.players[id].PlayerModel.transform.TransformDirection(gc.moveDirection[id]);
             }
 
             Vector3 movement = gc.players[id].PlayerChar.velocity;
@@ -327,16 +328,20 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             var playerAction = gc.playersActions[id];
 
-            gc.players[id].PlayerGameObject.transform.Rotate(0, playerAction.rotationY * sensHorizontal, 0);
+            gc.players[id].PlayerModel.transform.Rotate(0, playerAction.rotationY * sensHorizontal, 0);
 
             float rotationX = gc.rotationPlayer[id].x;
             rotationX -= playerAction.rotationX * sensVertical;
             rotationX = Mathf.Clamp(rotationX , minimumVert, maximumVert);
 
-            gc.rotationPlayer[id] = new Vector3(rotationX, 0, 0);
-            gc.players[id].PlayerCamera.transform.localEulerAngles = gc.rotationPlayer[id];
+            Vector3 spotRot = gc.rotationPlayer[id];
+            spotRot.x = rotationX;
+            spotRot.y = 0.0f;
 
-            gc.players[id].SpotLight.transform.localEulerAngles = gc.rotationPlayer[id];
+            gc.rotationPlayer[id] = new Vector3(rotationX, gc.rotationPlayer[id].y + playerAction.rotationY * sensHorizontal, 0);
+
+            gc.players[id].PlayerCamera.transform.localEulerAngles = gc.rotationPlayer[id];
+            gc.players[id].SpotLight.transform.localEulerAngles = spotRot;
 
             return rotationX;
         }
@@ -435,9 +440,16 @@ namespace GarbageRoyale.Scripts.PlayerController
             Vector3 pos, 
             Vector3 rot)
         {
-            Vector3 vec = new Vector3(rotX, 0, 0);
-            gc.players[id].SpotLight.transform.localEulerAngles = vec;
-            gc.players[id].PlayerCamera.transform.localEulerAngles = vec;
+
+            if(id != Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
+            {
+                Vector3 vec = new Vector3(rotX, 0, 0);
+
+                gc.players[id].PlayerModel.transform.localEulerAngles = rot;
+                gc.players[id].SpotLight.transform.localEulerAngles = vec;
+                vec.y = rot.y;
+                gc.players[id].PlayerCamera.transform.localEulerAngles = vec;
+            }
 
             SoundManager.Sound soundNeeded = SoundManager.Sound.Walk;
 
@@ -479,10 +491,11 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             if (isFallen)
             {
-                gc.players[id].PlayerGameObject.transform.localEulerAngles = new Vector3(90.0f, gc.players[id].PlayerGameObject.transform.localEulerAngles.y, gc.players[id].PlayerGameObject.transform.localEulerAngles.z);
+                gc.players[id].PlayerModel.transform.localEulerAngles = new Vector3(90.0f, gc.players[id].PlayerModel.transform.localEulerAngles.y, gc.players[id].PlayerModel.transform.localEulerAngles.z);
+                gc.players[id].PlayerCamera.transform.localEulerAngles = new Vector3(90.0f, gc.players[id].PlayerCamera.transform.localEulerAngles.y, gc.players[id].PlayerCamera.transform.localEulerAngles.z);
             } else
             {
-                gc.players[id].PlayerGameObject.transform.localEulerAngles = new Vector3(0.0f, gc.players[id].PlayerGameObject.transform.localEulerAngles.y, gc.players[id].PlayerGameObject.transform.localEulerAngles.z);
+                gc.players[id].PlayerModel.transform.localEulerAngles = new Vector3(0.0f, gc.players[id].PlayerModel.transform.localEulerAngles.y, gc.players[id].PlayerModel.transform.localEulerAngles.z);
             }
 
             int playerIndex = System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);

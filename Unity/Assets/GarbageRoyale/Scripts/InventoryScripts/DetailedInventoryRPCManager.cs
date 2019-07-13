@@ -10,7 +10,6 @@ namespace GarbageRoyale.Scripts.InventoryScripts
     public class DetailedInventoryRPCManager : MonoBehaviourPunCallbacks
     {
         private GameController gc;
-        private Inventory inv;
         public List<int> craftingList;
         
         private RawImage CraftingResultSlot;
@@ -21,7 +20,6 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             spritesExposer = GameObject.Find("DetailedInventory").GetComponent<InventorySpritesExposer>();
-            inv = GameObject.Find("Controller").GetComponent<Inventory>();
             CraftingResultSlot = spritesExposer.CraftingResult;
         }
 
@@ -57,7 +55,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         public void AnswerSwapInventoryItems(int playerIndex, int oldPlace, int newPlace, bool isMaster)
         {
             //Debug.Log(" received playerindex "+playerIndex+" oldplace "+oldPlace+" newplace "+newPlace);
-            Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
+            Inventory playerInventory = gc.players[playerIndex].PlayerInventory;
             int idMem = playerInventory.itemInventory[newPlace];
             playerInventory.itemInventory[newPlace] = playerInventory.itemInventory[oldPlace];
             playerInventory.itemInventory[oldPlace] = idMem;
@@ -194,7 +192,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         [PunRPC]
         public void AnswerCraftItem(int itemtype, int playerIndex, int itemID)
         {
-            Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
+            Inventory playerInventory = gc.players[playerIndex].PlayerInventory;
             GameObject item;
             int poolID = 0;
             int textureID = 0;
@@ -274,7 +272,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
                 }
                 else
                 {
-                    int place = gc.players[playerIndex].GetComponent<Inventory>().findPlaceInventory();
+                    int place = gc.players[playerIndex].PlayerInventory.findPlaceInventory();
                     RawImage rawImg = GameObject.Find("ItemImg_" + place).GetComponent<RawImage>();
                     Texture textureMem = rawImg.texture;
                     rawImg.texture = CraftingResultSlot.GetComponent<RawImage>().texture;
@@ -298,7 +296,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         [PunRPC]
         public void AnswerDeleteCraftItem(int playerIndex)
         {
-            Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
+            Inventory playerInventory = gc.players[playerIndex].PlayerInventory;
             playerInventory.itemInventory[25] = -1;
         }
         
@@ -317,7 +315,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         [PunRPC]
         public void AnswerSwapInventorySkills(int playerIndex, int oldPlace, int newPlace)
         {
-           Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
+           Inventory playerInventory = gc.players[playerIndex].PlayerInventory;
             int idMem = playerInventory.skillInventory[newPlace];
             playerInventory.skillInventory[newPlace] = playerInventory.skillInventory[oldPlace];
             playerInventory.skillInventory[oldPlace] = idMem;

@@ -125,26 +125,6 @@ namespace GarbageRoyale.Scripts.InventoryScripts
             wantUse = false;
         }
 
-        private void actionTakeItem(GameObject itemGob, GameObject player, bool isMaster)
-        {
-            Item itemData = itemGob.GetComponent<Item>();
-            Inventory inventoryData = player.GetComponent<Inventory>();
-
-            //Debug.Log(string.Format("Item : \n ID : {0} - Name: {1} - Damage : {2} - Type : {3}", itemData.getId(), itemData.getName(), itemData.getDamage(), itemData.getType()));
-            if(isMaster)
-            {
-                gc.GetComponent<InventoryGUI>().printSprite(inventoryData.findPlaceInventory(), itemData.itemImg);
-            }
-            if (inventoryData.setItemInventory(itemData.getId()))
-            {
-                itemGob.SetActive(false);
-                //photonView.RPC("AskDisableItem", RpcTarget.All, itemGob.name);
-                
-            }
-            //Debug.Log(string.Format("Inventory : \n ID : {0} {1} {2} {3} {4} - Joueur : {5}", inventoryData.getItemInventory()[0], inventoryData.getItemInventory()[1], inventoryData.getItemInventory()[2], inventoryData.getItemInventory()[3], inventoryData.getItemInventory()[4], player));
-            
-        }
-        
         [PunRPC]
         public void AskTakeItem(string objName, int playerIndex, bool isOnline, int itemId, PhotonMessageInfo info)
         {
@@ -163,11 +143,11 @@ namespace GarbageRoyale.Scripts.InventoryScripts
 
             if (itemData.getType() != (int)ItemController.TypeItem.Implant)
             {
-                place = gc.players[playerIndex].GetComponent<Inventory>().findPlaceInventory();
+                place = gc.players[playerIndex].PlayerInventory.findPlaceInventory();
             }
             else
             {
-                place = gc.players[playerIndex].GetComponent<Inventory>().findPlaceSkills();
+                place = gc.players[playerIndex].PlayerInventory.findPlaceSkills();
             }
 
             photonView.RPC("ChangeGUIClient", info.Sender,place,
@@ -182,7 +162,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         public void PutItemInInventory(string objName, int playerIndex, bool isOnline, int itemId)
         {
             Item itemData = gc.items[itemId].GetComponent<Item>();
-            Inventory inventoryData = gc.players[playerIndex].GetComponent<Inventory>();
+            Inventory inventoryData = gc.players[playerIndex].PlayerInventory;
             bool isInInventory = false;
             if (itemData.getType()!= (int)ItemController.TypeItem.Implant)
             {

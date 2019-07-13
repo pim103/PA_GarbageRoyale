@@ -115,7 +115,7 @@ namespace GarbageRoyale.Scripts.GameMaster
             {
                 return;
             }
-            Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
+            Inventory playerInventory = gc.players[playerIndex].PlayerInventory;
             ChangeGUIGMClient(playerInventory.findPlaceInventory(), itemtype);
             photonView.RPC("AnswerAddItem", RpcTarget.All, itemtype, playerIndex, gc.items.Count, playerInventory.findPlaceInventory());
         }
@@ -123,7 +123,7 @@ namespace GarbageRoyale.Scripts.GameMaster
         [PunRPC]
         public void AnswerAddItem(int itemtype, int playerIndex, int itemID, int place)
         {
-            Inventory playerInventory = gc.players[playerIndex].PlayerGameObject.GetComponent<Inventory>();
+            Inventory playerInventory = gc.players[playerIndex].PlayerInventory;
             GameObject item;
 
             item = ObjectPooler.SharedInstance.GetPooledObject(itemtype);
