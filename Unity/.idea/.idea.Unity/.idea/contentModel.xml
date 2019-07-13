@@ -18,6 +18,8 @@
             <e p="ActiveSkillManager.cs" t="Include" />
             <e p="CameraRaycast.cs" t="Include" />
             <e p="CameraRaycastHitActions.cs" t="Include" />
+            <e p="DataLogin.cs" t="Include" />
+            <e p="DataState.cs" t="Include" />
             <e p="EndGameElevator" t="Include">
               <e p="ArrowController.cs" t="Include" />
               <e p="EndGameElevatorController.cs" t="Include" />
@@ -71,6 +73,7 @@
               <e p="WolfTrapScript.cs" t="Include" />
             </e>
             <e p="ItemSpawner.cs" t="Include" />
+            <e p="LoginSave.cs" t="Include" />
             <e p="MazeConstructor.cs" t="Include" />
             <e p="MazeDataGenerator.cs" t="Include" />
             <e p="MazeMeshGenerator.cs" t="Include" />
@@ -112,6 +115,7 @@
               <e p="ExposerPlayer.cs" t="Include" />
               <e p="PlayerStats.cs" t="Include" />
             </e>
+            <e p="SaveState.cs" t="Include" />
             <e p="ScriptExposer.cs" t="Include" />
             <e p="Skill.cs" t="Include" />
             <e p="SkillsController.cs" t="Include" />
