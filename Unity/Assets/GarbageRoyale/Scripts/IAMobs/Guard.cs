@@ -166,7 +166,7 @@ namespace GarbageRoyale.Scripts.IAMobs
             }
         }
 
-        public void startAttack()
+        public void StartAttack()
         {
             if (PhotonNetwork.IsMasterClient && gc.doorIsOpen)
             {

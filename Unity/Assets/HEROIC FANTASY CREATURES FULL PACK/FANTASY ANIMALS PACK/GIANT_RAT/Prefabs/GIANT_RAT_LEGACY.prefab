@@ -750,7 +750,7 @@ GameObject:
   - component: {fileID: 1160648757663299138}
   m_Layer: 0
   m_Name: GIANT_RAT_LEGACY
-  m_TagString: Untagged
+  m_TagString: Rat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

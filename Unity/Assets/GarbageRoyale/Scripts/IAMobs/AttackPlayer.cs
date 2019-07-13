@@ -40,7 +40,7 @@ namespace GarbageRoyale.Scripts.IAMobs
                 {
                     agent.isStopped = true;
                     manager.attackZone.gameObject.SetActive(true);
-                    manager.startAttack();
+                    manager.StartAttack();
                     
                     //gc.players[animator.GetInteger("PlayerID")].PlayerStats.takeDamage(1f);
                     //Debug.Log("attack : " + agent.remainingDistance);

@@ -48,6 +48,9 @@ namespace GarbageRoyale.Scripts.Items
 
                 coroutine[idPlayer] = trapPlayer(idPlayer);
                 StartCoroutine(coroutine[idPlayer]);
+            } else if (other.gameObject.CompareTag("Rat"))
+            {
+                other.GetComponent<MobStats>().takeDamageFromEnv(5.0f);
             }
         }
 

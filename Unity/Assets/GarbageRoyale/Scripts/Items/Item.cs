@@ -38,6 +38,9 @@ namespace GarbageRoyale.Scripts
             {
                 PlayerAttack pa = GameObject.Find("Controller").GetComponent<PlayerAttack>();
                 pa.HitByThrowItem(collision.transform.GetComponent<ExposerPlayer>().PlayerIndex, id, type, isBurn);
+            } else if (isThrow && collision.gameObject.CompareTag("Rat"))
+            {
+                collision.gameObject.GetComponent<MobStats>().takeDamageFromEnv(damage);
             }
             isThrow = false;
         }

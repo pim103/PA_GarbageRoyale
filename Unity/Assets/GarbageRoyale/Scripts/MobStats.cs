@@ -102,6 +102,21 @@ namespace GarbageRoyale.Scripts
                 pa.photonView.RPC("MobDeathAll",RpcTarget.All,id, UnityEngine.Random.Range(0, (int)SkillsController.SkillType.All));
             }
         }
+        
+        public void takeDamageFromEnv(float damage)
+        {
+            if(!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            hp -= damage;    
+
+            if(hp <= 0)
+            {
+                pa.photonView.RPC("MobDeathAll",RpcTarget.All,id, Random.Range(0, (int)SkillsController.SkillType.All));
+            }
+        }
 
         public void lootSkill(int type)
         {

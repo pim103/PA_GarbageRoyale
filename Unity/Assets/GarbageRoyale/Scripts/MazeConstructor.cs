@@ -142,7 +142,7 @@ namespace GarbageRoyale.Scripts
             }
         }
     
-        /*+-[PunRPC]
+        /*[PunRPC]
         public void GetDatas(int[,] d,string str)
         {
             if (PhotonNetwork.IsMasterClient)

@@ -61,6 +61,9 @@ namespace GarbageRoyale.Scripts.Items
                     gc.playersActions[id].isBurning = true;
                     gc.playersActions[id].timeLeftBurn = 5.0f;
                 }
+            } else if (other.gameObject.CompareTag("Rat"))
+            {
+                other.GetComponent<MobStats>().takeDamageFromEnv(5.0f);
             }
         }
 

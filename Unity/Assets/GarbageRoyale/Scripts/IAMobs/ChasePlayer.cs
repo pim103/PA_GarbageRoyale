@@ -11,7 +11,7 @@ namespace GarbageRoyale.Scripts.IAMobs
         private NavMeshAgent agent;
         private float lastUpdateTime = 0f;
         private GameController gc;
-        
+        private int oldPlayerId;
         
         private void Awake()
         {
@@ -22,7 +22,8 @@ namespace GarbageRoyale.Scripts.IAMobs
         {
             if(player == null)
             {
-                player = gc.players[animator.GetInteger("PlayerID")].PlayerGameObject;
+                oldPlayerId = animator.GetInteger("PlayerID");
+                player = gc.players[oldPlayerId].PlayerGameObject;
                 agent = animator.gameObject.GetComponent<NavMeshAgent>();
             }
         }
@@ -31,6 +32,11 @@ namespace GarbageRoyale.Scripts.IAMobs
         {
             if(Time.time > lastUpdateTime + (PathUpdateInterval)){ 
                 lastUpdateTime = Time.time;
+                if (animator.GetInteger("PlayerID") != oldPlayerId)
+                {
+                    oldPlayerId = animator.GetInteger("PlayerID");
+                    player = gc.players[oldPlayerId].PlayerGameObject;
+                }
                 agent.SetDestination(player.transform.position);
                 if(agent.remainingDistance < 2.5f && Math.Abs(agent.remainingDistance) > 0.00001f)
                 {

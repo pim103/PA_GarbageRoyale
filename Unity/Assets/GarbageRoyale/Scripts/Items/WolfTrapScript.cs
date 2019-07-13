@@ -50,6 +50,12 @@ namespace GarbageRoyale.Scripts.Items
 
                 ic.ActiveWolfTrap(transform.GetComponent<Item>().getId(), isTrigger);
                 StartCoroutine(trapPlayer(idPlayer));
+            } else if (!isTrigger && other.gameObject.CompareTag("Rat"))
+            {
+                isTrigger = true;
+
+                ic.ActiveWolfTrap(transform.GetComponent<Item>().getId(), isTrigger);
+                other.GetComponent<MobStats>().takeDamageFromEnv(5.0f);
             }
         }
 

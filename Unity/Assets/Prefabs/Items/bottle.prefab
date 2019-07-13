@@ -131,6 +131,7 @@ MonoBehaviour:
   item: {fileID: 7464176333056474953}
   isOiled: 0
   isBurn: 0
+  isElec: 0
 --- !u!114 &7464176333056474953
 MonoBehaviour:
   m_ObjectHideFlags: 0

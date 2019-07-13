@@ -43,6 +43,9 @@ namespace GarbageRoyale.Scripts
             {
                 PlayerStats ps = other.GetComponent<PlayerStats>();
                 ps.takeDamage(30.0f);
+            } else if (other.gameObject.CompareTag("Rat"))
+            {
+                other.GetComponent<MobStats>().takeDamageFromEnv(30.0f);
             }
         }
     }

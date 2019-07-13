@@ -9,6 +9,7 @@ TagManager:
   - QuietSoundBlock
   - MidLevelSoundBlock
   - RoomList
+  - Rat
   layers:
   - Default
   - TransparentFX

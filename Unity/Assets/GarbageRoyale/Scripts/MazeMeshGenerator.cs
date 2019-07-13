@@ -81,12 +81,10 @@ namespace GarbageRoyale.Scripts
                             k++;
                         }
                     }*/
-                    if(rooms[i,j] == 13) Debug.Log("yes?");
                     if (data[i, j] == 0)
                     {
                         if (rooms[i, j] != 9999 && rooms[i, j] != 9)
                         {
-                            if(rooms[i,j] == 13) Debug.Log("yes?");
                             if(rooms[i, j] == 3)
                             {
                                 // Add door
