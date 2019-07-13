@@ -52,17 +52,17 @@ namespace GarbageRoyale.Scripts.IAMobs
             if (PhotonNetwork.IsMasterClient)
             {
                 guardPosition = transform.position;
-                ratState = GetComponent<Animator>();
-                playerOnSightHash = Animator.StringToHash("PlayerOnSight");
-                reachedGuardPointHash = Animator.StringToHash("ReachedGuardPoint");
-                playerIDHash = Animator.StringToHash("PlayerID");
-                blockIDHash = Animator.StringToHash("BlockID");
-                hasHeardNoiseHash = Animator.StringToHash("HasHeardNoise");
             }
             else
             {
                 GetComponent<NavMeshAgent>().enabled = false;
             }
+            ratState = GetComponent<Animator>();
+            playerOnSightHash = Animator.StringToHash("PlayerOnSight");
+            reachedGuardPointHash = Animator.StringToHash("ReachedGuardPoint");
+            playerIDHash = Animator.StringToHash("PlayerID");
+            blockIDHash = Animator.StringToHash("BlockID");
+            hasHeardNoiseHash = Animator.StringToHash("HasHeardNoise");
             isMovingHash = Animator.StringToHash("isMoving");
             isRunningHash = Animator.StringToHash("isRunning");
             isAttackingHash = Animator.StringToHash("isAttacking");
