@@ -212,7 +212,7 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         public void AskSwapInventoryItems(int playerIndex, int oldPlace, int newPlace)
         {
-            Debug.Log("yes");
+            //Debug.Log("yes");
             Debug.Log(" sent playerindex "+playerIndex+" oldplace "+oldPlace+" newplace "+newPlace);
             if (!PhotonNetwork.IsMasterClient)
             {
@@ -243,7 +243,7 @@ namespace GarbageRoyale.Scripts
         [PunRPC]
         public void AskSwapInventorySkills(int playerIndex, int oldPlace, int newPlace)
         {
-            Debug.Log("yes");
+            //Debug.Log("yes");
             Debug.Log(" sent playerindex "+playerIndex+" oldplace "+oldPlace+" newplace "+newPlace);
             if (!PhotonNetwork.IsMasterClient)
             {
