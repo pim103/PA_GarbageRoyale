@@ -132,4 +132,5 @@ MonoBehaviour:
   - MasterActivateAvatarPlayer
   - SetReady
   - SetReadyPlayer
+  - InitAll
   DisableAutoOpenWizard: 1

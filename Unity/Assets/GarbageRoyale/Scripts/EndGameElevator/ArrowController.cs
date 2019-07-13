@@ -5,7 +5,8 @@ namespace GarbageRoyale.Scripts.EndGameElevator
     public class ArrowController : MonoBehaviour
     {
         private EndGameElevatorController eec;
-        // Update is called once per frame
+
+        private bool hasBeenFound = false;
         private void Start()
         {
             eec = GameObject.Find("Controller").GetComponent<EndGameElevatorController>();
@@ -19,8 +20,14 @@ namespace GarbageRoyale.Scripts.EndGameElevator
                 {
                     transform.LookAt(room.transform);
                 }
+                else
+                {
+                    if (transform.position.y > 7 * 16)
+                    {
+                        gameObject.SetActive(false);
+                    }
+                }
             }
-            
         }
     }
 }

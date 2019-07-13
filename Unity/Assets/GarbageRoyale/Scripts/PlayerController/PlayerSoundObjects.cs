@@ -8,6 +8,7 @@ namespace GarbageRoyale.Scripts.PlayerController
 {
     public class PlayerSoundObjects : MonoBehaviourPunCallbacks
     {
+        [SerializeField]
         private GameController gc;
         [SerializeField] 
         private PlayerControllerMaster pcm;
@@ -16,7 +17,6 @@ namespace GarbageRoyale.Scripts.PlayerController
         // Start is called before the first frame update
         void Start()
         {
-            gc = GameObject.Find("Controller").GetComponent<GameController>();
             foreach (var currentPlayer in gc.players)
             {
                 StartCoroutine(PutBlockWhileWalking(currentPlayer.PlayerIndex));

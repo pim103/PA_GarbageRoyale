@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 namespace GarbageRoyale.Scripts.EndGameElevator
 {
-    public class EndGameElevatorController : MonoBehaviour
+    public class EndGameElevatorController : MonoBehaviourPunCallbacks
     {
         public List<GameObject> endroomList = new List<GameObject>();
         private GameController gc;
@@ -14,6 +15,15 @@ namespace GarbageRoyale.Scripts.EndGameElevator
         }
 
         public void InitEndPhase()
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                photonView.RPC("InitAll",RpcTarget.All);
+            }
+        }
+        
+        [PunRPC]
+        public void InitAll()
         {
             if (!hasBeenInit)
             {
