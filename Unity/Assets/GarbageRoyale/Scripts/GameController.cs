@@ -165,6 +165,7 @@ namespace GarbageRoyale.Scripts
                 doorIsOpen = false;
                 waterStartTimeLeft = 60.0f;
                 timeLeft = 20.0f;
+                StartCoroutine(Invincible());
             }
 
             // INIT MAP AND MINIMAP
@@ -241,7 +242,6 @@ namespace GarbageRoyale.Scripts
             }
 
             AvatarToUserId[i] = userId;
-            Debug.Log("JJJ");
             photonView.RPC("initAvatarUserIdRPC", RpcTarget.Others, AvatarToUserId, userId);
 
             PlayerJoined?.Invoke(i);
@@ -436,10 +436,8 @@ namespace GarbageRoyale.Scripts
                     wantGoToLastFloor = false;
                 }
 
-
                 if (endOfInit && PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
                 {
-                    StartCoroutine(Invincible());
                     if(timeLeft > 0)
                     {
                         timeLeft -= Time.deltaTime;
@@ -484,7 +482,7 @@ namespace GarbageRoyale.Scripts
         {
             while(timeLeft > 0)
             {
-                for(var i = 0; i < playersActions.Length; i++)
+                for(var i = 0; i < AvatarToUserId.Length; i++)
                 {
                     players[i].GetComponent<PlayerStats>().currentHp = players[i].GetComponent<PlayerStats>().defaultHp;
                 }

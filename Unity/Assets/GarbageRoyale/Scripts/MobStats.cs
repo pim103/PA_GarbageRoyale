@@ -1,7 +1,10 @@
 ﻿using GarbageRoyale.Scripts.InventoryScripts;
 using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
+using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GarbageRoyale.Scripts
 {
@@ -20,6 +23,15 @@ namespace GarbageRoyale.Scripts
         private GameController gc;
         private PlayerAttack pa;
 
+        private bool seeCanvas;
+        private int idPlayer;
+
+        [SerializeField]
+        private GameObject healthBarCanvas;
+
+        [SerializeField]
+        private Slider sliderHealthBar;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -31,13 +43,33 @@ namespace GarbageRoyale.Scripts
             breath = 100f;
             basicAttack = 20f;
 
+            seeCanvas = false;
             isDead = false;
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
-        
+            if(!seeCanvas && hp != 100)
+            {
+                seeCanvas = true;
+                idPlayer = Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
+                healthBarCanvas.SetActive(true);
+                StartCoroutine(UpdateStats());
+            }
+        }
+
+        private IEnumerator UpdateStats()
+        {
+            while(hp > 0)
+            {
+                sliderHealthBar.value = 100 - hp;
+                healthBarCanvas.transform.LookAt(gc.players[idPlayer].PlayerCamera.transform);
+                yield return new WaitForSeconds(0.5f);
+            }
+
+            healthBarCanvas.SetActive(false);
+            seeCanvas = false;
         }
     
         public void rotateDeadMob()
@@ -67,7 +99,7 @@ namespace GarbageRoyale.Scripts
 
             if(hp <= 0)
             {
-                pa.photonView.RPC("MobDeathAll",RpcTarget.All,id, Random.Range(0, (int)SkillsController.SkillType.All));
+                pa.photonView.RPC("MobDeathAll",RpcTarget.All,id, UnityEngine.Random.Range(0, (int)SkillsController.SkillType.All));
             }
         }
 

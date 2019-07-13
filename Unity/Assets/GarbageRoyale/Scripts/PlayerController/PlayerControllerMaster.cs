@@ -79,9 +79,12 @@ namespace GarbageRoyale.Scripts.PlayerController
             }
 
             int playerAlive = 0;
-            for (var i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+            for (var i = 0; i < gc.AvatarToUserId.Length; i++)
             {
-                //Debug.Log(players[i].PlayerTransform.position);
+                if (gc.AvatarToUserId[i] == "")
+                {
+                    continue;
+                }
                 if (gc.players[i].PlayerStats.isDead)
                 {
                     if(!gc.players[i].PlayerStats.isAlreadyTrigger)
@@ -205,7 +208,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                 }
             }
 
-            if (playerAlive == 1)
+            if (playerAlive == 1 || PhotonNetwork.CurrentRoom.PlayerCount == 1)
             {
                 eec.InitEndPhase();
             }
@@ -491,7 +494,7 @@ namespace GarbageRoyale.Scripts.PlayerController
 
             if(isDead && (id == se.sm.idCamSpectate || id == playerIndex))
             {
-                se.sm.SwitchCam(playerIndex);
+                se.sm.WantToSwitchCam();
             }
         }
 
