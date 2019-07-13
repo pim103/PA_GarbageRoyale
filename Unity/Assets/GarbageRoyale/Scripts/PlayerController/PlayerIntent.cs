@@ -198,7 +198,7 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
         private void FixedUpdate()
         {
-            if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
+            if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId && !scripts.gc.players[PlayerIndex].PlayerStats.isDead)
             {
                 return;
             }

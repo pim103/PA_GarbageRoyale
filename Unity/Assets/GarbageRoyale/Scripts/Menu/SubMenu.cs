@@ -64,6 +64,14 @@ namespace GarbageRoyale.Scripts.Menu
 
         public override void OnJoinedRoom()
         {
+            if(PhotonNetwork.IsMasterClient)
+            {
+                bool isStart = false;
+                ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+                hash.Add("IsStart", isStart);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
+            }
+
             controller.gameController.SetActive(true);
             /*controller.invHUD.SetActive(true);
             controller.playerGUI.SetActive(true);*/

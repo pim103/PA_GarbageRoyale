@@ -6021,7 +6021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 1103656769}
-  gameController: {fileID: 1103656768}
+  gameMasterController: {fileID: 1103656788}
   player: {fileID: 121, guid: b88fe910c5709a04d97508e2aa5446c1, type: 3}
   cameraPrefab: {fileID: 6662625427913190848, guid: d246acae78f293140bc3c7927c3b2269,
     type: 3}
@@ -6084,6 +6084,7 @@ MonoBehaviour:
   - {fileID: 520855234544257083, guid: 79998b8b9a19e684eb8d5252ff930b7a, type: 3}
   - {fileID: 1657766645, guid: 2b160a63a0248b54f83dec888052867d, type: 3}
   mineQ: 0
+  isSpectator: 0
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0

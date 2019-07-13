@@ -45,11 +45,14 @@ namespace GarbageRoyale.Scripts.Items
         private Color redColor;
         private Color greenColor;
 
+        private bool canTrigger;
+
         // Start is called before the first frame update
         void Awake()
         {
             gc = GameObject.Find("Controller").GetComponent<GameController>();
             idTrap = -1;
+            canTrigger = true;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -68,12 +71,22 @@ namespace GarbageRoyale.Scripts.Items
                     TrapInterface item = gc.items[idTrap].GetComponent<TrapInterface>();
                     item.TriggerTrap(ep.PlayerIndex);
                 }
-                else
+                else if(canTrigger)
                 {
                     gc.playersActions[ep.PlayerIndex].isFallen = true;
                     gc.playersActions[ep.PlayerIndex].timeLeftFallen = 2.0f;
+                    StartCoroutine(TriggerRope());
                 }
             }
+        }
+
+        private IEnumerator TriggerRope()
+        {
+            canTrigger = false;
+
+            yield return new WaitForSeconds(3.0f);
+
+            canTrigger = true;
         }
     }
 }

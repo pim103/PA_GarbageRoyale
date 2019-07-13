@@ -36,6 +36,11 @@ namespace GarbageRoyale.Scripts.PlayerController
 
         private void Update()
         {
+            if(!gc.isGameStart)
+            {
+                return;
+            }
+
             if(Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 wantToSeePreviousPlayer = true;
@@ -64,7 +69,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         {
             int idPlayer = Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId);
 
-            if (!gc.players[idPlayer].PlayerStats.isDead)
+            if (!gc.players[idPlayer].PlayerStats.isDead || !gc.isSpectator)
             {
                 return;
             }

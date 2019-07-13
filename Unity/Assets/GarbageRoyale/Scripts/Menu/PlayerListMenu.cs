@@ -60,12 +60,14 @@ namespace GarbageRoyale.Scripts.Menu
         {
             if (PhotonNetwork.IsMasterClient)
             {
+                /*
                 if (PhotonNetwork.CurrentRoom.MaxPlayers != PhotonNetwork.CurrentRoom.PlayerCount)
                 {
                     dialogBoxEnable();
                     dialogText.text = "Tous les joueurs ne sont pas prêts!";
                     return;
                 }
+                */
                 for (int i = 0; i < gc.AvatarToUserId.Length; i++)
                 {
                     if (gc.AvatarToUserId[i] != "" && gc.players[i].PlayerStats.isReadyToPlay ||
@@ -113,11 +115,22 @@ namespace GarbageRoyale.Scripts.Menu
 
         private IEnumerator GetPlayers()
         {
+            bool isGameStart = (bool)PhotonNetwork.CurrentRoom.CustomProperties["IsStart"];
+
             while (!gc.mineQ)
             {
                 yield return new WaitForSeconds(1.0f);
             }
-            photonView.RPC("GetPlayersRPC", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId, PhotonNetwork.LocalPlayer.NickName);
+
+
+            if (isGameStart)
+            {
+                gc.JoinAsSpectator();
+            }
+            else
+            {
+                photonView.RPC("GetPlayersRPC", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId, PhotonNetwork.LocalPlayer.NickName);
+            }
         }
         
         [PunRPC]

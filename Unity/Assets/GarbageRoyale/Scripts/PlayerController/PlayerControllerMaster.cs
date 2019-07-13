@@ -150,7 +150,6 @@ namespace GarbageRoyale.Scripts.PlayerController
 
                 Vector3 rot = gc.players[i].PlayerCamera.transform.localEulerAngles;
                 rot.x = playerAction.rotX;
-                gc.players[i].PlayerCamera.transform.localEulerAngles = rot;
 
                 if (playerAction.wantToPunch)
                 {
@@ -438,6 +437,7 @@ namespace GarbageRoyale.Scripts.PlayerController
         {
             Vector3 vec = new Vector3(rotX, 0, 0);
             gc.players[id].SpotLight.transform.localEulerAngles = vec;
+            gc.players[id].PlayerCamera.transform.localEulerAngles = vec;
 
             SoundManager.Sound soundNeeded = SoundManager.Sound.Walk;
 
