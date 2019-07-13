@@ -21,6 +21,14 @@ namespace GarbageRoyale.Scripts.Menu
 
         [SerializeField]
         private StartGame controller;
+        [SerializeField]
+        private GameObject dialogWindow;
+        [SerializeField]
+        private Text dialogText;
+        [SerializeField]
+        private GameObject dialogButton;
+        [SerializeField]
+        private Button dialogButtonBtn;
 
         // Start is called before the first frame update
         void Start()
@@ -42,6 +50,9 @@ namespace GarbageRoyale.Scripts.Menu
         {
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = (byte)choosePlayers.value;
+            dialogWindow.SetActive(true);
+            dialogText.text = "Création de la room";
+            dialogButton.SetActive(false);
 
             PhotonNetwork.CreateRoom(roomNameIpt.text, roomOptions);
         }

@@ -41,6 +41,10 @@ namespace GarbageRoyale.Scripts.Menu
         
         private void Awake()
         {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                readyButton.GetComponent<Text>().text = "Prêt";
+            }
             playersNickName = Enumerable.Repeat("", 20).ToArray();
             StartCoroutine(GetPlayers());
 

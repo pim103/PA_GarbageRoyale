@@ -49,6 +49,8 @@ namespace GarbageRoyale.Scripts.Menu
         {
             Debug.Log(roomSelected);
             PhotonNetwork.JoinRoom(roomSelected);
+            dialogWindow.SetActive(true);
+            dialogText.text = "Connexion à la partie";
         }
 
         public override void OnJoinedRoom()
