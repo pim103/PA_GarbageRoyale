@@ -18,6 +18,8 @@ namespace GarbageRoyale.Scripts.Menu
         private Button leftLobby;
         [SerializeField]
         private Button backToMainMenu;
+        [SerializeField] 
+        private Text readyText;
         [SerializeField]
         private PlayerList players;
         [SerializeField]
@@ -43,7 +45,7 @@ namespace GarbageRoyale.Scripts.Menu
         {
             if (!PhotonNetwork.IsMasterClient)
             {
-                readyButton.GetComponent<Text>().text = "Prêt";
+                readyText.text = "Prêt";
             }
             playersNickName = Enumerable.Repeat("", 20).ToArray();
             StartCoroutine(GetPlayers());
@@ -58,12 +60,12 @@ namespace GarbageRoyale.Scripts.Menu
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                /*if (PhotonNetwork.CurrentRoom.MaxPlayers != PhotonNetwork.CurrentRoom.PlayerCount)
+                if (PhotonNetwork.CurrentRoom.MaxPlayers != PhotonNetwork.CurrentRoom.PlayerCount)
                 {
                     dialogBoxEnable();
                     dialogText.text = "Tous les joueurs ne sont pas prêts!";
                     return;
-                }*/
+                }
                 for (int i = 0; i < gc.AvatarToUserId.Length; i++)
                 {
                     if (gc.AvatarToUserId[i] != "" && gc.players[i].PlayerStats.isReadyToPlay ||

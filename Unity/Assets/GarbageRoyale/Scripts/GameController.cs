@@ -352,10 +352,10 @@ namespace GarbageRoyale.Scripts
 
             moveDirection[id] = Vector3.zero;
             rotationPlayer[id] = Vector3.zero;
-            if (!PhotonNetwork.IsConnected)
+            /*if (!PhotonNetwork.IsConnected)
             {
                 players[0].PlayerCamera.enabled = true;
-            }
+            }*/
             OnlinePlayReady?.Invoke(id);
             
         }
