@@ -11,6 +11,7 @@ using GarbageRoyale.Scripts.PlayerController;
 using System.Linq;
 using GarbageRoyale.Scripts.HUD;
 using GarbageRoyale.Scriptable;
+using GarbageRoyale.Scripts.GameMaster;
 using GarbageRoyale.Scripts.Menu;
 using UnityEngine.UI;
 
@@ -21,7 +22,9 @@ namespace GarbageRoyale.Scripts
     public class GameController : MonoBehaviourPunCallbacks
     {
         public MazeConstructor generator;
-        
+
+        [SerializeField] 
+        private GameObject gameController;
         [SerializeField]
         private GameObject player;
         [SerializeField]
@@ -262,6 +265,7 @@ namespace GarbageRoyale.Scripts
                 Debug.Log("ZZZ");
                 AvatarToUserId[i] = PhotonNetwork.AuthValues.UserId;
                 mineQ = true;
+                Debug.Log(AvatarToUserId[i]);
                 PlayerJoined?.Invoke(i);
             }
         }
@@ -306,8 +310,8 @@ namespace GarbageRoyale.Scripts
                 {
                     players[id].GetComponent<PlayerStats>().PlayerRole = Int32.Parse(playerPhoton.CustomProperties["role"].ToString());
                     players[id].GetComponent<PlayerStats>().PlayerName = playerPhoton.NickName;
+                    gameController.GetComponent<GameMasterController>().enabled = true;
                 }
-                
             }
         }
 
@@ -352,10 +356,6 @@ namespace GarbageRoyale.Scripts
 
             moveDirection[id] = Vector3.zero;
             rotationPlayer[id] = Vector3.zero;
-            /*if (!PhotonNetwork.IsConnected)
-            {
-                players[0].PlayerCamera.enabled = true;
-            }*/
             OnlinePlayReady?.Invoke(id);
             
         }
@@ -488,7 +488,8 @@ namespace GarbageRoyale.Scripts
             {
                 for(var i = 0; i < AvatarToUserId.Length; i++)
                 {
-                    players[i].GetComponent<PlayerStats>().currentHp = players[i].GetComponent<PlayerStats>().defaultHp;
+                    if(AvatarToUserId[i] != "")
+                        players[i].GetComponent<PlayerStats>().currentHp = players[i].GetComponent<PlayerStats>().defaultHp;
                 }
                 yield return new WaitForSeconds(1.0f);
             }

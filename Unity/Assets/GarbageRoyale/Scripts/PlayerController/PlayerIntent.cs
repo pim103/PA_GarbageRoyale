@@ -25,11 +25,14 @@ namespace GarbageRoyale.Scripts.PlayerController {
 
         private void Start()
         {
-            if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
+            if (!PhotonNetwork.OfflineMode)
             {
-                return;
+                if (scripts.gc.AvatarToUserId[PlayerIndex] != PhotonNetwork.AuthValues.UserId)
+                {
+                    return;
+                }
             }
-
+            
             skillsController = GameObject.Find("SkillsController").GetComponent<SkillsController>();
             scripts.cr.cameraIndex = PlayerIndex;
 

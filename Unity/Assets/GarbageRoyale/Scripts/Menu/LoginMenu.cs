@@ -130,12 +130,13 @@ namespace GarbageRoyale.Scripts.Menu
         public override void OnJoinedRoom()
         {
             controller.gameController.SetActive(true);
+            controller.gameController.GetComponent<GameController>().MasterActivateAvatarPlayer();
+            //Debug.Log();
             controller.mainCamera.enabled = false;
             controller.mainMenu.SetActive(false);
             controller.subMenu.SetActive(false);
             controller.loginMenu.SetActive(false);
-            controller.gameController.GetComponent<GameController>().MasterActivateAvatarPlayer();
-
+            
             offlineRoomButton.interactable = false;
         }
         public void AskForExit()
