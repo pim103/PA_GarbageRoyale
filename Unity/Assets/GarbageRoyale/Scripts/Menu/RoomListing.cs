@@ -9,8 +9,13 @@ namespace GarbageRoyale.Scripts.Menu
     {
         [SerializeField] 
         private Text textInfo;
-        
-        public RoomInfo RoomInfo { get; private set; }
+
+        public RoomListing(RoomInfo roomInfo)
+        {
+            RoomInfo = roomInfo;
+        }
+
+        public RoomInfo RoomInfo { get; set; }
 
         public void SetRoomInfo(RoomInfo roomInfo)
         {

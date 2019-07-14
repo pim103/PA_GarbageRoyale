@@ -95,24 +95,36 @@ namespace GarbageRoyale.Scripts.Menu
             {
                 if (info.RemovedFromList)
                 {
-                    /*int index = listRooms.FindIndex(x => x.RoomInfo.Name == info.Name);
+                    Debug.Log(info.Name);
+                    int index = listRooms.FindIndex(x => x.RoomInfo.Name == info.Name);
                     if (index != -1)
                     {
                         Destroy(listRooms[index].gameObject);
                         listRooms.RemoveAt(index);
-                    }*/
+                    }
                 }
                 else
                 {
-                    RoomListing listing = Instantiate(roomListing, contentList);
-                    if (listing != null)
+                    int index = listRooms.FindIndex(x => x.RoomInfo.Name == info.Name);
+                    if (index != -1)
                     {
-                        listing.SetRoomInfo(info);
-                        listing.GetComponent<Button>().onClick.AddListener(delegate
+                        listRooms[index].SetRoomInfo(info);
+                    }
+                    else
+                    {
+                        RoomListing listing = Instantiate(roomListing, contentList);
+                        if (listing != null)
                         {
-                            SelectRoom(listing, info.Name);
-                        });
-                        listRooms.Add(listing);
+                            listing.SetRoomInfo(info);
+                            listing.GetComponent<Button>().onClick.AddListener(delegate
+                            {
+                                SelectRoom(listing, info.Name);
+                            });
+                            Debug.Log(listing.RoomInfo);
+                            listing.RoomInfo = info;
+                            Debug.Log(listing.RoomInfo);
+                            listRooms.Add(listing);
+                        }
                     }
                 }
             }

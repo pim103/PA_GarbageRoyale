@@ -185,7 +185,5 @@ namespace GarbageRoyale.Scripts.Menu
                 listPlayers[index].gameObject.GetComponent<RawImage>().color = Color.white;
             }
         }
-        
-        
     }
 }
