@@ -76,6 +76,7 @@ namespace GarbageRoyale.Scripts.Menu
                 if (PhotonNetwork.CurrentRoom.MaxPlayers != PhotonNetwork.CurrentRoom.PlayerCount)
                 {
                     dialogWindow.SetActive(true);
+                    dialogButton.SetActive(true);
                     dialogText.text = menuController.lc.GetLocalizedValue("dialog_players_not_ready");
                     return;
                 }
@@ -109,6 +110,24 @@ namespace GarbageRoyale.Scripts.Menu
             PhotonNetwork.Disconnect();
             SaveState.SaveStateGame(true);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        public override void OnPlayerLeftRoom(Player otherPlayer)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+                return;
+            
+            int index = Array.IndexOf(playersNickName, otherPlayer.NickName);
+
+            photonView.RPC("TellPlayerLefted", RpcTarget.All, index);
+        }
+
+        [PunRPC]
+        public void TellPlayerLefted(int index)
+        {
+            playersNickName[index] = "";
+            gc.AvatarToUserId[index] = "";
+            listPlayers[index].gameObject.SetActive(false);
         }
         
         private void AskToGoToMainMenu()
