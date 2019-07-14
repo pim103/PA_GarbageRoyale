@@ -15727,6 +15727,11 @@ PrefabInstance:
       propertyPath: controller
       value: 
       objectReference: {fileID: 1103656770}
+    - target: {fileID: 6490463172594603667, guid: 69ec4d27264f5f54ab5fea6a10ed1a0e,
+        type: 3}
+      propertyPath: mc
+      value: 
+      objectReference: {fileID: 415303308}
     - target: {fileID: 1636772982296670052, guid: 69ec4d27264f5f54ab5fea6a10ed1a0e,
         type: 3}
       propertyPath: m_Text
