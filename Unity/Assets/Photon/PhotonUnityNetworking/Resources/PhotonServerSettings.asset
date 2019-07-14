@@ -133,4 +133,6 @@ MonoBehaviour:
   - SetReady
   - SetReadyPlayer
   - InitAll
+  - TellPlayerLefted
+  - UpdateCurrentMob
   DisableAutoOpenWizard: 1

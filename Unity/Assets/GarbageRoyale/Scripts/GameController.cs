@@ -320,9 +320,9 @@ namespace GarbageRoyale.Scripts
         }
 
         [PunRPC]
-        public void SetReady(int index)
+        public void SetReady(int index, bool toggle)
         {
-            players[index].PlayerStats.IsReadyToPlay = !players[index].GetComponent<PlayerStats>().IsReadyToPlay;
+            players[index].PlayerStats.IsReadyToPlay = toggle;
         }
 
         public void JoinAsSpectator()
@@ -342,7 +342,6 @@ namespace GarbageRoyale.Scripts
 
             for (int i = 0; i < AvatarToUserId.Length; i++)
             {
-                Debug.Log(AvatarToUserId[i]);
                 if (AvatarToUserId[i] != "")
                 {
                     players[i].PlayerCamera.enabled = true;

@@ -71,16 +71,7 @@ namespace GarbageRoyale.Scripts.Menu
         public void AskToBeReady()
         {
             if (PhotonNetwork.IsMasterClient)
-            {
-                
-                if (PhotonNetwork.CurrentRoom.MaxPlayers != PhotonNetwork.CurrentRoom.PlayerCount)
-                {
-                    dialogWindow.SetActive(true);
-                    dialogButton.SetActive(true);
-                    dialogText.text = menuController.lc.GetLocalizedValue("dialog_players_not_ready");
-                    return;
-                }
-                
+            {   
                 for (int i = 0; i < gc.AvatarToUserId.Length; i++)
                 {
                     if (gc.AvatarToUserId[i] != "" && gc.players[i].PlayerStats.isReadyToPlay ||
@@ -90,6 +81,9 @@ namespace GarbageRoyale.Scripts.Menu
                     }
                     else
                     {
+                        dialogWindow.SetActive(true);
+                        dialogButton.SetActive(true);
+                        dialogText.text = menuController.lc.GetLocalizedValue("dialog_players_not_ready");
                         return;
                     }
                         
@@ -97,6 +91,7 @@ namespace GarbageRoyale.Scripts.Menu
                 gc.MasterActivateAvatarPlayer();
                 return;
             }
+
             photonView.RPC("SetReadyPlayer", RpcTarget.MasterClient, PhotonNetwork.AuthValues.UserId);
         }
 
@@ -165,19 +160,37 @@ namespace GarbageRoyale.Scripts.Menu
                 return;
             }
             playersNickName[Array.IndexOf(gc.AvatarToUserId, userId)] = name;
-            photonView.RPC("ActivatePlayerRPC", RpcTarget.All, playersNickName);
+            bool[] isReady = Enumerable.Repeat(false, 20).ToArray();
+
+            for(var i = 0; i < gc.AvatarToUserId.Length; i++)
+            {
+                if(gc.AvatarToUserId[i] != "")
+                {
+                    isReady[i] = gc.players[i].PlayerStats.IsReadyToPlay;
+                }
+            }
+
+            photonView.RPC("ActivatePlayerRPC", RpcTarget.All, playersNickName, isReady);
         }
         
         [PunRPC]
-        private void ActivatePlayerRPC(string[] players)
+        private void ActivatePlayerRPC(string[] players, bool[] isReady)
         {
             for (int i = 0; i < players.Length; i++)
             {
                 if (players[i] != "")
                 {
-                    Debug.Log("E");
                     listPlayers[i].gameObject.SetActive(true);
                     listPlayers[i].SetPlayerInfo(players[i]);
+
+                    if (isReady[i])
+                    {
+                        listPlayers[i].gameObject.GetComponent<RawImage>().color = Color.green;
+                    }
+                    else
+                    {
+                        listPlayers[i].gameObject.GetComponent<RawImage>().color = Color.white;
+                    }
                 }
             }
             dialogWindow.SetActive(false);
@@ -192,14 +205,14 @@ namespace GarbageRoyale.Scripts.Menu
             }
 
             int index = Array.IndexOf(gc.AvatarToUserId, userIdRequester);
-            photonView.RPC("BeReadyRPC", RpcTarget.All, index);
+            photonView.RPC("BeReadyRPC", RpcTarget.All, index, !gc.players[index].PlayerStats.IsReadyToPlay);
         }
 
         [PunRPC]
-        private void BeReadyRPC(int index)
+        private void BeReadyRPC(int index, bool toggle)
         {
-            gc.SetReady(index);
-            if (gc.players[index].PlayerStats.IsReadyToPlay)
+            gc.SetReady(index, toggle);
+            if (toggle)
             {
                 listPlayers[index].gameObject.GetComponent<RawImage>().color = Color.green;
             }

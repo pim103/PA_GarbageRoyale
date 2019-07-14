@@ -69,7 +69,8 @@ namespace GarbageRoyale.Scripts.IAMobs
         }
         private void OnTriggerEnter(Collider collider)
         {
-            if (PhotonNetwork.IsMasterClient && gc.doorIsOpen)
+            if (PhotonNetwork.IsMasterClient 
+                && gc.doorIsOpen)
             {
                 if (collider.CompareTag("Player"))
                 {
