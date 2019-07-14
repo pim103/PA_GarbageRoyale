@@ -134,10 +134,6 @@ namespace GarbageRoyale.Scripts
                             rooms[i, j] = rand;
                             //rooms[i, j] = 3;
                         }
-                        if (i == 43 && j == 43)
-                        {
-                            rooms[i, j] = 11;
-                        }
                     }
                 }
                 
