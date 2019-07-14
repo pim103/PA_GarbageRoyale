@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2475978378010499130}
   - component: {fileID: 5135038393898428094}
   - component: {fileID: 3556423451034138256}
+  - component: {fileID: 109751784810683140}
   m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
@@ -79,6 +80,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Nom de la room
+--- !u!114 &109751784810683140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118620803570185958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: room_name_ipt
 --- !u!1 &3913729979960730983
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,6 +437,7 @@ GameObject:
   - component: {fileID: 6119040042352947809}
   - component: {fileID: 6119040042352947839}
   - component: {fileID: 6119040042352947808}
+  - component: {fileID: 3225719866563289735}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -491,6 +506,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Cr\xE9er"
+--- !u!114 &3225719866563289735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6119040042352947810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: create_game_btn
 --- !u!1 &6119040042512271749
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,6 +931,7 @@ GameObject:
   - component: {fileID: 6119040043207422856}
   - component: {fileID: 6119040043207422854}
   - component: {fileID: 6119040043207422855}
+  - component: {fileID: 7037790557950342519}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -971,6 +1000,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Nombre de joueurs souhait\xE9s :"
+--- !u!114 &7037790557950342519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6119040043207422857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: player_slider_txt
 --- !u!1 &6119040043296304582
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,6 +1024,7 @@ GameObject:
   - component: {fileID: 6119040043296304581}
   - component: {fileID: 6119040043296304579}
   - component: {fileID: 6119040043296304580}
+  - component: {fileID: 9004333767136219902}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1050,6 +1093,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Retour
+--- !u!114 &9004333767136219902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6119040043296304582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: return_btn
 --- !u!1 &6119040043356193058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,11 +1499,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6119040042743385764}
     m_Modifications:
-    - target: {fileID: 7535642270676079132, guid: ffa0eca87c6d97940852e3d352be12fb,
-        type: 3}
-      propertyPath: m_Name
-      value: DialogBox
-      objectReference: {fileID: 0}
     - target: {fileID: 1258889219133923184, guid: ffa0eca87c6d97940852e3d352be12fb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1502,6 +1553,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535642270676079132, guid: ffa0eca87c6d97940852e3d352be12fb,
+        type: 3}
+      propertyPath: m_Name
+      value: DialogBox
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffa0eca87c6d97940852e3d352be12fb, type: 3}

@@ -244,6 +244,7 @@ GameObject:
   - component: {fileID: 6628806658375814571}
   - component: {fileID: 8381608379548830559}
   - component: {fileID: 8404256189256167443}
+  - component: {fileID: 9200265744243026036}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -312,6 +313,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Ajouter l'objet
+--- !u!114 &9200265744243026036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2645786121163035607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: gm_additem_btn
 --- !u!1 &2889866734561059192
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,6 +337,7 @@ GameObject:
   - component: {fileID: 7340826039745653289}
   - component: {fileID: 3922033067353070303}
   - component: {fileID: 1980884971896655431}
+  - component: {fileID: 8098267794975087748}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -391,6 +406,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Me t\xE9l\xE9porter au dernier \xE9tage"
+--- !u!114 &8098267794975087748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2889866734561059192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: gm_tptoend_btn
 --- !u!1 &3683432593041802387
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +430,7 @@ GameObject:
   - component: {fileID: 1978994884547571288}
   - component: {fileID: 246252446785503081}
   - component: {fileID: 146749548886278872}
+  - component: {fileID: 6468733985106026999}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -470,6 +499,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Me t\xE9l\xE9porter vers"
+--- !u!114 &6468733985106026999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3683432593041802387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: gm_tpto_btn
 --- !u!1 &3846971688141658757
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,6 +996,7 @@ GameObject:
   - component: {fileID: 8395472973054550574}
   - component: {fileID: 5331125965283340696}
   - component: {fileID: 306570420784342232}
+  - component: {fileID: 7123084533484744247}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1022,6 +1065,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
+--- !u!114 &7123084533484744247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5292594620442077820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: gm_tptome_ipt
 --- !u!1 &5712237873155814220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,6 +1089,7 @@ GameObject:
   - component: {fileID: 4285811345639349878}
   - component: {fileID: 5699759244659372073}
   - component: {fileID: 8263329096402813317}
+  - component: {fileID: 8794893515742661749}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1101,6 +1158,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Devenir invisible
+--- !u!114 &8794893515742661749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712237873155814220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: gm_invisible
 --- !u!1 &5763861503966910182
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,6 +1642,7 @@ GameObject:
   - component: {fileID: 6490463174046439138}
   - component: {fileID: 6490463174046439148}
   - component: {fileID: 6490463174046439139}
+  - component: {fileID: 144537241808901024}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -1640,6 +1711,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Commandes Ma\xEEtre du Jeu"
+--- !u!114 &144537241808901024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6490463174046439137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: gm_title
 --- !u!1 &6569113528025627511
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,6 +1735,7 @@ GameObject:
   - component: {fileID: 332612451990866310}
   - component: {fileID: 4793651691435394676}
   - component: {fileID: 3308839627257439646}
+  - component: {fileID: 9150509540704345429}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1719,6 +1804,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
+--- !u!114 &9150509540704345429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6569113528025627511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: gm_tpto_ipt
 --- !u!1 &6583985172296098441
 GameObject:
   m_ObjectHideFlags: 0
@@ -1730,6 +1828,7 @@ GameObject:
   - component: {fileID: 9121730897810766121}
   - component: {fileID: 1105199495264731100}
   - component: {fileID: 1171455506207397315}
+  - component: {fileID: 1728353254028456305}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1798,6 +1897,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Ouvrir les portes du d\xE9but de partie"
+--- !u!114 &1728353254028456305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6583985172296098441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: gm_opendoor_btn
 --- !u!1 &6801371762225228670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1950,6 +2062,7 @@ GameObject:
   - component: {fileID: 1709268970853132869}
   - component: {fileID: 3282464125282402929}
   - component: {fileID: 6690159461577551625}
+  - component: {fileID: 2879653702679245275}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2018,6 +2131,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Devenir invincible
+--- !u!114 &2879653702679245275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6821631592979909711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: gm_invincible
 --- !u!1 &6884050786600243838
 GameObject:
   m_ObjectHideFlags: 0
@@ -2029,6 +2155,7 @@ GameObject:
   - component: {fileID: 2389741751394093876}
   - component: {fileID: 3720127964027331844}
   - component: {fileID: 2812690416685046454}
+  - component: {fileID: 3356237478336537666}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2097,6 +2224,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "T\xE9l\xE9porter vers moi"
+--- !u!114 &3356237478336537666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6884050786600243838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: gm_tptome_btn
 --- !u!1 &6935500659879297533
 GameObject:
   m_ObjectHideFlags: 0
@@ -2906,6 +3046,7 @@ GameObject:
   - component: {fileID: 8061219365643741383}
   - component: {fileID: 6016961952366284693}
   - component: {fileID: 2575610653025717086}
+  - component: {fileID: 2259447188056978594}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2974,6 +3115,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "D\xE9clancher / Arr\xEAter l'eau"
+--- !u!114 &2259447188056978594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8765264829807005068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: gm_startwater_btn
 --- !u!1 &8887988645008794966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3133,6 +3287,7 @@ GameObject:
   - component: {fileID: 628110834007684355}
   - component: {fileID: 1304328735204529908}
   - component: {fileID: 5137678898488390779}
+  - component: {fileID: 8595327290160065768}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -3201,6 +3356,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Appliquer la vitesse de l'eau
+--- !u!114 &8595327290160065768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9103182302062237909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: gm_applywaterspeed_btn
 --- !u!1 &9110862897096167663
 GameObject:
   m_ObjectHideFlags: 0
@@ -3330,6 +3498,7 @@ GameObject:
   - component: {fileID: 8220598814754099119}
   - component: {fileID: 1949779961355824969}
   - component: {fileID: 4322727654646763009}
+  - component: {fileID: 7165552117726667410}
   m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
@@ -3398,3 +3567,16 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Item type (ID)
+--- !u!114 &7165552117726667410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9148210594500887026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: gm_additem_ipt

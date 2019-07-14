@@ -51,7 +51,7 @@ namespace GarbageRoyale.Scripts.Menu
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = (byte)choosePlayers.value;
             dialogWindow.SetActive(true);
-            dialogText.text = "Création de la room";
+            dialogText.text = controller.lc.GetLocalizedValue("dialog_creating_game");
             dialogButton.SetActive(false);
 
             PhotonNetwork.CreateRoom(roomNameIpt.text, roomOptions);

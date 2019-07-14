@@ -32,6 +32,8 @@ namespace GarbageRoyale.Scripts.Menu
         
         [SerializeField]
         private GameController controller;
+        [SerializeField]
+        private StartGame mc;
     
         // Start is called before the first frame update
         void Start()
@@ -44,11 +46,11 @@ namespace GarbageRoyale.Scripts.Menu
             }
             if (Screen.fullScreen)
             {
-                textSetFullscreen.text = "Passer en mode fenêtré";
+                textSetFullscreen.text = mc.lc.GetLocalizedValue("settings_windowed_btn");
             }
             else
             {
-                textSetFullscreen.text = "Passer en mode Plein écran";
+                textSetFullscreen.text = mc.lc.GetLocalizedValue("settings_fullscreen_btn");
             }
             baseMenu.SetActive(true);
             settingsMenu.SetActive(false);
@@ -85,13 +87,13 @@ namespace GarbageRoyale.Scripts.Menu
 
         public void ChangeButtonScreenStatText()
         {
-            if (!Screen.fullScreen)
+            if (Screen.fullScreen)
             {
-                textSetFullscreen.text = "Passer en mode fenêtré";
+                textSetFullscreen.text = mc.lc.GetLocalizedValue("settings_windowed_btn");
             }
             else
             {
-                textSetFullscreen.text = "Passer en mode Plein écran";
+                textSetFullscreen.text = mc.lc.GetLocalizedValue("settings_fullscreen_btn");
             }
         }
 

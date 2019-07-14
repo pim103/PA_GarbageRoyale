@@ -47,13 +47,13 @@ namespace GarbageRoyale.Scripts.Menu
             switch (sg)
             {
                 case StateEndGame.All_Dead:
-                    EndMessage.text = "Fin de la partie\nTout le monde est mort";
+                    EndMessage.text = controller.lc.GetLocalizedValue("end_all_dead");
                     break;
                 case StateEndGame.One_Alive:
-                    EndMessage.text = "Fin de la partie\nLe joueur : " + idPlayer + " a réussi à s'échapper";
+                    EndMessage.text = controller.lc.GetLocalizedValue("end_one_alive");
                     break;
                 case StateEndGame.Won:
-                    EndMessage.text = "Fin de la partie\nVous avez gagné !";
+                    EndMessage.text = controller.lc.GetLocalizedValue("end_won");
                     break;
             }
         }

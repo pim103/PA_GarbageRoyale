@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using GarbageRoyale.Scripts.Localization;
 using Photon.Pun;
 using UnityEngine;
 
@@ -28,6 +29,9 @@ namespace GarbageRoyale.Scripts.Menu
 
         [SerializeField]
         public GameObject gameController;
+        [SerializeField] 
+        public LocalizationController lc;
+        
         [SerializeField]
         public GameObject invHUD;
         [SerializeField]
@@ -36,6 +40,16 @@ namespace GarbageRoyale.Scripts.Menu
         // Start is called before the first frame update
         void Start()
         {
+            LocalizationState lcd = LocalizationSave.LoadData();
+            if (lcd == null)
+            {
+                lc.LoadLocalizeText("en_EN.json");
+            }
+            else
+            {
+                lc.LoadLocalizeText(lcd.LocalizationFileName);
+            }
+            
             DataState loadedData = SaveState.LoadData();
             if (loadedData != null)
             {

@@ -3,7 +3,7 @@ namespace GarbageRoyale.Scripts.Localization
     [System.Serializable]
     public class LocalizationData
     {
-        private LocalizationItem[] items;
+        public LocalizationItem[] items;
     }
 
     [System.Serializable]

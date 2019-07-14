@@ -46,14 +46,18 @@ namespace GarbageRoyale.Scripts.Menu
         {
             dialogButton.SetActive(false);
             dialogWindow.SetActive(true);
-            dialogText.text = "Chargement des joueurs";
+            dialogText.text = menuController.lc.GetLocalizedValue("dialog_loading_players");
         }
 
         private void Awake()
         {
             if (!PhotonNetwork.IsMasterClient)
             {
-                readyText.text = "Prêt";
+                readyText.text = menuController.lc.GetLocalizedValue("ready_btn");
+            }
+            else
+            {
+                readyText.text = menuController.lc.GetLocalizedValue("launch_btn");
             }
             playersNickName = Enumerable.Repeat("", 20).ToArray();
             StartCoroutine(GetPlayers());
@@ -72,7 +76,7 @@ namespace GarbageRoyale.Scripts.Menu
                 if (PhotonNetwork.CurrentRoom.MaxPlayers != PhotonNetwork.CurrentRoom.PlayerCount)
                 {
                     dialogWindow.SetActive(true);
-                    dialogText.text = "Tous les joueurs ne sont pas prêts!";
+                    dialogText.text = menuController.lc.GetLocalizedValue("dialog_players_not_ready");
                     return;
                 }
                 

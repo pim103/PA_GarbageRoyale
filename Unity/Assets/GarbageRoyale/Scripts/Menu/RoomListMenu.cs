@@ -48,7 +48,7 @@ namespace GarbageRoyale.Scripts.Menu
             PhotonNetwork.JoinRoom(roomSelected);
             joinButton.interactable = false;
             dialogWindow.SetActive(true);
-            dialogText.text = "Connexion à la partie";
+            dialogText.text = controller.lc.GetLocalizedValue("dialog_join_game");
         }
 
         public override void OnJoinedRoom()
@@ -64,7 +64,7 @@ namespace GarbageRoyale.Scripts.Menu
 
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
-            dialogText.text = "Erreur : Impossible de rejoindre la partie";
+            dialogText.text = controller.lc.GetLocalizedValue("dialog_join_game_failed");
             joinButton.interactable = true;
             dialogButton.SetActive(true);
             

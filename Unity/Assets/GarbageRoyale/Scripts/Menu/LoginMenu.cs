@@ -121,7 +121,7 @@ namespace GarbageRoyale.Scripts.Menu
             LoginSave.SaveMailLogin(accountMail.text);
             dialogWindow.SetActive(true);
             //dialogText.enabled = true;
-            dialogText.text = "Connexion en cours";
+            dialogText.text = controller.lc.GetLocalizedValue("dialog_login");
             StartCoroutine(Login());
         }
 
@@ -133,11 +133,11 @@ namespace GarbageRoyale.Scripts.Menu
             var www = UnityWebRequest.Post("https://garbage-royale.heolia.eu/services/account/logging.php", form);
             www.certificateHandler = new AcceptAllCertificatesSignedWithASpecificKeyPublicKey();
             yield return www.SendWebRequest();
-            dialogText.text = "Authentification en cours";
+            dialogText.text = controller.lc.GetLocalizedValue("dialog_auth");
             yield return new WaitForSeconds(0.5f);
             if (www.responseCode == 202)
             {
-                dialogText.text = "Connexion réussie";
+                dialogText.text = controller.lc.GetLocalizedValue("dialog_login_done");
                 yield return new WaitForSeconds(0.5f);
                 PhotonNetwork.ConnectUsingSettings();
                 httpResponse = www.downloadHandler.text.Split('#');
@@ -156,13 +156,13 @@ namespace GarbageRoyale.Scripts.Menu
             else if (www.responseCode == 406)
             {
                 dialogButton.SetActive(true);
-                dialogText.text = "Votre email ou/et votre mot de passe n'est pas valide.";
+                dialogText.text = controller.lc.GetLocalizedValue("dialog_login_error");
                 //Debug.Log("Serveur d'authentification indisponible.");
             }
             else
             {
                 dialogButton.SetActive(true);
-                dialogText.text = "Une erreur est survenue. Veuillez réessayer à nouveau. Si cela ne fonctionnne toujours pas, veuillez contacter le support.";
+                dialogText.text = controller.lc.GetLocalizedValue("dialog_login_server_error");
                 Debug.Log(www.downloadHandler.data);
             }
         }

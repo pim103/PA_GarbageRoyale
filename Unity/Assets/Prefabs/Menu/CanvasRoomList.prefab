@@ -116,7 +116,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4199170051033326391}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -390,6 +390,7 @@ GameObject:
   - component: {fileID: 4858703937801961981}
   - component: {fileID: 1352786701892258517}
   - component: {fileID: 2900495391110625388}
+  - component: {fileID: 750208844575945055}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -458,6 +459,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Rejoindre le serveur
+--- !u!114 &750208844575945055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5826931518189054649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: join_server_btn
 --- !u!1 &6119040042743385768
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,6 +610,7 @@ GameObject:
   - component: {fileID: 6119040043296304581}
   - component: {fileID: 6119040043296304579}
   - component: {fileID: 6119040043296304580}
+  - component: {fileID: 3175732749262118486}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -664,6 +679,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Retour
+--- !u!114 &3175732749262118486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6119040043296304582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6cac79fdce44b1a732a070998c05be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: return_btn
 --- !u!1 &6119040043527854029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,7 +1199,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000113942, y: 0.00005818813}
+  m_AnchoredPosition: {x: -0.00007174458, y: 0.000016162325}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4860435195236210123
@@ -1341,11 +1369,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6119040042743385764}
     m_Modifications:
-    - target: {fileID: 7535642270676079132, guid: ffa0eca87c6d97940852e3d352be12fb,
-        type: 3}
-      propertyPath: m_Name
-      value: DialogBox
-      objectReference: {fileID: 0}
     - target: {fileID: 1258889219133923184, guid: ffa0eca87c6d97940852e3d352be12fb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1400,6 +1423,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535642270676079132, guid: ffa0eca87c6d97940852e3d352be12fb,
+        type: 3}
+      propertyPath: m_Name
+      value: DialogBox
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffa0eca87c6d97940852e3d352be12fb, type: 3}

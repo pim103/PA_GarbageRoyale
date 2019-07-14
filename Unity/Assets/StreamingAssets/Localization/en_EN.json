@@ -45,6 +45,10 @@
       "value": "Account nickname"
     },
     {
+      "key": "dialog_auth",
+      "value": "Auth process"
+    },
+    {
       "key": "dialog_login",
       "value": "Connection in progress"
     },
@@ -215,6 +219,14 @@
     {
       "key": "end_won",
       "value": "End of the game\nYou have won !"
+    },
+    {
+      "key": "dialog_join_game",
+      "value": "Joining game"
+    },
+    {
+      "key": "dialog_join_game_failed",
+      "value": "Error : Can't join game"
     }
   ]
 }

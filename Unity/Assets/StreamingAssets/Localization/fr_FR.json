@@ -45,6 +45,10 @@
       "value": "Votre nom de compte"
     },
     {
+      "key": "dialog_auth",
+      "value": "Authentification en cours"
+    },
+    {
       "key": "dialog_login",
       "value": "Connexion en cours"
     },
@@ -215,6 +219,14 @@
     {
       "key": "end_won",
       "value": "Fin de la partie\nVous avez gagné !"
+    },
+    {
+      "key": "dialog_join_game",
+      "value": "Connexion à la partie"
+    },
+    {
+      "key": "dialog_join_game_failed",
+      "value": "Erreur : Impossible de rejoindre la partie"
     }
   ]
 }
