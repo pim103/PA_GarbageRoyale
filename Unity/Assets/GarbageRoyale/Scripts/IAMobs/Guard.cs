@@ -78,6 +78,7 @@ namespace GarbageRoyale.Scripts.IAMobs
                     ratAnimator.SetBool(isRunningHash, true);
                     ratAnimator.SetBool(isMovingHash, true);
                     mc.mobsAnimState[mstats.id] = 2;
+                    mc.hasSeenAnything[mstats.id] = true;
                     //Debug.Log("player");
                 }
             }
