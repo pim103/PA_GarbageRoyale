@@ -69,18 +69,21 @@ namespace GarbageRoyale.Scripts.IAMobs
         }
         private void OnTriggerEnter(Collider collider)
         {
-            if (PhotonNetwork.IsMasterClient 
-                && gc.doorIsOpen)
+            if (gc.doorIsOpen)
             {
-                if (collider.CompareTag("Player"))
+                if (PhotonNetwork.IsMasterClient)
                 {
-                    ratState.SetBool(playerOnSightHash, true);
-                    ratState.SetInteger(playerIDHash, collider.gameObject.GetComponent<ExposerPlayer>().PlayerIndex);
-                    ratAnimator.SetBool(isRunningHash, true);
-                    ratAnimator.SetBool(isMovingHash, true);
-                    mc.mobsAnimState[mstats.id] = 2;
-                    mc.hasSeenAnything[mstats.id] = true;
-                    //Debug.Log("player");
+                    if (collider.CompareTag("Player"))
+                    {
+                        ratState.SetBool(playerOnSightHash, true);
+                        ratState.SetInteger(playerIDHash,
+                            collider.gameObject.GetComponent<ExposerPlayer>().PlayerIndex);
+                        ratAnimator.SetBool(isRunningHash, true);
+                        ratAnimator.SetBool(isMovingHash, true);
+                        mc.mobsAnimState[mstats.id] = 2;
+                        mc.hasSeenAnything[mstats.id] = true;
+                        //Debug.Log("player");
+                    }
                 }
             }
         }
@@ -130,7 +133,7 @@ namespace GarbageRoyale.Scripts.IAMobs
                 
                 
             }
-            else
+            else if(mc.hasSeenAnything[mstats.id])
             {
                 switch (mc.mobsAnimState[mstats.id])
                 {

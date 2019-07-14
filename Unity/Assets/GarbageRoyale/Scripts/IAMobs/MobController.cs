@@ -41,7 +41,7 @@ namespace GarbageRoyale.Scripts.IAMobs
                     {
                         if (hasSeenAnything[i])
                         {
-                            photonView.RPC("UpdateCurrentMob",RpcTarget.Others,i, mobsAnimState[i],mobsPosX[i],mobsPosY[i],mobsPosZ[i],mobsRotY[i],mobsHP[i]);
+                            photonView.RPC("UpdateCurrentMob",RpcTarget.Others,i, mobsAnimState[i],mobsPosX[i],mobsPosY[i],mobsPosZ[i],mobsRotY[i],mobsHP[i], true);
                         }
                     }
                 }
@@ -60,7 +60,7 @@ namespace GarbageRoyale.Scripts.IAMobs
         }
         
         [PunRPC]
-        void UpdateCurrentMob(int mobId,int animStates, float posX, float posY, float posZ, float rotY, float HPs)
+        void UpdateCurrentMob(int mobId,int animStates, float posX, float posY, float posZ, float rotY, float HPs, bool Seen)
         {
             mobsAnimState[mobId] = animStates;
             mobsPosX[mobId] = posX;
@@ -68,6 +68,7 @@ namespace GarbageRoyale.Scripts.IAMobs
             mobsPosZ[mobId] = posZ;
             mobsRotY[mobId] = rotY;
             mobsHP[mobId] = HPs;
+            hasSeenAnything[mobId] = Seen;
         }
     }
 }
