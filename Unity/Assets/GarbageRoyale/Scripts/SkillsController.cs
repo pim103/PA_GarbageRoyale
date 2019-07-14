@@ -245,14 +245,14 @@ namespace GarbageRoyale.Scripts
                     gc.playersActions[playerIndex].isAmphibian = true;
                     break;
                 case SkillType.Dash:
-                    var forward = gc.players[playerIndex].PlayerCamera.transform.forward;
+                    if(PhotonNetwork.IsMasterClient)
+                    {
+                        var forward = gc.players[playerIndex].PlayerModel.transform.forward;
  
-                    forward.y = 0f;
-                    forward.Normalize();
-                    
-                    gc.moveDirection[playerIndex] = forward;
-                    gc.moveDirection[playerIndex] *= 5;
+                        forward.Normalize();
 
+                        gc.players[playerIndex].PlayerChar.AddForce(forward * 250, ForceMode.Impulse);
+                    }
                     //gc.players[playerIndex].PlayerChar.Move(gc.moveDirection[playerIndex]);
                     if (gc.playersActions[playerIndex].isInWater || gc.playersActions[playerIndex].headIsInWater || gc.playersActions[playerIndex].isInWater)
                     {
