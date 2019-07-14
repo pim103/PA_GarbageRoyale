@@ -46,6 +46,7 @@ public class Electricity : MonoBehaviour
         if (other.name.StartsWith("Player"))
         {
             int id = other.GetComponent<ExposerPlayer>().PlayerIndex;
+            Debug.Log(id);
 
             coroutine[id] = DealDamage(id);
             StartCoroutine(coroutine[id]);

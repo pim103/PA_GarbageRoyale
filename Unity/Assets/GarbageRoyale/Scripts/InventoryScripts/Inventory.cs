@@ -56,7 +56,7 @@ namespace GarbageRoyale.Scripts.InventoryScripts
         
         public int findPlaceSkills()
         {
-            for (int i = 0; i < itemSlots; i++)
+            for (int i = 0; i < skillSlots; i++)
             {
                 if (skillInventory[i] == -1)
                 {
