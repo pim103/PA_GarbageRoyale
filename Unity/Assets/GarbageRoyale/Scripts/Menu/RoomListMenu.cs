@@ -120,9 +120,7 @@ namespace GarbageRoyale.Scripts.Menu
                             {
                                 SelectRoom(listing, info.Name);
                             });
-                            Debug.Log(listing.RoomInfo);
                             listing.RoomInfo = info;
-                            Debug.Log(listing.RoomInfo);
                             listRooms.Add(listing);
                         }
                     }

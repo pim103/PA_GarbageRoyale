@@ -1,0 +1,220 @@
+{
+  "items":[
+    {
+      "key": "login_title",
+      "value": "Login"
+    },
+    {
+      "key": "email_ipt",
+      "value": "Your email"
+    },
+    {
+      "key": "pwd_ipt",
+      "value": "Your password"
+    },
+    {
+      "key": "pwd_conf_ipt",
+      "value": "Confirm your password"
+    },
+    {
+      "key": "confirm_btn",
+      "value": "Confirm"
+    },
+    {
+      "key": "return_btn",
+      "value": "Return"
+    },
+    {
+      "key": "leave_btn",
+      "value": "Leave"
+    },
+    {
+      "key": "offline_btn",
+      "value": "Play offline"
+    },
+    {
+      "key": "create_account_btn",
+      "value": "Account creation"
+    },
+    {
+      "key": "register_title",
+      "value": "Account registering"
+    },
+    {
+      "key": "register_nickname",
+      "value": "Account nickname"
+    },
+    {
+      "key": "dialog_login",
+      "value": "Connection in progress"
+    },
+    {
+      "key": "dialog_login_done",
+      "value": "Connection done"
+    },
+    {
+      "key": "dialog_login_error",
+      "value": "Your email or password is invalid"
+    },
+    {
+      "key": "dialog_login_server_error",
+      "value": "An error has occurred. Please try again. If this still does not work, please contact support."
+    },
+    {
+      "key": "dialog_register_name_error",
+      "value": "X - Your name is too short or too long (Must be greater than 3 characters and less than 14 characters)"
+    },
+    {
+      "key": "dialog_register_email_error",
+      "value": "X - Your email is invalid"
+    },
+    {
+      "key": "dialog_register_pwd_error",
+      "value": "X - Your password is too small or too large (Must be greater than 8 characters and less than 24 characters)"
+    },
+    {
+      "key": "dialog_register_pwdconf_error",
+      "value": "X - Your passwords do not match"
+    },
+    {
+      "key": "new_game_btn",
+      "value": "New game"
+    },
+    {
+      "key": "join_game_btn",
+      "value": "Join game"
+    },
+    {
+      "key": "room_name_ipt",
+      "value": "Game name"
+    },
+    {
+      "key": "player_slider_txt",
+      "value": "Number of players desired"
+    },
+    {
+      "key": "create_game_btn",
+      "value": "Create"
+    },
+    {
+      "key": "dialog_creating_game",
+      "value": "Creation of the game"
+    },
+    {
+      "key": "dialog_loading_players",
+      "value": "Players loading"
+    },
+    {
+      "key": "ready_btn",
+      "value": "Ready"
+    },
+    {
+      "key": "launch_btn",
+      "value": "Launch game"
+    },
+    {
+      "key": "leave_lobby_btn",
+      "value": "Leave Lobby"
+    },
+    {
+      "key": "dialog_players_not_ready",
+      "value": "All players are not ready"
+    },
+    {
+      "key": "join_server_btn",
+      "value": "Join server"
+    },
+    {
+      "key": "pause_title",
+      "value": "Menu"
+    },
+    {
+      "key": "pause_settings_btn",
+      "value": "Settings"
+    },
+    {
+      "key": "settings_sound_txt",
+      "value": "General sound"
+    },
+    {
+      "key": "settings_fullscreen_btn",
+      "value": "Set fullscreen"
+    },
+    {
+      "key": "settings_windowed_btn",
+      "value": "Set windowed"
+    },
+    {
+      "key": "pause_left_game_btn",
+      "value": "Left the game"
+    },
+    {
+      "key": "pause_leave_game_btn",
+      "value": "Leave the game"
+    },
+    {
+      "key": "gm_title",
+      "value": "GameMaster's Commands"
+    },
+    {
+      "key": "gm_invincible",
+      "value": "Be invincible"
+    },
+    {
+      "key": "gm_invisible",
+      "value": "Be invisible"
+    },
+    {
+      "key": "gm_additem_ipt",
+      "value": "Item type (ID)"
+    },
+    {
+      "key": "gm_additem_btn",
+      "value": "Add item"
+    },
+    {
+      "key": "gm_tptome_ipt",
+      "value": "Player ID"
+    },
+    {
+      "key": "gm_tptome_btn",
+      "value": "Teleport to me"
+    },
+    {
+      "key": "gm_tpto_ipt",
+      "value": "Player ID"
+    },
+    {
+      "key": "gm_tpto_btn",
+      "value": "Teleport to"
+    },
+    {
+      "key": "gm_tptoend_btn",
+      "value": "Teleport me on the last floor"
+    },
+    {
+      "key": "gm_startwater_btn",
+      "value": "Start / Stop water"
+    },
+    {
+      "key": "gm_opendoor_btn",
+      "value": "Open the beginning doors"
+    },
+    {
+      "key": "gm_applywaterspeed_btn",
+      "value": "Apply water speed"
+    },
+    {
+      "key": "end_all_dead",
+      "value": "End of the game\nEveryone is dead"
+    },
+    {
+      "key": "end_one_alive",
+      "value": "End of the game\nPlayer : ${player} has won"
+    },
+    {
+      "key": "end_won",
+      "value": "End of the game\nYou have won !"
+    }
+  ]
+}

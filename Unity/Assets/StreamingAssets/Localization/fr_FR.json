@@ -1,0 +1,220 @@
+{
+  "items":[
+    {
+      "key": "login_title",
+      "value": "Se connecter"
+    },
+    {
+      "key": "email_ipt", 
+      "value": "Votre email"
+    },
+    {
+      "key": "pwd_ipt",
+      "value": "Votre mot de passe"
+    },
+    {
+      "key": "pwd_conf_ipt",
+      "value": "Confirmer votre mot de passe"
+    },
+    {
+      "key": "confirm_btn",
+      "value": "Confirmer"
+    },
+    {
+      "key": "return_btn",
+      "value": "Retour"
+    },
+    {
+      "key": "leave_btn",
+      "value": "Quitter"
+    },
+    {
+      "key": "offline_btn",
+      "value": "Jouer hors-ligne"
+    },
+    {
+      "key": "create_account_btn",
+      "value": "Créer un compte"
+    },
+    {
+      "key": "register_title",
+      "value": "Enregistrer mon compte"
+    },
+    {
+      "key": "register_nickname",
+      "value": "Votre nom de compte"
+    },
+    {
+      "key": "dialog_login",
+      "value": "Connexion en cours"
+    },
+    {
+      "key": "dialog_login_done",
+      "value": "Connexion réussie"
+    },
+    {
+      "key": "dialog_login_error",
+      "value": "Votre email ou/et votre mot de passe n'est pas valide."
+    },
+    {
+      "key": "dialog_login_server_error",
+      "value": "Une erreur est survenue. Veuillez réessayer à nouveau. Si cela ne fonctionnne toujours pas, veuillez contacter le support."
+    },
+    {
+      "key": "dialog_register_name_error",
+      "value": "X - Votre nom est trop court ou trop long (Doit être supérieur à 3 caractères et inférieurs à 14 caractères)"
+    },
+    {
+      "key": "dialog_register_email_error",
+      "value": "X - Votre mail n'est pas valide"
+    },
+    {
+      "key": "dialog_register_pwd_error",
+      "value": "X - Votre mot de passe est trop petit ou trop grande (Doit être supérieur à 8 caractères et inférieurs à 24 caractères)"
+    },
+    {
+      "key": "dialog_register_pwdconf_error",
+      "value": "X - Vos mots de passes ne concordent pas"
+    },
+    {
+      "key": "new_game_btn",
+      "value": "Nouvelle partie"
+    },
+    {
+      "key": "join_game_btn",
+      "value": "Rejoindre partie"
+    },
+    {
+      "key": "room_name_ipt",
+      "value": "Nom de la partie"
+    },
+    {
+      "key": "player_slider_txt",
+      "value": "Nombre de joueurs souhaités"
+    },
+    {
+      "key": "create_game_btn",
+      "value": "Créer"
+    },
+    {
+      "key": "dialog_creating_game",
+      "value": "Création de la partie"
+    },
+    {
+      "key": "dialog_loading_players",
+      "value": "Chargement des joueurs"
+    },
+    {
+      "key": "ready_btn",
+      "value": "Prêt"
+    },
+    {
+      "key": "launch_btn",
+      "value": "Lancer la partie"
+    },
+    {
+      "key": "leave_lobby_btn",
+      "value": "Quitter le Lobby"
+    },
+    {
+      "key": "dialog_players_not_ready",
+      "value": "Tous les joueurs ne sont pas prêts"
+    },
+    {
+      "key": "join_server_btn",
+      "value": "Rejoindre le serveur"
+    },
+    {
+      "key": "pause_title",
+      "value": "Menu"
+    },
+    {
+      "key": "pause_settings_btn",
+      "value": "Options"
+    },
+    {
+      "key": "settings_sound_txt",
+      "value": "Son général"
+    },
+    {
+      "key": "settings_fullscreen_btn",
+      "value": "Passer en plein écran"
+    },
+    {
+      "key": "settings_windowed_btn",
+      "value": "Passer en mode fenêtré"
+    },
+    {
+      "key": "pause_left_game_btn",
+      "value": "Sortir de la partie"
+    },
+    {
+      "key": "pause_leave_game_btn",
+      "value": "Quitter le jeu"
+    },
+    {
+      "key": "gm_title",
+      "value": "Commandes de Maître du Jeu"
+    },
+    {
+      "key": "gm_invincible",
+      "value": "Devenir invincible"
+    },
+    {
+      "key": "gm_invisible",
+      "value": "Devenir invisible"
+    },
+    {
+      "key": "gm_additem_ipt",
+      "value": "Item type (ID)"
+    },
+    {
+      "key": "gm_additem_btn",
+      "value": "Ajouter l'objet"
+    },
+    {
+      "key": "gm_tptome_ipt",
+      "value": "Player ID"
+    },
+    {
+      "key": "gm_tptome_btn",
+      "value": "Téléporter vers moi"
+    },
+    {
+      "key": "gm_tpto_ipt",
+      "value": "Player ID"
+    },
+    {
+      "key": "gm_tpto_btn",
+      "value": "Me téléporter vers"
+    },
+    {
+      "key": "gm_tptoend_btn",
+      "value": "Me téléporter au dernier étage"
+    },
+    {
+      "key": "gm_startwater_btn",
+      "value": "Déclencher / Arrêter l'eau"
+    },
+    {
+      "key": "gm_opendoor_btn",
+      "value": "Ouvrir les portes du début de la partie"
+    },
+    {
+      "key": "gm_applywaterspeed_btn",
+      "value": "Appliquer la vitesse de l'eau"
+    },
+    {
+      "key": "end_all_dead",
+      "value": "Fin de la partie\nTout le monde est mort"
+    },
+    {
+      "key": "end_one_alive",
+      "value": "Fin de la partie\nLe joueur : ${player} a réussi à s'échapper"
+    },
+    {
+      "key": "end_won",
+      "value": "Fin de la partie\nVous avez gagné !"
+    }
+  ]
+}
