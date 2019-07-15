@@ -318,6 +318,25 @@ namespace GarbageRoyale.Scripts
                 }
             }
         }
+        
+        [PunRPC]
+        private void ResetPlayer(int id)
+        {
+            players[id].PlayerGameObject.SetActive(false);
+            players[id].PlayerStats.PlayerRole = 0;
+            players[id].PlayerStats.PlayerName = null;
+            players[id].PlayerStats.currentHp = 0;
+            players[id].PlayerStats.currentStamina = 0;
+            players[id].PlayerStats.currentBreath = 0;
+            players[id].PlayerStats.basicAttack = 0;
+            players[id].PlayerStats.basicAttack = 0;
+            players[id].PlayerStats.isDead = false;
+            //gc.players[id].PlayerStats. = false;
+            players[id].PlayerStats.isAlreadyTrigger = false;
+            players[id].PlayerStats.isInvincible = false;
+            players[id].PlayerStats.isReadyToPlay = false;
+            
+        }
 
         [PunRPC]
         public void SetReady(int index, bool toggle)

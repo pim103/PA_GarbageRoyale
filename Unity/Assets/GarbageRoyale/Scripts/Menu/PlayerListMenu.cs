@@ -5,6 +5,7 @@ using System.Linq;
 using GarbageRoyale.Scripts.PrefabPlayer;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -113,18 +114,21 @@ namespace GarbageRoyale.Scripts.Menu
                 return;
             
             int index = Array.IndexOf(playersNickName, otherPlayer.NickName);
-
-            photonView.RPC("TellPlayerLefted", RpcTarget.All, index);
+            if (index != -1)
+            {
+                gc.photonView.RPC("ResetPlayer", RpcTarget.All, index);
+                photonView.RPC("TellPlayerLeft", RpcTarget.All, index);
+            }
         }
 
         [PunRPC]
-        public void TellPlayerLefted(int index)
+        public void TellPlayerLeft(int index)
         {
             playersNickName[index] = "";
             gc.AvatarToUserId[index] = "";
             listPlayers[index].gameObject.SetActive(false);
         }
-        
+
         private void AskToGoToMainMenu()
         {
             PhotonNetwork.Disconnect();
