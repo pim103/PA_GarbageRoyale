@@ -31,6 +31,7 @@ namespace GarbageRoyale.Scripts.EndGameElevator
                 {
                     room.GetComponent<EndRoomScript>().light1.gameObject.SetActive(true);
                     room.GetComponent<EndRoomScript>().light2.gameObject.SetActive(true);
+                    room.GetComponent<Collider>().enabled = true;
                 }
 
                 foreach (var player in gc.players)

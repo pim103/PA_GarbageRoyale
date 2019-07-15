@@ -20,6 +20,7 @@ namespace GarbageRoyale.Scripts.IAMobs
         private int blockIDHash;
         private int hasHeardNoiseHash;
         private int isAttackingHash;
+        private bool playerInTrigger;
 
         [SerializeField] 
         public Animator ratAnimator;
@@ -82,6 +83,7 @@ namespace GarbageRoyale.Scripts.IAMobs
                         ratAnimator.SetBool(isMovingHash, true);
                         mc.mobsAnimState[mstats.id] = 2;
                         mc.hasSeenAnything[mstats.id] = true;
+                        playerInTrigger = true;
                         //Debug.Log("player");
                     }
                 }
@@ -94,6 +96,7 @@ namespace GarbageRoyale.Scripts.IAMobs
                 if (collider.CompareTag("Player"))
                 {
                     ratState.SetBool(playerOnSightHash, false);
+                    playerInTrigger = false;
                 }
             }
         }
@@ -122,7 +125,10 @@ namespace GarbageRoyale.Scripts.IAMobs
                     ratAnimator.SetBool(isRunningHash, false);
                     ratAnimator.SetBool(isMovingHash, false);
                     mc.mobsAnimState[mstats.id] = 0;
-                    //mc.hasSeenAnything[mstats.id] = false;
+                    if (!playerInTrigger)
+                    {
+                        mc.hasSeenAnything[mstats.id] = false;
+                    }
                 }
                 /*Debug.Log(mstats.id);
                 Debug.Log(mc.mobsPosX[mstats.id]);*/
