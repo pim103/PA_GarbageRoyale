@@ -16,14 +16,11 @@ namespace GarbageRoyale.Scripts.GameMaster
 
         private void Update()
         {
-            if (!PhotonNetwork.OfflineMode)
+            if (gc.players[Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerStats.PlayerRole < 2)
             {
-                if (gc.players[Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId)].PlayerStats.PlayerRole < 3)
-                {
-                    return;
-                }
+                return;
             }
-            
+
             if (Input.GetKeyDown(KeyCode.Quote))
             {
                 if (!isInGMGUI)

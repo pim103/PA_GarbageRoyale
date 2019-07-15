@@ -103,6 +103,7 @@ namespace GarbageRoyale.Scripts
         public Vector3[] rotationPlayer;
         public Vector3[] moveDirection;
         public string[] AvatarToUserId;
+        public int[] playersScores;
         public bool endOfInit;
         public bool doorIsOpen;
 
@@ -135,12 +136,14 @@ namespace GarbageRoyale.Scripts
 
         public bool mineQ;
         public bool isSpectator;
+        public bool endSendingScores;
 
         private void Awake()
         {
             nbItems = 0;
             mineQ = false;
             AvatarToUserId = Enumerable.Repeat("", 20).ToArray();
+            playersScores = Enumerable.Repeat(0, 20).ToArray();
             PlayerJoined += ActivateAvatar;
             PlayerLeft += null;
             OnlinePlayReady += StartGame;
@@ -226,6 +229,12 @@ namespace GarbageRoyale.Scripts
         public void testrpc()
         {
             Debug.Log("ALLO");
+        }
+        
+        [PunRPC]
+        void TellEndUpdate()
+        {
+            endSendingScores = true; 
         }
         
         [PunRPC]

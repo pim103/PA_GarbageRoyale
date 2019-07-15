@@ -227,6 +227,10 @@
     {
       "key": "dialog_join_game_failed",
       "value": "Error : Can't join game"
+    },
+    {
+      "key": "dialog_end_send_score",
+      "value": "Sending scores...\nPlease wait..."
     }
   ]
 }

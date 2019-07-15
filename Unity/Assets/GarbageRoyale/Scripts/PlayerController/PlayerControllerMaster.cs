@@ -200,10 +200,40 @@ namespace GarbageRoyale.Scripts.PlayerController
                         gc.playersActions[i].rotation
                     );
                 }
-
+                if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 2 && gc.playersScores[i] == 0)
+                {
+                    photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 0);
+                    break;
+                }
+                if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 3 && gc.playersScores[i] == 6)
+                {
+                    photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 1);
+                    break;
+                }
+                if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 4 && gc.playersScores[i] == 10)
+                {
+                    photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 2);
+                    break;
+                }
+                if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 5 && gc.playersScores[i] == 14)
+                {
+                    photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 3);
+                    break;
+                }
+                if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 6 && gc.playersScores[i] == 20)
+                {
+                    photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 4);
+                    break;
+                }
+                if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 7 && gc.playersScores[i] == 26)
+                {
+                    photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 5);
+                    break;
+                }
                 if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 8 - 5)
                 {
                     gc.isGameStart = false;
+                    photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 6);
                     photonView.RPC("EndGameRPC", RpcTarget.All, EndGameMenu.StateEndGame.One_Alive, i);
                     break;
                 }
@@ -218,6 +248,35 @@ namespace GarbageRoyale.Scripts.PlayerController
             {
                 gc.isGameStart = false;
                 photonView.RPC("EndGameRPC", RpcTarget.All, EndGameMenu.StateEndGame.All_Dead, -1);
+            }
+        }
+
+        [PunRPC]
+        private void UpdateScoreRPC(int i, int floor)
+        {
+            switch (floor)
+            {
+                case 0:
+                    gc.playersScores[i] = 6;
+                    break;
+                case 1:
+                    gc.playersScores[i] = 10;
+                    break;
+                case 2:
+                    gc.playersScores[i] = 14;
+                    break;
+                case 3:
+                    gc.playersScores[i] = 20;
+                    break;
+                case 4:
+                    gc.playersScores[i] = 26;
+                    break;
+                case 5:
+                    gc.playersScores[i] = 32;
+                    break;
+                case 6:
+                    gc.playersScores[i] = 40;
+                    break;
             }
         }
 

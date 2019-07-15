@@ -227,6 +227,10 @@
     {
       "key": "dialog_join_game_failed",
       "value": "Erreur : Impossible de rejoindre la partie"
+    },
+    {
+      "key": "dialog_end_send_score",
+      "value": "Envoie des scores...\nVeuillez patienter."
     }
   ]
 }

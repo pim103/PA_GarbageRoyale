@@ -8,7 +8,8 @@ header('Content-Type: application/json');
 $finalScore = AccountDAO::updatePlayerScore($_POST['userid'], $_POST['addScore']);
 
 if($finalScore){
-    http_response_code(200);
+    echo "yes";
+    http_response_code(202);
 }
 else{
     http_response_code(406);
