@@ -255,7 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Electof
-  damage: 8
+  damage: 2
   type: 20
   itemImg: {fileID: 5833977737841398870, guid: 73ccb9688864161488800d089c37f108, type: 3}
   isPickable: 1

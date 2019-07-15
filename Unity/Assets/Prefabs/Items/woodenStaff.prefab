@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Wooden Staff
-  damage: 15
+  damage: 7
   type: 1
   itemImg: {fileID: 5833977737841398870, guid: ad67ab737c4b5a94f9a74e0fed20b690, type: 3}
   isPickable: 1

@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Metal Sheet
-  damage: 8
+  damage: 2
   type: 13
   itemImg: {fileID: 5833977737841398870, guid: 9623f64cd3572b94381c65343669321e, type: 3}
   isPickable: 1

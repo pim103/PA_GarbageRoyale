@@ -87,6 +87,7 @@ MonoBehaviour:
   item: {fileID: 312816139}
   isOiled: 0
   isBurn: 1
+  isElec: 0
 --- !u!114 &312816139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Molotov
-  damage: 5
+  damage: 2
   type: 10
   itemImg: {fileID: 5833977737841398870, guid: cee90852b1232ad4196833231c7a1b85, type: 3}
   isPickable: 1

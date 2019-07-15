@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Water Bottle
-  damage: 5
+  damage: 2
   type: 18
   itemImg: {fileID: 5833977737841398870, guid: 65f27df40dc371f4baeb3c421f26cd01, type: 3}
   isPickable: 1

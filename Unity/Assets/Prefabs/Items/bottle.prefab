@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Bottle
-  damage: 5
+  damage: 2
   type: 7
   itemImg: {fileID: 5833977737841398870, guid: e218f15e510a09c4087eb399b5a934f3, type: 3}
   isPickable: 1

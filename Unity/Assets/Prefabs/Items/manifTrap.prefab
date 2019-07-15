@@ -708,7 +708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Trap Manif
-  damage: 5
+  damage: 0
   type: 17
   itemImg: {fileID: 5833977737841398870, guid: b7311b9f543fc3d45a2306d4eefc9af3, type: 3}
   isPickable: 1

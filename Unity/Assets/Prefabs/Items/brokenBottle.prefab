@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Broken Bottle
-  damage: 8
+  damage: 4
   type: 8
   itemImg: {fileID: 5833977737841398870, guid: 3d530559520791e458d2394ff07307b8, type: 3}
   isPickable: 1

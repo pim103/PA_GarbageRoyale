@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Battery
-  damage: 5
+  damage: 0
   type: 16
   itemImg: {fileID: 5833977737841398870, guid: 93654daed275d44408a126613f4b75af, type: 3}
   isPickable: 1

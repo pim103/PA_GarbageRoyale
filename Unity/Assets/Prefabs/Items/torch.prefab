@@ -4934,7 +4934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Torch
-  damage: 5
+  damage: 2
   type: 4
   itemImg: {fileID: 5833977737841398870, guid: 7fa254dcddedd94428d6748609bc2dfd, type: 3}
   isPickable: 1

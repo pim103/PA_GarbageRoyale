@@ -113,6 +113,7 @@ namespace GarbageRoyale.Scripts
             if(hp <= 0)
             {
                 pa.photonView.RPC("MobDeathAll",RpcTarget.All,id, UnityEngine.Random.Range(0, (int)SkillsController.SkillType.All));
+                mc.hasSeenAnything[id] = false;
             }
         }
         
@@ -141,49 +142,45 @@ namespace GarbageRoyale.Scripts
 
             Skill skill = lootedSkill.GetComponent<Skill>();
             skill.type = type;
-            skill.type = (int)SkillsController.SkillType.Dash;
 
             switch ((SkillsController.SkillType)skill.type)
             {
                 case SkillsController.SkillType.QuietSound:
                     skill.name = "Marche silencieuse";
-                    skill.bufftime = 10;
+                    skill.bufftime = 5;
                     skill.cooldown = 20;
                     break;
                 case SkillsController.SkillType.StaffMaster:
                     skill.name = "Maîtrise du bâton";
-                    skill.bufftime = 10;
-                    skill.cooldown = 20;
+                    skill.bufftime = 4;
+                    skill.cooldown = 30;
                     break;
                 case SkillsController.SkillType.Invisibility:
                     skill.name = "Invisibilité";
-                    skill.bufftime = 10;
+                    skill.bufftime = 5;
                     skill.cooldown = 20;
                     break;
                 case SkillsController.SkillType.Tazer:
                     skill.name = "Taser";
-                    skill.bufftime = 10;
-                    skill.cooldown = 20;
+                    skill.cooldown = 40;
                     break;
                 case SkillsController.SkillType.AquaticBreath:
                     skill.name = "Respiration aquatique";
-                    skill.bufftime = 10;
-                    skill.cooldown = 20;
+                    skill.bufftime = 30;
+                    skill.cooldown = 150;
                     break;
                 case SkillsController.SkillType.Dash:
                     skill.name = "Dash éclair";
-                    skill.bufftime = 10;
-                    skill.cooldown = 2;
+                    skill.cooldown = 20;
                     break;
                 case SkillsController.SkillType.IceWall:
                     skill.name = "Mur de Glace";
-                    skill.bufftime = 10;
-                    skill.cooldown = 20;
+                    skill.cooldown = 40;
                     break;
                 case SkillsController.SkillType.Hunting:
                     skill.name = "Chasseur";
-                    skill.bufftime = 10;
-                    skill.cooldown = 20;
+                    skill.bufftime = 15;
+                    skill.cooldown = 60;
                     break;
                 default:
                     skill.name = "Inconnu";

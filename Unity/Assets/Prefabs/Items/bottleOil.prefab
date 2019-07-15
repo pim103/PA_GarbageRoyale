@@ -87,6 +87,7 @@ MonoBehaviour:
   item: {fileID: 1657766646}
   isOiled: 1
   isBurn: 0
+  isElec: 0
 --- !u!114 &1657766646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Bottle Oil
-  damage: 5
+  damage: 2
   type: 9
   itemImg: {fileID: 5833977737841398870, guid: 25ef27347d9ab2f4f9a91af739ee6a99, type: 3}
   isPickable: 1

@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Elec Trap
-  damage: 5
+  damage: 0
   type: 19
   itemImg: {fileID: 5833977737841398870, guid: 32a0548242d99a5478b043259a6eb900, type: 3}
   isPickable: 1
