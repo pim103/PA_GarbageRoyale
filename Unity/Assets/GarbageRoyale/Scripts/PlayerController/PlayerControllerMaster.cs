@@ -275,7 +275,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                     gc.playersScores[i] = 32;
                     break;
                 case 6:
-                    gc.playersScores[i] = 40;
+                    gc.playersScores[i] = 100;
                     break;
             }
         }

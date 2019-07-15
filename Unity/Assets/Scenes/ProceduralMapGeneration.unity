@@ -7901,6 +7901,7 @@ MonoBehaviour:
   - {fileID: 1657766645, guid: 2b160a63a0248b54f83dec888052867d, type: 3}
   mineQ: 0
   isSpectator: 0
+  endSendingScores: 0
 --- !u!4 &1103656771
 Transform:
   m_ObjectHideFlags: 0
@@ -14392,6 +14393,16 @@ PrefabInstance:
         type: 3}
       propertyPath: PlayerIndex
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208907694572352019, guid: 66d5b8f502223e64e83d04c75c74fc8a,
+        type: 3}
+      propertyPath: viewIdField
+      value: 111
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208907694572352019, guid: 66d5b8f502223e64e83d04c75c74fc8a,
+        type: 3}
+      propertyPath: InstantiationId
+      value: 111
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66d5b8f502223e64e83d04c75c74fc8a, type: 3}
