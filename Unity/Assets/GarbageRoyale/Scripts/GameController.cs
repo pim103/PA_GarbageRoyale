@@ -232,9 +232,10 @@ namespace GarbageRoyale.Scripts
         }
         
         [PunRPC]
-        void TellEndUpdate()
+        public void TellEndUpdate()
         {
-            endSendingScores = true; 
+            endSendingScores = true;
+            Debug.Log("Allo");
         }
         
         [PunRPC]

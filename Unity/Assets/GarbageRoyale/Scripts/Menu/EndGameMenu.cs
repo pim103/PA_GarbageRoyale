@@ -42,16 +42,17 @@ namespace GarbageRoyale.Scripts.Menu
 
         private void Start()
         {
-            UpdateScores();
+            
             dialogWindow.SetActive(true);
             dialogText.text = controller.lc.GetLocalizedValue("dialog_end_send_score");
             dialogButton.SetActive(false);
             gc.endSendingScores = false;
             BackToMenuButton.interactable = false;
+            StartCoroutine(UpdateScores());
             BackToMenuButton.onClick.AddListener(BackToMenu);
         }
 
-        private void UpdateScores()
+        private IEnumerator UpdateScores()
         {
             for (int i = 0; i < gc.AvatarToUserId.Length; i++)
             {
@@ -60,11 +61,13 @@ namespace GarbageRoyale.Scripts.Menu
                     StartCoroutine(SendScores.SendScore(gc.AvatarToUserId[i], gc.playersScores[i]));
                 }
             }
+            yield return new WaitForSeconds(1.0f);
             gc.photonView.RPC("TellEndUpdate", RpcTarget.All);
         }
 
         private void Update()
         {
+            Debug.Log(gc.endSendingScores);
             if (gc.endSendingScores)
             {
                 BackToMenuButton.interactable = true;
