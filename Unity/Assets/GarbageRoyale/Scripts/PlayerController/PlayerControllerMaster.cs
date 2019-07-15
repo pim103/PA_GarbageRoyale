@@ -195,6 +195,7 @@ namespace GarbageRoyale.Scripts.PlayerController
                         gc.playersActions[i].rotation
                     );
                 }
+                
                 if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 2 && gc.playersScores[i] == 0)
                 {
                     photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 0);
@@ -222,7 +223,6 @@ namespace GarbageRoyale.Scripts.PlayerController
                 if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 8 - 5)
                 {
                     gc.isGameStart = false;
-                    photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 6);
                     photonView.RPC("EndGameRPC", RpcTarget.All, EndGameMenu.StateEndGame.One_Alive, i);
                     break;
                 }
@@ -562,6 +562,8 @@ namespace GarbageRoyale.Scripts.PlayerController
         [PunRPC]
         private void EndGameRPC(EndGameMenu.StateEndGame sg, int idPlayer)
         {
+            if(idPlayer != -1)
+                photonView.RPC("UpdateScoreRPC", RpcTarget.All, idPlayer, 6);
             if(idPlayer == System.Array.IndexOf(gc.AvatarToUserId, PhotonNetwork.AuthValues.UserId))
             {
                 sg = EndGameMenu.StateEndGame.Won;
