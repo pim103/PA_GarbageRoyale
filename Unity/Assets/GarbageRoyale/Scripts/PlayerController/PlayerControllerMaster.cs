@@ -148,11 +148,6 @@ namespace GarbageRoyale.Scripts.PlayerController
                     isMoving = false;
                     gc.players[i].PlayerChar.velocity = Vector3.zero;
                 }
-                /*
-                Vector3 rot = gc.players[i].PlayerCamera.transform.localEulerAngles;
-                rot.x = playerAction.rotX;
-                gc.players[i].PlayerCamera.transform.localEulerAngles = rot;
-                */
                 if (playerAction.wantToPunch)
                 {
                     se.pa.sendRaycast(i, se.iac.placeInHand);
@@ -203,32 +198,26 @@ namespace GarbageRoyale.Scripts.PlayerController
                 if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 2 && gc.playersScores[i] == 0)
                 {
                     photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 0);
-                    break;
                 }
                 if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 3 && gc.playersScores[i] == 6)
                 {
                     photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 1);
-                    break;
                 }
                 if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 4 && gc.playersScores[i] == 10)
                 {
                     photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 2);
-                    break;
                 }
                 if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 5 && gc.playersScores[i] == 14)
                 {
                     photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 3);
-                    break;
                 }
                 if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 6 && gc.playersScores[i] == 20)
                 {
                     photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 4);
-                    break;
                 }
                 if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 7 && gc.playersScores[i] == 26)
                 {
                     photonView.RPC("UpdateScoreRPC", RpcTarget.All, i, 5);
-                    break;
                 }
                 if(gc.players[i].PlayerGameObject.transform.position.y > (12 + 4) * 8 - 5)
                 {
