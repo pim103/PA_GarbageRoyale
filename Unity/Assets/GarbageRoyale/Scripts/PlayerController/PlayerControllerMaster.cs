@@ -553,6 +553,10 @@ namespace GarbageRoyale.Scripts.PlayerController
                 gc.inventoryGui.updateBar(ps.currentHp, ps.currentStamina, ps.currentBreath);
             }
 
+            if (isDead)
+            {
+                gc.players[id].PlayerGameObject.SetActive(false);
+            }
             if(isDead && (id == se.sm.idCamSpectate || id == playerIndex))
             {
                 se.sm.WantToSwitchCam();
