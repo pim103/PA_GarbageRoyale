@@ -70,8 +70,7 @@ namespace GarbageRoyale.Scripts.Menu
                 }
                 
                 Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true; 
-                SaveState.DeleteData();
+                Cursor.visible = true;
             }
             else
             {
