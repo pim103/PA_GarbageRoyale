@@ -56,7 +56,7 @@ namespace GarbageRoyale.Scripts
 
                     if (openDoor.isOpen)
                     {
-                        Debug.Log("press E");
+                        Debug.Log("press F");
                         if (Input.GetKeyDown(KeyCode.E))
                         {
                             photonView.RPC("soundOpenDoorRPC", RpcTarget.MasterClient, doorId, true);
@@ -75,7 +75,7 @@ namespace GarbageRoyale.Scripts
                             }
                         }
 
-                        if (Input.GetKeyUp(KeyCode.E))
+                        if (Input.GetKeyUp(KeyCode.F))
                         {
                             photonView.RPC("soundOpenDoorRPC", RpcTarget.MasterClient, doorId, false);
                             currentlyLoading = false;
